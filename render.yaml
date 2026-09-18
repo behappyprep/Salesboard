@@ -1,4 +1,4 @@
-# Salesboard / ChannelPilot pilot. Review paid resources before applying this Blueprint.
+# ChannelPilot small, single-instance pilot. Creating these resources may incur charges.
 # Keep APP_KEY stable: rotating it without migration invalidates encrypted OAuth tokens.
 services:
   - type: web
@@ -19,7 +19,8 @@ services:
         value: "true"
       - key: ENABLE_SCHEDULER
         value: "true"
-      # Add approved provider OAuth app credentials via Render secret environment variables.
+      # Provider OAuth credentials belong in Render's Secret Environment Variables,
+      # and should be added after registering approved apps with each provider.
 databases:
   - name: channelpilot-db
     databaseName: channelpilot
