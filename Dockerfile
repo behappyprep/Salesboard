@@ -6,4 +6,4 @@ RUN pip install --no-cache-dir -r requirements.txt && useradd --create-home --ui
 COPY --chown=appuser:appuser . .
 USER appuser
 EXPOSE 10000
-CMD ["sh", "-c", "exec uvicorn shopify_totals:app --host 0.0.0.0 --port ${PORT:-10000} --workers 1"]
+CMD ["sh", "-c", "exec uvicorn shipping_revenue_dashboard:app --host 0.0.0.0 --port ${PORT:-10000} --workers 1"]
