@@ -1,0 +1,29 @@
+# Salesboard / ChannelPilot pilot. Review paid resources before applying this Blueprint.
+# Keep APP_KEY stable: rotating it without migration invalidates encrypted OAuth tokens.
+services:
+  - type: web
+    name: channelpilot-web
+    runtime: docker
+    region: frankfurt
+    plan: 0.5c-512mb
+    healthCheckPath: /health
+    numInstances: 1
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: channelpilot-db
+          property: connectionString
+      - key: APP_KEY
+        generateValue: true
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: ENABLE_SCHEDULER
+        value: "true"
+      # Add approved provider OAuth app credentials via Render secret environment variables.
+databases:
+  - name: channelpilot-db
+    databaseName: channelpilot
+    user: channelpilot_user
+    region: frankfurt
+    plan: 0.1c-256mb
+    ipAllowList: []
