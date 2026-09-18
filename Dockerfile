@@ -6,4 +6,4 @@ RUN pip install --no-cache-dir -r requirements.txt && useradd --create-home --ui
 COPY --chown=appuser:appuser . .
 USER appuser
 EXPOSE 10000
-CMD ["sh", "-c", "exec uvicorn shopify_reconciliation:app --host 0.0.0.0 --port ${PORT:-10000} --workers 1"]
+CMD ["sh", "-c", "exec uvicorn shopify_currency:app --host 0.0.0.0 --port ${PORT:-10000} --workers 1"]
