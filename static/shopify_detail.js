@@ -27,13 +27,14 @@
       const data = await response.json();
       if (view !== 'shopify' || thisRequest !== requestId) return;
       const warning = [];
-      if (data.missing_fee_orders) warning.push(data.missing_fee_orders + ' order(s) have unavailable payment fees.');
-      if (data.excluded_lines) warning.push(data.excluded_lines + ' order line(s) excluded because of missing FX rates: ' + data.missing_fx.join(', ') + '.');
+      if (data.missing_fee_orders) warning.push(data.missing_fee_orders + ' order(s) have unavailable total payment fees.');
+      if (data.missing_fee_breakdown_orders) warning.push(data.missing_fee_breakdown_orders + ' order(s) lack a verified separation of processing and conversion fees; use Sync now to backfill.');
+      if (data.excluded_lines) warning.push(data.excluded_lines + ' order line(s) excluded because of missing reporting FX rates: ' + data.missing_fx.join(', ') + '.');
       const cards = '<div class="cards">' +
         detail('Gross total', data.gross_total, 'Sales after refunds · excludes sales tax', data.currency) +
-        detail('Payments fee', data.payments_fee, 'All known Shopify Payments fees; may include FX', data.currency) +
-        detail('Currency conversion fee', data.currency_conversion_fee, 'Not separately available with current access', data.currency) +
-        detail('Net total', data.net_total, 'Gross less all known transaction fees · not a payout', data.currency) + '</div>';
+        detail('Payments fee', data.payments_fee, 'Processing and other non-FX transaction fees', data.currency) +
+        detail('Currency conversion fee', data.currency_conversion_fee, 'Separately identified Shopify FX charge', data.currency) +
+        detail('Net total', data.net_total, 'Gross less both fees · not a bank payout', data.currency) + '</div>';
       const rows = data.rows.map(row => '<tr><td>' + htmlSafe(row.date) + '</td><td>' + htmlSafe(row.store) + '</td><td>' + htmlSafe(row.order_id) +
         '</td><td>' + htmlSafe(displayMoney(row.gross_total,data.currency)) + '</td><td>' + htmlSafe(displayMoney(row.payments_fee,data.currency)) +
         '</td><td>' + htmlSafe(displayMoney(row.currency_conversion_fee,data.currency)) + '</td><td>' + htmlSafe(displayMoney(row.net_total,data.currency)) + '</td></tr>').join('');
