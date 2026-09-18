@@ -1,11 +1,11 @@
-# ChannelPilot small, single-instance pilot. Creating these resources may incur charges.
-# Keep APP_KEY stable: rotating it without migration invalidates encrypted OAuth tokens.
+# ChannelPilot private pilot. The existing free Postgres instance expires 2026-10-18.
+# Upgrade database and arrange backups before using this with real customers.
 services:
   - type: web
     name: channelpilot-web
     runtime: docker
     region: frankfurt
-    plan: 0.5c-512mb
+    plan: free
     healthCheckPath: /health
     numInstances: 1
     envVars:
@@ -18,13 +18,6 @@ services:
       - key: COOKIE_SECURE
         value: "true"
       - key: ENABLE_SCHEDULER
-        value: "true"
-      # Provider OAuth credentials belong in Render's Secret Environment Variables,
-      # and should be added after registering approved apps with each provider.
-databases:
-  - name: channelpilot-db
-    databaseName: channelpilot
-    user: channelpilot_user
-    region: frankfurt
-    plan: 0.1c-256mb
-    ipAllowList: []
+        value: "false"
+      # Add approved provider OAuth credentials via Render secret environment variables.
+# channelpilot-db already exists in the same Render workspace and is referenced above.
