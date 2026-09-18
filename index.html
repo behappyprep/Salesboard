@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101729"><title>ChannelPilot — Commerce intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/app.css"></head>
+<body>
+<div id="auth" class="auth-screen">
+  <div class="auth-illustration"><div class="auth-brand"><span class="brand-mark">◈</span> channelpilot<span class="brand-dot">.</span></div>
+    <div class="auth-copy"><div class="eyebrow light">COMMERCE, CLARIFIED</div><h1>Every channel.<br>One clear picture.</h1><p>All your stores, sales, product costs and margins, in one calm workspace.</p>
+      <div class="auth-tiles"><div class="mini-tile"><span>◧</span> Unified sales</div><div class="mini-tile"><span>◉</span> SKU-level COGS</div><div class="mini-tile"><span>◷</span> Profit clarity</div></div>
+    </div><div class="auth-bottom">Built for independent brands and multichannel sellers</div>
+  </div>
+  <div class="auth-right"><div class="auth-form"><div class="auth-mobile-brand"><span class="brand-mark">◈</span> channelpilot<span class="brand-dot">.</span></div>
+    <div class="eyebrow">YOUR BUSINESS, IN FOCUS</div><h2 id="authTitle">Welcome back</h2><p id="authSub" class="muted">Sign in to your sales workspace.</p>
+    <form id="authForm" class="form-stack"><div id="businessField" hidden><label>Business name</label><input id="businessName" placeholder="Your brand or company" autocomplete="organization"></div>
+      <div><label>Email address</label><input id="email" type="email" autocomplete="email" required placeholder="you@company.com"></div>
+      <div><label>Password</label><input id="password" type="password" autocomplete="current-password" required placeholder="At least 12 characters"></div>
+      <button id="authSubmit" class="primary big" type="submit">Sign in <span>→</span></button>
+    </form><div id="authError" class="message error" hidden></div><p class="auth-switch"><span id="authSwitchPrefix">New to ChannelPilot?</span> <button class="text-button" id="authSwitch" type="button">Create an account</button></p>
+    <p class="auth-privacy">Your marketplace credentials stay on the server, encrypted and private to your workspace.</p>
+  </div></div>
+</div>
+<div class="layout" id="app" hidden>
+  <aside class="sidebar">
+    <div class="side-brand"><span class="brand-mark">◈</span> channelpilot<span class="brand-dot">.</span></div>
+    <div class="workspace"><div class="workspace-logo" id="businessInitial">C</div><div class="workspace-details"><strong id="businessLabel">My workspace</strong><span>Business workspace</span></div><span class="chevron">⌄</span></div>
+    <div class="nav-label">WORKSPACE</div><nav id="nav">
+      <button class="nav-link active" data-view="overview"><span class="nav-icon">▦</span> Overview</button>
+      <button class="nav-link" data-view="channels"><span class="nav-icon">◫</span> Sales channels</button>
+      <button class="nav-link" data-view="products"><span class="nav-icon">▤</span> Products &amp; COGS</button>
+      <button class="nav-link" data-view="orders"><span class="nav-icon">≡</span> Orders</button>
+      <button class="nav-link" data-view="connections"><span class="nav-icon">⛓</span> Connections <span class="tiny-counter" id="connCount">0</span></button>
+    </nav><div class="nav-label second">MANAGE</div><nav><button class="nav-link" data-view="settings"><span class="nav-icon">⚙</span> Settings</button></nav>
+    <div class="side-bottom"><div class="side-bottom-icon">✦</div><div><strong>Better decisions, daily.</strong><small>Understand every sale and every cost.</small></div></div>
+    <div class="side-user"><span id="userInitial">U</span><div><strong id="userEmail">user@example.com</strong><small>Workspace owner</small></div><button id="logout" aria-label="Log out" title="Log out">↗</button></div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div class="breadcrumbs">Workspace <span>/</span> <strong id="breadcrumb">Overview</strong></div><div class="top-actions"><span class="live-indicator"><span class="pulse"></span> <span id="updatedLabel">Awaiting data</span></span><button class="outline small" id="syncAll">↻ &nbsp; Sync now</button></div></header>
+    <div class="content"><div id="toast" class="toast" hidden></div>
+    <section id="hero"><div class="hero-left"><div class="eyebrow">YOUR COMMERCE AT A GLANCE</div><h1 id="pageTitle">Good to see you<span class="heading-dot">.</span></h1><p id="pageSub">A single view of sales, products and profitability across every store.</p></div><div id="heroControls" class="hero-controls"><select id="period" aria-label="Time period"><option value="7">Last 7 days</option><option value="30" selected>Last 30 days</option><option value="90">Last 90 days</option><option value="365">Last 12 months</option><option value="3650">All available</option></select><select id="typeFilter" aria-label="Sales type"><option value="all">All sales types</option><option value="retail">Retail only</option><option value="wholesale">Wholesale only</option></select><select id="channelFilter" aria-label="Channel"><option value="all">All channels</option><option>Shopify</option><option>Etsy</option><option>Amazon</option><option>Michaels</option><option>Faire</option></select></div></section>
+    <div id="view"></div>
+    <footer class="footer"><span>ChannelPilot · Sales intelligence</span><span>Revenue excludes tax · Profit is shown only when costs are complete</span></footer>
+    </div>
+  </main>
+</div>
+<script src="/static/app.js" defer></script>
+</body></html>
