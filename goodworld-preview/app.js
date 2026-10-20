@@ -12,6 +12,7 @@ const overlay=document.getElementById("menuOverlay");
 const menuButton=document.getElementById("menuButton");
 const modal=document.getElementById("modal");
 let stories=[],currentTab="top",session=null,currentPage="feed",toastTimer=null;
+let recoveryMode=new URLSearchParams(location.search).has("gw_reset") || /(?:^|[&#])type=recovery(?:&|$)/.test(location.hash);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const validUrl=u=>{try{const x=new URL(u);return x.protocol==="https:"?x.href:""}catch{return ""}};
 function showToast(message){const t=document.getElementById("toast");t.textContent=message;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),3000)}
@@ -48,8 +49,19 @@ async function loadStories(preserveId){
 }
 async function refreshSession(){if(!client)return;const {data}=await client.auth.getSession();session=data?.session??null}
 if(client){
- client.auth.onAuthStateChange((_event,next)=>{session=next;if(_event==="SIGNED_IN"||_event==="SIGNED_OUT"){loadStories();if(currentPage==="profile")showPage("profile")}});
- refreshSession().then(()=>loadStories());
+ client.auth.onAuthStateChange((_event,next)=>{
+  session=next;
+  if(_event==="PASSWORD_RECOVERY"){recoveryMode=true;setTimeout(()=>showPage("reset-password"),0);return}
+  if(_event==="SIGNED_IN" && recoveryMode){setTimeout(()=>showPage("reset-password"),0);return}
+  if(_event==="SIGNED_IN"||_event==="SIGNED_OUT"){
+   loadStories();
+   if(currentPage==="profile")showPage("profile");
+  }
+ });
+ refreshSession().then(()=>{
+  loadStories();
+  if(recoveryMode)showPage("reset-password");
+ });
 }else{
  feed.innerHTML='<div class="emptyfeed"><h1>GoodWorld</h1><p>News service could not be loaded. Please refresh this page.</p></div>';
 }
@@ -91,12 +103,35 @@ function showPage(which){
  document.getElementById("switcher").classList.toggle("hidden",which!=="feed");
  page.classList.toggle("hidden",which==="feed");feed.classList.toggle("hidden",which!=="feed");
  if(which==="feed"){page.innerHTML="";return}
+ if(which==="reset-password"){
+  page.innerHTML='<h1>Set a new password.</h1><p class="lead">Choose a new password for your GoodWorld account.</p><div class="panel"><form id="resetPasswordForm"><label for="newPassword">New password</label><input class="input" type="password" id="newPassword" autocomplete="new-password" minlength="10" required placeholder="At least 10 characters"/><label for="confirmPassword">Confirm new password</label><input class="input" type="password" id="confirmPassword" autocomplete="new-password" minlength="10" required placeholder="Repeat your password"/><button class="primary" type="submit">Save new password</button></form><p class="subtle" id="resetStatus" role="status">Open this page from the latest password-reset email.</p><button class="secondary" id="backToSignIn" type="button">Back to sign in</button></div>';
+  page.querySelector("#backToSignIn").onclick=()=>{recoveryMode=false;history.replaceState(null,"",location.pathname);showPage("profile")};
+  page.querySelector("#resetPasswordForm").addEventListener("submit",async e=>{
+   e.preventDefault();
+   const form=e.currentTarget,status=page.querySelector("#resetStatus");
+   if(!form.reportValidity())return;
+   const p=form.querySelector("#newPassword").value;
+   if(p!==form.querySelector("#confirmPassword").value){status.textContent="Passwords do not match.";return}
+   const {data:{session:active}}=await client.auth.getSession();
+   if(!active){status.textContent="Reset link has expired or is not valid. Request a new link from Profile.";return}
+   const button=form.querySelector('button[type="submit"]');button.disabled=true;
+   status.textContent="Updating password…";
+   const {error}=await client.auth.updateUser({password:p});
+   button.disabled=false;
+   if(error){status.textContent=error.message;return}
+   recoveryMode=false;
+   history.replaceState(null,"",location.pathname);
+   showPage("profile");
+   showToast("Password successfully updated");
+  });
+  return;
+ }
  const pages={
   submit:'<h1>Found some good news?</h1><p class="lead">Help us find stories worth sharing.</p><div class="panel"><p>Submit a source link to our editorial team. This feature will open after editorial review tools are ready.</p><button class="secondary" id="backFeed">Return to news</button></div><p class="subtle">No cash rewards are active.</p>',
   rewards:'<h1>Spread the good.</h1><p class="lead">Invite 3 paying friends and earn 3 free months.</p><div class="steps"><div class="step">1</div><div class="step">2</div><div class="step">3</div></div><div class="panel"><p>Referrals will activate when paid subscriptions are ready. No referral links are being tracked yet.</p><button class="secondary" id="backFeed">Return to news</button></div>',
   profile:session?.user
   ? '<h1>Your GoodWorld</h1><p class="lead">'+esc(session.user.email)+'</p><div class="panel"><h2>You are signed in.</h2><p>Your likes are linked to this account across your devices.</p><button class="secondary" id="signOut">Sign out</button></div><div class="panel"><p>7-day trial and $5/month membership are not yet accepting payments.</p></div>'
-  : '<h1>Welcome to GoodWorld.</h1><p class="lead">Sign in to support your favorite positive stories.</p><div class="panel"><form id="authForm"><label for="email">Email</label><input class="input" type="email" id="email" autocomplete="email" required placeholder="Your email"/><label for="password">Password</label><input class="input" type="password" id="password" autocomplete="current-password" minlength="8" required placeholder="At least 8 characters"/><button class="primary" id="signIn" type="submit">Sign in</button><button class="secondary" type="button" id="signUp">Create account</button></form><p class="subtle" id="authStatus">Email confirmation may be required for new accounts. Billing is not active.</p></div>'
+  : '<h1>Welcome to GoodWorld.</h1><p class="lead">Sign in to support your favorite positive stories.</p><div class="panel"><form id="authForm"><label for="email">Email</label><input class="input" type="email" id="email" autocomplete="email" required placeholder="Your email"/><label for="password">Password</label><input class="input" type="password" id="password" autocomplete="current-password" minlength="8" required placeholder="At least 8 characters"/><button class="primary" id="signIn" type="submit">Sign in</button><button class="secondary" type="button" id="signUp">Create account</button><button class="password-link" type="button" id="forgotPassword">Forgot password?</button></form><p class="subtle" id="authStatus">Email confirmation may be required for new accounts. Billing is not active.</p></div>'
  };
  page.innerHTML=pages[which]??"";
  page.querySelector("#backFeed")?.addEventListener("click",()=>showPage("feed"));
@@ -117,6 +152,21 @@ function showPage(which){
  }
  form.addEventListener("submit",e=>{e.preventDefault();submitAuth(false)});
  form.querySelector("#signUp").addEventListener("click",()=>submitAuth(true));
+ form.querySelector("#forgotPassword").addEventListener("click",async()=>{
+  const emailInput=form.querySelector("#email");
+  const email=emailInput.value.trim();
+  if(!email || !emailInput.checkValidity()){
+    status.textContent="Enter your account email above, then tap Forgot password?.";
+    emailInput.focus();return;
+  }
+  const btn=form.querySelector("#forgotPassword");
+  btn.disabled=true;status.textContent="Sending password reset email…";
+  const {error}=await client.auth.resetPasswordForEmail(email,{
+    redirectTo:location.origin+location.pathname+"?gw_reset=1"
+  });
+  btn.disabled=false;
+  status.textContent=error?"Could not send reset email: "+error.message:"If this email belongs to a GoodWorld account, a password reset link is on its way. Check Inbox and Spam.";
+ });
  }
 }
 nav.forEach(n=>n.addEventListener("click",()=>{closeMenu();showPage(n.dataset.page)}));
