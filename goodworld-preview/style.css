@@ -95,3 +95,6 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
 .editor-form h3{margin:0 0 7px}.editor-form .fieldlabel{display:block;font-size:12px;font-weight:700;color:#d7d1c4;margin:15px 0 6px}
 .editor-form .input{font-size:14px;margin:6px 0 12px}.editor-form button{margin:6px 0}
 .editor-form .subtle{padding:7px 0;line-height:1.45}
+
+.password-link{display:block;width:100%;border:0;background:transparent;color:var(--accent);text-align:center;padding:15px 8px 10px;font-size:14px;font-weight:700;text-decoration:underline;text-underline-offset:4px}
+.password-link:disabled{opacity:.5}
