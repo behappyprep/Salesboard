@@ -1,15 +1,38 @@
 <!doctype html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/><meta name="theme-color" content="#10221b"/>
-<meta name="description" content="GoodWorld — a better way to see the world. Scroll positive news, voted up by people."/>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/><meta name="theme-color" content="#0d0f0f"/>
+<meta name="description" content="GoodWorld — scroll the good. A mobile-first feed of positive news, ranked by people."/>
 <title>GoodWorld — Scroll the good.</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect rx='22' width='100' height='100' fill='%2310221b'/%3E%3Ctext x='50' y='68' text-anchor='middle' font-size='61'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect rx='22' width='100' height='100' fill='%230d0f0f'/%3E%3Ctext x='50' y='68' text-anchor='middle' font-size='61' fill='%23bcc7ab'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E"/>
 <link rel="stylesheet" href="./style.css"/></head>
 <body><main class="app">
-<header class="header"><button class="wordmark" id="home" aria-label="GoodWorld Home"><span class="star">✳</span> good<span class="mark">world</span></button><button class="trial" id="join">Try 7 days free <span>↗</span></button></header>
-<div class="switcher" id="switcher"><button class="tab selected" data-tab="top">♥ Top Today</button><button class="tab" data-tab="new">✦ New</button></div>
+<header class="header">
+  <button class="wordmark" id="home" aria-label="GoodWorld, return to feed"><span class="brandmark">✳</span> good<span class="mark">world</span></button>
+  <button class="menu-button" id="menuButton" aria-label="Open menu" aria-expanded="false" aria-controls="menuOverlay">
+    <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </button>
+</header>
+<div class="switcher" id="switcher"><button class="tab selected" data-tab="top">Top Today</button><button class="tab" data-tab="new">New</button></div>
 <section class="feed" id="feed" aria-label="Good news feed"></section>
 <div class="overlaypage hidden" id="page" aria-live="polite"></div>
-<nav class="nav" aria-label="Main navigation"><button class="navitem active" data-page="feed"><span class="navicon">▤</span>Feed</button><button class="navitem" data-page="submit"><span class="navicon">⊕</span>Submit</button><button class="navitem" data-page="rewards"><span class="navicon">◇</span>Rewards</button><button class="navitem" data-page="profile"><span class="navicon">◯</span>Profile</button></nav>
+<div class="menu-overlay hidden" id="menuOverlay">
+  <button class="menu-scrim" id="menuScrim" aria-label="Close menu"></button>
+  <aside class="menu-panel" aria-label="GoodWorld menu">
+    <div class="menu-head"><span class="menu-heading">Menu</span><button class="menu-close" id="menuClose" aria-label="Close menu">×</button></div>
+    <nav class="menu-nav" aria-label="GoodWorld sections">
+      <button class="navitem active" data-page="feed"><span>Feed</span><span class="nav-arrow">↗</span></button>
+      <button class="navitem" data-page="submit"><span>Submit a story <small>Suggest a trusted news source</small></span><span class="nav-arrow">↗</span></button>
+      <button class="navitem" data-page="rewards"><span>Rewards <small>3 paying friends = 3 free months</small></span><span class="nav-arrow">↗</span></button>
+      <button class="navitem" data-page="profile"><span>Profile <small>Account and membership</small></span><span class="nav-arrow">↗</span></button>
+    </nav>
+    <div class="menu-premium">
+      <div class="menu-premium-eyebrow">GOODWORLD PREMIUM</div>
+      <h2>Scroll the good.</h2>
+      <p>Seven days free, then $5 per month.</p>
+      <button class="trial" id="join">Try 7 days free <span>↗</span></button>
+    </div>
+    <p class="menu-small">A quieter place for the good in the world.</p>
+  </aside>
+</div>
 <div class="modalback hidden" id="modal"></div><div class="toast" id="toast" role="status"></div>
 <div class="demo">DESIGN PREVIEW · SIMULATED STORIES & LIKES</div>
 </main><script src="./app.js" defer></script></body></html>
