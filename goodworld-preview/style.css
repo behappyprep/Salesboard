@@ -77,3 +77,21 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
 .emptyfeed .primary{max-width:300px;margin-top:15px}
 .source{display:inline-block;text-decoration:none;border-bottom:1px solid #bcc7ab66}
 .action:disabled{opacity:.55;cursor:wait}
+
+.editor-menu-item{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#202821;color:var(--text);border:1px solid #526451;border-radius:17px;padding:16px;text-align:left;font-size:15px;font-weight:800}
+.editor-menu-item small{display:block;font-size:12px;color:#aea89c;font-weight:400;line-height:1.4;margin-top:4px}
+.editor-header{max-width:680px;margin:0 auto}.editor-header>.pill{margin-bottom:17px}
+.editor-controls{display:flex;gap:9px;align-items:center;margin:18px 0}
+.editor-controls .secondary{flex:0 0 130px;width:auto;font-size:12px;white-space:nowrap}
+.editor-controls .input{flex:1;width:100%;min-width:110px;margin:0;font-size:12px}
+.editor-candidate{border:1px solid var(--line);background:#181d1b;border-radius:18px;padding:17px;margin:14px 0;overflow-wrap:anywhere}
+.editor-candidate h3{font-size:18px;letter-spacing:-.02em;font-weight:720;line-height:1.24;margin:8px 0 10px}
+.editor-candidate p{font-size:13px;color:#cfc8bc;line-height:1.48;margin:8px 0 12px}
+.editor-meta{display:flex;gap:8px;flex-wrap:wrap;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--accent)}
+.editor-card-buttons{display:flex;gap:9px;align-items:center;margin-top:13px}
+.editor-card-buttons>*{flex:1;width:50%;font-size:12px;min-height:43px}
+.editor-card-buttons .secondary{padding:10px 6px}
+.editor-form{border-top:1px solid var(--line);margin-top:15px;padding-top:17px}
+.editor-form h3{margin:0 0 7px}.editor-form .fieldlabel{display:block;font-size:12px;font-weight:700;color:#d7d1c4;margin:15px 0 6px}
+.editor-form .input{font-size:14px;margin:6px 0 12px}.editor-form button{margin:6px 0}
+.editor-form .subtle{padding:7px 0;line-height:1.45}
