@@ -26,9 +26,18 @@ page.querySelector("#submit-demo")?.addEventListener("click",()=>{const url=docu
 page.querySelector("#referral-demo")?.addEventListener("click",()=>showModal("Invite 3. Enjoy 3.","Your personal referral link will appear here when accounts and billing go live. Each 3 verified paid referrals will earn 90 days of Premium.","Got it"));
 page.querySelector("#profile-trial")?.addEventListener("click",openTrial);
 }
-nav.forEach(n=>n.addEventListener("click",()=>showPage(n.dataset.page)));
+const menuOverlay=document.getElementById("menuOverlay");
+const menuButton=document.getElementById("menuButton");
+function closeMenu(){menuOverlay.classList.add("hidden");menuButton.setAttribute("aria-expanded","false");}
+function openMenu(){menuOverlay.classList.remove("hidden");menuButton.setAttribute("aria-expanded","true");}
+menuButton.addEventListener("click",openMenu);
+document.getElementById("menuClose").addEventListener("click",closeMenu);
+document.getElementById("menuScrim").addEventListener("click",closeMenu);
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeMenu();document.getElementById("modal").classList.add("hidden");}});
+nav.forEach(n=>n.addEventListener("click",()=>{closeMenu();showPage(n.dataset.page);}));
+
 document.getElementById("home").addEventListener("click",()=>showPage("feed"));
-document.getElementById("join").addEventListener("click",openTrial);
+document.getElementById("join").addEventListener("click",()=>{closeMenu();openTrial();});
 const modal=document.getElementById("modal");
 function showModal(title,description,buttonText){modal.classList.remove("hidden");modal.innerHTML='<div class="dialog"><button class="close" aria-label="Close dialog" id="close">×</button><div class="pill">GoodWorld</div><h2>'+title+'</h2><p>'+description+'</p><button class="primary" id="done">'+buttonText+'</button></div>';modal.querySelector("#close").onclick=()=>modal.classList.add("hidden");modal.querySelector("#done").onclick=()=>modal.classList.add("hidden");}
 function openTrial(){showModal("7 days free. Then $5/month.","This is a public preview. When the real service launches, you will receive seven days of full access, followed by an optional $5/month subscription. No payment or account is collected in this demo.","Sounds good");}
