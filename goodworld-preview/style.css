@@ -70,3 +70,10 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
 .hidden{display:none!important}
 @media(min-width:721px){body{background:radial-gradient(circle at top,#1e2420,#090a0a 62%)}.app{box-shadow:0 0 90px #0008}}
 @media(max-height:650px){.storycontent{bottom:calc(env(safe-area-inset-bottom,0px) + 61px)}.storyactions{bottom:calc(env(safe-area-inset-bottom,0px) + 84px)}.swipetip{display:none}.headline{font-size:28px}.desc{font-size:14px}}
+
+.emptyfeed{height:100%;min-height:100dvh;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:90px 26px 80px;background:radial-gradient(circle at 72% 30%,#212c25 0%,#0d0f0f 64%);text-align:left}
+.emptyfeed h1{max-width:410px;font-size:clamp(33px,8vw,49px);line-height:1.08;font-weight:750;letter-spacing:-.04em;margin:4px 0 12px}
+.emptyfeed p{font-size:15px;color:#c9c1b6;line-height:1.55;max-width:340px}
+.emptyfeed .primary{max-width:300px;margin-top:15px}
+.source{display:inline-block;text-decoration:none;border-bottom:1px solid #bcc7ab66}
+.action:disabled{opacity:.55;cursor:wait}
