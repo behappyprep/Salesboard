@@ -2,6 +2,7 @@
 /* GoodWorld phase 1. Real articles, Supabase-authenticated per-account likes,
    daily ranking (00:00 UTC). Trial/payments/rewards/submissions not enabled. */
 const GW_URL="https://jdmpmrhyjitmjyjuhtds.supabase.co";
+const GW_SITE="https://goodworld-app.onrender.com";
 const GW_KEY="sb_publishable_Mi4xc0jwt_MFKhjKWZ1Vpw_bG6VPp3_";
 const client=window.supabase?.createClient(GW_URL,GW_KEY);
 const feed=document.getElementById("feed");
@@ -12,7 +13,10 @@ const overlay=document.getElementById("menuOverlay");
 const menuButton=document.getElementById("menuButton");
 const modal=document.getElementById("modal");
 let stories=[],currentTab="top",session=null,currentPage="feed",toastTimer=null;
-let recoveryMode=new URLSearchParams(location.search).has("gw_reset") || /(?:^|[&#])type=recovery(?:&|$)/.test(location.hash);
+const authParams=new URLSearchParams(location.search);
+const callbackError=new URLSearchParams(location.hash.replace(/^#/,"")).get("error_description");
+let recoveryMode=authParams.has("gw_reset") || /(?:^|[&#])type=recovery(?:&|$)/.test(location.hash);
+const confirmationReturn=authParams.has("gw_confirm");
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const validUrl=u=>{try{const x=new URL(u);return x.protocol==="https:"?x.href:""}catch{return ""}};
 function showToast(message){const t=document.getElementById("toast");t.textContent=message;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),3000)}
@@ -60,7 +64,17 @@ if(client){
  });
  refreshSession().then(()=>{
   loadStories();
-  if(recoveryMode)showPage("reset-password");
+  if(callbackError){
+   recoveryMode=false;
+   history.replaceState(null,"",location.pathname);
+   showPage("profile");
+   showToast("This email link has expired or is invalid. Please request a new link.");
+  }else if(recoveryMode){showPage("reset-password")}
+  else if(confirmationReturn){
+   history.replaceState(null,"",location.pathname);
+   if(session?.user)showToast("Email confirmed. Welcome to GoodWorld!");
+   else {showPage("profile");showToast("Email confirmation complete. Please sign in.")}
+  }
  });
 }else{
  feed.innerHTML='<div class="emptyfeed"><h1>GoodWorld</h1><p>News service could not be loaded. Please refresh this page.</p></div>';
@@ -118,7 +132,7 @@ function showPage(which){
    status.textContent="Updating password…";
    const {error}=await client.auth.updateUser({password:p});
    button.disabled=false;
-   if(error){status.textContent=(error.status===429||/rate limit|too many requests/i.test(error.message||""))?"Email sending is temporarily limited by Supabase. Do not keep retrying. Please try again after about an hour.":error.message;return}
+   if(error){status.textContent=error.message;return}
    recoveryMode=false;
    history.replaceState(null,"",location.pathname);
    showPage("profile");
@@ -144,7 +158,7 @@ function showPage(which){
   if(busy||!form.reportValidity())return;
   busy=true;const btns=[...form.querySelectorAll("button")];btns.forEach(b=>b.disabled=true);
   const email=form.querySelector("#email").value.trim();const password=form.querySelector("#password").value;
-  const {data,error}=create?await client.auth.signUp({email,password}):await client.auth.signInWithPassword({email,password});
+  const {data,error}=create?await client.auth.signUp({email,password,options:{emailRedirectTo:GW_SITE+"/?gw_confirm=1"}}):await client.auth.signInWithPassword({email,password});
   busy=false;btns.forEach(b=>b.disabled=false);
   if(error){status.textContent=error.message;return}
   if(create&&!data?.session){status.textContent="Check your email to confirm your account, then return here to sign in."}
@@ -195,13 +209,13 @@ function showPage(which){
   const btn=form.querySelector("#forgotPassword");
   btn.disabled=true;status.textContent="Sending password reset email…";
   const {error}=await client.auth.resetPasswordForEmail(email,{
-    redirectTo:location.origin+location.pathname+"?gw_reset=1"
+    redirectTo:GW_SITE+"/?gw_reset=1"
   });
   btn.disabled=false;
   const limited=!!error&&(error.status===429||/rate limit|too many requests/i.test(error.message||""));
   status.classList.toggle("limit-warning",limited);
   if(limited){
-   status.textContent="GoodWorld email is temporarily rate-limited by Supabase. Wait about an hour before requesting another reset. If you already have a NEW, UNUSED reset link, select 'Paste it here' above. Do not keep pressing Forgot password.";
+   status.textContent="GoodWorld email delivery is temporarily limited. Please do not retry repeatedly. Try later or paste a new, unused reset link from your inbox.";
   }else if(error){
    status.textContent="Could not send reset email: "+error.message;
   }else{
