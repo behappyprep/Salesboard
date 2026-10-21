@@ -104,7 +104,7 @@ function showPage(which){
  page.classList.toggle("hidden",which==="feed");feed.classList.toggle("hidden",which!=="feed");
  if(which==="feed"){page.innerHTML="";return}
  if(which==="reset-password"){
-  page.innerHTML='<h1>Set a new password.</h1><p class="lead">Choose a new password for your GoodWorld account.</p><div class="panel"><form id="resetPasswordForm"><label for="newPassword">New password</label><input class="input" type="password" id="newPassword" autocomplete="new-password" minlength="10" required placeholder="At least 10 characters"/><label for="confirmPassword">Confirm new password</label><input class="input" type="password" id="confirmPassword" autocomplete="new-password" minlength="10" required placeholder="Repeat your password"/><button class="primary" type="submit">Save new password</button></form><p class="subtle" id="resetStatus" role="status">Open this page from the latest password-reset email.</p><button class="secondary" id="backToSignIn" type="button">Back to sign in</button></div>';
+  page.innerHTML='<h1>Set a new password.</h1><p class="lead">Choose a new password for your GoodWorld account.</p><div class="panel"><form id="resetPasswordForm"><label for="newPassword">New password</label><input class="input" type="password" id="newPassword" autocomplete="new-password" minlength="10" required placeholder="At least 10 characters"/><label for="confirmPassword">Confirm new password</label><input class="input" type="password" id="confirmPassword" autocomplete="new-password" minlength="10" required placeholder="Repeat your password"/><button class="primary" type="submit">Save new password</button></form><p class="subtle" id="resetStatus" role="status">If you used a reset link from email, you can now choose a new password.</p><button class="secondary" id="backToSignIn" type="button">Back to sign in</button></div>';
   page.querySelector("#backToSignIn").onclick=()=>{recoveryMode=false;history.replaceState(null,"",location.pathname);showPage("profile")};
   page.querySelector("#resetPasswordForm").addEventListener("submit",async e=>{
    e.preventDefault();
@@ -131,7 +131,7 @@ function showPage(which){
   rewards:'<h1>Spread the good.</h1><p class="lead">Invite 3 paying friends and earn 3 free months.</p><div class="steps"><div class="step">1</div><div class="step">2</div><div class="step">3</div></div><div class="panel"><p>Referrals will activate when paid subscriptions are ready. No referral links are being tracked yet.</p><button class="secondary" id="backFeed">Return to news</button></div>',
   profile:session?.user
   ? '<h1>Your GoodWorld</h1><p class="lead">'+esc(session.user.email)+'</p><div class="panel"><h2>You are signed in.</h2><p>Your likes are linked to this account across your devices.</p><button class="secondary" id="signOut">Sign out</button></div><div class="panel"><p>7-day trial and $5/month membership are not yet accepting payments.</p></div>'
-  : '<h1>Welcome to GoodWorld.</h1><p class="lead">Sign in to support your favorite positive stories.</p><div class="panel"><form id="authForm"><label for="email">Email</label><input class="input" type="email" id="email" autocomplete="email" required placeholder="Your email"/><label for="password">Password</label><input class="input" type="password" id="password" autocomplete="current-password" minlength="8" required placeholder="At least 8 characters"/><button class="primary" id="signIn" type="submit">Sign in</button><button class="secondary" type="button" id="signUp">Create account</button><button class="password-link" type="button" id="forgotPassword">Forgot password?</button></form><p class="subtle" id="authStatus">Email confirmation may be required for new accounts. Billing is not active.</p></div>'
+  : '<h1>Welcome to GoodWorld.</h1><p class="lead">Sign in to support your favorite positive stories.</p><div class="panel"><form id="authForm"><label for="email">Email</label><input class="input" type="email" id="email" autocomplete="email" required placeholder="Your email"/><label for="password">Password</label><input class="input" type="password" id="password" autocomplete="current-password" minlength="8" required placeholder="At least 8 characters"/><button class="primary" id="signIn" type="submit">Sign in</button><button class="secondary" type="button" id="signUp">Create account</button><button class="password-link" type="button" id="forgotPassword">Forgot password?</button><button class="password-link" type="button" id="pasteRecoveryLink">Reset link not opening? Paste it here</button><div class="recovery-paste hidden" id="recoveryPaste"><label for="recoveryEmailLink">Paste the entire reset link from your email</label><textarea class="input" id="recoveryEmailLink" rows="3" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="https://…/auth/v1/verify?token=…&type=recovery"></textarea><button class="secondary" type="button" id="verifyRecoveryLink">Use this reset link</button><p class="subtle" id="pasteRecoveryStatus" role="status">Keep your reset link private. Never send it in a chat.</p></div></form><p class="subtle" id="authStatus">Email confirmation may be required for new accounts. Billing is not active.</p></div>'
  };
  page.innerHTML=pages[which]??"";
  page.querySelector("#backFeed")?.addEventListener("click",()=>showPage("feed"));
@@ -152,6 +152,39 @@ function showPage(which){
  }
  form.addEventListener("submit",e=>{e.preventDefault();submitAuth(false)});
  form.querySelector("#signUp").addEventListener("click",()=>submitAuth(true));
+ form.querySelector("#pasteRecoveryLink").addEventListener("click",()=>{
+  form.querySelector("#recoveryPaste").classList.toggle("hidden");
+ });
+ form.querySelector("#verifyRecoveryLink").addEventListener("click",async()=>{
+  const status=form.querySelector("#pasteRecoveryStatus");
+  const pasted=form.querySelector("#recoveryEmailLink").value.trim();
+  let tokenHash;
+  try{
+   const link=new URL(pasted);
+   const expected=new URL(GW_URL);
+   if(link.origin!==expected.origin || link.pathname!=="/auth/v1/verify" || link.searchParams.get("type")!=="recovery"){
+    status.textContent="This does not look like a GoodWorld password reset link.";return;
+   }
+   tokenHash=link.searchParams.get("token")||link.searchParams.get("token_hash");
+   if(!tokenHash || tokenHash.length>4096 || !/^[A-Za-z0-9_-]+$/.test(tokenHash)){
+    status.textContent="The link does not contain a valid reset token. Request a new email.";return;
+   }
+  }catch{status.textContent="Paste the full link beginning with https:// from your password reset email.";return}
+  const button=form.querySelector("#verifyRecoveryLink");
+  button.disabled=true;status.textContent="Checking secure reset link…";
+  recoveryMode=true;
+  const {data,error}=await client.auth.verifyOtp({token_hash:tokenHash,type:"recovery"});
+  button.disabled=false;
+  form.querySelector("#recoveryEmailLink").value="";
+  if(error){
+   recoveryMode=false;
+   status.textContent="Link could not be verified. It may already have been used. Request a new email, then copy its link without opening it.";
+   return;
+  }
+  session=data?.session||session;
+  history.replaceState(null,"",location.pathname+"?gw_reset=1");
+  showPage("reset-password");
+ });
  form.querySelector("#forgotPassword").addEventListener("click",async()=>{
   const emailInput=form.querySelector("#email");
   const email=emailInput.value.trim();
