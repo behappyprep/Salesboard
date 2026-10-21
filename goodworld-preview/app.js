@@ -118,7 +118,7 @@ function showPage(which){
    status.textContent="Updating password…";
    const {error}=await client.auth.updateUser({password:p});
    button.disabled=false;
-   if(error){status.textContent=error.message;return}
+   if(error){status.textContent=(error.status===429||/rate limit|too many requests/i.test(error.message||""))?"Email sending is temporarily limited by Supabase. Do not keep retrying. Please try again after about an hour.":error.message;return}
    recoveryMode=false;
    history.replaceState(null,"",location.pathname);
    showPage("profile");
@@ -198,7 +198,15 @@ function showPage(which){
     redirectTo:location.origin+location.pathname+"?gw_reset=1"
   });
   btn.disabled=false;
-  status.textContent=error?"Could not send reset email: "+error.message:"If this email belongs to a GoodWorld account, a password reset link is on its way. Check Inbox and Spam.";
+  const limited=!!error&&(error.status===429||/rate limit|too many requests/i.test(error.message||""));
+  status.classList.toggle("limit-warning",limited);
+  if(limited){
+   status.textContent="GoodWorld email is temporarily rate-limited by Supabase. Wait about an hour before requesting another reset. If you already have a NEW, UNUSED reset link, select 'Paste it here' above. Do not keep pressing Forgot password.";
+  }else if(error){
+   status.textContent="Could not send reset email: "+error.message;
+  }else{
+   status.textContent="If this email belongs to a GoodWorld account, a password reset link is on its way. Check Inbox and Spam. Copy the link without opening it if it does not redirect correctly.";
+  }
  });
  }
 }
