@@ -19,7 +19,7 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
 .feed{height:100%;overflow-y:auto;overflow-x:hidden;scroll-snap-type:y mandatory;scrollbar-width:none;overscroll-behavior-y:contain}
 .feed::-webkit-scrollbar{display:none}
 .story{position:relative;height:100dvh;min-height:460px;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden;background:var(--bg2)}
-.photo{position:absolute;inset:0;background-position:center;background-size:cover;filter:saturate(.88) brightness(.9)}
+.photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;background-position:center;background-size:cover;filter:saturate(.88) brightness(.9)}
 .shade{position:absolute;inset:0;background:linear-gradient(180deg,#050707db 0%,#0507071e 30%,#05070749 47%,#050707ed 81%,#050707fa 100%)}
 .storycontent{position:absolute;bottom:calc(env(safe-area-inset-bottom,0px) + 76px);left:19px;right:83px;z-index:2}
 .pill{display:inline-block;color:var(--accent-ink);background:var(--accent);border-radius:99px;padding:8px 11px;font-size:10px;font-weight:850;letter-spacing:.8px;text-transform:uppercase;margin-bottom:13px}
@@ -106,3 +106,5 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
 .recovery-paste .subtle{margin:6px 0 0}
 
 #authStatus.limit-warning{font-size:14px;line-height:1.5;color:#e4dbb6;border-left:3px solid #b7a46a;padding:12px 13px;background:rgba(183,164,106,.09);border-radius:0 10px 10px 0}
+
+.photo-note{font-size:10px;color:#babeb3;letter-spacing:.02em;white-space:normal}
