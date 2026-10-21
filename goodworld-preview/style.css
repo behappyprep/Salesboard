@@ -104,3 +104,5 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
 .recovery-paste .input{font-family:inherit;font-size:12px;line-height:1.45;overflow-wrap:anywhere;resize:vertical}
 .recovery-paste .secondary{margin:3px 0 8px}
 .recovery-paste .subtle{margin:6px 0 0}
+
+#authStatus.limit-warning{font-size:14px;line-height:1.5;color:#e4dbb6;border-left:3px solid #b7a46a;padding:12px 13px;background:rgba(183,164,106,.09);border-radius:0 10px 10px 0}
