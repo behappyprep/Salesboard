@@ -43,6 +43,17 @@ Candidate direction (recommended): "Sunrise Garden".
 - Rework image cards to avoid dark gradients covering most of the screen; preserve legible headings, swipe interactions, fast loading, and clear source links.
 - Test on mobile at multiple screen sizes and compare perceived positivity, retention and willingness to share before finalizing.
 
+## Sunrise Garden implementation (source committed 2026-10-29)
+
+- `sunrise.css` is a layered, reversible light-theme override loaded after `style.css`.
+- `index.html` now links the light theme, uses a bright browser theme-color and matching SVG favicon.
+- `article.css` shares the Sunrise Garden colors with the main mobile feed.
+- The photograph remains bright in the upper area of full-height news cards; below it, title, short summary, attribution, and likes/repost controls sit on an ivory readable background.
+- Responsive compact-screen treatment prevents images from dominating or reducing text legibility.
+- Donate wallet QR, Profile, sign-in/recovery and private Editorial all retain working DOM IDs and page handlers; only CSS and harmless head metadata changed.
+- Contrast checks on primary UI color pairs (before real-device tests): evergreen #234A40 on ivory #FFF9F0 9.44:1; paragraph #425F52 on ivory 6.71:1; white on #21654F primary button 6.91:1; tag #20634D on mint #DDF0E4 5.98:1. Small helper text darkened to meet a normal-text 4.5:1 target.
+- All changes committed to GitHub; **production Render deployment, actual browser rendering and mobile QA remain to be verified**. Do not claim live until a newer successful deployment than the theme commits is confirmed.
+
 ## Phase 3: earned media and creators
 
 - Story: an always-free destination for authentic good news, built as an antidote to the negative news cycle, with hourly source-linked updates. Describe verified product reality honestly, avoid claims about effects on mental health.
