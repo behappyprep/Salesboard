@@ -7,7 +7,7 @@ Verified as of 2026-10-21. Source: behappyprep/Salesboard branch goodworld-previ
 - Real news, login, likes, editorial and queued collection exist. Stripe billing, custom SMTP, referrals, legally reviewed policies and paid entitlement gating are not live.
 
 ## 1. Domain
-- Preferred name: goodworld.news; backup goodworld.app. Availability, exact price, premium status and trademark collision must be checked at registrar checkout.
+- Domain reported purchased by owner: goodworld.news (2026-10-29). Registrar account and DNS setup must be verified. Trademark/name risk still deserves separate review.
 - Have the user buy domain in a registrar account under their control; enable auto-renew and use accurate business contact details.
 - On Render Settings -> Custom Domains, add purchased apex domain; Render also supports www. See https://render.com/docs/custom-domains.
 - Set Cloudflare DNS following https://render.com/docs/configure-cloudflare-dns, with root and www CNAME pointing to goodworld-app.onrender.com; remove conflicting AAAA records.
@@ -15,7 +15,7 @@ Verified as of 2026-10-21. Source: behappyprep/Salesboard branch goodworld-previ
 - Keep the onrender.com hostname until all recovery/signup/payment callbacks work on new domain.
 
 ## 2. Auth and outbound email
-- Update `GW_SITE` in app.js only after DNS and TLS are ready.
+- `GW_SITE` now selects goodworld.news when running on that hostname, and falls back to the existing Render domain during migration (commit 90ff6add). Still requires Supabase redirect allowlist.
 - Supabase Dashboard -> Authentication -> URL Configuration. Site URL and exact redirect allowlist for https://<domain>/?gw_reset=1 and https://<domain>/?gw_confirm=1.
 - Configure custom SMTP sender (Resend or another vendor) and domain DNS SPF/DKIM/DMARC. Never paste SMTP credentials in code or commit them.
 - Test signup, verification, reset link, expiry, invalid link, login/logout, editorial session, browser/device changes and email delivery.
