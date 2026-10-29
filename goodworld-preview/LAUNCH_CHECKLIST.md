@@ -8,7 +8,7 @@ Last updated 2026-10-29. GitHub `behappyprep/Salesboard`, branch `goodworld-prev
 - Target: grow towards 100,000 real users before revisiting monetization.
 - Optional voluntary crypto support, no special benefits, no misleading charitable claims.
 - Public donation destinations have been supplied by owner: BTC on Bitcoin, SOL and USDC (SPL) on Solana, and selected assets on supported EVM networks. Verify network/token before transfers. Never include seed phrase or private keys.
-- Share GoodWorld offers platform share or copying the production URL.
+- Each story retains its own repost/share action within the feed. Separate site-wide Share GoodWorld and Submit a story pages were removed from the menu on 2026-10-29 to reduce clutter.
 
 ## Infrastructure
 - Canonical domain: https://www.goodworld.news/ .
