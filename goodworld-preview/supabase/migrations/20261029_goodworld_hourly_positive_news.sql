@@ -68,13 +68,13 @@ begin
  select count(*) into v_count
  from public.goodworld_candidates c
  where c.status='pending'
-   and c.published_at >= v_slot and c.published_at < v_slot + interval '1 hour'
+   and c.published_at >= v_slot - interval '5 hours' and c.published_at < v_slot + interval '1 hour'
    and not exists(select 1 from public.goodworld_stories s where s.source_url=c.source_url);
 
  select c.* into v_c
  from public.goodworld_candidates c
  where c.status='pending'
-   and c.published_at >= v_slot and c.published_at < v_slot + interval '1 hour'
+   and c.published_at >= v_slot - interval '5 hours' and c.published_at < v_slot + interval '1 hour'
    and not exists(select 1 from public.goodworld_stories s where s.source_url=c.source_url)
    and goodworld_private.positive_score(c.original_title,c.original_excerpt,c.source_name,c.category)>=23
  order by goodworld_private.positive_score(c.original_title,c.original_excerpt,c.source_name,c.category) desc,
@@ -83,7 +83,7 @@ begin
 
  if not found then
    update public.goodworld_hourly_runs set status='skipped',candidates_considered=v_count,
-      reason='No fresh, clearly positive source found in the preceding UTC hour'
+      reason='No sufficiently positive, previously unpublished source found in the preceding six-hour freshness window'
    where slot=v_slot;
    return jsonb_build_object('slot',v_slot,'status','skipped','candidates',v_count);
  end if;
