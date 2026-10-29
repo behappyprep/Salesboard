@@ -6,9 +6,9 @@ Configured 2026-10-29 in Supabase project `jdmpmrhyjitmjyjuhtds`.
 
 - **:05 every hour:** `goodworld-rss-discovery-hourly` calls the Supabase Edge Function `goodworld-news-collector` (version 3). The old six-hour Cron job was disabled.
 - **:15 every hour:** `goodworld-hourly-positive-news` calls `goodworld_private.publish_hourly()`.
-- The publisher evaluates the **previous completed UTC hour** only, e.g. publication at 15:15 UTC considers news published from 14:00 to 14:59:59 UTC.
+- The publisher runs once hourly (at :15 UTC), prefers strongly positive **genuinely recent** source stories, and accepts source publications up to six hours old to compensate for RSS delivery delays. It never claims a late story was published within the last hour.
 - At most **one** qualified article is published for each UTC hour. The unique slot key makes retried invocations idempotent.
-- If no sufficiently positive source article appeared during that hour, it **skips** publication rather than inventing a story or quietly publishing an older item.
+- If no sufficiently positive, still-unpublished source article appeared in that six-hour window, it **skips** publication rather than inventing a story or recycling older items.
 - The frontend has the **New** tab selected by default; while a visitor is viewing the start of the feed, it checks for updates every 10 minutes and on tab visibility restoration. Changes need a Render deployment to become public.
 
 ## Sources (22 feed URLs)
@@ -22,7 +22,7 @@ Feeds are fetched in batches of five with individual 4.5-second network timeouts
 
 ## Scoring and safety
 
-The automated publisher only considers still-unpublished candidates first released in the completed hour.
+The automated publisher considers source articles that were originally released within the preceding six hours, preferring a stronger positive outcome and using the source timestamp as a freshness constraint. It does not use a news item older than six hours, and every published article keeps a source reference.
 It favors clearly reported positive outcomes (rescues, conservation, donations, completed community improvements and similar events) and penalizes or excludes medical claims, tragedies, politics, speculative claims, clickbait and non-news headlines.
 Attribution to the original reporting outlet and its original HTTPS source link are mandatory.
 The public feed uses short, attributed RSS excerpts, not a copied full article, and the automated brief does not use unlicensed scraped photos. It is visibly labeled "Automatically curated."
@@ -77,3 +77,11 @@ order by published_at desc limit 24;
 - An actual subsequent hourly invocation intentionally skipped a weak previous-hour candidate. This is expected when no qualifying positive story appeared.
 - Two UTC cron schedules are confirmed active; the old six-hour collection schedule has been unscheduled.
 - Check the first scheduled 22-source collection and the first successful automated publication before relying on a 24/7 production SLA.
+
+## 2026-10-29 freshness repair
+- A screenshot of the live `New` tab showed only eight-day-old news because the first strictly hour-scoped publishing job had skipped every recent run.
+- Root cause: positive material can arrive in RSS more than one hour after the publisher's original source timestamp. Narrow previous-hour filtering discards it forever.
+- The live PostgreSQL function and versioned migration now accept a rolling six-hour freshness window while still publishing at most one story per UTC hour and avoiding duplicate sources.
+- Following a rollback-protected test, the first genuinely sourced automatic brief was successfully published on 2026-10-29 from a same-day Good News Network article about students donating a refurbished car to a veteran; the brief was editorially rewritten for clarity and source attribution.
+- Verified `get_goodworld_feed('new')` returns the new brief first; re-running the same UTC slot skipped without duplicating the article. The feed should update on refresh or its normal periodic polling.
+- Monitor several subsequent hourly runs and available RSS sources before asserting an ongoing publication frequency or claiming it selects the world's absolute most positive story.
