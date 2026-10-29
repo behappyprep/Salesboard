@@ -133,7 +133,7 @@ button,input,textarea,select{accent-color:var(--leaf)}
 }
 .source{color:#21654F;border-bottom-color:#579D72;text-decoration:none;font-weight:770}
 .source:hover{text-decoration:underline}
-.photo-note{color:#6E8374;font-size:10px}
+.photo-note{color:#5B7062;font-size:10px}
 .auto-brief-label{color:#5D776A;font-size:10px}
 .story-permalink{color:#234A40}
 .story-permalink:hover{color:#18614B}
@@ -152,7 +152,7 @@ button,input,textarea,select{accent-color:var(--leaf)}
 }
 .action:hover .symbol{background:#E5F3E6;transform:translateY(-1px)}
 .action.liked .symbol{color:#9A4155;background:#FFE5E0;border-color:#F6C8BF}
-.swipetip{color:#708B75;font-size:10px;letter-spacing:.13em;bottom:calc(env(safe-area-inset-bottom,0px) + 24px);opacity:1}
+.swipetip{color:#536F5B;font-size:10px;letter-spacing:.13em;bottom:calc(env(safe-area-inset-bottom,0px) + 24px);opacity:1}
 .story-fallback{
   background:
    radial-gradient(circle at 37% 25%,#FFF2CC 0%,transparent 42%),
@@ -179,7 +179,7 @@ button,input,textarea,select{accent-color:var(--leaf)}
 }
 .panel h2{color:#234A40}
 .amount{color:#21654F}
-.subtle{color:#63796E}
+.subtle{color:#5D7468}
 .input{
   border:1px solid #C5D9CB;
   background:#FFFDF8;
