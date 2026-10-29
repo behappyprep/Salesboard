@@ -54,6 +54,8 @@ function articleHtml(s,other){
     '<meta name="twitter:card" content="summary">'+
     '<link rel="icon" type="image/svg+xml" href="/favicon.svg">'+
     '<link rel="stylesheet" href="/article.css">'+
+    '<link rel="stylesheet" href="/analytics.css">'+
+    '<script src="/analytics.js" defer></script>'+
     '<script type="application/ld+json">'+safeLd+'</script></head><body>'+
     '<header class="site-head"><a class="brand" href="/">✳ <span>good<strong>world</strong></span></a>'+
     '<a class="head-link" href="/stories/">All stories ↗</a></header>'+
@@ -69,7 +71,7 @@ function articleHtml(s,other){
     '</div></article><nav class="story-navigation" aria-label="More positive news">'+
     '<h2>More good news</h2><div class="related">'+related+'</div></nav>'+
     '<p class="bottom-home"><a href="/stories/">← Browse more positive stories</a></p></main>'+
-    '<footer class="site-footer">GoodWorld · Real positive news, free for everyone. · <a href="/">Live news</a></footer>'+
+    '<footer class="site-footer">GoodWorld · Real positive news, free for everyone. · <a href="/">Live news</a> · <a href="/privacy.html">Privacy &amp; analytics</a></footer>'+
     '</body></html>\n';
 }
 function archiveHtml(stories){
@@ -86,7 +88,9 @@ function archiveHtml(stories){
     '<meta property="og:title" content="Good news stories | GoodWorld">'+
     '<meta property="og:url" content="'+SITE+'/stories/">'+
     '<link rel="icon" type="image/svg+xml" href="/favicon.svg">'+
-    '<link rel="stylesheet" href="/article.css"></head><body>'+
+    '<link rel="stylesheet" href="/article.css">'+
+    '<link rel="stylesheet" href="/analytics.css">'+
+    '<script src="/analytics.js" defer></script></head><body>'+
     '<header class="site-head"><a class="brand" href="/">✳ <span>good<strong>world</strong></span></a>'+
     '<a class="head-link" href="/">Live news feed ↗</a></header>'+
     '<main class="article-wrap"><p class="eyebrow">GOODWORLD LIBRARY</p>'+
@@ -94,7 +98,7 @@ function archiveHtml(stories){
     '<p class="archive-intro">Original, source-linked positive news briefs from around the world. For the latest hourly updates, visit our <a href="/">live news feed</a>.</p>'+
     '<section class="archive-grid" aria-label="Browse GoodWorld news stories">'+cards+'</section>'+
     '<p class="bottom-home"><a href="/">← Back to the live GoodWorld feed</a></p></main>'+
-    '<footer class="site-footer">GoodWorld · Free positive news for everyone.</footer>'+
+    '<footer class="site-footer">GoodWorld · Free positive news for everyone. · <a href="/privacy.html">Privacy &amp; analytics</a></footer>'+
     '<script src="/archive.js" defer></script></body></html>\n';
 }
 function sitemapXml(stories){
