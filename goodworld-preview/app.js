@@ -67,6 +67,40 @@ document.getElementById("menuClose").addEventListener("click",closeMenu);
 document.getElementById("menuScrim").addEventListener("click",closeMenu);
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeMenu();modal.classList.add("hidden")}});
 document.getElementById("home").addEventListener("click",()=>showPage("feed"));
+// A story counts as read after it stays mostly visible. Consent is required.
+const gwViewedStories=new Set();
+let gwStoryObserver=null;
+const gwStoryTimers=new Map();
+function gwObserveStoryViews(){
+ if(gwStoryObserver)gwStoryObserver.disconnect();
+ for(const timer of gwStoryTimers.values())clearTimeout(timer);
+ gwStoryTimers.clear();
+ if(!("IntersectionObserver" in window))return;
+ gwStoryObserver=new IntersectionObserver(entries=>{
+  for(const entry of entries){
+   const id=entry.target.dataset.id;
+   if(!id||gwViewedStories.has(id))continue;
+   const previous=gwStoryTimers.get(id);
+   if(previous){clearTimeout(previous);gwStoryTimers.delete(id)}
+   if(entry.isIntersecting&&entry.intersectionRatio>=.65){
+    const timer=setTimeout(()=>{
+     gwStoryTimers.delete(id);
+     if(document.hidden||currentPage!=="feed"||!window.GWAnalytics?.enabled())return;
+     const story=stories.find(x=>x.id===id);
+     if(!story)return;
+     gwViewedStories.add(id);
+     window.GWAnalytics.track("view_story",{
+      content_type:"feed_story",content_id:story.slug,
+      feed_order:currentTab,story_category:story.category
+     });
+    },1200);
+    gwStoryTimers.set(id,timer);
+   }
+  }
+ },{root:feed,threshold:[0,.65,1]});
+ for(const item of feed.querySelectorAll(".story"))gwStoryObserver.observe(item);
+}
+window.addEventListener("gw:analytics-ready",gwObserveStoryViews);
 function renderFeed(){
  if(!stories.length){feed.innerHTML='<div class="emptyfeed"><span class="pill">GoodWorld</span><h1>Good news is on its way.</h1><p>We publish verified positive stories with links to original sources.</p><button class="primary" id="refresh">Refresh news ↻</button></div>';feed.querySelector("#refresh").onclick=loadStories;return}
  feed.innerHTML=stories.map((s,i)=>{
@@ -83,6 +117,7 @@ function renderFeed(){
  '<button aria-label="Repost story" class="action" data-action="share" data-id="'+esc(s.id)+'"><span class="symbol">↗</span><span>Repost</span></button></div>'+
  (i===0?'<div class="swipetip">↑ SWIPE FOR MORE GOOD NEWS</div>':"")+'</article>'
  }).join("");
+ gwObserveStoryViews();
 }
 async function loadStories(preserveId){
  if(!client){showToast("Unable to connect to news service");return}
@@ -154,19 +189,39 @@ async function likeStory(id){
   ? await client.from("goodworld_likes").delete().eq("story_id",id).eq("user_id",session.user.id)
   : await client.from("goodworld_likes").insert({story_id:id,user_id:session.user.id});
  if(resp.error){showToast("Could not save like");await loadStories(id)}
- else await loadStories(id);
+ else{
+  window.GWAnalytics?.track(liked?"unlike_story":"like_story",{
+   content_type:"article",content_id:story.slug,story_category:story.category
+  });
+  await loadStories(id);
+ }
 }
 async function shareStory(id){
  const s=stories.find(s=>s.id===id);if(!s)return;
  const url=gwEditorialUrl(s)||location.origin+location.pathname+"#story-"+encodeURIComponent(s.slug);
- try{if(navigator.share)await navigator.share({title:s.title,text:"GoodWorld · "+s.title,url});
- else if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(url);showToast("Story link copied")}
- else showModal("Share this story",url,"Close");
+ try{
+  let method="dialog";
+  if(navigator.share){await navigator.share({title:s.title,text:"GoodWorld · "+s.title,url});method="native"}
+  else if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(url);showToast("Story link copied");method="clipboard"}
+  else showModal("Share this story",url,"Close");
+  window.GWAnalytics?.track("share",{method,content_type:"article",content_id:s.slug});
  }catch(e){if(e.name!=="AbortError")showToast("Could not open share menu")}
 }
-feed.addEventListener("click",e=>{const b=e.target.closest("[data-action]");if(!b)return;if(b.dataset.action==="like")likeStory(b.dataset.id);if(b.dataset.action==="share")shareStory(b.dataset.id)});
+feed.addEventListener("click",e=>{
+ const articleLink=e.target.closest(".story-permalink");
+ if(articleLink){
+  const item=articleLink.closest(".story");
+  const story=stories.find(s=>s.id===item?.dataset.id);
+  if(story)window.GWAnalytics?.track("select_content",{content_type:"article",content_id:story.slug});
+ }
+ const b=e.target.closest("[data-action]");if(!b)return;
+ if(b.dataset.action==="like")likeStory(b.dataset.id);
+ if(b.dataset.action==="share")shareStory(b.dataset.id);
+});
 function showPage(which){
- currentPage=which;nav.forEach(n=>n.classList.toggle("active",n.dataset.page===which));
+ currentPage=which;
+ window.GWAnalytics?.page(which==="feed"?"GoodWorld":which.charAt(0).toUpperCase()+which.slice(1),which==="feed"?"/":"/#"+which);
+ if(which==="donate")window.GWAnalytics?.track("donate_open",{section:"donate"});nav.forEach(n=>n.classList.toggle("active",n.dataset.page===which));
  document.getElementById("switcher").classList.toggle("hidden",which!=="feed");
  page.classList.toggle("hidden",which==="feed");feed.classList.toggle("hidden",which!=="feed");
  if(which==="feed"){page.innerHTML="";return}
@@ -242,13 +297,18 @@ function showPage(which){
     }catch(error){qrBox.textContent="QR code unavailable. Copy the verified address below."}
    }else{qrBox.textContent="QR code unavailable. Copy the address below."}
   }
-  select.addEventListener("change",renderDonationChoice);
+  select.addEventListener("change",()=>{
+   renderDonationChoice();
+   const item=GW_DONATION_OPTIONS[Number(select.value)]||GW_DONATION_OPTIONS[0];
+   window.GWAnalytics?.track("donation_network_selected",{network:item.network});
+  });
   donationPanel.querySelector("#copyDonationAddress").addEventListener("click",async()=>{
    const item=GW_DONATION_OPTIONS[Number(select.value)]||GW_DONATION_OPTIONS[0];
    const address=GW_WALLETS[item.wallet];
    try{
     if(!navigator.clipboard?.writeText)throw new Error("Clipboard unavailable");
     await navigator.clipboard.writeText(address);
+    window.GWAnalytics?.track("donation_address_copied",{network:item.network});
     showToast(item.network+" address copied");
    }catch{
     addressInput.focus();addressInput.select();
