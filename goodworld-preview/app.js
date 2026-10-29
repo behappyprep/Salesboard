@@ -5,6 +5,8 @@ const GW_URL="https://jdmpmrhyjitmjyjuhtds.supabase.co";
 // During DNS migration, auth links stay on the host where registration starts. After Render verification, www.goodworld.news is canonical.
 const GW_SITE=(location.hostname==="goodworld.news"||location.hostname==="www.goodworld.news")?"https://www.goodworld.news":"https://goodworld-app.onrender.com";
 const GW_KEY="sb_publishable_Mi4xc0jwt_MFKhjKWZ1Vpw_bG6VPp3_";
+// Editorial briefs with stable, server-readable URLs (new automated items remain feed-only until reviewed).
+const GW_EDITORIAL_SLUGS=new Set(["conservation-protected-areas-2026","coral-shade-protection-2026","news-0981a443e9a745ff8677f2fed48e44aa","news-1980c6199fb6464f84ce49ebaa67c2b4","news-1d1e2a88805b4d9795e56c13b94e9697","news-2521cb8da3de4be3b9e1c321741c5222","news-2b5a684146bf40c48563bdb73d432e1f","news-2d37c939a79c4bb0a90a8530ba0ebe0e","news-4013fcea2cd54248833d4684a1c7fb70","news-5ed4174fcddc429fab69890f437cfc1b","news-5ef48c8f9adf4c618369efc496dc22c8","news-69015855ff844680ba8e3af4dd89dc8d","news-7af2d3cbbabf45caa779c7cbf18897ea","news-7bb11c1f83bf4e5493f535c353ea0224","news-8c258c6f76a549e5b06b69bfdcedd2a2","news-90769d14c89442d89bff842069b79c80","news-9cd6c86c121a47b1904cb211fc29ea4b","news-aa3991ee028a4fccb3b1be519d13a0ed","news-aa88ddfe4976483f953b530e59d56fd5","news-acf089abc16045f4a304ae8eeee2dd02","news-b562d2e06fe04f60aadbb1c8f21957be","news-bc2fe2fc205d4e3db90767141580c7af","thailand-tiger-recovery-story-2026"]);
 // Only public receiving addresses approved by the GoodWorld founder.
 // Never put private keys, recovery phrases or exchange login credentials in frontend code.
 const GW_WALLETS=Object.freeze({
@@ -65,10 +67,11 @@ function renderFeed(){
  const liked=!!s.liked_by_me;
  const amount=currentTab==="top"?s.likes_today:s.likes_total;
  const link=validUrl(s.source_url);
+ const editorialUrl=GW_EDITORIAL_SLUGS.has(s.slug)?"/stories/"+encodeURIComponent(s.slug)+".html":"";
  return '<article class="story" id="story-'+esc(s.slug)+'" data-id="'+esc(s.id)+'">'+
  (image?'<img class="photo" src="'+esc(image)+'" alt="" loading="'+(i===0?'eager':'lazy')+'" decoding="async"/>':'<div class="photo story-fallback" aria-hidden="true"><span class="fallback-star">✳</span><span class="fallback-caption">GOOD THINGS ARE HAPPENING</span></div>')+'<div class="shade"></div>'+
- '<div class="storycontent"><span class="pill">'+esc(s.category)+'</span><h2 class="headline">'+esc(s.title)+'</h2><p class="desc">'+esc(s.summary)+'</p>'+
- '<div class="meta"><span>✳ '+esc(s.source_name)+'</span><span>·</span><span class="story-age">'+esc(goodworldAge(s.published_at))+'</span><span>·</span><a class="source" href="'+esc(link||"#")+'" target="_blank" rel="noopener noreferrer">Read source ↗</a>'+(image?'<span class="photo-note">Illustrative photo · Unsplash</span>':'')+(String(s.slug).startsWith("auto-")?'<span class="auto-brief-label">Automatically curated</span>':'')+'</div></div>'+
+ '<div class="storycontent"><span class="pill">'+esc(s.category)+'</span><h2 class="headline">'+(editorialUrl?'<a class="story-permalink" href="'+esc(editorialUrl)+'">'+esc(s.title)+'</a>':esc(s.title))+'</h2><p class="desc">'+esc(s.summary)+'</p>'+
+ '<div class="meta"><span>✳ '+esc(s.source_name)+'</span><span>·</span><span class="story-age">'+esc(goodworldAge(s.published_at))+'</span><span>·</span>'+(editorialUrl?'<a class="source" href="'+esc(editorialUrl)+'">Read GoodWorld brief ↗</a><span>·</span>':'')+'<a class="source" href="'+esc(link||"#")+'" target="_blank" rel="noopener noreferrer">Original source ↗</a>'+(image?'<span class="photo-note">Illustrative photo · Unsplash</span>':'')+(String(s.slug).startsWith("auto-")?'<span class="auto-brief-label">Automatically curated</span>':'')+'</div></div>'+
  '<div class="storyactions"><button aria-label="'+(liked?"Unlike":"Like")+' story" class="action '+(liked?"liked":"")+'" data-action="like" data-id="'+esc(s.id)+'"><span class="symbol">'+(liked?"♥":"♡")+'</span><span>'+(Number(amount)||0)+'</span></button>'+
  '<button aria-label="Repost story" class="action" data-action="share" data-id="'+esc(s.id)+'"><span class="symbol">↗</span><span>Repost</span></button></div>'+
  (i===0?'<div class="swipetip">↑ SWIPE FOR MORE GOOD NEWS</div>':"")+'</article>'
@@ -148,7 +151,7 @@ async function likeStory(id){
 }
 async function shareStory(id){
  const s=stories.find(s=>s.id===id);if(!s)return;
- const url=location.origin+location.pathname+"#story-"+encodeURIComponent(s.slug);
+ const url=GW_EDITORIAL_SLUGS.has(s.slug)?location.origin+"/stories/"+encodeURIComponent(s.slug)+".html":location.origin+location.pathname+"#story-"+encodeURIComponent(s.slug);
  try{if(navigator.share)await navigator.share({title:s.title,text:"GoodWorld · "+s.title,url});
  else if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(url);showToast("Story link copied")}
  else showModal("Share this story",url,"Close");
