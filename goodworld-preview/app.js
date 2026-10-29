@@ -40,6 +40,16 @@ let recoveryMode=authParams.has("gw_reset") || /(?:^|[&#])type=recovery(?:&|$)/.
 const confirmationReturn=authParams.has("gw_confirm");
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const validUrl=u=>{try{const x=new URL(u);return x.protocol==="https:"?x.href:""}catch{return ""}};
+function goodworldAge(value){
+ const elapsed=Date.now()-Date.parse(value);
+ if(!Number.isFinite(elapsed)||elapsed<0)return "";
+ const minutes=Math.floor(elapsed/60000);
+ if(minutes<1)return "Just now";
+ if(minutes<60)return minutes+"m ago";
+ const hours=Math.floor(minutes/60);
+ if(hours<24)return hours+"h ago";
+ return Math.floor(hours/24)+"d ago";
+}
 function showToast(message){const t=document.getElementById("toast");t.textContent=message;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),3000)}
 function closeMenu(){overlay.classList.add("hidden");menuButton.setAttribute("aria-expanded","false")}
 function openMenu(){overlay.classList.remove("hidden");menuButton.setAttribute("aria-expanded","true")}
@@ -58,7 +68,7 @@ function renderFeed(){
  return '<article class="story" id="story-'+esc(s.slug)+'" data-id="'+esc(s.id)+'">'+
  (image?'<img class="photo" src="'+esc(image)+'" alt="" loading="'+(i===0?'eager':'lazy')+'" decoding="async"/>':'<div class="photo story-fallback" aria-hidden="true"><span class="fallback-star">✳</span><span class="fallback-caption">GOOD THINGS ARE HAPPENING</span></div>')+'<div class="shade"></div>'+
  '<div class="storycontent"><span class="pill">'+esc(s.category)+'</span><h2 class="headline">'+esc(s.title)+'</h2><p class="desc">'+esc(s.summary)+'</p>'+
- '<div class="meta"><span>✳ '+esc(s.source_name)+'</span><span>·</span><a class="source" href="'+esc(link||"#")+'" target="_blank" rel="noopener noreferrer">Read source ↗</a>'+(image?'<span class="photo-note">Illustrative photo · Unsplash</span>':'')+(String(s.slug).startsWith("auto-")?'<span class="auto-brief-label">Automatically curated</span>':'')+'</div></div>'+
+ '<div class="meta"><span>✳ '+esc(s.source_name)+'</span><span>·</span><span class="story-age">'+esc(goodworldAge(s.published_at))+'</span><span>·</span><a class="source" href="'+esc(link||"#")+'" target="_blank" rel="noopener noreferrer">Read source ↗</a>'+(image?'<span class="photo-note">Illustrative photo · Unsplash</span>':'')+(String(s.slug).startsWith("auto-")?'<span class="auto-brief-label">Automatically curated</span>':'')+'</div></div>'+
  '<div class="storyactions"><button aria-label="'+(liked?"Unlike":"Like")+' story" class="action '+(liked?"liked":"")+'" data-action="like" data-id="'+esc(s.id)+'"><span class="symbol">'+(liked?"♥":"♡")+'</span><span>'+(Number(amount)||0)+'</span></button>'+
  '<button aria-label="Repost story" class="action" data-action="share" data-id="'+esc(s.id)+'"><span class="symbol">↗</span><span>Repost</span></button></div>'+
  (i===0?'<div class="swipetip">↑ SWIPE FOR MORE GOOD NEWS</div>':"")+'</article>'
