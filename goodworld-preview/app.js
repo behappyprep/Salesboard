@@ -33,7 +33,7 @@ const tabs=[...document.querySelectorAll(".tab")];
 const overlay=document.getElementById("menuOverlay");
 const menuButton=document.getElementById("menuButton");
 const modal=document.getElementById("modal");
-let stories=[],currentTab="top",session=null,currentPage="feed",toastTimer=null;
+let stories=[],currentTab="new",session=null,currentPage="feed",toastTimer=null;
 const authParams=new URLSearchParams(location.search);
 const callbackError=new URLSearchParams(location.hash.replace(/^#/,"")).get("error_description");
 let recoveryMode=authParams.has("gw_reset") || /(?:^|[&#])type=recovery(?:&|$)/.test(location.hash);
@@ -56,9 +56,9 @@ function renderFeed(){
  const amount=currentTab==="top"?s.likes_today:s.likes_total;
  const link=validUrl(s.source_url);
  return '<article class="story" id="story-'+esc(s.slug)+'" data-id="'+esc(s.id)+'">'+
- (image?'<img class="photo" src="'+esc(image)+'" alt="" loading="'+(i===0?'eager':'lazy')+'" decoding="async"/>':'<div class="photo"></div>')+'<div class="shade"></div>'+
+ (image?'<img class="photo" src="'+esc(image)+'" alt="" loading="'+(i===0?'eager':'lazy')+'" decoding="async"/>':'<div class="photo story-fallback" aria-hidden="true"><span class="fallback-star">✳</span><span class="fallback-caption">GOOD THINGS ARE HAPPENING</span></div>')+'<div class="shade"></div>'+
  '<div class="storycontent"><span class="pill">'+esc(s.category)+'</span><h2 class="headline">'+esc(s.title)+'</h2><p class="desc">'+esc(s.summary)+'</p>'+
- '<div class="meta"><span>✳ '+esc(s.source_name)+'</span><span>·</span><a class="source" href="'+esc(link||"#")+'" target="_blank" rel="noopener noreferrer">Read source ↗</a>'+(image?'<span class="photo-note">Illustrative photo · Unsplash</span>':'')+'</div></div>'+
+ '<div class="meta"><span>✳ '+esc(s.source_name)+'</span><span>·</span><a class="source" href="'+esc(link||"#")+'" target="_blank" rel="noopener noreferrer">Read source ↗</a>'+(image?'<span class="photo-note">Illustrative photo · Unsplash</span>':'')+(String(s.slug).startsWith("auto-")?'<span class="auto-brief-label">Automatically curated</span>':'')+'</div></div>'+
  '<div class="storyactions"><button aria-label="'+(liked?"Unlike":"Like")+' story" class="action '+(liked?"liked":"")+'" data-action="like" data-id="'+esc(s.id)+'"><span class="symbol">'+(liked?"♥":"♡")+'</span><span>'+(Number(amount)||0)+'</span></button>'+
  '<button aria-label="Repost story" class="action" data-action="share" data-id="'+esc(s.id)+'"><span class="symbol">↗</span><span>Repost</span></button></div>'+
  (i===0?'<div class="swipetip">↑ SWIPE FOR MORE GOOD NEWS</div>':"")+'</article>'
@@ -101,6 +101,18 @@ if(client){
  feed.innerHTML='<div class="emptyfeed"><h1>GoodWorld</h1><p>News service could not be loaded. Please refresh this page.</p></div>';
 }
 tabs.forEach(t=>t.addEventListener("click",()=>{currentTab=t.dataset.tab;tabs.forEach(x=>x.classList.toggle("selected",x===t));feed.scrollTop=0;loadStories()}));
+async function quietlyRefreshFeed(){
+ if(document.hidden||currentPage!=="feed"||feed.scrollTop>90||!client)return;
+ const previousTop=stories[0]?.id;
+ const {data,error}=await client.rpc("get_goodworld_feed",{p_order:currentTab});
+ if(error||!data)return;
+ const same=stories.length===data.length&&data.every((x,i)=>x.id===stories[i].id&&x.likes_total===stories[i].likes_total&&x.likes_today===stories[i].likes_today&&x.liked_by_me===stories[i].liked_by_me);
+ if(same)return;
+ stories=data;renderFeed();
+ if(previousTop&&stories[0]?.id!==previousTop)showToast("Fresh good news just arrived ✳");
+}
+setInterval(quietlyRefreshFeed,10*60*1000);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)quietlyRefreshFeed()});
 function showModal(title,body,buttonLabel="Got it"){
  modal.classList.remove("hidden");
  modal.innerHTML='<div class="dialog"><button class="close" aria-label="Close dialog" id="closeModal">×</button><span class="pill">GoodWorld</span><h2>'+esc(title)+'</h2><p>'+esc(body)+'</p><button class="primary" id="dismissModal">'+esc(buttonLabel)+'</button></div>';
