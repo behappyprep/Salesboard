@@ -292,8 +292,9 @@ button,input,textarea,select{accent-color:var(--leaf)}
   .swipetip{bottom:calc(env(safe-area-inset-bottom,0px) + 18px)}
 }
 @media(max-height:560px){
-  .photo{top:112px;height:35%}
-  .shade{top:calc(112px + 14%);height:calc(21% + 62px)}
+  /* On very short screens keep text legible even when it overlaps the image. */
+  .photo{top:112px;height:35%;opacity:.33}
+  .shade{top:112px;height:60%;background:linear-gradient(180deg,rgba(255,249,240,.30),rgba(255,249,240,.88) 35%,#FFF9F0 70%)}
   .storycontent{bottom:calc(env(safe-area-inset-bottom,0px) + 49px);left:15px;right:75px}
   .headline{font-size:clamp(22px,6vw,27px);margin-bottom:6px}
   .pill{margin-bottom:7px;padding:5px 8px}
@@ -307,3 +308,7 @@ button,input,textarea,select{accent-color:var(--leaf)}
   .action:hover .symbol{transform:none}
   *{scroll-behavior:auto!important}
 }
+
+/* Strong visible keyboard focus, including controls with older selectors. */
+.menu-support .donate-cta:focus-visible,.primary:focus-visible,.secondary:focus-visible,.navitem:focus-visible,.tab:focus-visible,.action:focus-visible,.menu-close:focus-visible,.story-permalink:focus-visible{outline:3px solid #A35F24;outline-offset:3px}
+.headline{overflow-wrap:break-word}
