@@ -1,42 +1,35 @@
-# GoodWorld production launch plan
-Verified as of 2026-10-21. Source: behappyprep/Salesboard branch goodworld-preview.
+# GoodWorld: free, growth-first launch plan
 
-## Current infrastructure
-- Render static production service srv-dbbtbitpkucs73eel9u0 at https://goodworld-app.onrender.com.
-- Supabase project jdmpmrhyjitmjyjuhtds (eu-central-1).
-- Real news, login, likes, editorial and queued collection exist. Stripe billing, custom SMTP, referrals, legally reviewed policies and paid entitlement gating are not live.
+Last updated 2026-10-29. GitHub `behappyprep/Salesboard`, branch `goodworld-preview`.
 
-## 1. Domain
-- Domain reported purchased by owner: goodworld.news (2026-10-29). Registrar account and DNS setup must be verified. Trademark/name risk still deserves separate review.
-- Have the user buy domain in a registrar account under their control; enable auto-renew and use accurate business contact details.
-- On Render Settings -> Custom Domains, add purchased apex domain; Render also supports www. See https://render.com/docs/custom-domains.
-- Set Cloudflare DNS following https://render.com/docs/configure-cloudflare-dns, with root and www CNAME pointing to goodworld-app.onrender.com; remove conflicting AAAA records.
-- In Cloudflare SSL/TLS set Full. Confirm Render domain verification, valid TLS, redirect to HTTPS and canonical www/apex.
-- Keep the onrender.com hostname until all recovery/signup/payment callbacks work on new domain.
+## Product decision
+- Free positive news for everyone. No subscription, paywall, paid trial or paid referrals.
+- Account is optional for reading; required for likes. Editorial remains restricted to approved editors.
+- Target: grow towards 100,000 real users before revisiting monetization.
+- Optional voluntary crypto support, no special benefits, no misleading charitable claims.
+- Donation address NOT configured until owner supplies and explicitly approves the public destination and token/network. Never include seed phrase or private keys.
+- Share GoodWorld offers platform share or copying the production URL.
 
-## 2. Auth and outbound email
-- `GW_SITE` now selects goodworld.news when running on that hostname, and falls back to the existing Render domain during migration (commit 90ff6add). Still requires Supabase redirect allowlist.
-- Supabase Dashboard -> Authentication -> URL Configuration. Site URL and exact redirect allowlist for https://<domain>/?gw_reset=1 and https://<domain>/?gw_confirm=1.
-- Configure custom SMTP sender (Resend or another vendor) and domain DNS SPF/DKIM/DMARC. Never paste SMTP credentials in code or commit them.
-- Test signup, verification, reset link, expiry, invalid link, login/logout, editorial session, browser/device changes and email delivery.
+## Infrastructure
+- Canonical domain: https://www.goodworld.news/ .
+- Registrar DNS: Namecheap; root A @ = 216.24.57.1; www CNAME = goodworld-app.onrender.com.
+- Render static site: srv-dbbtbitpkucs73eel9u0, repo path goodworld-preview/.
+- Render screenshot 2026-10-29: both domains verified; SSL issued for www.goodworld.news; apex goodworld.news certificate pending; apex redirects to www.
+- Supabase project: jdmpmrhyjitmjyjuhtds (Frankfurt, eu-central-1).
+- Supabase URL Configuration screenshot 2026-10-29 shows Site URL https://www.goodworld.news and four allowlisted redirects: confirm/reset on www domain and original Render domain.
+- Keep onrender.com fallback while auth on real domain is tested.
 
-## 3. $5/month product and 7-day access
-- Connect the correct GoodWorld Stripe account, legal merchant entity and US$5 recurring price.
-- Choose trial UX and whether to collect a card before or after the seven free days. User rule: access is paid-only after trial.
-- Add Supabase Edge Functions for Stripe Checkout and Customer Portal with server-only keys and origin allowlist.
-- Add signature-verified Stripe webhooks, event idempotency, subscriptions table and server-side entitlement enforcement.
-- Test trial start/end, paid renewals, failed payment, cancellation/reactivation, refunds, account deletion and portal.
-- Keep production paywall DISABLED until full testing and business registration decisions are complete.
+## Critical pre-launch checklist
+1. Verify Render deployment of latest free interface commit on www.goodworld.news, both mobile and desktop; validate HTTPS and apex redirect, then retest after apex SSL issued.
+2. Test Supabase Auth: normal signup -> email confirmation; sign in; password reset; refresh; cross-browser and sign out. URL allowlist already entered per owner's screenshot; do not alter without reason.
+3. Connect custom transactional SMTP provider using validated GoodWorld sender subdomain and SPF/DKIM/DMARC to avoid default Supabase mail limits. Do not expose SMTP secrets in repo.
+4. Owner to provide a public receiving crypto wallet and specify network and asset. Publish ONLY that network, asset and address, with copy button and irreversible transfer warning. Confirm small test payment before inviting supporters.
+5. Review actual rights to all third-party story photographs; replace unlicensed images; keep source attribution and factual editorial review.
+6. Privacy Policy, Terms, voluntary crypto support disclosure and real business/operator contact before inviting public traffic. GDPR considerations and optional analytics consent if adding trackers.
+7. Test story feed, editorial moderation, mobile swipe, links, repost, login-dependent likes, 00:00 UTC Top Today ranking, automatic RSS candidate collection.
+8. Set up privacy-respecting analytics for daily users/retention and referral source so progress towards 100k can be measured responsibly.
+9. Improve indexable story pages and social preview assets (the current story sharing uses URL hashes which limit per-story social previews).
+10. Plan consistent content and social distribution, not automatic publishing of unverified scraped stories.
 
-## 4. Referrals
-- Unique account referral URLs, attribution stored server-side.
-- Three confirmed paying referrals => three months free for referrer, granted once per group; no self-referrals or trial-only signups.
-- Define refund/fraud and cancellation handling before activation.
-
-## 5. Editorial, quality, and compliance
-- Manual factual verification of each story; licensed and attributed images. Editorial queue and 6-hour aggregator remain protected.
-- Privacy Policy, Terms, subscription cancellation and refund notice, contact/seller info, tax/VAT compliance and GDPR.
-- QA Android/iOS feed, share links, likes, Top Today/New, API and auth protection, site accessibility/performance/monitoring.
-
-## Launch criterion
-Domain purchased and verified; DNS, TLS, auth redirects, SMTP, payments, access gating and referrals all tested end to end. Do not call the product fully launched before then.
+## Deferred
+- Stripe subscriptions, pricing, trials and paid referral incentives are explicitly deferred. Do not enable payment gating or promise paid memberships until the owner changes this decision.
