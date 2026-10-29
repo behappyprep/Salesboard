@@ -40,7 +40,7 @@ Last updated 2026-10-29. GitHub `behappyprep/Salesboard`, branch `goodworld-prev
 
 ## 2026-10-29: hourly positive-news automation now configured
 - Live Supabase Cron collector `goodworld-rss-discovery-hourly`: minute 05 UTC of every hour. Existing six-hour schedule removed.
-- Live Supabase Cron publisher `goodworld-hourly-positive-news`: minute 15 UTC of every hour, evaluating just the previous full UTC hour.
+- Live Supabase Cron publisher `goodworld-hourly-positive-news`: minute 15 UTC of every hour, considering clearly positive source articles published during the preceding six hours (to allow for slow RSS delivery).
 - Supabase collector Edge Function version 3 ACTIVE with 22 RSS feed URLs and concurrent collection.
 - PostgreSQL `goodworld_private.positive_score` ranks clear positive outcomes and rejects high-risk, speculative and negative headlines. Strict at-most-one-per-hour publisher uses `public.goodworld_hourly_runs` to record skipped hours and actual publication.
 - Success test: version 2 collected 18 new candidates from 11 feeds with no errors; version 3 deployment active but first complete 22-source run not observed yet.
@@ -48,3 +48,5 @@ Last updated 2026-10-29. GitHub `behappyprep/Salesboard`, branch `goodworld-prev
 - Security checks: anonymous and authenticated users cannot execute the hourly scheduler RPCs or access the private schema; log table RLS enabled.
 - The GitHub version of the UI defaults to New, labels auto-curated sourced briefs, uses a designed fallback if no licensed photo, and polls only occasionally while viewing the top of the feed. It requires latest Render deployment before these UI changes are visible.
 - For source configurations, scoring policy, monitoring SQL, and known limitations, see `NEWS_AUTOMATION.md`. Never claim exhaustive worldwide coverage or exactly one article every hour regardless of quality.
+
+- 2026-10-29 late update: Screenshot showed the New feed still 8 days old. Fixed missing fresh content by expanding publisher freshness window to six hours; one verified Good News Network brief was published on GoodWorld and confirmed first in the New RPC. See NEWS_AUTOMATION.md.
