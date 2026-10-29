@@ -25,7 +25,6 @@ const GW_DONATION_OPTIONS=Object.freeze([
  {symbol:"USDT",network:"BNB Smart Chain (BEP-20)",wallet:"evm"},
  {symbol:"ETH",network:"Arbitrum One",wallet:"evm"}
 ]);
-const GW_SHARE_URL="https://www.goodworld.news/";
 const client=window.supabase?.createClient(GW_URL,GW_KEY);
 const feed=document.getElementById("feed");
 const page=document.getElementById("page");
@@ -125,13 +124,6 @@ async function likeStory(id){
  if(resp.error){showToast("Could not save like");await loadStories(id)}
  else await loadStories(id);
 }
-async function shareSite(){
- try{
-  if(navigator.share) await navigator.share({title:"GoodWorld",text:"A little more good in your day. Discover real uplifting news on GoodWorld.",url:GW_SHARE_URL});
-  else if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(GW_SHARE_URL);showToast("GoodWorld link copied")}
-  else showModal("Share GoodWorld","Send a friend this link: "+GW_SHARE_URL,"Close");
- }catch(e){if(e.name!=="AbortError")showToast("Could not share GoodWorld")}
-}
 async function shareStory(id){
  const s=stories.find(s=>s.id===id);if(!s)return;
  const url=location.origin+location.pathname+"#story-"+encodeURIComponent(s.slug);
@@ -170,8 +162,6 @@ function showPage(which){
   return;
  }
  const pages={
-  submit:'<h1>Found some good news?</h1><p class="lead">Help us find stories worth sharing.</p><div class="panel"><p>Story submissions are coming soon. Until then, enjoy the free feed and share stories with friends.</p><button class="secondary" id="backFeed">Return to news</button></div>',
-  share:'<h1>Spread the good.</h1><p class="lead">Help positive stories reach more people.</p><div class="panel"><h2>Invite someone to GoodWorld</h2><p>Everything is free to read. Share GoodWorld with a friend who could use some uplifting news today.</p><button class="primary" id="shareSite" type="button">Share GoodWorld ↗</button><p class="subtle">www.goodworld.news</p></div>',
   donate:'<h1>Support GoodWorld.</h1><p class="lead">Good news should be free for everyone.</p><div class="panel" id="donationPanel"></div><p class="subtle">Contributions are voluntary and do not grant special access. They are not tax-deductible charitable donations. Crypto transfers are generally irreversible.</p>',
   profile:session?.user
   ? '<h1>Your GoodWorld</h1><p class="lead">'+esc(session.user.email)+'</p><div class="panel"><h2>You are signed in.</h2><p>Your likes are linked to this account across your devices.</p><button class="secondary" id="signOut">Sign out</button></div><div class="panel"><p>GoodWorld is free for everyone. Thanks for being part of it.</p></div>'
@@ -179,7 +169,6 @@ function showPage(which){
  };
  page.innerHTML=pages[which]??"";
  page.querySelector("#backFeed")?.addEventListener("click",()=>showPage("feed"));
- page.querySelector("#shareSite")?.addEventListener("click",shareSite);
  if(which==="donate"){
   const donationPanel=page.querySelector("#donationPanel");
   donationPanel.innerHTML='<h2>Choose a coin and network</h2>'+
