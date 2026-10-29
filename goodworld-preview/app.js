@@ -5,9 +5,26 @@ const GW_URL="https://jdmpmrhyjitmjyjuhtds.supabase.co";
 // During DNS migration, auth links stay on the host where registration starts. After Render verification, www.goodworld.news is canonical.
 const GW_SITE=(location.hostname==="goodworld.news"||location.hostname==="www.goodworld.news")?"https://www.goodworld.news":"https://goodworld-app.onrender.com";
 const GW_KEY="sb_publishable_Mi4xc0jwt_MFKhjKWZ1Vpw_bG6VPp3_";
-// Add only an owner-approved PUBLIC receiving address, network and token.
-// Never put a private key or recovery phrase in this frontend.
-const GW_DONATION=Object.freeze({network:"",asset:"",address:""});
+// Only public receiving addresses approved by the GoodWorld founder.
+// Never put private keys, recovery phrases or exchange login credentials in frontend code.
+const GW_WALLETS=Object.freeze({
+ evm:"0xf0DE078f2bB149a891e479E5e6e2A951F3B15E38",
+ bitcoin:"bc1qtswv69s6fqjcykgaj4jdyzz6nx4063c999lxg2",
+ solana:"DVCbn4ziBFb98ECvCXiouRAeJqzxx6nrY5MZVXBs7tTc"
+});
+const GW_DONATION_OPTIONS=Object.freeze([
+ {symbol:"BTC",network:"Bitcoin",wallet:"bitcoin"},
+ {symbol:"SOL",network:"Solana",wallet:"solana"},
+ {symbol:"USDC",network:"Solana (SPL)",wallet:"solana"},
+ {symbol:"ETH",network:"Ethereum (Mainnet)",wallet:"evm"},
+ {symbol:"USDT",network:"Ethereum (ERC-20)",wallet:"evm"},
+ {symbol:"USDC",network:"Ethereum (ERC-20)",wallet:"evm"},
+ {symbol:"ETH",network:"Base",wallet:"evm"},
+ {symbol:"USDC",network:"Base",wallet:"evm"},
+ {symbol:"BNB",network:"BNB Smart Chain (BEP-20)",wallet:"evm"},
+ {symbol:"USDT",network:"BNB Smart Chain (BEP-20)",wallet:"evm"},
+ {symbol:"ETH",network:"Arbitrum One",wallet:"evm"}
+]);
 const GW_SHARE_URL="https://www.goodworld.news/";
 const client=window.supabase?.createClient(GW_URL,GW_KEY);
 const feed=document.getElementById("feed");
@@ -165,22 +182,59 @@ function showPage(which){
  page.querySelector("#shareSite")?.addEventListener("click",shareSite);
  if(which==="donate"){
   const donationPanel=page.querySelector("#donationPanel");
-  if(GW_DONATION.address&&GW_DONATION.asset&&GW_DONATION.network){
-   donationPanel.innerHTML='<h2>Send '+esc(GW_DONATION.asset)+' on '+esc(GW_DONATION.network)+'</h2><p>Only send '+esc(GW_DONATION.asset)+' using the '+esc(GW_DONATION.network)+' network. Transfers on a different network may be lost.</p><label for="donationAddress">Public receiving address</label><input id="donationAddress" class="input wallet-address" type="text" readonly value="'+esc(GW_DONATION.address)+'"/><button class="primary" type="button" id="copyDonationAddress">Copy wallet address</button>';
-   donationPanel.querySelector("#copyDonationAddress").addEventListener("click",async()=>{
-    try{
-     if(!navigator.clipboard?.writeText)throw new Error("Clipboard unavailable");
-     await navigator.clipboard.writeText(GW_DONATION.address);
-     showToast("Wallet address copied");
-    }catch{
-     donationPanel.querySelector("#donationAddress").select();
-     showToast("Select and copy the address");
-    }
-   });
-  }else{
-   donationPanel.innerHTML='<h2>Crypto support is being set up</h2><p>We are preparing a verified public receiving wallet. No payment address has been published yet.</p><button class="secondary" type="button" id="shareInstead">Share GoodWorld instead ↗</button>';
-   donationPanel.querySelector("#shareInstead").addEventListener("click",shareSite);
+  donationPanel.innerHTML='<h2>Choose a coin and network</h2>'+
+   '<p>Donations go directly to GoodWorld wallets. Choose the exact asset and network your sending wallet supports.</p>'+
+   '<label for="donationChoice">Coin / blockchain network</label>'+
+   '<select class="input" id="donationChoice" aria-label="Coin and blockchain network"></select>'+
+   '<p class="donation-warning" id="donationNetworkNote" role="status"></p>'+
+   '<div class="donation-qr" id="donationQr" aria-label="Wallet address QR code"></div>'+
+   '<label for="donationAddress">Public receiving address</label>'+
+   '<textarea id="donationAddress" class="input wallet-address" rows="2" readonly aria-label="Donation receiving address"></textarea>'+
+   '<button class="primary" type="button" id="copyDonationAddress">Copy wallet address</button>'+
+   '<p class="subtle">Network fees may apply. Verify the destination and network in your wallet before sending. Transfers are usually irreversible. No login or wallet connection is required.</p>';
+  const select=donationPanel.querySelector("#donationChoice");
+  const addressInput=donationPanel.querySelector("#donationAddress");
+  const warning=donationPanel.querySelector("#donationNetworkNote");
+  const qrBox=donationPanel.querySelector("#donationQr");
+  for(const [i,item] of GW_DONATION_OPTIONS.entries()){
+   const opt=document.createElement("option");
+   opt.value=String(i);
+   opt.textContent=item.symbol+" · "+item.network;
+   select.appendChild(opt);
   }
+  function renderDonationChoice(){
+   const item=GW_DONATION_OPTIONS[Number(select.value)]||GW_DONATION_OPTIONS[0];
+   const address=GW_WALLETS[item.wallet];
+   addressInput.value=address;
+   warning.textContent="Send ONLY "+item.symbol+" on "+item.network+". Coins on an incompatible network or unsupported tokens can be lost.";
+   qrBox.textContent="";
+   if(typeof window.qrcode==="function"){
+    try{
+     const qr=window.qrcode(0,"M");
+     qr.addData(address);
+     qr.make();
+     const img=document.createElement("img");
+     img.src=qr.createDataURL(5,4);
+     img.alt="Scan to copy the "+item.network+" receiving address";
+     img.width=210;img.height=210;
+     qrBox.appendChild(img);
+    }catch(error){qrBox.textContent="QR code unavailable. Copy the verified address below."}
+   }else{qrBox.textContent="QR code unavailable. Copy the address below."}
+  }
+  select.addEventListener("change",renderDonationChoice);
+  donationPanel.querySelector("#copyDonationAddress").addEventListener("click",async()=>{
+   const item=GW_DONATION_OPTIONS[Number(select.value)]||GW_DONATION_OPTIONS[0];
+   const address=GW_WALLETS[item.wallet];
+   try{
+    if(!navigator.clipboard?.writeText)throw new Error("Clipboard unavailable");
+    await navigator.clipboard.writeText(address);
+    showToast(item.network+" address copied");
+   }catch{
+    addressInput.focus();addressInput.select();
+    showToast("Select and copy the address");
+   }
+  });
+  renderDonationChoice();
  }
  page.querySelector("#signOut")?.addEventListener("click",async()=>{await client.auth.signOut();showPage("feed");showToast("Signed out")});
  if(which==="profile"&&!session?.user){
