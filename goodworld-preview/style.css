@@ -54,11 +54,11 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
 .navitem{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#171b19;color:var(--text);border:1px solid var(--line);border-radius:17px;padding:16px;text-align:left;font-size:15px;font-weight:800}
 .navitem small{display:block;font-size:12px;color:#aea89c;font-weight:400;line-height:1.4;margin-top:4px}.nav-arrow{font-size:17px;color:var(--accent)}
 .navitem.active{border-color:#bcc7ab4a}
-.menu-premium{margin-top:20px;padding:18px;background:linear-gradient(180deg,#202620,#171b19);border:1px solid var(--line);border-radius:21px}
-.menu-premium-eyebrow{font-size:10px;letter-spacing:.14em;font-weight:800;color:#acb7a1}
-.menu-premium h2{font-weight:750;letter-spacing:-.035em;margin:10px 0 8px;font-size:27px}
-.menu-premium p{color:var(--muted);margin:0 0 15px;font-size:14px;line-height:1.5}
-.trial{width:100%;padding:15px;background:var(--accent);color:var(--accent-ink);font-weight:800;border:0;border-radius:15px;font-size:14px}
+.menu-support{margin-top:20px;padding:18px;background:linear-gradient(180deg,#202620,#171b19);border:1px solid var(--line);border-radius:21px}
+.menu-support-eyebrow{font-size:10px;letter-spacing:.14em;font-weight:800;color:#acb7a1}
+.menu-support h2{font-weight:750;letter-spacing:-.035em;margin:10px 0 8px;font-size:27px}
+.menu-support p{color:var(--muted);margin:0 0 15px;font-size:14px;line-height:1.5}
+.donate-cta{width:100%;padding:15px;background:var(--accent);color:var(--accent-ink);font-weight:800;border:0;border-radius:15px;font-size:14px}
 .menu-small{font-size:12px;color:#918d83;line-height:1.5;margin-top:18px}
 .modalback{position:absolute;inset:0;z-index:30;display:grid;align-content:center;padding:22px;background:#020404ea;backdrop-filter:blur(13px)}
 .dialog{background:#1a1f1c;border:1px solid #586152;border-radius:25px;padding:25px 21px;box-shadow:0 15px 70px #0009}
@@ -108,3 +108,11 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
 #authStatus.limit-warning{font-size:14px;line-height:1.5;color:#e4dbb6;border-left:3px solid #b7a46a;padding:12px 13px;background:rgba(183,164,106,.09);border-radius:0 10px 10px 0}
 
 .photo-note{font-size:10px;color:#babeb3;letter-spacing:.02em;white-space:normal}
+
+/* Free community support and optional public crypto wallet */
+.menu-support .donate-cta{cursor:pointer;min-height:46px}
+.menu-support .donate-cta:focus-visible,.navitem:focus-visible,.primary:focus-visible,.secondary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wallet-address{font-size:13px;overflow-wrap:anywhere;font-family:ui-monospace,monospace}
+#donationPanel>h2{font-size:22px;line-height:1.2;letter-spacing:-.02em;margin:0 0 8px}
+#donationPanel .secondary,#donationPanel .primary{margin-top:8px;cursor:pointer}
+#shareSite{cursor:pointer}
