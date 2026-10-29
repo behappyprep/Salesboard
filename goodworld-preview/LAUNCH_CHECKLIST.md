@@ -7,7 +7,7 @@ Last updated 2026-10-29. GitHub `behappyprep/Salesboard`, branch `goodworld-prev
 - Account is optional for reading; required for likes. Editorial remains restricted to approved editors.
 - Target: grow towards 100,000 real users before revisiting monetization.
 - Optional voluntary crypto support, no special benefits, no misleading charitable claims.
-- Donation address NOT configured until owner supplies and explicitly approves the public destination and token/network. Never include seed phrase or private keys.
+- Public donation destinations have been supplied by owner: BTC on Bitcoin, SOL and USDC (SPL) on Solana, and selected assets on supported EVM networks. Verify network/token before transfers. Never include seed phrase or private keys.
 - Share GoodWorld offers platform share or copying the production URL.
 
 ## Infrastructure
@@ -23,7 +23,7 @@ Last updated 2026-10-29. GitHub `behappyprep/Salesboard`, branch `goodworld-prev
 1. Verify Render deployment of latest free interface commit on www.goodworld.news, both mobile and desktop; validate HTTPS and apex redirect, then retest after apex SSL issued.
 2. Test Supabase Auth: normal signup -> email confirmation; sign in; password reset; refresh; cross-browser and sign out. URL allowlist already entered per owner's screenshot; do not alter without reason.
 3. Connect custom transactional SMTP provider using validated GoodWorld sender subdomain and SPF/DKIM/DMARC to avoid default Supabase mail limits. Do not expose SMTP secrets in repo.
-4. Owner to provide a public receiving crypto wallet and specify network and asset. Publish ONLY that network, asset and address, with copy button and irreversible transfer warning. Confirm small test payment before inviting supporters.
+4. Crypto Donate configured in frontend with Bitcoin address `bc1qtswv69s6fqjcykgaj4jdyzz6nx4063c999lxg2`, Solana address `DVCbn4ziBFb98ECvCXiouRAeJqzxx6nrY5MZVXBs7tTc`, EVM address `0xf0DE078f2bB149a891e479E5e6e2A951F3B15E38`. Network/asset selector and QR generated locally via pinned qrcode-generator 1.4.4. Test network selection, QR scanning against address, clipboard fallback and small test donations before sharing widely.
 5. Review actual rights to all third-party story photographs; replace unlicensed images; keep source attribution and factual editorial review.
 6. Privacy Policy, Terms, voluntary crypto support disclosure and real business/operator contact before inviting public traffic. GDPR considerations and optional analytics consent if adding trackers.
 7. Test story feed, editorial moderation, mobile swipe, links, repost, login-dependent likes, 00:00 UTC Top Today ranking, automatic RSS candidate collection.
@@ -33,3 +33,6 @@ Last updated 2026-10-29. GitHub `behappyprep/Salesboard`, branch `goodworld-prev
 
 ## Deferred
 - Stripe subscriptions, pricing, trials and paid referral incentives are explicitly deferred. Do not enable payment gating or promise paid memberships until the owner changes this decision.
+
+## Deployment note
+- GitHub changes for Donate are committed. Render service advertises automatic deployment on commits, but the latest deploy visible through the Render connector still references 2026-10-21. Verify a new deploy actually reaches live before claiming GoodWorld has the updated Donate UI. If Render does not deploy commits, diagnose auto-deploy/webhook or manually deploy latest commit through Render dashboard.
