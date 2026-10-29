@@ -25,7 +25,7 @@ Next technical work:
 2. In Google Search Console add DOMAIN property goodworld.news; verify via Namecheap DNS TXT; submit https://www.goodworld.news/sitemap.xml.
 3. Use URL Inspection on home, /stories/, and a sample story; check that Google sees rendered HTML and no robots/noindex issues.
 4. Publish accurate About, Editorial Methodology, Corrections/Contact and Privacy pages; provide real operator/contact details before going to press.
-5. Build automatic prerendering of future editorially approved stories and keep sitemap refreshed when articles are published. Currently only the initial 23 are deployed as static HTML; hourly auto-selected RSS excerpts remain feed-only for quality reasons.
+5. SEO prerender builder is implemented and tested in `build-seo.mjs`: future editor-approved stories receive real HTML article pages and are added to the archive and sitemap at each Render build. Next: enable the build command in Render and schedule a daily secure deploy hook through Supabase Vault/Cron. Hourly short RSS auto-briefs remain feed-only for editorial integrity; see `SEO_AUTOMATION.md`.
 6. Secure original photo usage rights; optimize mobile performance, contrast, image sizes and accessibility.
 7. Editorial focus: write source-attributed, original context and follow-ups on nature recovery, animal rescues, generosity, community improvements and meaningful science. Do not scrape, spin or mass-produce thin pages to game ranking.
 8. Consider Google News/Discover only after transparency, consistency, original value and web performance meet current public guidance.
