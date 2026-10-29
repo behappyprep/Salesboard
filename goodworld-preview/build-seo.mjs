@@ -150,13 +150,29 @@ async function main(){
     if(seen.has(s.slug))throw new Error("Duplicate public story slug: "+s.slug);
     seen.add(s.slug);
   }
+  const manifestPath=path.join(OUT,"seo-manifest.json");
+  let oldSlugs=[];
+  try{
+    const old=JSON.parse(await fs.readFile(manifestPath,"utf8"));
+    if(Array.isArray(old))oldSlugs=old.filter(slugOkay);
+  }catch(error){
+    if(error?.code!=="ENOENT")throw new Error("Cannot read existing SEO manifest safely");
+  }
   await fs.mkdir(STORIES_DIR,{recursive:true});
   for(const s of stories){
     const related=stories.filter(x=>x.slug!==s.slug);
     await fs.writeFile(path.join(STORIES_DIR,s.slug+".html"),articleHtml(s,related),"utf8");
   }
+  // Remove only our previously generated article pages if they are no longer
+  // published or no longer meet editorial standards. Never delete untracked files.
+  for(const slug of oldSlugs){
+    if(seen.has(slug))continue;
+    try{await fs.unlink(path.join(STORIES_DIR,slug+".html"))}
+    catch(error){if(error?.code!=="ENOENT")throw error}
+  }
   await fs.writeFile(path.join(STORIES_DIR,"index.html"),archiveHtml(stories),"utf8");
   await fs.writeFile(path.join(OUT,"sitemap.xml"),sitemapXml(stories),"utf8");
+  await fs.writeFile(manifestPath,JSON.stringify(stories.map(s=>s.slug),null,2)+"\n","utf8");
   console.log("GoodWorld SEO built: "+stories.length+" original editorial pages + archive + sitemap ("+(stories.length+2)+" URLs)");
   console.log("Excluded "+(rows.length-stories.length)+" public entries with insufficient editorial content or automatic RSS briefs.");
 }
