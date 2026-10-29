@@ -57,6 +57,7 @@
   const isArchive=safePath()==="/stories/"||safePath()==="/stories/index.html";
   page(isArticle?"Story":isArchive?"Stories":"GoodWorld");
   if(isArticle)event("read_article",{content_type:"article",content_id:safePath().split("/").pop().replace(/\.html$/,"")});
+  window.dispatchEvent(new Event("gw:analytics-ready"));
  }
  function save(value){
   const old=preference;
@@ -66,7 +67,7 @@
   else if(old==="accepted"){
    window.gtag("consent","update",DENIED);
    // Loading again is essential: an already loaded Google script cannot be unloaded.
-   const names=["_ga","_ga_"+ID.replace(/[^A-Za-z0-9]/g,"_")];
+   const names=["_ga","_ga_"+ID.replace(/^G-/,"")];
    for(const name of names){
     for(const domain of ["",".goodworld.news"]){
      document.cookie=name+"=; Max-Age=0; path=/; SameSite=Lax"+(domain?"; domain="+domain:"");
