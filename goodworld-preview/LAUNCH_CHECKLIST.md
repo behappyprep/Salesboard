@@ -36,3 +36,15 @@ Last updated 2026-10-29. GitHub `behappyprep/Salesboard`, branch `goodworld-prev
 
 ## Deployment note
 - GitHub changes for Donate are committed. Render service advertises automatic deployment on commits, but the latest deploy visible through the Render connector still references 2026-10-21. Verify a new deploy actually reaches live before claiming GoodWorld has the updated Donate UI. If Render does not deploy commits, diagnose auto-deploy/webhook or manually deploy latest commit through Render dashboard.
+
+
+## 2026-10-29: hourly positive-news automation now configured
+- Live Supabase Cron collector `goodworld-rss-discovery-hourly`: minute 05 UTC of every hour. Existing six-hour schedule removed.
+- Live Supabase Cron publisher `goodworld-hourly-positive-news`: minute 15 UTC of every hour, evaluating just the previous full UTC hour.
+- Supabase collector Edge Function version 3 ACTIVE with 22 RSS feed URLs and concurrent collection.
+- PostgreSQL `goodworld_private.positive_score` ranks clear positive outcomes and rejects high-risk, speculative and negative headlines. Strict at-most-one-per-hour publisher uses `public.goodworld_hourly_runs` to record skipped hours and actual publication.
+- Success test: version 2 collected 18 new candidates from 11 feeds with no errors; version 3 deployment active but first complete 22-source run not observed yet.
+- Full SQL publication transaction was tested using a genuine saved Good News Network story; test reverted. One real weak hour was correctly skipped.
+- Security checks: anonymous and authenticated users cannot execute the hourly scheduler RPCs or access the private schema; log table RLS enabled.
+- The GitHub version of the UI defaults to New, labels auto-curated sourced briefs, uses a designed fallback if no licensed photo, and polls only occasionally while viewing the top of the feed. It requires latest Render deployment before these UI changes are visible.
+- For source configurations, scoring policy, monitoring SQL, and known limitations, see `NEWS_AUTOMATION.md`. Never claim exhaustive worldwide coverage or exactly one article every hour regardless of quality.
