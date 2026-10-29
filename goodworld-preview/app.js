@@ -1,10 +1,14 @@
 "use strict";
-/* GoodWorld phase 1. Real articles, Supabase-authenticated per-account likes,
-   daily ranking (00:00 UTC). Trial/payments/rewards/submissions not enabled. */
+/* Free positive-news feed, authenticated likes and editorial review.
+   No paywall. Crypto support needs an owner-approved public wallet. */
 const GW_URL="https://jdmpmrhyjitmjyjuhtds.supabase.co";
 // During DNS migration, auth links stay on the host where registration starts. After Render verification, www.goodworld.news is canonical.
 const GW_SITE=(location.hostname==="goodworld.news"||location.hostname==="www.goodworld.news")?"https://www.goodworld.news":"https://goodworld-app.onrender.com";
 const GW_KEY="sb_publishable_Mi4xc0jwt_MFKhjKWZ1Vpw_bG6VPp3_";
+// Add only an owner-approved PUBLIC receiving address, network and token.
+// Never put a private key or recovery phrase in this frontend.
+const GW_DONATION=Object.freeze({network:"",asset:"",address:""});
+const GW_SHARE_URL="https://www.goodworld.news/";
 const client=window.supabase?.createClient(GW_URL,GW_KEY);
 const feed=document.getElementById("feed");
 const page=document.getElementById("page");
@@ -104,6 +108,13 @@ async function likeStory(id){
  if(resp.error){showToast("Could not save like");await loadStories(id)}
  else await loadStories(id);
 }
+async function shareSite(){
+ try{
+  if(navigator.share) await navigator.share({title:"GoodWorld",text:"A little more good in your day. Discover real uplifting news on GoodWorld.",url:GW_SHARE_URL});
+  else if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(GW_SHARE_URL);showToast("GoodWorld link copied")}
+  else showModal("Share GoodWorld","Send a friend this link: "+GW_SHARE_URL,"Close");
+ }catch(e){if(e.name!=="AbortError")showToast("Could not share GoodWorld")}
+}
 async function shareStory(id){
  const s=stories.find(s=>s.id===id);if(!s)return;
  const url=location.origin+location.pathname+"#story-"+encodeURIComponent(s.slug);
@@ -142,14 +153,35 @@ function showPage(which){
   return;
  }
  const pages={
-  submit:'<h1>Found some good news?</h1><p class="lead">Help us find stories worth sharing.</p><div class="panel"><p>Submit a source link to our editorial team. This feature will open after editorial review tools are ready.</p><button class="secondary" id="backFeed">Return to news</button></div><p class="subtle">No cash rewards are active.</p>',
-  rewards:'<h1>Spread the good.</h1><p class="lead">Invite 3 paying friends and earn 3 free months.</p><div class="steps"><div class="step">1</div><div class="step">2</div><div class="step">3</div></div><div class="panel"><p>Referrals will activate when paid subscriptions are ready. No referral links are being tracked yet.</p><button class="secondary" id="backFeed">Return to news</button></div>',
+  submit:'<h1>Found some good news?</h1><p class="lead">Help us find stories worth sharing.</p><div class="panel"><p>Story submissions are coming soon. Until then, enjoy the free feed and share stories with friends.</p><button class="secondary" id="backFeed">Return to news</button></div>',
+  share:'<h1>Spread the good.</h1><p class="lead">Help positive stories reach more people.</p><div class="panel"><h2>Invite someone to GoodWorld</h2><p>Everything is free to read. Share GoodWorld with a friend who could use some uplifting news today.</p><button class="primary" id="shareSite" type="button">Share GoodWorld ↗</button><p class="subtle">www.goodworld.news</p></div>',
+  donate:'<h1>Support GoodWorld.</h1><p class="lead">Good news should be free for everyone.</p><div class="panel" id="donationPanel"></div><p class="subtle">Contributions are voluntary and do not grant special access. They are not tax-deductible charitable donations. Crypto transfers are generally irreversible.</p>',
   profile:session?.user
-  ? '<h1>Your GoodWorld</h1><p class="lead">'+esc(session.user.email)+'</p><div class="panel"><h2>You are signed in.</h2><p>Your likes are linked to this account across your devices.</p><button class="secondary" id="signOut">Sign out</button></div><div class="panel"><p>7-day trial and $5/month membership are not yet accepting payments.</p></div>'
-  : '<h1>Welcome to GoodWorld.</h1><p class="lead">Sign in to support your favorite positive stories.</p><div class="panel"><form id="authForm"><label for="email">Email</label><input class="input" type="email" id="email" autocomplete="email" required placeholder="Your email"/><label for="password">Password</label><input class="input" type="password" id="password" autocomplete="current-password" minlength="8" required placeholder="At least 8 characters"/><button class="primary" id="signIn" type="submit">Sign in</button><button class="secondary" type="button" id="signUp">Create account</button><button class="password-link" type="button" id="forgotPassword">Forgot password?</button><button class="password-link" type="button" id="pasteRecoveryLink">Reset link not opening? Paste it here</button><div class="recovery-paste hidden" id="recoveryPaste"><label for="recoveryEmailLink">Paste the entire reset link from your email</label><textarea class="input" id="recoveryEmailLink" rows="3" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="https://…/auth/v1/verify?token=…&type=recovery"></textarea><button class="secondary" type="button" id="verifyRecoveryLink">Use this reset link</button><p class="subtle" id="pasteRecoveryStatus" role="status">Keep your reset link private. Never send it in a chat.</p></div></form><p class="subtle" id="authStatus">Email confirmation may be required for new accounts. Billing is not active.</p></div>'
+  ? '<h1>Your GoodWorld</h1><p class="lead">'+esc(session.user.email)+'</p><div class="panel"><h2>You are signed in.</h2><p>Your likes are linked to this account across your devices.</p><button class="secondary" id="signOut">Sign out</button></div><div class="panel"><p>GoodWorld is free for everyone. Thanks for being part of it.</p></div>'
+  : '<h1>Welcome to GoodWorld.</h1><p class="lead">Sign in to support your favorite positive stories.</p><div class="panel"><form id="authForm"><label for="email">Email</label><input class="input" type="email" id="email" autocomplete="email" required placeholder="Your email"/><label for="password">Password</label><input class="input" type="password" id="password" autocomplete="current-password" minlength="8" required placeholder="At least 8 characters"/><button class="primary" id="signIn" type="submit">Sign in</button><button class="secondary" type="button" id="signUp">Create account</button><button class="password-link" type="button" id="forgotPassword">Forgot password?</button><button class="password-link" type="button" id="pasteRecoveryLink">Reset link not opening? Paste it here</button><div class="recovery-paste hidden" id="recoveryPaste"><label for="recoveryEmailLink">Paste the entire reset link from your email</label><textarea class="input" id="recoveryEmailLink" rows="3" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="https://…/auth/v1/verify?token=…&type=recovery"></textarea><button class="secondary" type="button" id="verifyRecoveryLink">Use this reset link</button><p class="subtle" id="pasteRecoveryStatus" role="status">Keep your reset link private. Never send it in a chat.</p></div></form><p class="subtle" id="authStatus">GoodWorld is free. An account is only needed to like stories. Email confirmation may be required.</p></div>'
  };
  page.innerHTML=pages[which]??"";
  page.querySelector("#backFeed")?.addEventListener("click",()=>showPage("feed"));
+ page.querySelector("#shareSite")?.addEventListener("click",shareSite);
+ if(which==="donate"){
+  const donationPanel=page.querySelector("#donationPanel");
+  if(GW_DONATION.address&&GW_DONATION.asset&&GW_DONATION.network){
+   donationPanel.innerHTML='<h2>Send '+esc(GW_DONATION.asset)+' on '+esc(GW_DONATION.network)+'</h2><p>Only send '+esc(GW_DONATION.asset)+' using the '+esc(GW_DONATION.network)+' network. Transfers on a different network may be lost.</p><label for="donationAddress">Public receiving address</label><input id="donationAddress" class="input wallet-address" type="text" readonly value="'+esc(GW_DONATION.address)+'"/><button class="primary" type="button" id="copyDonationAddress">Copy wallet address</button>';
+   donationPanel.querySelector("#copyDonationAddress").addEventListener("click",async()=>{
+    try{
+     if(!navigator.clipboard?.writeText)throw new Error("Clipboard unavailable");
+     await navigator.clipboard.writeText(GW_DONATION.address);
+     showToast("Wallet address copied");
+    }catch{
+     donationPanel.querySelector("#donationAddress").select();
+     showToast("Select and copy the address");
+    }
+   });
+  }else{
+   donationPanel.innerHTML='<h2>Crypto support is being set up</h2><p>We are preparing a verified public receiving wallet. No payment address has been published yet.</p><button class="secondary" type="button" id="shareInstead">Share GoodWorld instead ↗</button>';
+   donationPanel.querySelector("#shareInstead").addEventListener("click",shareSite);
+  }
+ }
  page.querySelector("#signOut")?.addEventListener("click",async()=>{await client.auth.signOut();showPage("feed");showToast("Signed out")});
  if(which==="profile"&&!session?.user){
  const form=page.querySelector("#authForm");
@@ -226,5 +258,5 @@ function showPage(which){
  }
 }
 nav.forEach(n=>n.addEventListener("click",()=>{closeMenu();showPage(n.dataset.page)}));
-document.getElementById("join").addEventListener("click",()=>{closeMenu();showModal("7 days free. Then $5/month.","Subscriptions are not live yet. News is open to browse while we complete payments and membership access.")});
+document.getElementById("join").addEventListener("click",()=>{closeMenu();showPage("donate")});
 const hash=decodeURIComponent(location.hash.slice(1));if(hash.startsWith("story-")){const originalLoad=loadStories;setTimeout(()=>{const slug=hash.slice(6);document.getElementById("story-"+slug)?.scrollIntoView({block:"start"})},1900)}
