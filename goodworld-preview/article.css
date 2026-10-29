@@ -1,4 +1,4 @@
-:root{color-scheme:light;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;--paper:#fffaf3;--ink:#213c35;--inksoft:#54635b;--mint:#e8f2e8;--leaf:#206451;--accent:#f8d594;--edge:#e6e8dd}
+:root{color-scheme:light;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;--paper:#FFF9F0;--ink:#234A40;--inksoft:#52665C;--mint:#DDF0E4;--leaf:#21654F;--accent:#F7D77E;--edge:#D7E8D9}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-size:16px;line-height:1.68;-webkit-font-smoothing:antialiased}
 a{color:var(--leaf);text-underline-offset:3px}a:hover{color:#174838}a:focus-visible{outline:3px solid #d88c3e;outline-offset:4px;border-radius:3px}
 .site-head{max-width:1010px;padding:25px 22px 21px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid var(--edge)}
@@ -13,3 +13,12 @@ a{color:var(--leaf);text-underline-offset:3px}a:hover{color:#174838}a:focus-visi
 .bottom-home{margin:40px 0 0;font-size:14px;font-weight:760}.site-footer{border-top:1px solid var(--edge);max-width:1010px;margin:auto;padding:27px 24px 45px;font-size:12px;color:var(--inksoft);text-align:center}
 .archive-intro{max-width:620px;font-size:18px;color:var(--inksoft)}.archive-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:31px 0}.archive-card{display:block;padding:21px;background:white;border:1px solid var(--edge);border-radius:16px;text-decoration:none;color:var(--ink)}.archive-card .category{display:block;color:var(--leaf);font-size:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:850;margin-bottom:10px}.archive-card strong{display:block;font-size:19px;line-height:1.28;letter-spacing:-.02em}.archive-card time{display:block;margin-top:15px;font-size:12px;color:var(--inksoft)}
 @media(max-width:620px){.article-wrap{padding:36px 19px 55px}.site-head{padding:20px 18px}.related,.archive-grid{grid-template-columns:1fr}.related-card{min-height:105px}.article-body p{font-size:17px}}
+
+/* Shared Sunrise Garden brand touches for full-page editorial content. */
+.brand{color:#234A40}.brand:first-letter{color:#21654F}
+.head-link{color:#21654F;border-radius:99px;background:#DDF0E4;padding:8px 12px}
+.archive-card{border-color:#D7E8D9}
+.archive-card:hover{background:#FFFDF9}
+.related-card{background:#FFFFFF}
+.source-block{background:#E9F5EA;border-color:#D5E8D8}
+.archive-title{color:#234A40}
