@@ -115,7 +115,6 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
 .wallet-address{font-size:13px;overflow-wrap:anywhere;font-family:ui-monospace,monospace}
 #donationPanel>h2{font-size:22px;line-height:1.2;letter-spacing:-.02em;margin:0 0 8px}
 #donationPanel .secondary,#donationPanel .primary{margin-top:8px;cursor:pointer}
-#shareSite{cursor:pointer}
 
 /* GoodWorld voluntary donation selector and locally rendered address QR */
 #donationPanel label{display:block;font-size:12px;font-weight:700;color:#d7d1c4;margin:15px 0 6px}
