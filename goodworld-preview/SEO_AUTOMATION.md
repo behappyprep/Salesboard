@@ -47,40 +47,23 @@ After a successful deploy, check:
 - A representative editorial story, e.g. https://www.goodworld.news/stories/news-90769d14c89442d89bff842069b79c80.html
 - Direct new editor-approved stories will be linked by the frontend without needing hardcoded slug lists.
 
-## Scheduling subsequent SEO refreshes independently of ChatGPT
+## Nightly SEO refresh: schedule installed, hook not yet configured
 
-Render rebuilds the static pages automatically on every Git commit to the deployed branch, but adding a row to Supabase **does not itself cause a Git commit**.
+**Verified 2026-10-29:** the Render static site has Build Command `node goodworld-preview/build-seo.mjs`. Render build logs show **23 editorial articles, an archive and 25 sitemap URLs**, and the service has deployed successfully. Public HTTP checks against `https://www.goodworld.news` confirm:
+- `/sitemap.xml`: HTTP 200, `application/xml`
+- `/stories/`: HTTP 200, `text/html`
+- `/stories/news-90769d14c89442d89bff842069b79c80.html`: HTTP 200, `text/html`
 
-For full automation, use Render's existing **Deploy Hook** and Supabase's existing `pg_cron` + `pg_net` setup:
+A Supabase Cron job named `goodworld-seo-refresh-daily` is **already created** and active, with schedule `30 3 * * *` UTC (03:30 UTC, 04:30 Slovakia winter / 05:30 summer). The job is a guarded no-op until the owner supplies a secret Deploy Hook URL. The job refuses an endpoint that does not match the exact Render service ID and excludes hooks with a `ref=` override.
 
-1. In Render Settings locate the secret **Deploy Hook URL**. **Do not paste this URL in a public GitHub repository, source file, or chat.**
-2. Store the URL as a Supabase Vault secret named `goodworld_render_deploy_hook` in project `jdmpmrhyjitmjyjuhtds` using the Supabase dashboard. Check that its exact secret name exists; do not disclose the decrypted value.
-3. In Supabase SQL Editor (or via authenticated backend management tool) run:
+**One remaining owner step:** Copy the unmodified **Deploy Hook URL** from the GoodWorld service's Render Settings and save it, **directly in Supabase Vault**, using the exact secret name `goodworld_render_deploy_hook` in project `jdmpmrhyjitmjyjuhtds`. No extra SQL setup is required. Never paste the hook into chat, source code, issue comments or public commits.
 
-```sql
-select cron.schedule(
- 'goodworld-seo-refresh-daily',
- '30 3 * * *',
- $cron$
- select net.http_post(
-  url := (select decrypted_secret from vault.decrypted_secrets
-          where name='goodworld_render_deploy_hook'),
-  headers := '{"Content-Type":"application/json"}'::jsonb,
-  body := '{}'::jsonb,
-  timeout_milliseconds := 10000
- )
- where exists (
-  select 1 from vault.decrypted_secrets
-  where name='goodworld_render_deploy_hook'
-    and decrypted_secret like 'https://%'
- );
- $cron$
-);
-```
+With the Vault secret present, the existing daily Cron triggers Render's Deploy Hook and the Render build pulls currently approved editor-written Supabase stories to regenerate `stories/*.html`, the archive and `sitemap.xml` automatically. A full production test of this cross-platform trigger cannot be run until the secret has been supplied.
 
-4. Confirm the job is active with `select jobname,schedule,active from cron.job where jobname='goodworld-seo-refresh-daily';`, check Render deploy logs, verify actual new sitemap results. Adjust to twice daily if editorial volume warrants it. This is an ordinary recurring daily deploy and consumes Render build minutes; watch the site's pipeline quota.
+**Operations:** Track cron job state using SQL, and confirm actual scheduled Render deployments and generated sitemap. A scheduled Cron record marked `succeeded` proves only that the SQL ran, not that Render successfully built the site. It is normal for no new URL to be added when no new qualifying editorial article has been approved. Existing hourly RSS discovery and feed updates continue independently.
 
-**Important:** The cron task is **not activated until the hook secret is configured and the user agrees to the refresh schedule**. Don't claim the entire end-to-end automation is active before then. Existing RSS collection and hourly feed publication are separate and continue as configured.
+The exact safe Cron SQL, with **no keys in source**, is stored in:
+`supabase/migrations/20261029_goodworld_daily_seo_refresh.sql`.
 
 ## Discarded approach
 
