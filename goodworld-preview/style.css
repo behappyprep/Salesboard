@@ -124,3 +124,9 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
 .donation-qr img{display:block;max-width:100%;height:auto;image-rendering:pixelated}
 .wallet-address{height:auto;min-height:76px;resize:none;overflow-wrap:anywhere;word-break:break-all;font-size:14px!important;line-height:1.45!important;font-family:ui-monospace,SFMono-Regular,monospace}
 #copyDonationAddress{min-height:48px}
+
+/* Automatically selected source-linked news can run without licensed photography. */
+.story-fallback{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:radial-gradient(circle at 54% 36%,#35493f 0%,#1c2924 28%,#0c1513 69%,#0b0f0e 100%)}
+.fallback-star{font-size:clamp(118px,40vw,220px);line-height:1;color:#acc9ae25;font-weight:900;filter:drop-shadow(0 0 55px #dae8bb22)}
+.fallback-caption{font-size:10px;font-weight:800;letter-spacing:.24em;color:#c1d0bd8a;text-align:center;padding:0 16px}
+.auto-brief-label{font-size:10px;letter-spacing:.02em;color:#d7dec8b8}
