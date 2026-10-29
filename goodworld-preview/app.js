@@ -21,7 +21,7 @@ const GW_DONATION_OPTIONS=Object.freeze([
  {symbol:"USDC",network:"Ethereum (ERC-20)",wallet:"evm"},
  {symbol:"ETH",network:"Base",wallet:"evm"},
  {symbol:"USDC",network:"Base",wallet:"evm"},
- {symbol:"BNB",network:"BNB Smart Chain (BEP-20)",wallet:"evm"},
+ {symbol:"BNB",network:"BNB Smart Chain (native BNB)",wallet:"evm"},
  {symbol:"USDT",network:"BNB Smart Chain (BEP-20)",wallet:"evm"},
  {symbol:"ETH",network:"Arbitrum One",wallet:"evm"}
 ]);
