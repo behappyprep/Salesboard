@@ -2,8 +2,8 @@
 /* GoodWorld phase 1. Real articles, Supabase-authenticated per-account likes,
    daily ranking (00:00 UTC). Trial/payments/rewards/submissions not enabled. */
 const GW_URL="https://jdmpmrhyjitmjyjuhtds.supabase.co";
-// During DNS migration, auth links stay on the host where registration starts. Once the custom domain is live, root is canonical.
-const GW_SITE=(location.hostname==="goodworld.news"||location.hostname==="www.goodworld.news")?"https://goodworld.news":"https://goodworld-app.onrender.com";
+// During DNS migration, auth links stay on the host where registration starts. After Render verification, www.goodworld.news is canonical.
+const GW_SITE=(location.hostname==="goodworld.news"||location.hostname==="www.goodworld.news")?"https://www.goodworld.news":"https://goodworld-app.onrender.com";
 const GW_KEY="sb_publishable_Mi4xc0jwt_MFKhjKWZ1Vpw_bG6VPp3_";
 const client=window.supabase?.createClient(GW_URL,GW_KEY);
 const feed=document.getElementById("feed");
