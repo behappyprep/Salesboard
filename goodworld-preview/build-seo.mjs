@@ -17,7 +17,7 @@ const formatDate=s=>new Date(s).toLocaleDateString("en-US",{timeZone:"UTC",year:
 const dateOnly=s=>iso(s).slice(0,10);
 const slugOkay=s=>typeof s==="string" && /^[a-z0-9-]{5,120}$/.test(s);
 function eligible(s){
-  if(!s||s.status!=="published"||!slugOkay(s.slug)||s.slug.startsWith("auto-"))return false;
+  if(!s||s.status!=="published"||!slugOkay(s.slug)||s.slug.startsWith("auto-")||s.slug.startsWith("gov-"))return false;
   if(!s.title||s.title.trim().length<15||!s.summary||s.summary.trim().length<30)return false;
   if(!s.body||s.body.trim().length<200||!s.published_at||!Number.isFinite(Date.parse(s.published_at)))return false;
   if(!s.source_name||s.source_name.trim().length<3)return false;
