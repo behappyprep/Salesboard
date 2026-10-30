@@ -18,7 +18,7 @@
     if(!Array.isArray(stories))return;
     const qualified=stories.filter(s=>
       s&&typeof s.slug==="string"&&/^[a-z0-9-]{5,120}$/.test(s.slug)&&
-      !s.slug.startsWith("auto-")&&
+      !s.slug.startsWith("auto-")&&!s.slug.startsWith("gov-")&&
       String(s.title||"").trim().length>=15&&
       String(s.summary||"").trim().length>=30&&
       String(s.body||"").trim().length>=200&&
