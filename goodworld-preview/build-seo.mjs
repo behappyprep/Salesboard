@@ -95,7 +95,9 @@ function archiveHtml(stories){
     '<a class="head-link" href="/">Live news feed ↗</a></header>'+
     '<main class="article-wrap"><p class="eyebrow">GOODWORLD LIBRARY</p>'+
     '<h1 class="archive-title">Good news worth sharing.</h1>'+
-    '<p class="archive-intro">Original, source-linked positive news briefs from around the world. For the latest hourly updates, visit our <a href="/">live news feed</a>.</p>'+
+    '<p class="archive-intro">'+(stories.length
+      ? 'Original, source-linked positive news briefs from around the world. For the latest hourly updates, visit our <a href="/">live news feed</a>.'
+      : 'Our editorial library is being reviewed for source permissions and publishing rights. We will add independently reported or properly licensed positive stories when they are ready.')+'</p>'+
     '<section class="archive-grid" aria-label="Browse GoodWorld news stories">'+cards+'</section>'+
     '<p class="bottom-home"><a href="/">← Back to the live GoodWorld feed</a></p></main>'+
     '<footer class="site-footer">GoodWorld · Free positive news for everyone. · <a href="/privacy.html">Privacy &amp; analytics</a></footer>'+
@@ -148,7 +150,9 @@ async function fetchPublished(){
 async function main(){
   const rows=await fetchPublished();
   const stories=rows.filter(eligible).sort((a,b)=>Date.parse(b.published_at)-Date.parse(a.published_at));
-  if(!stories.length)throw new Error("No approved editorial stories found. Refusing to publish an empty sitemap.");
+  // Copyright safety: zero approved stories is an intentional state.
+  // Publish a clean, non-misleading archive and a 2-URL sitemap rather than
+  // accidentally retaining potentially unlicensed previously built pages.
   const seen=new Set();
   for(const s of stories){
     if(seen.has(s.slug))throw new Error("Duplicate public story slug: "+s.slug);
