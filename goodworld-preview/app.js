@@ -135,22 +135,27 @@ feed.addEventListener("error",e=>{
  placeholder.innerHTML='<span class="fallback-star">✳</span><span class="fallback-caption">GOOD THINGS ARE HAPPENING</span>';
  img.replaceWith(placeholder);
 },true);
+// Fetch rights metadata alongside every feed update. In particular, the quiet
+// background refresh must not render newly published stories with stale credits.
+async function fetchGoodworldImageRights(items){
+ if(!items.length)return new Map();
+ try{
+  const {data:credits,error}=await client
+   .from("goodworld_story_images")
+   .select("story_id,image_url,credit,credit_url,alt_text,rights_url")
+   .in("story_id",items.map(story=>story.id));
+  if(error){console.warn("Photo credits unavailable",error.message);return null}
+  return new Map((credits||[]).map(item=>[item.story_id,item]));
+ }catch(err){console.warn("Photo credits unavailable",err);return null}
+}
 async function loadStories(preserveId){
  if(!client){showToast("Unable to connect to news service");return}
  const {data,error}=await client.rpc("get_goodworld_feed",{p_order:currentTab});
  if(error){console.warn("Feed unavailable",error.message);showToast("News temporarily unavailable");return}
- stories=data||[];
- gwImageRights=new Map();
- if(stories.length){
-  try{
-   const {data:credits,error:creditsError}=await client
-    .from("goodworld_story_images")
-    .select("story_id,image_url,credit,credit_url,alt_text,rights_url")
-    .in("story_id",stories.map(story=>story.id));
-   if(creditsError)console.warn("Photo credits unavailable",creditsError.message);
-   else gwImageRights=new Map((credits||[]).map(item=>[item.story_id,item]));
-  }catch(err){console.warn("Photo credits unavailable",err)}
- }
+ const latest=data||[];
+ const rights=await fetchGoodworldImageRights(latest);
+ stories=latest;
+ gwImageRights=rights||new Map();
  renderFeed();
  if(preserveId){const node=[...feed.querySelectorAll(".story")].find(x=>x.dataset.id===preserveId);node?.scrollIntoView({block:"start",behavior:"instant"})}
 }
@@ -189,8 +194,14 @@ async function quietlyRefreshFeed(){
  const {data,error}=await client.rpc("get_goodworld_feed",{p_order:currentTab});
  if(error||!data)return;
  const same=stories.length===data.length&&data.every((x,i)=>x.id===stories[i].id&&x.likes_total===stories[i].likes_total&&x.likes_today===stories[i].likes_today&&x.liked_by_me===stories[i].liked_by_me);
- if(same)return;
- stories=data;renderFeed();
+ const rights=await fetchGoodworldImageRights(data);
+ const nextRights=rights||gwImageRights;
+ const rightsChanged=data.some(s=>{
+  const old=gwImageRights.get(s.id),now=nextRights.get(s.id);
+  return (old?.image_url||"")!==(now?.image_url||"")||(old?.credit||"")!==(now?.credit||"");
+ });
+ if(same&&!rightsChanged)return;
+ stories=data;gwImageRights=nextRights;renderFeed();
  if(previousTop&&stories[0]?.id!==previousTop)showToast("Fresh good news just arrived ✳");
 }
 setInterval(quietlyRefreshFeed,10*60*1000);
