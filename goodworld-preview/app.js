@@ -102,7 +102,7 @@ function gwObserveStoryViews(){
 }
 window.addEventListener("gw:analytics-ready",gwObserveStoryViews);
 function renderFeed(){
- if(!stories.length){feed.innerHTML='<div class="emptyfeed"><span class="pill">GoodWorld</span><h1>Good news is on its way.</h1><p>We publish verified positive stories with links to original sources.</p><button class="primary" id="refresh">Refresh news ↻</button></div>';feed.querySelector("#refresh").onclick=loadStories;return}
+ if(!stories.length){feed.innerHTML='<div class="emptyfeed"><span class="pill">GoodWorld</span><h1>Good news is on its way.</h1><p>We are reviewing our news sources and publishing rights. Only independently reported or properly licensed positive stories will return to this feed.</p><button class="primary" id="refresh">Refresh news ↻</button></div>';feed.querySelector("#refresh").onclick=loadStories;return}
  feed.innerHTML=stories.map((s,i)=>{
  const image=validUrl(s.image_url);
  const liked=!!s.liked_by_me;
