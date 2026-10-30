@@ -97,7 +97,7 @@ begin
  v_score:=goodworld_private.positive_score(v_c.original_title,v_c.original_excerpt,v_c.source_name,v_c.category);
  -- Decode common HTML entities already stored by legacy RSS ingestion.
  v_title:=replace(replace(replace(replace(replace(replace(v_c.original_title,
-   '&#8217;','’'),'&#8216;','‘'),'&#039;',chr(39)'),'&#39;',chr(39)'),'&quot;','"'),'&amp;','&');
+   '&#8217;','’'),'&#8216;','‘'),'&#039;',chr(39)),'&#39;',chr(39)),'&quot;','"'),'&amp;','&');
  v_category:=case
     when lower(v_title) ~ '(dolphin|kangaroo|kitten|whale|dog|cat|tiger|koala|elephant|wildlife rescue)' then 'Animals'
     when lower(v_title) ~ '(forest|conserv|reserve|nature|ecosystem|ocean|river|microplastic|renewable|solar)' then 'Nature & Planet'
@@ -106,7 +106,7 @@ begin
  v_excerpt:=trim(regexp_replace(left(coalesce(v_c.original_excerpt,''),220),'\s+\S*$',''));
  if length(v_excerpt)<35 then v_excerpt:=left(v_c.original_excerpt,220);end if;
  v_excerpt:=replace(replace(replace(replace(replace(v_excerpt,
-   '&#8217;','’'),'&#8216;','‘'),'&#039;',chr(39)'),'&#39;',chr(39)'),'&amp;','&');
+   '&#8217;','’'),'&#8216;','‘'),'&#039;',chr(39)),'&#39;',chr(39)),'&amp;','&');
  v_summary:=left(v_c.source_name||' reports: '||v_excerpt||
    (case when right(v_excerpt,1)~'[.!?]' then '' else '…' end),500);
 
