@@ -7,6 +7,7 @@ const SOURCES=[
  {feed:"https://www.goodnewsnetwork.org/category/news/animals/feed/",host:"goodnewsnetwork.org",name:"Good News Network",category:"Animals"},
  {feed:"https://www.goodnewsnetwork.org/feed/",host:"goodnewsnetwork.org",name:"Good News Network",category:"Human Kindness"},
  {feed:"https://www.goodgoodgood.co/articles/rss.xml",host:"goodgoodgood.co",name:"Good Good Good",category:"Human Kindness"},
+ {feed:"https://www.upworthy.com/feeds/feed.rss",host:"upworthy.com",name:"Upworthy",category:"Human Kindness"},
  {feed:"https://reasonstobecheerful.world/feed/",host:"reasonstobecheerful.world",name:"Reasons to be Cheerful",category:"Human Kindness"},
  {feed:"https://www.positive.news/feed/",host:"positive.news",name:"Positive News",category:"Human Kindness"},
  {feed:"https://www.optimistdaily.com/feed/",host:"optimistdaily.com",name:"The Optimist Daily",category:"Human Kindness"},
@@ -23,13 +24,21 @@ const SOURCES=[
  {feed:"https://feeds.npr.org/1007/rss.xml",host:"npr.org",name:"NPR",category:"Innovation"},
  {feed:"https://news.mongabay.com/feed/",host:"news.mongabay.com",name:"Mongabay",category:"Nature & Planet"},
  {feed:"https://www.smithsonianmag.com/rss/latest_articles/",host:"smithsonianmag.com",name:"Smithsonian Magazine",category:"Human Kindness"},
- {feed:"https://www.euronews.com/green/rss",host:"euronews.com",name:"Euronews Green",category:"Nature & Planet"},
  {feed:"https://substack.fixthenews.com/feed",host:"substack.fixthenews.com",name:"Fix The News",category:"Human Kindness"}
 ];
 const parser=new XMLParser({ignoreAttributes:false,attributeNamePrefix:"@_",textNodeName:"#text",trimValues:true});
 function plain(v:unknown):string{
  const s=typeof v==="string"?v:v&&typeof v==="object"&&"#text" in v?String((v as Record<string,unknown>)["#text"]):"";
- return s.replace(/<[^>]*>/g," ").replace(/&(?:nbsp|#160);/gi," ").replace(/&amp;/gi,"&").replace(/&lt;/gi,"<").replace(/&gt;/gi,">").replace(/&quot;/gi,'"').replace(/&#(?:39|x27);/gi,"'").replace(/\s+/g," ").trim();
+ return s.replace(/<[^>]*>/g," ")
+  .replace(/&#(x[0-9a-f]+|[0-9]+);/gi,(raw,entity)=>{
+   const hex=entity[0]?.toLowerCase()==="x",n=parseInt(hex?entity.slice(1):entity,hex?16:10);
+   return Number.isInteger(n)&&n>0&&n<=0x10ffff&&(n<0xd800||n>0xdfff)?String.fromCodePoint(n):raw;
+  })
+  .replace(/&(?:nbsp|ensp|emsp);/gi," ")
+  .replace(/&amp;/gi,"&").replace(/&lt;/gi,"<").replace(/&gt;/gi,">")
+  .replace(/&quot;/gi,'"').replace(/&apos;/gi,"'")
+  .replace(/&(?:ldquo|rdquo);/gi,'"').replace(/&(?:lsquo|rsquo);/gi,"'")
+  .replace(/\s+/g," ").trim();
 }
 function linkFor(item:Record<string,unknown>,host:string):string|null{
  const raw=item.link;
