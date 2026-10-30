@@ -9,6 +9,7 @@ const OUT=path.resolve(process.env.GOODWORLD_OUTPUT_DIR||"goodworld-preview");
 const STORIES_DIR=path.join(OUT,"stories");
 const SITE="https://www.goodworld.news";
 const API="https://jdmpmrhyjitmjyjuhtds.supabase.co/rest/v1/goodworld_stories";
+const PHOTO_API="https://jdmpmrhyjitmjyjuhtds.supabase.co/rest/v1/goodworld_story_images";
 const PUBLIC_KEY=process.env.GOODWORLD_SUPABASE_PUBLIC_KEY||"sb_publishable_Mi4xc0jwt_MFKhjKWZ1Vpw_bG6VPp3_";
 const PAGE_SIZE=500;
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -26,13 +27,15 @@ function eligible(s){
 function seoUrl(s){return SITE+"/stories/"+encodeURIComponent(s.slug)+".html"}
 function articleHtml(s,other){
   const url=seoUrl(s),pub=iso(s.published_at);
+  const photo=!!(s.image_url&&s.image_credit&&s.image_credit_url&&s.image_alt_text);
   const ld={
    "@context":"https://schema.org","@type":"Article",
    headline:s.title,description:s.summary,datePublished:pub,
    mainEntityOfPage:{"@type":"WebPage","@id":url},
    author:{"@type":"Organization",name:"GoodWorld Editorial",url:SITE},
    publisher:{"@type":"Organization",name:"GoodWorld",url:SITE},
-   citation:s.source_url,articleSection:s.category
+   citation:s.source_url,articleSection:s.category,
+   ...(photo?{image:[s.image_url]}:{})
   };
   const safeLd=JSON.stringify(ld).replace(/</g,"\\u003c");
   const paragraphs=s.body.trim().split(/\n\s*\n/g).map(p=>"<p>"+esc(p)+"</p>").join("\n");
@@ -51,7 +54,9 @@ function articleHtml(s,other){
     '<meta property="og:description" content="'+esc(s.summary)+'">'+
     '<meta property="og:url" content="'+esc(url)+'">'+
     '<meta property="article:published_time" content="'+esc(pub)+'">'+
-    '<meta name="twitter:card" content="summary">'+
+    (photo?'<meta property="og:image" content="'+esc(s.image_url)+'">'+
+      '<meta property="og:image:alt" content="'+esc(s.image_alt_text)+'">':'')+
+    '<meta name="twitter:card" content="'+(photo?'summary_large_image':'summary')+'">'+
     '<link rel="icon" type="image/svg+xml" href="/favicon.svg">'+
     '<link rel="stylesheet" href="/article.css">'+
     '<link rel="stylesheet" href="/analytics.css">'+
@@ -63,6 +68,11 @@ function articleHtml(s,other){
     ' <span class="dot">·</span><time datetime="'+esc(pub)+'">'+esc(formatDate(s.published_at))+'</time></p>'+
     '<article class="article"><h1>'+esc(s.title)+'</h1>'+
     '<p class="intro">'+esc(s.summary)+'</p>'+
+    (photo?'<figure class="article-hero"><img src="'+esc(s.image_url)+
+     '" alt="'+esc(s.image_alt_text)+'" loading="eager" decoding="async" referrerpolicy="no-referrer">'+
+     '<figcaption>Photo: <a href="'+esc(s.image_credit_url)+
+     '" target="_blank" rel="noopener noreferrer">'+esc(s.image_credit)+
+     '</a> · Official source image</figcaption></figure>':'')+
     '<div class="article-body">'+paragraphs+'</div>'+
     '<div class="source-block"><p class="source-label">Original reporting</p>'+
     '<p>This is a GoodWorld editorial summary based on reporting by <strong>'+esc(s.source_name)+
@@ -76,6 +86,8 @@ function articleHtml(s,other){
 }
 function archiveHtml(stories){
   const cards=stories.map(s=>'<a class="archive-card" href="/stories/'+encodeURIComponent(s.slug)+'.html">'+
+    (s.image_url&&s.image_credit?'<img class="archive-thumb" src="'+esc(s.image_url)+
+     '" alt="'+esc(s.image_alt_text)+'" loading="lazy" decoding="async" referrerpolicy="no-referrer">':'')+
     '<span class="category">'+esc(s.category)+'</span><strong>'+esc(s.title)+'</strong>'+
     '<time datetime="'+esc(iso(s.published_at))+'">'+esc(formatDate(s.published_at))+'</time></a>').join("\n");
   return '<!doctype html><html lang="en"><head>'+
@@ -122,7 +134,7 @@ async function fetchPublished(){
   const result=[];
   for(let offset=0;offset<10000;offset+=PAGE_SIZE){
     const url=new URL(API);
-    url.searchParams.set("select","slug,title,summary,body,category,source_name,source_url,published_at,created_at,status");
+    url.searchParams.set("select","id,slug,title,summary,body,category,image_url,source_name,source_url,published_at,created_at,status");
     url.searchParams.set("status","eq.published");
     url.searchParams.set("published_at","not.is.null");
     url.searchParams.set("order","published_at.desc");
@@ -147,9 +159,36 @@ async function fetchPublished(){
   }
   return result;
 }
+async function fetchPhotoRights(){
+  if(process.env.GOODWORLD_SEO_FIXTURE)return new Map();
+  const url=new URL(PHOTO_API);
+  url.searchParams.set("select","story_id,image_url,credit,credit_url,alt_text");
+  url.searchParams.set("limit","2000");
+  const res=await fetch(url,{
+   headers:{"apikey":PUBLIC_KEY,"Accept":"application/json"},
+   signal:AbortSignal.timeout(12000)
+  });
+  if(!res.ok)throw new Error("Verified photo provenance query failed. Aborting build to avoid uncredited photos.");
+  const rows=await res.json();
+  if(!Array.isArray(rows))throw new Error("Unexpected photo provenance response");
+  return new Map(rows.map(x=>[x.story_id,x]));
+}
 async function main(){
   const rows=await fetchPublished();
-  const stories=rows.filter(eligible).sort((a,b)=>Date.parse(b.published_at)-Date.parse(a.published_at));
+  const photos=await fetchPhotoRights();
+  const stories=rows.filter(eligible).map(story=>{
+   const checked=photos.get(story.id);
+   const verified=checked && checked.image_url===story.image_url &&
+      /^https:\/\//.test(checked.credit_url) &&
+      String(checked.credit||"").length>=3 &&
+      String(checked.alt_text||"").length>=20;
+   return {...story,
+     image_url:verified?story.image_url:null,
+     image_credit:verified?checked.credit:"",
+     image_credit_url:verified?checked.credit_url:"",
+     image_alt_text:verified?checked.alt_text:""
+   };
+  }).sort((a,b)=>Date.parse(b.published_at)-Date.parse(a.published_at));
   // Copyright safety: zero approved stories is an intentional state.
   // Publish a clean, non-misleading archive and a 2-URL sitemap rather than
   // accidentally retaining potentially unlicensed previously built pages.
