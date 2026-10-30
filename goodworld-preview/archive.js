@@ -7,7 +7,7 @@
   const grid=document.querySelector(".archive-grid");
   if(!grid)return;
   const url="https://jdmpmrhyjitmjyjuhtds.supabase.co/rest/v1/goodworld_stories"+
-    "?select=slug,title,summary,body,category,source_url,published_at"+
+    "?select=id,slug,title,summary,body,category,image_url,source_url,published_at"+
     "&status=eq.published&published_at=not.is.null"+
     "&order=published_at.desc&limit=500";
   const key="sb_publishable_Mi4xc0jwt_MFKhjKWZ1Vpw_bG6VPp3_";
@@ -26,10 +26,29 @@
       Number.isFinite(Date.parse(s.published_at))
     );
     if(!qualified.length)return;
+    const rightsUrl="https://jdmpmrhyjitmjyjuhtds.supabase.co/rest/v1/goodworld_story_images"+
+      "?select=story_id,image_url,alt_text,credit&limit=2000";
+    const rightsResponse=await fetch(rightsUrl,{
+      headers:{"apikey":key,"Accept":"application/json"}
+    });
+    if(!rightsResponse.ok)throw new Error("Photo rights unavailable");
+    const rightsData=await rightsResponse.json();
+    const rights=new Map((rightsData||[]).map(x=>[x.story_id,x]));
     const fragment=document.createDocumentFragment();
     for(const s of qualified){
       const card=document.createElement("a");card.className="archive-card";
       card.href="/stories/"+encodeURIComponent(s.slug)+".html";
+      const record=rights.get(s.id);
+      if(record&&record.image_url===s.image_url){
+        const img=document.createElement("img");
+        img.className="archive-thumb";
+        img.src=s.image_url;
+        img.alt=record.alt_text;
+        img.loading="lazy";
+        img.decoding="async";
+        img.referrerPolicy="no-referrer";
+        card.appendChild(img);
+      }
       const category=document.createElement("span");category.className="category";
       category.textContent=s.category||"Good News";
       const title=document.createElement("strong");title.textContent=s.title;
