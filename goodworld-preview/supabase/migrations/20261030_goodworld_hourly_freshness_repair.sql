@@ -97,16 +97,16 @@ begin
  v_score:=goodworld_private.positive_score(v_c.original_title,v_c.original_excerpt,v_c.source_name,v_c.category);
  -- Decode common HTML entities already stored by legacy RSS ingestion.
  v_title:=replace(replace(replace(replace(replace(replace(v_c.original_title,
-   '&#8217;','’'),'&#8216;','‘'),'&#039;',''''),'&#39;',''''),'&quot;','"'),'&amp;','&');
+   '&#8217;','’'),'&#8216;','‘'),'&#039;',chr(39)'),'&#39;',chr(39)'),'&quot;','"'),'&amp;','&');
  v_category:=case
     when lower(v_title) ~ '(dolphin|kangaroo|kitten|whale|dog|cat|tiger|koala|elephant|wildlife rescue)' then 'Animals'
     when lower(v_title) ~ '(forest|conserv|reserve|nature|ecosystem|ocean|river|microplastic|renewable|solar)' then 'Nature & Planet'
     when lower(v_title) ~ '(scientists?|researchers?|technology|tech|ai tool|nasa|innovation|device|developed)' then 'Innovation'
     else v_c.category end;
- v_excerpt:=trim(regexp_replace(left(coalesce(v_c.original_excerpt,''),220),'\s+\S*
+ v_excerpt:=trim(regexp_replace(left(coalesce(v_c.original_excerpt,''),220),'\s+\S*$',''));
  if length(v_excerpt)<35 then v_excerpt:=left(v_c.original_excerpt,220);end if;
  v_excerpt:=replace(replace(replace(replace(replace(v_excerpt,
-   '&#8217;','’'),'&#8216;','‘'),'&#039;',''''),'&#39;',''''),'&amp;','&');
+   '&#8217;','’'),'&#8216;','‘'),'&#039;',chr(39)'),'&#39;',chr(39)'),'&amp;','&');
  v_summary:=left(v_c.source_name||' reports: '||v_excerpt||
    (case when right(v_excerpt,1)~'[.!?]' then '' else '…' end),500);
 
@@ -120,34 +120,6 @@ begin
  '. The original report was published on '||to_char(v_c.published_at at time zone 'UTC','YYYY-MM-DD HH24:MI')||
  ' UTC. This is a short attributed excerpt, not independent verification. Please read the original reporting for context.',
  v_category,null,v_c.source_url,v_c.source_name,'published',now()
- ) returning id into v_story_id;
-
- update public.goodworld_candidates set status='published',reviewed_at=now(),published_story_id=v_story_id
- where id=v_c.id and status='pending';
-
- update public.goodworld_hourly_runs
- set status='published',score=v_score,story_id=v_story_id,
-     source_url=v_c.source_url,candidates_considered=v_count,reason=null
- where slot=v_slot;
- return jsonb_build_object('slot',v_slot,'status','published','score',v_score,'source',v_c.source_name,'title',v_c.original_title);
-end
-$function$;
-revoke all on function goodworld_private.publish_hourly() from public,anon,authenticated;
-,''));
- if length(v_excerpt)<35 then v_excerpt:=left(v_c.original_excerpt,220);end if;
- v_summary:=left(v_c.source_name||' reports: '||v_excerpt||
-   (case when right(v_excerpt,1)~'[.!?]' then '' else '…' end),500);
-
- insert into public.goodworld_stories(
- slug,title,summary,body,category,image_url,source_url,source_name,status,published_at
- ) values(
- 'auto-'||replace(v_c.id::text,'-',''),
- left(v_c.original_title,180),
- v_summary,
- 'GoodWorld automatically selected this source-linked positive news brief from '||v_c.source_name||
- '. The original report was published on '||to_char(v_c.published_at at time zone 'UTC','YYYY-MM-DD HH24:MI')||
- ' UTC. This is a short attributed excerpt, not independent verification. Please read the original reporting for context.',
- v_c.category,null,v_c.source_url,v_c.source_name,'published',now()
  ) returning id into v_story_id;
 
  update public.goodworld_candidates set status='published',reviewed_at=now(),published_story_id=v_story_id
