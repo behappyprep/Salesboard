@@ -127,7 +127,7 @@ Deno.serve(async (request:Request)=>{
  let added=0,inspected=0,processed=0,errors=0;
  const issues:string[]=[];
  // Up to four approved feeds, no unbounded origin fetch.
- const approved=(sources as Source[]).filter(s=>["www.nasa.gov","www.noaa.gov","www.gov.uk"].includes(s.host))
+ const approved=(sources as Source[]).filter(s=>["www.nasa.gov","science.nasa.gov","www.noaa.gov","www.gov.uk"].includes(s.host))
   .filter(s=>s.feed_url.startsWith("https://"+s.host+"/")).slice(0,8);
  const {data:run,error:runError}=await db.from("goodworld_primary_collection_logs")
    .insert({}).select("id").single();
