@@ -124,6 +124,17 @@ function renderFeed(){
  }).join("");
  gwObserveStoryViews();
 }
+// If an official host temporarily blocks an image, keep the feed usable
+// and avoid showing a broken image icon.
+feed.addEventListener("error",e=>{
+ const img=e.target;
+ if(!(img instanceof HTMLImageElement)||!img.classList.contains("photo"))return;
+ const placeholder=document.createElement("div");
+ placeholder.className="photo story-fallback";
+ placeholder.setAttribute("aria-hidden","true");
+ placeholder.innerHTML='<span class="fallback-star">✳</span><span class="fallback-caption">GOOD THINGS ARE HAPPENING</span>';
+ img.replaceWith(placeholder);
+},true);
 async function loadStories(preserveId){
  if(!client){showToast("Unable to connect to news service");return}
  const {data,error}=await client.rpc("get_goodworld_feed",{p_order:currentTab});
