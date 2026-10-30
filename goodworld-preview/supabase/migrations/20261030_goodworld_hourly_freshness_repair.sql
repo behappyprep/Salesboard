@@ -107,7 +107,7 @@ begin
  if length(v_excerpt)<35 then v_excerpt:=left(v_c.original_excerpt,220);end if;
  v_excerpt:=replace(replace(replace(replace(replace(v_excerpt,
    '&#8217;','’'),'&#8216;','‘'),'&#039;',chr(39)),'&#39;',chr(39)),'&amp;','&');
- v_summary:=left(v_c.source_name||' reports: '||v_excerpt||
+ v_summary:=left('Reported '||to_char(v_c.published_at at time zone 'UTC','Mon DD, YYYY')||' by '||v_c.source_name||': '||v_excerpt||
    (case when right(v_excerpt,1)~'[.!?]' then '' else '…' end),500);
 
  insert into public.goodworld_stories(
