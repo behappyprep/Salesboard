@@ -104,6 +104,20 @@ function gwObserveStoryViews(){
  for(const item of feed.querySelectorAll(".story"))gwStoryObserver.observe(item);
 }
 window.addEventListener("gw:analytics-ready",gwObserveStoryViews);
+// Original, self-hosted illustrations are used only when a verified source photograph is unavailable.
+// These are thematic illustrations, not documentary photographs of the reported event.
+function gwCoverPath(category){
+ const name=String(category||"").toLowerCase();
+ if(/animal|wildlife|pet|creature|rescue|zoo/.test(name))return "/covers/animals.svg";
+ if(/nature|planet|environment|climate|forest|ocean|conservation|earth/.test(name))return "/covers/nature.svg";
+ if(/innovation|science|tech|space|discover|research|health|medicine/.test(name))return "/covers/innovation.svg";
+ if(/kind|community|people|human|help|education|charity|society/.test(name))return "/covers/kindness.svg";
+ return "/covers/world.svg";
+}
+function gwIllustration(story){
+ const path=gwCoverPath(story?.category);
+ return '<div class="photo story-fallback story-cover" style="background-image:url('+path+')" role="img" aria-label="Decorative category illustration, not a photo of the event"></div>';
+}
 function renderFeed(){
  if(!stories.length){feed.innerHTML='<div class="emptyfeed"><span class="pill">GoodWorld</span><h1>Good news is on its way.</h1><p>We are reviewing our news sources and publishing rights. Only independently reported or properly licensed positive stories will return to this feed.</p><button class="primary" id="refresh">Refresh news ↻</button></div>';feed.querySelector("#refresh").onclick=loadStories;return}
  feed.innerHTML=stories.map((s,i)=>{
@@ -115,7 +129,7 @@ function renderFeed(){
  const link=validUrl(s.source_url);
  const editorialUrl=gwEditorialUrl(s);
  return '<article class="story" id="story-'+esc(s.slug)+'" data-id="'+esc(s.id)+'">'+
- (image?'<img class="photo" src="'+esc(image)+'" alt="'+esc(imageMeta.alt_text)+'" loading="'+(i===0?'eager':'lazy')+'" decoding="async" referrerpolicy="no-referrer"/>':'<div class="photo story-fallback" aria-hidden="true"><span class="fallback-star">✳</span><span class="fallback-caption">GOOD THINGS ARE HAPPENING</span></div>')+'<div class="shade"></div>'+
+ (image?'<img class="photo" src="'+esc(image)+'" alt="'+esc(imageMeta.alt_text)+'" loading="'+(i===0?'eager':'lazy')+'" decoding="async" referrerpolicy="no-referrer"/>':gwIllustration(s))+'<div class="shade"></div>'+
  '<div class="storycontent"><span class="pill">'+esc(s.category)+'</span><h2 class="headline">'+(editorialUrl?'<a class="story-permalink" href="'+esc(editorialUrl)+'">'+esc(s.title)+'</a>':esc(s.title))+'</h2><p class="desc">'+esc(s.summary)+'</p>'+
  '<div class="meta"><span>✳ '+esc(s.source_name)+'</span><span>·</span><span class="story-age">'+esc(goodworldAge(s.published_at))+'</span><span>·</span>'+(editorialUrl?'<a class="source" href="'+esc(editorialUrl)+'">Our brief ↗</a><span>·</span>':'')+'<a class="source" href="'+esc(link||"#")+'" target="_blank" rel="noopener noreferrer">Source ↗</a>'+(image?'<a class="photo-note" href="'+esc(imageMeta.credit_url)+'" target="_blank" rel="noopener noreferrer">Photo: '+esc(imageMeta.credit)+' ↗</a>':'')+(String(s.slug).startsWith("auto-")?'<span class="auto-brief-label">Automatically curated</span>':String(s.slug).startsWith("gov-")?'<span class="auto-brief-label">Official source · licensed brief</span>':'')+'</div></div>'+
  '<div class="storyactions"><button aria-label="'+(liked?"Unlike":"Like")+' story" class="action '+(liked?"liked":"")+'" data-action="like" data-id="'+esc(s.id)+'"><span class="symbol">'+(liked?"♥":"♡")+'</span><span>'+(Number(amount)||0)+'</span></button>'+
@@ -129,11 +143,11 @@ function renderFeed(){
 feed.addEventListener("error",e=>{
  const img=e.target;
  if(!(img instanceof HTMLImageElement)||!img.classList.contains("photo"))return;
- const placeholder=document.createElement("div");
- placeholder.className="photo story-fallback";
- placeholder.setAttribute("aria-hidden","true");
- placeholder.innerHTML='<span class="fallback-star">✳</span><span class="fallback-caption">GOOD THINGS ARE HAPPENING</span>';
- img.replaceWith(placeholder);
+ const story=stories.find(s=>s.id===img.closest(".story")?.dataset.id);
+ const wrapper=document.createElement("div");
+ wrapper.innerHTML=gwIllustration(story);
+ const placeholder=wrapper.firstElementChild;
+ if(placeholder)img.replaceWith(placeholder);
 },true);
 // Fetch rights metadata alongside every feed update. In particular, the quiet
 // background refresh must not render newly published stories with stale credits.
