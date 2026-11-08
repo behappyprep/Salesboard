@@ -104,25 +104,16 @@ function gwObserveStoryViews(){
  for(const item of feed.querySelectorAll(".story"))gwStoryObserver.observe(item);
 }
 window.addEventListener("gw:analytics-ready",gwObserveStoryViews);
-// Original, self-hosted illustrations are used only when a verified source photograph is unavailable.
-// These are thematic illustrations, not documentary photographs of the reported event.
-function gwCoverPath(category){
- const name=String(category||"").toLowerCase();
- if(/animal|wildlife|pet|creature|rescue|zoo/.test(name))return "/covers/animals.svg";
- if(/nature|planet|environment|climate|forest|ocean|conservation|earth/.test(name))return "/covers/nature.svg";
- if(/innovation|science|tech|space|discover|research|health|medicine/.test(name))return "/covers/innovation.svg";
- if(/kind|community|people|human|help|education|charity|society/.test(name))return "/covers/kindness.svg";
- return "/covers/world.svg";
-}
+// Do not substitute fictional illustrations or unrelated photos for real news.
+// If photo rights are unverified, show a quiet text-first editorial card.
 function gwIllustration(story){
- const path=gwCoverPath(story?.category);
- return '<div class="photo story-fallback story-cover" style="background-image:url('+path+')" role="img" aria-label="Decorative category illustration, not a photo of the event"></div>';
+ return '<div class="photo story-no-photo" aria-hidden="true"></div>';
 }
 function renderFeed(){
  if(!stories.length){feed.innerHTML='<div class="emptyfeed"><span class="pill">GoodWorld</span><h1>Good news is on its way.</h1><p>We are reviewing our news sources and publishing rights. Only independently reported or properly licensed positive stories will return to this feed.</p><button class="primary" id="refresh">Refresh news ↻</button></div>';feed.querySelector("#refresh").onclick=loadStories;return}
  feed.innerHTML=stories.map((s,i)=>{
  const imageMeta=gwImageRights.get(s.id);
- const image=imageMeta && imageMeta.image_url===s.image_url
+ const image=imageMeta && imageMeta.image_url===s.image_url && imageMeta.image_rights_status==="allowed_auto"
   ?validUrl(s.image_url):null;
  const liked=!!s.liked_by_me;
  const amount=currentTab==="top"?s.likes_today:s.likes_total;
@@ -131,7 +122,7 @@ function renderFeed(){
  return '<article class="story" id="story-'+esc(s.slug)+'" data-id="'+esc(s.id)+'">'+
  (image?'<img class="photo" src="'+esc(image)+'" alt="'+esc(imageMeta.alt_text)+'" loading="'+(i===0?'eager':'lazy')+'" decoding="async" referrerpolicy="no-referrer"/>':gwIllustration(s))+'<div class="shade"></div>'+
  '<div class="storycontent"><span class="pill">'+esc(s.category)+'</span><h2 class="headline">'+(editorialUrl?'<a class="story-permalink" href="'+esc(editorialUrl)+'">'+esc(s.title)+'</a>':esc(s.title))+'</h2><p class="desc">'+esc(s.summary)+'</p>'+
- '<div class="meta"><span>✳ '+esc(s.source_name)+'</span><span>·</span><span class="story-age">'+esc(goodworldAge(s.published_at))+'</span><span>·</span>'+(editorialUrl?'<a class="source" href="'+esc(editorialUrl)+'">Our brief ↗</a><span>·</span>':'')+'<a class="source" href="'+esc(link||"#")+'" target="_blank" rel="noopener noreferrer">Source ↗</a>'+(image?'<a class="photo-note" href="'+esc(imageMeta.credit_url)+'" target="_blank" rel="noopener noreferrer">Photo: '+esc(imageMeta.credit)+' ↗</a>':'')+(String(s.slug).startsWith("auto-")?'<span class="auto-brief-label">Automatically curated</span>':String(s.slug).startsWith("gov-")?'<span class="auto-brief-label">Official source · licensed brief</span>':'')+'</div></div>'+
+ '<div class="meta"><span>✳ '+esc(s.source_name)+'</span><span>·</span><span class="story-age">'+esc(goodworldAge(s.published_at))+'</span><span>·</span>'+(editorialUrl?'<a class="source" href="'+esc(editorialUrl)+'">Our brief ↗</a><span>·</span>':'')+'<a class="source" href="'+esc(link||"#")+'" target="_blank" rel="noopener noreferrer">Source ↗</a>'+(image?'<a class="photo-note" href="'+esc(validUrl(imageMeta.credit_url)||link||"#")+'" target="_blank" rel="noopener noreferrer">Photo: '+esc(imageMeta.credit)+' ↗</a><a class="photo-note photo-license" href="'+esc(validUrl(imageMeta.rights_url)||"#")+'" target="_blank" rel="noopener noreferrer" aria-label="Image rights and reuse terms">Image rights ↗</a>':'')+(String(s.slug).startsWith("auto-")?'<span class="auto-brief-label">Automatically curated</span>':String(s.slug).startsWith("gov-")?'<span class="auto-brief-label">Official source · licensed brief</span>':'')+'</div></div>'+
  '<div class="storyactions"><button aria-label="'+(liked?"Unlike":"Like")+' story" class="action '+(liked?"liked":"")+'" data-action="like" data-id="'+esc(s.id)+'"><span class="symbol">'+(liked?"♥":"♡")+'</span><span>'+(Number(amount)||0)+'</span></button>'+
  '<button aria-label="Repost story" class="action" data-action="share" data-id="'+esc(s.id)+'"><span class="symbol">↗</span><span>Repost</span></button></div>'+
  (i===0?'<div class="swipetip">↑ SWIPE FOR MORE GOOD NEWS</div>':"")+'</article>'
@@ -156,7 +147,7 @@ async function fetchGoodworldImageRights(items){
  try{
   const {data:credits,error}=await client
    .from("goodworld_story_images")
-   .select("story_id,image_url,credit,credit_url,alt_text,rights_url")
+   .select("story_id,image_url,credit,credit_url,alt_text,rights_url,image_license,image_rights_status")
    .in("story_id",items.map(story=>story.id));
   if(error){console.warn("Photo credits unavailable",error.message);return null}
   return new Map((credits||[]).map(item=>[item.story_id,item]));
@@ -212,7 +203,7 @@ async function quietlyRefreshFeed(){
  const nextRights=rights||gwImageRights;
  const rightsChanged=data.some(s=>{
   const old=gwImageRights.get(s.id),now=nextRights.get(s.id);
-  return (old?.image_url||"")!==(now?.image_url||"")||(old?.credit||"")!==(now?.credit||"");
+  return (old?.image_url||"")!==(now?.image_url||"")||(old?.credit||"")!==(now?.credit||"")||(old?.image_rights_status||"")!==(now?.image_rights_status||"");
  });
  if(same&&!rightsChanged)return;
  stories=data;gwImageRights=nextRights;renderFeed();
