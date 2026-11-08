@@ -312,3 +312,31 @@ button,input,textarea,select{accent-color:var(--leaf)}
 /* Strong visible keyboard focus, including controls with older selectors. */
 .menu-support .donate-cta:focus-visible,.primary:focus-visible,.secondary:focus-visible,.navitem:focus-visible,.tab:focus-visible,.action:focus-visible,.menu-close:focus-visible,.story-permalink:focus-visible{outline:3px solid #A35F24;outline-offset:3px}
 .headline{overflow-wrap:break-word}
+
+/* Editorial cards without proven photo rights stay photo-free.
+   Never fill a documentary news slot with unrelated illustration or stock art. */
+.story-no-photo{
+  top:137px;
+  left:0;
+  right:0;
+  width:100%;
+  height:45%;
+  border-radius:20px 20px 0 0;
+  filter:none;
+  background:
+    radial-gradient(ellipse at 78% 26%,rgba(247,215,126,.45),transparent 45%),
+    radial-gradient(ellipse at 17% 74%,rgba(163,215,182,.52),transparent 57%),
+    linear-gradient(145deg,#EAF3E8 0%,#F6F3E7 57%,#F9EBD3 100%);
+}
+.photo-note,.photo-license{
+  color:#35634f;
+  font-size:10px;
+  letter-spacing:0;
+  display:inline-block;
+  text-decoration:underline;
+  text-decoration-color:#35634f55;
+  text-underline-offset:3px;
+  max-width:100%;
+  line-height:1.35;
+}
+.photo-note:hover,.photo-license:hover{color:#153f31}
