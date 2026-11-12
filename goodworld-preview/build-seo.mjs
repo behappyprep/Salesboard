@@ -166,7 +166,7 @@ function preRenderedFeed(allRows,photos,lang,translations){
   return '<article class="story'+(i===0?' is-featured':'')+(image?' has-photo':' is-text')+'">'+
    (image?'<div class="story-media"><img class="photo" src="'+esc(image)+
     '" alt="'+esc(imageMeta.alt_text||heading)+'" loading="'+(i===0?'eager':'lazy')+
-    '" decoding="async" referrerpolicy="no-referrer">'+
+    '" decoding="async" referrerpolicy="no-referrer"'+(i===0?' fetchpriority="high"':'')+'>'+
     (representative?'<span class="representative-label">Representative photo</span>':"")+
     '</div>':"")+
    '<div class="story-content"><div class="story-kicker"><span class="story-category">'+esc(s.category)+
@@ -204,8 +204,13 @@ async function writeSearchLandingPages(rows,photos){
  const langs=[...translations.keys()];
  const alternates=pageAlternates(langs);
  const mainFeed=preRenderedFeed(rows,photos,"en",null);
+ const hero=rows.filter(s=>s.status==="published"&&s.image_url&&
+   photos.get(s.id)?.image_url===s.image_url)
+  .sort((a,b)=>Date.parse(b.published_at)-Date.parse(a.published_at))[0];
+ const heroPreload=hero?'<link rel="preload" as="image" href="'+esc(hero.image_url)+
+   '" referrerpolicy="no-referrer" fetchpriority="high">':"";
  base=replaceFeedContent(base,mainFeed);
- base=base.replace("</head>",alternates+
+ base=base.replace("</head>",heroPreload+alternates+
   '<link rel="alternate" type="application/rss+xml" title="GoodWorld positive news RSS" href="/feed.xml">'+
   "</head>");
  await fs.writeFile(primary,base,"utf8");
