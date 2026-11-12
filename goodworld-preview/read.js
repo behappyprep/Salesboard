@@ -12,6 +12,19 @@
  const safe=u=>{try{const a=new URL(u);return a.protocol==="https:"?a.href:""}catch{return ""}};
  const query=new URLSearchParams(location.search), slug=query.get("story");
  let article=null,rights=null;
+ let engagementTracked=false;
+ function trackArticleRead(){
+  if(!article||engagementTracked||!window.GWAnalytics?.enabled())return;
+  engagementTracked=true;
+  const chosen=lang()?.getLang()||"en";
+  window.GWAnalytics.track("read_article",{
+   content_type:"article",content_id:article.slug,
+   language:chosen,story_category:article.category,
+   translation_status:chosen==="en"?"original":lang()?.translated(article)?"machine":"pending"
+  });
+ }
+ window.addEventListener("gw:analytics-ready",trackArticleRead);
+
  async function load(){
   if(!slug||!/^[-a-z0-9]{5,120}$/.test(slug)){renderUnavailable();return}
   try{
@@ -63,7 +76,8 @@
    (original?'<p><a class="reader-link" href="'+escape(original)+'" rel="noopener noreferrer" target="_blank">'+escape(tx("original"))+' ↗</a></p>':'')+
    '<p><a class="reader-link" href="/?lang='+encodeURIComponent(selected)+'">'+escape(tx("back"))+'</a></p></div>';
   const back=document.getElementById("backHome");
-  if(back)back.href="/?lang="+encodeURIComponent(selected);
+  if(back)back.href=selected==="en"?"/":"/"+encodeURIComponent(selected)+"/";
+  trackArticleRead();
  }
  window.addEventListener("goodworld:language-changed",render);
  window.addEventListener("goodworld:translations-loaded",render);
