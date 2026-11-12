@@ -131,8 +131,8 @@ function gwFeedFooter(){
  '<div><div class="footer-brand">goodworld</div>'+
  '<div class="footer-copy">'+esc(tx("footer"))+'</div></div>'+
  '<nav class="footer-links" aria-label="Footer">'+
- '<a href="./privacy.html">'+esc(tx("privacy"))+'</a>'+
- '<a href="./stories/">'+esc(tx("all"))+'</a>'+
+ '<a href="/privacy.html">'+esc(tx("privacy"))+'</a>'+
+ '<a href="/stories/">'+esc(tx("all"))+'</a>'+
 
  '</nav></footer>';
 }
