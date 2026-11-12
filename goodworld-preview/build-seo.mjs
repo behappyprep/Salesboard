@@ -195,7 +195,9 @@ async function writeSearchLandingPages(rows,photos){
  const alternates=pageAlternates(langs);
  const mainFeed=preRenderedFeed(rows,photos,"en",null);
  base=replaceFeedContent(base,mainFeed);
- base=base.replace("</head>",alternates+"</head>");
+ base=base.replace("</head>",alternates+
+  '<link rel="alternate" type="application/rss+xml" title="GoodWorld positive news RSS" href="/feed.xml">'+
+  "</head>");
  await fs.writeFile(primary,base,"utf8");
  for(const language of langs){
   const meta=LOCALIZED[language];
@@ -224,7 +226,10 @@ async function writeSearchLandingPages(rows,photos){
 
 function sitemapXml(stories,locales,latestPublication){
   const lastmod=latestPublication?dateOnly(latestPublication):null;
-  const urls=[{url:SITE+"/",lastmod},{url:SITE+"/stories/",lastmod}].concat(
+  const urls=[{url:SITE+"/",lastmod},{url:SITE+"/stories/",lastmod},
+    {url:SITE+"/about.html",lastmod:null},
+    {url:SITE+"/editorial-policy.html",lastmod:null},
+    {url:SITE+"/contact.html",lastmod:null}].concat(
     locales.map(lang=>({url:SITE+"/"+lang+"/",lastmod})),
     stories.map(s=>({url:seoUrl(s),lastmod:dateOnly(s.published_at)})));
   return '<?xml version="1.0" encoding="UTF-8"?>\n'+
@@ -233,6 +238,34 @@ function sitemapXml(stories,locales,latestPublication){
       (x.lastmod?'<lastmod>'+x.lastmod+'</lastmod>':'')+'</url>').join("\n")+
     '\n</urlset>\n';
 }
+
+function buildRssFeed(rows){
+ const recent=(rows||[]).filter(s=>s.status==="published"&&s.title&&s.summary&&
+   s.published_at&&Number.isFinite(Date.parse(s.published_at)))
+  .sort((a,b)=>Date.parse(b.published_at)-Date.parse(a.published_at)).slice(0,40);
+ const xmlItems=recent.map(s=>{
+  const url=SITE+"/read.html?story="+encodeURIComponent(s.slug)+"&amp;lang=en";
+  return '  <item>\n'+
+  '    <title>'+esc(s.title)+'</title>\n'+
+  '    <link>'+url+'</link>\n'+
+  '    <guid isPermaLink="false">goodworld:'+esc(s.id)+'</guid>\n'+
+  '    <pubDate>'+new Date(s.published_at).toUTCString()+'</pubDate>\n'+
+  '    <description>'+esc(s.summary)+" Source: "+esc(s.source_name||"Original publisher")+
+    " ("+esc(s.source_url)+")</description>\n"+
+  '    <category>'+esc(s.category||"Good news")+'</category>\n'+
+  '  </item>';
+ }).join("\n");
+ return '<?xml version="1.0" encoding="UTF-8"?>\n'+
+  '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>\n'+
+  '  <title>GoodWorld · Real Positive News</title>\n'+
+  '  <link>'+SITE+'/</link>\n'+
+  '  <atom:link href="'+SITE+'/feed.xml" rel="self" type="application/rss+xml"/>\n'+
+  '  <description>Verified positive news about science, animals, nature, medicine and human kindness. Linked to original sources.</description>\n'+
+  '  <language>en</language>\n'+
+  '  <lastBuildDate>'+(recent[0]?new Date(recent[0].published_at).toUTCString():new Date().toUTCString())+'</lastBuildDate>\n'+
+  xmlItems+'\n</channel></rss>\n';
+}
+
 async function fetchPublished(){
   if(process.env.GOODWORLD_SEO_FIXTURE){
     const txt=await fs.readFile(path.resolve(process.env.GOODWORLD_SEO_FIXTURE),"utf8");
@@ -334,8 +367,9 @@ async function main(){
   const latest=rows.filter(s=>s.status==="published"&&s.published_at)
     .sort((a,b)=>Date.parse(b.published_at)-Date.parse(a.published_at))[0];
   await fs.writeFile(path.join(OUT,"sitemap.xml"),sitemapXml(stories,locales,latest?.published_at),"utf8");
+  await fs.writeFile(path.join(OUT,"feed.xml"),buildRssFeed(rows),"utf8");
   await fs.writeFile(manifestPath,JSON.stringify(stories.map(s=>s.slug),null,2)+"\n","utf8");
-  console.log("GoodWorld SEO built: "+stories.length+" editorial pages + "+locales.length+" localized landings + archive + sitemap ("+(stories.length+2+locales.length)+" URLs)");
+  console.log("GoodWorld SEO built: "+stories.length+" editorial pages, "+locales.length+" localized homepages, source-linked RSS and sitemap ("+(stories.length+5+locales.length)+" URLs)");
   console.log("Excluded "+(rows.length-stories.length)+" public entries with insufficient editorial content or automatic RSS briefs.");
 }
 main().catch(error=>{console.error("GoodWorld SEO build failed:",error instanceof Error?error.message:"Unknown error");process.exitCode=1});
