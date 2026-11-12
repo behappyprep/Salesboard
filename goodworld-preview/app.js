@@ -44,6 +44,9 @@ const menuButton=document.getElementById("menuButton");
 const modal=document.getElementById("modal");
 let stories=[],currentTab="new",session=null,currentPage="feed",toastTimer=null;
 let feedRequestSequence=0;
+const i18n=window.GW_I18N;
+const tx=k=>i18n?.t(k)||k;
+const newsLink=s=>"/read.html?story="+encodeURIComponent(s.slug)+"&lang="+encodeURIComponent(i18n?.getLang()||"en");
 const authParams=new URLSearchParams(location.search);
 const callbackError=new URLSearchParams(location.hash.replace(/^#/,"")).get("error_description");
 let recoveryMode=authParams.has("gw_reset") || /(?:^|[&#])type=recovery(?:&|$)/.test(location.hash);
@@ -108,28 +111,28 @@ window.addEventListener("gw:analytics-ready",gwObserveStoryViews);
 // Do not substitute fictional illustrations or unrelated photos for real news.
 // If photo rights are unverified, show a quiet text-first editorial card.
 function gwStoryDate(value){
- try{return new Intl.DateTimeFormat("en-US",{month:"short",day:"numeric",year:"numeric"}).format(new Date(value))}
+ try{return new Intl.DateTimeFormat(i18n?.locale()||"en-US",{month:"short",day:"numeric",year:"numeric"}).format(new Date(value))}
  catch{return ""}
 }
 function gwEditionDate(){
- return new Intl.DateTimeFormat("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"}).format(new Date());
+ return new Intl.DateTimeFormat(i18n?.locale()||"en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"}).format(new Date());
 }
 function gwFeedHeading(){
  const top=currentTab==="top";
  return '<div class="edition-row"><span>'+esc(gwEditionDate())+'</span>'+
- '<span>Good news from verified sources</span></div>'+
+ '<span>'+esc(tx("sourceProof"))+'</span></div>'+
  '<section class="feed-heading" aria-label="News listing">'+
- '<h1>'+(top?"Top Today":"Latest news")+'</h1>'+
- '<p>'+(top?"Stories readers liked today":"The newest stories, all in one feed")+'</p>'+
+ '<h1>'+tx(top?"topTitle":"latestTitle")+'</h1>'+
+ '<p>'+tx(top?"topSub":"latestSub")+'</p>'+
  '</section>';
 }
 function gwFeedFooter(){
  return '<footer class="feed-footer">'+
  '<div><div class="footer-brand">goodworld</div>'+
- '<div class="footer-copy">Positive news, sourced and free to read.</div></div>'+
+ '<div class="footer-copy">'+esc(tx("footer"))+'</div></div>'+
  '<nav class="footer-links" aria-label="Footer">'+
- '<a href="./privacy.html">Privacy</a>'+
- '<a href="./stories/">All stories</a>'+
+ '<a href="./privacy.html">'+esc(tx("privacy"))+'</a>'+
+ '<a href="./stories/">'+esc(tx("all"))+'</a>'+
 
  '</nav></footer>';
 }
@@ -139,8 +142,8 @@ function renderFeed(){
  if(!stories.length){
   feed.innerHTML='<div class="feed-shell">'+header+
    (currentTab==="top"
-     ? '<div class="emptyfeed top-empty" role="status"><span class="pill">Top Today</span><h1>The favorites are still coming.</h1><p>No stories have received a heart today. Find something uplifting in Latest and tap the heart to help it appear here.</p><button class="primary" id="browseNew" type="button">Explore latest stories ↗</button></div>'
-     : '<div class="emptyfeed" role="status"><span class="pill">LATEST</span><h1>Something good is on its way.</h1><p>We only publish sourced, meaningful news. Try refreshing to see what is new.</p><button class="primary" id="refresh" type="button">Refresh news</button></div>')+
+     ? '<div class="emptyfeed top-empty" role="status"><span class="pill">'+esc(tx("top"))+'</span><h1>'+esc(tx("noTop"))+'</h1><p>'+esc(tx("noTopDetails"))+'</p><button class="primary" id="browseNew" type="button">'+esc(tx("browse"))+' ↗</button></div>'
+     : '<div class="emptyfeed" role="status"><span class="pill">'+esc(tx("latest"))+'</span><h1>'+esc(tx("noLatest"))+'</h1><p>'+esc(tx("noLatestDetails"))+'</p><button class="primary" id="refresh" type="button">'+esc(tx("refresh"))+'</button></div>')+
    gwFeedFooter()+'</div>';
   if(currentTab==="top")feed.querySelector("#browseNew").onclick=()=>setFeedTab("new");
   else feed.querySelector("#refresh").onclick=()=>loadStories();
@@ -148,6 +151,9 @@ function renderFeed(){
   return;
  }
  const cards=stories.map((s,i)=>{
+  const translation=i18n?.translated(s);
+  const displayTitle=translation?.title||s.title,displaySummary=translation?.summary||s.summary;
+  const translationPending=!!(i18n&&i18n.getLang()!=="en"&&!translation);
   const meta=gwImageRights.get(s.id);
   const image=meta&&meta.image_url===s.image_url&&meta.image_rights_status==="allowed_auto"
    ?validUrl(s.image_url):null;
@@ -155,37 +161,39 @@ function renderFeed(){
   const amount=currentTab==="top"?s.likes_today:s.likes_total;
   const link=validUrl(s.source_url);
   const ownUrl=gwEditorialUrl(s);
-  const titleUrl=ownUrl||link;
+  const titleUrl=(i18n?.getLang()||"en")==="en"&&ownUrl?ownUrl:newsLink(s);
   const storyTitle=titleUrl?
-   '<a class="story-permalink" href="'+esc(titleUrl)+'"'+(ownUrl?'':' target="_blank" rel="noopener noreferrer"')+'>'+esc(s.title)+'</a>'
-   :esc(s.title);
+   '<a class="story-permalink" href="'+esc(titleUrl)+'"'+(ownUrl?'':' target="_blank" rel="noopener noreferrer"')+'>'+esc(displayTitle)+'</a>'
+   :esc(displayTitle);
   const representative=image&&meta.image_kind==="representative";
   const imageMarkup=image?
    '<div class="story-media"><img class="photo" src="'+esc(image)+'" alt="'+esc(meta.alt_text||s.title)+'" loading="'+(i===0?'eager':'lazy')+'" decoding="async" referrerpolicy="no-referrer">'+
-   (representative?'<span class="representative-label" title="Licensed photograph illustrating the topic, not a photo of this specific event">Representative photo</span>':'')+
+   (representative?'<span class="representative-label" title="Licensed photograph illustrating the topic, not a photo of this specific event">'+esc(tx("representative"))+'</span>':'')+
    '</div>'
    :'';
   const category=currentTab==="top"?"#"+(i+1)+" / "+s.category:s.category;
   const sourceLink=link?
-   '<a href="'+esc(link)+'" target="_blank" rel="noopener noreferrer">Original source ↗</a>':'';
+   '<a href="'+esc(link)+'" target="_blank" rel="noopener noreferrer">'+esc(tx("source"))+' ↗</a>':'';
   const photoLink=image?
    '<a class="photo-credit" href="'+esc(validUrl(meta.credit_url)||link||"#")+'" target="_blank" rel="noopener noreferrer">'+
-   (representative?'Illustrative photo':'Photo')+': '+esc(meta.credit)+(representative?' · cropped':'')+' ↗</a>'+
+   (representative?tx("illustrative"):tx("photo"))+': '+esc(meta.credit)+(representative?' · cropped':'')+' ↗</a>'+
    '<a class="photo-credit" href="'+esc(validUrl(meta.rights_url)||"#")+'" target="_blank" rel="noopener noreferrer">'+
-   esc(meta.image_license||"Image rights")+' ↗</a>':'';
+   esc(meta.image_license||tx("rights"))+' ↗</a>':'';
   return '<article class="story '+(i===0?'is-featured ':'')+(image?'has-photo':'is-text')+'" id="story-'+esc(s.slug)+'" data-id="'+esc(s.id)+'">'+
    imageMarkup+
    '<div class="story-content">'+
     '<div class="story-kicker"><span class="story-category">'+esc(category)+'</span>'+
     '<time class="story-date" datetime="'+esc(s.published_at)+'">'+esc(gwStoryDate(s.published_at))+'</time></div>'+
     '<h3 class="story-title">'+storyTitle+'</h3>'+
-    '<p class="story-desc">'+esc(s.summary)+'</p>'+
+    '<p class="story-desc">'+esc(displaySummary)+'</p>'+
+    (translationPending?'<p class="translation-pending">'+esc(tx("pending"))+'</p>':'')+
     '<div class="story-foot">'+
-     '<div class="story-origin"><span>REPORTED BY</span><strong>'+esc(s.source_name)+'</strong></div>'+
+     '<div class="story-origin"><span>'+esc(tx("reported"))+'</span><strong>'+esc(s.source_name)+'</strong></div>'+
      '<div class="storyactions">'+
-      '<button aria-label="'+(liked?"Unlike":"Like")+' story" aria-pressed="'+String(liked)+'" class="action '+(liked?"liked":"")+'" type="button" data-action="like" data-id="'+esc(s.id)+'"><span class="symbol" aria-hidden="true">'+(liked?"♥":"♡")+'</span><span>'+esc(String(Number(amount)||0))+'</span></button>'+
-      '<button aria-label="Share story" class="action" type="button" data-action="share" data-id="'+esc(s.id)+'"><span class="symbol" aria-hidden="true">↗</span><span>Share</span></button>'+
+      '<button aria-label="'+(liked?tx("unlike"):tx("like"))+' story" aria-pressed="'+String(liked)+'" class="action '+(liked?"liked":"")+'" type="button" data-action="like" data-id="'+esc(s.id)+'"><span class="symbol" aria-hidden="true">'+(liked?"♥":"♡")+'</span><span>'+esc(String(Number(amount)||0))+'</span></button>'+
+      '<button aria-label="'+esc(tx("share"))+'" class="action" type="button" data-action="share" data-id="'+esc(s.id)+'"><span class="symbol" aria-hidden="true">↗</span><span>'+esc(tx("share"))+'</span></button>'+
      '</div></div>'+
+    '<div class="read-wrap"><a class="reader-link" href="'+esc(newsLink(s))+'">'+esc(tx("read"))+' ↗</a></div>'+
     '<div class="story-source-row">'+sourceLink+photoLink+'</div>'+
    '</div></article>';
  }).join("");
@@ -290,6 +298,8 @@ async function quietlyRefreshFeed(){
  stories=data;gwImageRights=nextRights;renderFeed();
  if(previousTop&&stories[0]?.id!==previousTop)showToast("Fresh good news just arrived ✳");
 }
+window.addEventListener("goodworld:language-changed",()=>{if(currentPage==="feed")renderFeed();else if(currentPage!=="reset-password")showPage(currentPage)});
+window.addEventListener("goodworld:translations-loaded",()=>{if(currentPage==="feed")renderFeed()});
 setInterval(quietlyRefreshFeed,10*60*1000);
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)quietlyRefreshFeed()});
 function showModal(title,body,buttonLabel="Got it"){
@@ -322,10 +332,10 @@ async function likeStory(id){
 }
 async function shareStory(id){
  const s=stories.find(s=>s.id===id);if(!s)return;
- const url=gwEditorialUrl(s)||location.origin+location.pathname+"#story-"+encodeURIComponent(s.slug);
+ const url=location.origin+newsLink(s);
  try{
   let method="dialog";
-  if(navigator.share){await navigator.share({title:s.title,text:"GoodWorld · "+s.title,url});method="native"}
+  if(navigator.share){await navigator.share({title:i18n?.translated(s)?.title||s.title,text:"GoodWorld · "+(i18n?.translated(s)?.title||s.title),url});method="native"}
   else if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(url);showToast("Story link copied");method="clipboard"}
   else showModal("Share this story",url,"Close");
   window.GWAnalytics?.track("share",{method,content_type:"article",content_id:s.slug});
