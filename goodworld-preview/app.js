@@ -47,6 +47,14 @@ let feedRequestSequence=0;
 const i18n=window.GW_I18N;
 const tx=k=>i18n?.t(k)||k;
 const newsLink=s=>"/read.html?story="+encodeURIComponent(s.slug)+"&lang="+encodeURIComponent(i18n?.getLang()||"en");
+const gwShareManifest=new Set();
+fetch("/share-manifest.json",{cache:"no-cache"})
+ .then(r=>r.ok?r.json():[])
+ .then(values=>{if(Array.isArray(values))for(const slug of values){
+  if(typeof slug==="string"&&/^[a-z0-9-]{5,120}$/.test(slug))gwShareManifest.add(slug);
+ }})
+ .catch(()=>{});
+
 const authParams=new URLSearchParams(location.search);
 const callbackError=new URLSearchParams(location.hash.replace(/^#/,"")).get("error_description");
 let recoveryMode=authParams.has("gw_reset") || /(?:^|[&#])type=recovery(?:&|$)/.test(location.hash);
@@ -335,7 +343,11 @@ async function likeStory(id){
 }
 async function shareStory(id){
  const s=stories.find(s=>s.id===id);if(!s)return;
- const url=location.origin+newsLink(s);
+ const chosenLanguage=i18n?.getLang()||"en";
+ const editorialUrl=gwEditorialUrl(s);
+ const preview=gwShareManifest.has(s.slug)?
+  GW_SITE+"/news/"+encodeURIComponent(s.slug)+".html?lang="+encodeURIComponent(chosenLanguage):null;
+ const url=(chosenLanguage==="en"&&editorialUrl)||preview||location.origin+newsLink(s);
  try{
   let method="dialog";
   if(navigator.share){await navigator.share({title:i18n?.translated(s)?.title||s.title,text:"GoodWorld · "+(i18n?.translated(s)?.title||s.title),url});method="native"}
