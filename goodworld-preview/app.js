@@ -159,15 +159,20 @@ function renderFeed(){
   const storyTitle=titleUrl?
    '<a class="story-permalink" href="'+esc(titleUrl)+'"'+(ownUrl?'':' target="_blank" rel="noopener noreferrer"')+'>'+esc(s.title)+'</a>'
    :esc(s.title);
+  const representative=image&&meta.image_kind==="representative";
   const imageMarkup=image?
-   '<div class="story-media"><img class="photo" src="'+esc(image)+'" alt="'+esc(meta.alt_text||s.title)+'" loading="'+(i===0?'eager':'lazy')+'" decoding="async" referrerpolicy="no-referrer"></div>'
+   '<div class="story-media"><img class="photo" src="'+esc(image)+'" alt="'+esc(meta.alt_text||s.title)+'" loading="'+(i===0?'eager':'lazy')+'" decoding="async" referrerpolicy="no-referrer">'+
+   (representative?'<span class="representative-label" title="Licensed photograph illustrating the topic, not a photo of this specific event">Representative photo</span>':'')+
+   '</div>'
    :'';
   const category=currentTab==="top"?"#"+(i+1)+" / "+s.category:s.category;
   const sourceLink=link?
    '<a href="'+esc(link)+'" target="_blank" rel="noopener noreferrer">Original source ↗</a>':'';
   const photoLink=image?
-   '<a class="photo-credit" href="'+esc(validUrl(meta.credit_url)||link||"#")+'" target="_blank" rel="noopener noreferrer">Photo: '+esc(meta.credit)+' ↗</a>'+
-   '<a class="photo-credit" href="'+esc(validUrl(meta.rights_url)||"#")+'" target="_blank" rel="noopener noreferrer">Image rights ↗</a>':'';
+   '<a class="photo-credit" href="'+esc(validUrl(meta.credit_url)||link||"#")+'" target="_blank" rel="noopener noreferrer">'+
+   (representative?'Illustrative photo':'Photo')+': '+esc(meta.credit)+' ↗</a>'+
+   '<a class="photo-credit" href="'+esc(validUrl(meta.rights_url)||"#")+'" target="_blank" rel="noopener noreferrer">'+
+   esc(meta.image_license||"Image rights")+' ↗</a>':'';
   return '<article class="story '+(i===0?'is-featured ':'')+(image?'has-photo':'is-text')+'" id="story-'+esc(s.slug)+'" data-id="'+esc(s.id)+'">'+
    imageMarkup+
    '<div class="story-content">'+
@@ -206,7 +211,7 @@ async function fetchGoodworldImageRights(items){
  try{
   const {data:credits,error}=await client
    .from("goodworld_story_images")
-   .select("story_id,image_url,credit,credit_url,alt_text,rights_url,image_license,image_rights_status")
+   .select("story_id,image_url,credit,credit_url,alt_text,rights_url,image_license,image_rights_status,image_kind")
    .in("story_id",items.map(story=>story.id));
   if(error){console.warn("Photo credits unavailable",error.message);return null}
   return new Map((credits||[]).map(item=>[item.story_id,item]));
@@ -279,7 +284,7 @@ async function quietlyRefreshFeed(){
  const nextRights=rights||gwImageRights;
  const rightsChanged=data.some(s=>{
   const old=gwImageRights.get(s.id),now=nextRights.get(s.id);
-  return (old?.image_url||"")!==(now?.image_url||"")||(old?.credit||"")!==(now?.credit||"")||(old?.image_rights_status||"")!==(now?.image_rights_status||"");
+  return (old?.image_url||"")!==(now?.image_url||"")||(old?.credit||"")!==(now?.credit||"")||(old?.image_rights_status||"")!==(now?.image_rights_status||"")||(old?.image_kind||"")!==(now?.image_kind||"");
  });
  if(same&&!rightsChanged)return;
  stories=data;gwImageRights=nextRights;renderFeed();
