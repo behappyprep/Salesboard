@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap");
 :root{color-scheme:light;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;--paper:#FFF9F0;--ink:#234A40;--inksoft:#52665C;--mint:#DDF0E4;--leaf:#21654F;--accent:#F7D77E;--edge:#D7E8D9}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-size:16px;line-height:1.68;-webkit-font-smoothing:antialiased}
 a{color:var(--leaf);text-underline-offset:3px}a:hover{color:#174838}a:focus-visible{outline:3px solid #d88c3e;outline-offset:4px;border-radius:3px}
@@ -116,4 +115,67 @@ body{font-family:var(--sans);background:var(--paper);color:#233B30;line-height:1
  .archive-grid,.related{grid-template-columns:1fr;gap:13px}
  .archive-card strong{font-size:29px}
  .source-block{padding:23px}
+}
+
+
+/* Consistent news-first identity on article, archive and privacy pages. */
+:root{
+ --paper:#FFFFFF;--ink:#161616;--inksoft:#5C5C5C;
+ --mint:#F5F5F5;--leaf:#292929;--accent:#161616;--edge:#DDDDDD;
+ --serif:Arial,Helvetica,sans-serif;--sans:Arial,Helvetica,sans-serif
+}
+body{font-family:Arial,Helvetica,sans-serif;background:#FFFFFF;color:#1B1B1B}
+a{color:#275CA1}
+a:hover{color:#174B88}
+.site-head{max-width:1260px;min-height:70px;padding:15px 32px;border-color:#DDD}
+.brand{
+ color:#111;font-family:Arial,Helvetica,sans-serif;
+ font-size:32px;font-weight:800;letter-spacing:-.078em;gap:0
+}
+.brand:first-letter,.brand-stop{color:#111}
+.brand>span{margin:0}
+.brand img{display:none}
+.head-link{border-radius:3px;background:#FFFFFF;color:#333;border-color:#D6D6D6;box-shadow:none}
+.head-link:hover{background:#F4F4F4;color:#111}
+.article-wrap{padding-top:48px}
+.eyebrow{color:#666;font-size:11px;letter-spacing:.09em}
+.article h1,.archive-title{
+ font-family:Arial,Helvetica,sans-serif;
+ font-size:clamp(36px,4.8vw,62px);font-weight:750;
+ color:#161616;line-height:1.1;letter-spacing:-.055em
+}
+.article .intro,.archive-intro{font-size:19px;line-height:1.6;color:#505050}
+.article-body{border-top-color:#DADADA}
+.article-body p{
+ font-family:Georgia,"Times New Roman",serif;
+ font-size:20px;line-height:1.8;color:#292929;letter-spacing:0
+}
+.article-hero img{border-radius:0}
+.article-hero figcaption{color:#666}
+.source-block{background:#F7F7F7;border-color:#E3E3E3;border-radius:3px}
+.source-block p{color:#555}
+.related-card,.archive-card{
+ border-color:#E0E0E0;border-radius:0;box-shadow:none;background:#FFF
+}
+.related-card:hover,.archive-card:hover{box-shadow:none;border-color:#999;background:#FAFAFA}
+.related-card{font-family:Arial,Helvetica,sans-serif;font-size:20px;font-weight:700}
+.related-card span{font-family:Arial,Helvetica,sans-serif}
+.archive-grid{gap:0}
+.archive-card{border:0;border-top:1px solid #DDD;padding:25px 18px 25px 0}
+.archive-card .category{color:#666;font-size:10px;letter-spacing:.08em}
+.archive-card strong{
+ font-family:Arial,Helvetica,sans-serif;color:#161616;
+ font-weight:700;letter-spacing:-.035em;font-size:25px
+}
+.archive-thumb{border-radius:0}
+.site-footer{border-color:#DDD;color:#737373}
+.site-footer a{color:#444}
+@media(max-width:640px){
+ .site-head{min-height:62px;padding:13px 18px}
+ .brand{font-size:28px}
+ .article-wrap{padding:30px 19px 55px}
+ .article h1,.archive-title{font-size:clamp(35px,8.6vw,49px)}
+ .article-body p{font-size:19px}
+ .archive-grid{grid-template-columns:1fr}
+ .archive-card{padding:21px 0}
 }
