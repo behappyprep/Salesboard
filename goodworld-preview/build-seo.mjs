@@ -59,7 +59,7 @@ function articleHtml(s,other){
     esc(x.title)+'<span>Read brief ↗</span></a>').join("");
   return '<!doctype html><html lang="en"><head>'+
     '<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+
-    '<meta name="theme-color" content="#FFFFFF"><meta name="robots" content="index,follow">'+
+    '<meta name="theme-color" content="#FFFFFF"><meta name="robots" content="index,follow,max-image-preview:large">'+
     '<title>'+esc(s.title)+' | GoodWorld</title>'+
     '<meta name="description" content="'+esc(s.summary)+'">'+
     '<link rel="canonical" href="'+esc(url)+'">'+
@@ -113,6 +113,7 @@ function archiveHtml(stories){
   return '<!doctype html><html lang="en"><head>'+
     '<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+
     '<meta name="theme-color" content="#FFFFFF">'+
+    '<meta name="robots" content="index,follow,max-image-preview:large">'+
     '<title>Good news stories | GoodWorld</title>'+
     '<meta name="description" content="Browse original, source-linked GoodWorld positive news briefs about nature, animals, community kindness and real progress.">'+
     '<link rel="canonical" href="'+SITE+'/stories/">'+
@@ -212,6 +213,7 @@ async function writeSearchLandingPages(rows,photos){
    '" referrerpolicy="no-referrer" fetchpriority="high">':"";
  base=replaceFeedContent(base,mainFeed);
  base=base.replace("</head>",heroPreload+alternates+
+  '<meta name="robots" content="index,follow,max-image-preview:large">'+
   '<link rel="alternate" type="application/rss+xml" title="GoodWorld positive news RSS" href="/feed.xml">'+
   "</head>");
  await fs.writeFile(primary,base,"utf8");
@@ -251,10 +253,34 @@ function sitemapXml(stories,locales,latestPublication){
   return '<?xml version="1.0" encoding="UTF-8"?>\n'+
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+
     urls.map(x=>'  <url><loc>'+esc(x.url)+'</loc>'+
-      (x.lastmod?'<lastmod>'+x.lastmod+'</lastmod>':'')+'</url>').join("\n")+
+      (x.lastmod?'<lastmod>'+x.lastmod+'</lastmod>':'')+
+      (x.url===SITE+"/"||locales.some(language=>x.url===SITE+"/"+language+"/")?
+       '<changefreq>hourly</changefreq>':'')+
+      '</url>').join("\n")+
     '\n</urlset>\n';
 }
 
+
+
+// Only editor-reviewed, indexable articles can enter the Google News sitemap.
+// Google's News sitemap window is two days; short auto RSS briefs are noindex.
+function googleNewsSitemapXml(editorialStories){
+  const now=Date.now();
+  const fresh=editorialStories.filter(s=>
+    Number.isFinite(Date.parse(s.published_at))&&
+    now-Date.parse(s.published_at)>=0&&
+    now-Date.parse(s.published_at)<=48*60*60*1000);
+  const ns='http://www.sitemaps.org/schemas/sitemap/0.9';
+  const news='http://www.google.com/schemas/sitemap-news/0.9';
+  const items=fresh.map(s=>
+   '  <url><loc>'+esc(seoUrl(s))+'</loc><news:news>'+
+   '<news:publication><news:name>GoodWorld</news:name><news:language>en</news:language></news:publication>'+
+   '<news:publication_date>'+esc(iso(s.published_at))+'</news:publication_date>'+
+   '<news:title>'+esc(s.title)+'</news:title>'+
+   '</news:news></url>').join('\n');
+  return '<?xml version="1.0" encoding="UTF-8"?>\n'+
+   '<urlset xmlns="'+ns+'" xmlns:news="'+news+'">\n'+items+'\n</urlset>\n';
+}
 
 async function writeSocialPreviews(rows,photos){
  await fs.mkdir(SHARE_DIR,{recursive:true});
@@ -453,11 +479,13 @@ async function main(){
   const latest=rows.filter(s=>s.status==="published"&&s.published_at)
     .sort((a,b)=>Date.parse(b.published_at)-Date.parse(a.published_at))[0];
   await fs.writeFile(path.join(OUT,"sitemap.xml"),sitemapXml(stories,locales,latest?.published_at),"utf8");
+  await fs.writeFile(path.join(OUT,"news-sitemap.xml"),googleNewsSitemapXml(stories),"utf8");
   await fs.writeFile(path.join(OUT,"feed.xml"),buildRssFeed(rows),"utf8");
   const socialPages=await writeSocialPreviews(rows,photos);
   await fs.writeFile(manifestPath,JSON.stringify(stories.map(s=>s.slug),null,2)+"\n","utf8");
   console.log("GoodWorld SEO built: "+stories.length+" editorial pages, "+locales.length+" localized homepages, source-linked RSS and sitemap ("+(stories.length+5+locales.length)+" URLs)");
   console.log("GoodWorld social preview pages created: "+socialPages+" (noindex, unique article Open Graph metadata).");
   console.log("Excluded "+(rows.length-stories.length)+" public entries with insufficient editorial content or automatic RSS briefs.");
+  console.log("Google News sitemap contains only editorially eligible articles dated within the last 48 hours.");
 }
 main().catch(error=>{console.error("GoodWorld SEO build failed:",error instanceof Error?error.message:"Unknown error");process.exitCode=1});
