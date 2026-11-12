@@ -10,7 +10,7 @@
  const tx=k=>lang()?.t(k)||k;
  const escape=s=>String(s??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
  const safe=u=>{try{const a=new URL(u);return a.protocol==="https:"?a.href:""}catch{return ""}};
- const query=new URLSearchParams(location.search), slug=query.get("story");
+ const query=new URLSearchParams(location.search), slug=query.get("story")||(/^\/news\/([a-z0-9-]+)\.html$/.exec(location.pathname)?.[1])||null;
  let article=null,rights=null;
  let engagementTracked=false;
  function trackArticleRead(){
