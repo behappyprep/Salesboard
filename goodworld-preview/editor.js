@@ -3,6 +3,7 @@
 // All actions are verified again in protected database RPCs.
 (function(){
  const menu=document.getElementById("editorNav");
+ const analyticsMenu=document.getElementById("analyticsNav");
  const panel=document.getElementById("page");
  const escapeHtml=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
  let editor=false,candidates=[],total=0,offset=0;
@@ -11,13 +12,18 @@
   try{
    if(!client) return;
    const {data:{session:s}}=await client.auth.getSession();
-   if(!s){editor=false;menu.classList.add("hidden");return}
+   if(!s){editor=false;menu.classList.add("hidden");analyticsMenu?.classList.add("hidden");return}
    const {data,error}=await client.rpc("is_goodworld_editor");
    editor=!error&&data===true;
    menu.classList.toggle("hidden",!editor);
+   analyticsMenu?.classList.toggle("hidden",!editor);
    if(!editor && currentPage==="editor")showPage("feed");
-  }catch{editor=false;menu.classList.add("hidden")}
+  }catch{editor=false;menu.classList.add("hidden");analyticsMenu?.classList.add("hidden")}
  }
+ analyticsMenu?.addEventListener("click",()=>{
+  if(!editor)return;
+  window.open("https://analytics.google.com/analytics/web/#/p561555821","_blank","noopener,noreferrer");
+ });
  menu.addEventListener("click",async()=>{
   await refreshAccess();
   if(!editor){showToast("Editor access required");return}
