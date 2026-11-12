@@ -44,7 +44,7 @@ function articleHtml(s,other){
     esc(x.title)+'<span>Read brief ↗</span></a>').join("");
   return '<!doctype html><html lang="en"><head>'+
     '<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+
-    '<meta name="theme-color" content="#F8F7F2"><meta name="robots" content="index,follow">'+
+    '<meta name="theme-color" content="#FFFFFF"><meta name="robots" content="index,follow">'+
     '<title>'+esc(s.title)+' | GoodWorld</title>'+
     '<meta name="description" content="'+esc(s.summary)+'">'+
     '<link rel="canonical" href="'+esc(url)+'">'+
@@ -62,7 +62,7 @@ function articleHtml(s,other){
     '<link rel="stylesheet" href="/analytics.css">'+
     '<script src="/analytics.js" defer></script>'+
     '<script type="application/ld+json">'+safeLd+'</script></head><body>'+
-    '<header class="site-head"><a class="brand" href="/"><img src="/brandmark.svg" width="40" height="40" alt="" aria-hidden="true"><span>goodworld<span class="brand-stop">.</span></span></a>'+
+    '<header class="site-head"><a class="brand" href="/"><span>goodworld</span></a>'+
     '<a class="head-link" href="/stories/">All stories ↗</a></header>'+
     '<main class="article-wrap"><p class="eyebrow">'+esc(s.category)+
     ' <span class="dot">·</span><time datetime="'+esc(pub)+'">'+esc(formatDate(s.published_at))+'</time></p>'+
@@ -92,7 +92,7 @@ function archiveHtml(stories){
     '<time datetime="'+esc(iso(s.published_at))+'">'+esc(formatDate(s.published_at))+'</time></a>').join("\n");
   return '<!doctype html><html lang="en"><head>'+
     '<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+
-    '<meta name="theme-color" content="#F8F7F2">'+
+    '<meta name="theme-color" content="#FFFFFF">'+
     '<title>Good news stories | GoodWorld</title>'+
     '<meta name="description" content="Browse original, source-linked GoodWorld positive news briefs about nature, animals, community kindness and real progress.">'+
     '<link rel="canonical" href="'+SITE+'/stories/">'+
@@ -103,7 +103,7 @@ function archiveHtml(stories){
     '<link rel="stylesheet" href="/article.css">'+
     '<link rel="stylesheet" href="/analytics.css">'+
     '<script src="/analytics.js" defer></script></head><body>'+
-    '<header class="site-head"><a class="brand" href="/"><img src="/brandmark.svg" width="40" height="40" alt="" aria-hidden="true"><span>goodworld<span class="brand-stop">.</span></span></a>'+
+    '<header class="site-head"><a class="brand" href="/"><span>goodworld</span></a>'+
     '<a class="head-link" href="/">Live news feed ↗</a></header>'+
     '<main class="article-wrap"><p class="eyebrow">GOODWORLD LIBRARY</p>'+
     '<h1 class="archive-title">Good news worth sharing.</h1>'+
