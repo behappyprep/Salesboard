@@ -121,7 +121,8 @@ def main():
     if not feed:raise RuntimeError("Public feed is empty; refusing to erase translations")
     print("Public verified stories:",len(feed),flush=True)
     failures=[]
-    for lang in TARGETS:
+    languages=(sys.argv[1],) if len(sys.argv)==2 and sys.argv[1] in TARGETS else TARGETS
+    for lang in languages:
         try:translate_language(lang,feed)
         except Exception as exc:
             print("Failed language",lang,str(exc),file=sys.stderr,flush=True)
