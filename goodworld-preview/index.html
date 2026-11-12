@@ -19,6 +19,7 @@
 
 <link rel="stylesheet" href="./editorial.css?v=20261112-1"/>
 <link rel="stylesheet" href="./newsroom.css?v=photo-label-minimal-20261112-4"/>
+<link rel="stylesheet" href="./languages.css?v=world-languages-1"/>
 <script src="./analytics.js" defer></script></head>
 <body><main class="app">
 <header class="header">
@@ -26,18 +27,21 @@
     <button class="wordmark" id="home" type="button" aria-label="GoodWorld, return to latest news">
       <span class="brand-name">goodworld</span>
     </button>
+    <div class="header-controls">
+    <label class="language-picker" for="languageSelect"><span class="language-symbol" aria-hidden="true">文A</span><select id="languageSelect" aria-label="Language" data-gw-label="language"></select></label>
     <button class="menu-button" id="menuButton" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menuOverlay">
-      <span class="menu-label">Menu</span>
+      <span class="menu-label" data-gw-text="menu">Menu</span>
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4.5 7h15M4.5 12h15M4.5 17h15"/></svg>
     </button>
+    </div>
   </div>
 </header>
 <div class="switcher" id="switcher">
   <div class="switcher-inner">
-    <span class="switcher-label">Independent positive news</span>
+    <span class="switcher-label" data-gw-text="label">Independent positive news</span>
     <div class="tab-list" role="group" aria-label="News feed sorting">
-      <button class="tab selected" data-tab="new" type="button" aria-pressed="true">Latest</button>
-      <button class="tab" data-tab="top" type="button" aria-pressed="false">Top Today</button>
+      <button class="tab selected" data-tab="new" type="button" aria-pressed="true" data-gw-text="latest">Latest</button>
+      <button class="tab" data-tab="top" type="button" aria-pressed="false" data-gw-text="top">Top Today</button>
     </div>
   </div>
 </div>
@@ -46,10 +50,10 @@
 <div class="menu-overlay hidden" id="menuOverlay">
   <button class="menu-scrim" id="menuScrim" aria-label="Close menu"></button>
   <aside class="menu-panel" aria-label="GoodWorld menu">
-    <div class="menu-head"><span class="menu-heading">Menu</span><button class="menu-close" id="menuClose" aria-label="Close menu">×</button></div>
+    <div class="menu-head"><span class="menu-heading" data-gw-text="menu">Menu</span><button class="menu-close" id="menuClose" aria-label="Close menu">×</button></div>
     <nav class="menu-nav" aria-label="GoodWorld sections">
-      <button class="navitem" data-page="profile"><span>Profile <small>Your account and likes</small></span><span class="nav-arrow">↗</span></button>
-      <button class="editor-menu-item hidden" id="editorNav" type="button"><span>Editorial <small>Review and publish news</small></span><span class="nav-arrow">↗</span></button>
+      <button class="navitem" data-page="profile"><span><span data-gw-text="profile">Profile</span> <small data-gw-text="account">Your account and likes</small></span><span class="nav-arrow">↗</span></button>
+      <button class="editor-menu-item hidden" id="editorNav" type="button"><span><span data-gw-text="editor">Editorial</span> <small>Review and publish news</small></span><span class="nav-arrow">↗</span></button>
     </nav>
     <div class="menu-support">
       <div class="menu-support-eyebrow">FREE FOR EVERYONE</div>
@@ -62,4 +66,4 @@
 </div>
 <div class="modalback hidden" id="modal"></div><div class="toast" id="toast" role="status"></div>
 
-</main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" defer></script><script src="./app.js?v=licensed-photos-20261112-3" defer></script><script src="./editor.js" defer></script></body></html>
+</main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" defer></script><script src="./i18n.js?v=world-languages-1" defer></script><script src="./app.js?v=world-languages-1" defer></script><script src="./editor.js" defer></script></body></html>
