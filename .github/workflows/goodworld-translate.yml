@@ -1,0 +1,51 @@
+name: GoodWorld multilingual news translations
+on:
+  schedule:
+    - cron: '37 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/goodworld-translate.yml'
+permissions:
+  contents: write
+concurrency:
+  group: goodworld-hourly-translations
+  cancel-in-progress: false
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 115
+    steps:
+      - name: Check out GoodWorld website branch
+        uses: actions/checkout@v4
+        with:
+          ref: goodworld-preview
+          persist-credentials: true
+          fetch-depth: 1
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: goodworld-preview/translation-requirements.txt
+      - name: Cache free translation models
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/argos-translate/packages
+          key: goodworld-argos-offline-models-v1
+      - name: Install offline translation engine
+        run: python -m pip install -r goodworld-preview/translation-requirements.txt
+      - name: Translate public GoodWorld news into the world's top languages
+        run: python goodworld-preview/translate_news.py
+      - name: Commit translated news to live website branch
+        run: |
+          git config user.name "goodworld-translation-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add goodworld-preview/translations/
+          if git diff --cached --quiet; then
+            echo "No new translations"
+          else
+            git commit -m "GoodWorld: refresh machine translations of verified news"
+            git push origin HEAD:goodworld-preview
+          fi
