@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/><meta name="theme-color" content="#FFF9F0"/>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/><meta name="theme-color" content="#F8F7F2"/>
 <meta name="description" content="Discover good news today from around the world. Read uplifting stories about nature, kindness, animals and hopeful discoveries. Positive news, free for everyone."/>
 <title>Good News Today | Positive Stories From Around the World | GoodWorld</title>
 <link rel="canonical" href="https://www.goodworld.news/"/>
@@ -14,15 +14,34 @@
 <link rel="stylesheet" href="./style.css"/>
 <link rel="stylesheet" href="./sunrise.css"/>
 <link rel="stylesheet" href="./analytics.css"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="./editorial.css?v=20261112-1"/>
 <script src="./analytics.js" defer></script></head>
 <body><main class="app">
 <header class="header">
-  <button class="wordmark" id="home" aria-label="GoodWorld, return to feed"><span class="brandmark">✳</span> good<span class="mark">world</span></button>
-  <button class="menu-button" id="menuButton" aria-label="Open menu" aria-expanded="false" aria-controls="menuOverlay">
-    <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-  </button>
+  <div class="header-inner">
+    <button class="wordmark" id="home" type="button" aria-label="GoodWorld, return to latest news">
+      <img class="brand-icon" src="./brandmark.svg" width="44" height="44" alt="" aria-hidden="true">
+      <span class="brand-name">goodworld<span class="brand-period">.</span></span>
+    </button>
+    <div class="header-promise" aria-hidden="true"><span class="header-promise-dot"></span> Real stories. A brighter perspective.</div>
+    <button class="menu-button" id="menuButton" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menuOverlay">
+      <span class="menu-label">Menu</span>
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4.5 7h15M4.5 12h15M4.5 17h15"/></svg>
+    </button>
+  </div>
 </header>
-<div class="switcher" id="switcher"><button class="tab selected" data-tab="new">New</button><button class="tab" data-tab="top">Top Today</button></div>
+<div class="switcher" id="switcher">
+  <div class="switcher-inner">
+    <span class="switcher-label"><span class="live-dot" aria-hidden="true"></span> THE GOOD NEWS FEED</span>
+    <div class="tab-list" role="group" aria-label="News feed sorting">
+      <button class="tab selected" data-tab="new" type="button" aria-pressed="true">Latest</button>
+      <button class="tab" data-tab="top" type="button" aria-pressed="false">Top Today</button>
+    </div>
+  </div>
+</div>
 <section class="feed" id="feed" aria-label="Good news feed"></section>
 <div class="overlaypage hidden" id="page" aria-live="polite"></div>
 <div class="menu-overlay hidden" id="menuOverlay">
@@ -44,4 +63,4 @@
 </div>
 <div class="modalback hidden" id="modal"></div><div class="toast" id="toast" role="status"></div>
 
-</main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" defer></script><script src="./app.js?v=top-today-20261112" defer></script><script src="./editor.js" defer></script></body></html>
+</main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" defer></script><script src="./app.js?v=editorial-20261112-1" defer></script><script src="./editor.js" defer></script></body></html>
