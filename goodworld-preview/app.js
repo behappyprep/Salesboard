@@ -170,7 +170,7 @@ function renderFeed(){
    :esc(displayTitle);
   const representative=image&&meta.image_kind==="representative";
   const imageMarkup=image?
-   '<div class="story-media"><img class="photo" src="'+esc(image)+'" alt="'+esc(meta.alt_text||s.title)+'" loading="'+(i===0?'eager':'lazy')+'" decoding="async" referrerpolicy="no-referrer">'+
+   '<div class="story-media"><img class="photo" src="'+esc(image)+'" alt="'+esc(meta.alt_text||s.title)+'" loading="'+(i===0?'eager':'lazy')+'" decoding="async" referrerpolicy="no-referrer"'+(i===0?' fetchpriority="high"':'')+'>'+
    (representative?'<span class="representative-label" title="Licensed photograph illustrating the topic, not a photo of this specific event">'+esc(tx("representative"))+'</span>':'')+
    '</div>'
    :'';
