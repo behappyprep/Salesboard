@@ -170,7 +170,7 @@ function renderFeed(){
    '<a href="'+esc(link)+'" target="_blank" rel="noopener noreferrer">Original source ↗</a>':'';
   const photoLink=image?
    '<a class="photo-credit" href="'+esc(validUrl(meta.credit_url)||link||"#")+'" target="_blank" rel="noopener noreferrer">'+
-   (representative?'Illustrative photo':'Photo')+': '+esc(meta.credit)+' ↗</a>'+
+   (representative?'Illustrative photo':'Photo')+': '+esc(meta.credit)+(representative?' · cropped':'')+' ↗</a>'+
    '<a class="photo-credit" href="'+esc(validUrl(meta.rights_url)||"#")+'" target="_blank" rel="noopener noreferrer">'+
    esc(meta.image_license||"Image rights")+' ↗</a>':'';
   return '<article class="story '+(i===0?'is-featured ':'')+(image?'has-photo':'is-text')+'" id="story-'+esc(s.slug)+'" data-id="'+esc(s.id)+'">'+
