@@ -42,9 +42,10 @@
  let lang="en", cache=null,cacheLang="en",seq=0;
  const supported=new Set(LANGS.map(x=>x[0]));
  const currentParam=new URLSearchParams(location.search).get("lang");
+ const pathLanguage=/^\/(zh|hi|es|ar|fr|bn|pt|id|ur|ru)\/$/.exec(location.pathname)?.[1]||null;
  function stored(){try{return localStorage.getItem("goodworld:language")}catch{return null}}
  const browserLang=(navigator.language||"en").toLowerCase().split("-")[0];
- lang=supported.has(currentParam)?currentParam:supported.has(stored())?stored():supported.has(browserLang)?browserLang:"en";
+ lang=supported.has(pathLanguage)?pathLanguage:supported.has(currentParam)?currentParam:supported.has(stored())?stored():supported.has(browserLang)?browserLang:"en";
  function getLang(){return lang}
  function nativeLocale(){return LANGS.find(x=>x[0]===lang)?.[2]||"en-US"}
  function direction(){return lang==="ar"||lang==="ur"?"rtl":"ltr"}
@@ -61,7 +62,7 @@
   const requested=lang,req=++seq;
   if(requested==="en"){cache=null;cacheLang="en";applyStatic();window.dispatchEvent(new Event("goodworld:translations-loaded"));return}
   try{
-   const res=await fetch("./translations/"+encodeURIComponent(requested)+".json",{cache:"no-cache"});
+   const res=await fetch("/translations/"+encodeURIComponent(requested)+".json",{cache:"no-cache"});
    if(!res.ok)throw Error("Translations are not generated yet");
    const obj=await res.json();
    if(obj.language!==requested||!obj.stories||typeof obj.stories!=="object")throw Error("Invalid translation file");
@@ -88,6 +89,12 @@
   const url=new URL(location.href);
   if(next==="en")url.searchParams.delete("lang");else url.searchParams.set("lang",next);
   history.replaceState(history.state,"",url.pathname+url.search+url.hash);
+  window.GWAnalytics?.track("language_change",{language:next,method:"selector"});
+  const isHomepage=location.pathname==="/"||/^\/(zh|hi|es|ar|fr|bn|pt|id|ur|ru)\/$/.test(location.pathname);
+  if(isHomepage){
+   location.assign(next==="en"?"/":"/"+next+"/");
+   return;
+  }
   applyStatic();window.dispatchEvent(new Event("goodworld:language-changed"));
   load();
  }
