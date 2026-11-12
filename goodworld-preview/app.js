@@ -122,14 +122,9 @@ function gwStoryDate(value){
  try{return new Intl.DateTimeFormat(i18n?.locale()||"en-US",{month:"short",day:"numeric",year:"numeric"}).format(new Date(value))}
  catch{return ""}
 }
-function gwEditionDate(){
- return new Intl.DateTimeFormat(i18n?.locale()||"en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"}).format(new Date());
-}
 function gwFeedHeading(){
  const top=currentTab==="top";
- return '<div class="edition-row"><span>'+esc(gwEditionDate())+'</span>'+
- '<span>'+esc(tx("sourceProof"))+'</span></div>'+
- '<section class="feed-heading" aria-label="News listing">'+
+ return '<section class="feed-heading" aria-label="News listing">'+
  '<h1>'+tx(top?"topTitle":"latestTitle")+'</h1>'+
  '<p>'+tx(top?"topSub":"latestSub")+'</p>'+
  '</section>';

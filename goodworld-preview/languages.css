@@ -68,3 +68,21 @@ html[dir="rtl"] .header-controls{margin-inline-start:auto}
  .brand-name{font-size:23px}
  .language-symbol{display:none}
 }
+
+/* The selected language is a 2-letter code, while the native select
+   keeps full language names in its accessible options menu. */
+.language-picker{
+ position:relative;display:inline-flex;align-items:center;justify-content:center;
+ gap:5px;min-width:60px;min-height:37px;padding:0 9px;border-radius:3px
+}
+.language-code{font:750 12px/1 Arial,Helvetica,sans-serif;letter-spacing:.025em;color:#262626}
+.language-chevron{flex:none;color:#555;pointer-events:none}
+.language-picker select{
+ position:absolute;inset:0;width:100%;height:100%;max-width:none;
+ padding:0;margin:0;opacity:0;cursor:pointer
+}
+.language-picker:focus-within{outline:2px solid #555;outline-offset:2px}
+@media(max-width:640px){
+ .language-picker{min-width:49px;min-height:36px;padding:0 6px}
+ .language-code{font-size:11px}
+}
