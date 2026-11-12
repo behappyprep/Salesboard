@@ -42,7 +42,7 @@ function articleHtml(s,other){
   const url=seoUrl(s),pub=iso(s.published_at);
   const photo=!!(s.image_url&&s.image_credit&&s.image_credit_url&&s.image_alt_text);
   const ld={
-   "@context":"https://schema.org","@type":"Article",
+   "@context":"https://schema.org","@type":"NewsArticle",
    headline:s.title,description:s.summary,datePublished:pub,dateModified:pub,
    inLanguage:"en",isAccessibleForFree:true,isBasedOn:s.source_url,
    mainEntityOfPage:{"@type":"WebPage","@id":url},
@@ -162,7 +162,11 @@ function preRenderedFeed(allRows,photos,lang,translations){
   const image=imageMeta&&imageMeta.image_url===s.image_url&&imageMeta.credit&&
    /^https:\/\//.test(imageMeta.credit_url)?s.image_url:null;
   const representative=!!(image&&imageMeta.image_kind==="representative");
-  const readerPath="/read.html?story="+encodeURIComponent(s.slug)+"&lang="+encodeURIComponent(lang);
+  // Send Google and English readers directly to the crawlable, canonical article.
+  // Short automatically sourced briefs keep the noindex reader page.
+  const readerPath=(lang==="en"&&eligible(s))
+    ? "/stories/"+encodeURIComponent(s.slug)+".html"
+    : "/read.html?story="+encodeURIComponent(s.slug)+"&lang="+encodeURIComponent(lang);
   const newsTime=Number.isFinite(Date.parse(s.published_at))?
     '<time class="story-date" datetime="'+esc(iso(s.published_at))+'">'+esc(dateOnly(s.published_at))+'</time>':"";
   return '<article class="story'+(i===0?' is-featured':'')+(image?' has-photo':' is-text')+'">'+

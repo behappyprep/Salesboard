@@ -199,7 +199,7 @@ function renderFeed(){
       '<button aria-label="'+(liked?tx("unlike"):tx("like"))+' story" aria-pressed="'+String(liked)+'" class="action '+(liked?"liked":"")+'" type="button" data-action="like" data-id="'+esc(s.id)+'"><span class="symbol" aria-hidden="true">'+(liked?"♥":"♡")+'</span><span>'+esc(String(Number(amount)||0))+'</span></button>'+
       '<button aria-label="'+esc(tx("share"))+'" class="action" type="button" data-action="share" data-id="'+esc(s.id)+'"><span class="symbol" aria-hidden="true">↗</span><span>'+esc(tx("share"))+'</span></button>'+
      '</div></div>'+
-    '<div class="read-wrap"><a class="reader-link" href="'+esc(newsLink(s))+'">'+esc(tx("read"))+' ↗</a></div>'+
+    '<div class="read-wrap"><a class="reader-link" href="'+esc(titleUrl||newsLink(s))+'">'+esc(tx("read"))+' ↗</a></div>'+
     '<div class="story-source-row">'+sourceLink+photoLink+'</div>'+
    '</div></article>';
  }).join("");
