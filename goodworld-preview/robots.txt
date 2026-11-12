@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://www.goodworld.news/sitemap.xml
+Sitemap: https://www.goodworld.news/news-sitemap.xml
