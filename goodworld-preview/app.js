@@ -107,48 +107,103 @@ function gwObserveStoryViews(){
 window.addEventListener("gw:analytics-ready",gwObserveStoryViews);
 // Do not substitute fictional illustrations or unrelated photos for real news.
 // If photo rights are unverified, show a quiet text-first editorial card.
-function gwIllustration(story){
- return '<div class="photo story-no-photo" aria-hidden="true"></div>';
+function gwStoryDate(value){
+ try{return new Intl.DateTimeFormat("en-US",{month:"short",day:"numeric",year:"numeric"}).format(new Date(value))}
+ catch{return ""}
+}
+function gwEditionDate(){
+ return new Intl.DateTimeFormat("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"}).format(new Date());
+}
+function gwFeedHeading(){
+ const top=currentTab==="top";
+ const sectionTitle=top?"Most loved today":"Latest stories";
+ return '<section class="editorial-intro" aria-label="About GoodWorld">'+
+  '<div class="intro-main"><p class="intro-eyebrow">A BETTER KIND OF HEADLINE</p>'+
+  '<h1 class="intro-title">Good things<br><em>are happening.</em></h1></div>'+
+  '<div class="intro-side"><span class="side-rule"></span>'+
+  '<p>Real stories of progress, care and possibility. Thoughtfully sourced from around the world, all in one place.</p></div>'+
+  '</section>'+
+  '<div class="edition-row"><span>'+esc(gwEditionDate())+'</span>'+
+  '<span>ONE WORLD. MORE GOOD NEWS.</span></div>'+
+  '<section class="feed-heading" aria-label="Current feed"><h2>'+sectionTitle+'</h2>'+
+  '<p>'+esc(String(stories.length))+' '+(stories.length===1?"story":"stories")+
+  (top?" · ranked by today’s hearts":" · newest first")+'</p></section>';
+}
+function gwFeedFooter(){
+ return '<footer class="feed-footer">'+
+ '<div><div class="footer-brand"><img src="./brandmark.svg" width="30" height="30" alt="" aria-hidden="true">goodworld.</div>'+
+ '<div class="footer-copy">More perspective. Less noise. Always free.</div></div>'+
+ '<nav class="footer-links" aria-label="Footer">'+
+ '<a href="./privacy.html">Privacy</a>'+
+ '<a href="./stories/">All stories</a>'+
+ '<a href="mailto:hello@goodworld.news">Contact</a>'+
+ '</nav></footer>';
 }
 function renderFeed(){
+ const position=feed.scrollTop;
+ const header=gwFeedHeading();
  if(!stories.length){
-  if(currentTab==="top"){
-   feed.innerHTML='<div class="emptyfeed top-empty" role="status"><span class="pill">Top Today</span><h1>No top stories yet today.</h1><p>No stories have received a heart today. Discover a story you love, sign in and tap the heart to help it appear here.</p><button class="primary" id="browseNew" type="button">Browse new stories</button></div>';
-   feed.querySelector("#browseNew").onclick=()=>setFeedTab("new");
-  }else{
-   feed.innerHTML='<div class="emptyfeed"><span class="pill">GoodWorld</span><h1>Good news is on its way.</h1><p>We are reviewing our news sources and publishing rights. Only independently reported or properly licensed positive stories will return to this feed.</p><button class="primary" id="refresh" type="button">Refresh news ↻</button></div>';
-   feed.querySelector("#refresh").onclick=()=>loadStories();
-  }
+  feed.innerHTML='<div class="feed-shell">'+header+
+   (currentTab==="top"
+     ? '<div class="emptyfeed top-empty" role="status"><span class="pill">Top Today</span><h1>The favorites are still coming.</h1><p>No stories have received a heart today. Find something uplifting in Latest and tap the heart to help it appear here.</p><button class="primary" id="browseNew" type="button">Explore latest stories ↗</button></div>'
+     : '<div class="emptyfeed" role="status"><span class="pill">LATEST</span><h1>Something good is on its way.</h1><p>We only publish sourced, meaningful news. Try refreshing to see what is new.</p><button class="primary" id="refresh" type="button">Refresh news</button></div>')+
+   gwFeedFooter()+'</div>';
+  if(currentTab==="top")feed.querySelector("#browseNew").onclick=()=>setFeedTab("new");
+  else feed.querySelector("#refresh").onclick=()=>loadStories();
+  feed.scrollTop=position;
   return;
  }
- feed.innerHTML=stories.map((s,i)=>{
- const imageMeta=gwImageRights.get(s.id);
- const image=imageMeta && imageMeta.image_url===s.image_url && imageMeta.image_rights_status==="allowed_auto"
-  ?validUrl(s.image_url):null;
- const liked=!!s.liked_by_me;
- const amount=currentTab==="top"?s.likes_today:s.likes_total;
- const link=validUrl(s.source_url);
- const editorialUrl=gwEditorialUrl(s);
- return '<article class="story" id="story-'+esc(s.slug)+'" data-id="'+esc(s.id)+'">'+
- (image?'<img class="photo" src="'+esc(image)+'" alt="'+esc(imageMeta.alt_text)+'" loading="'+(i===0?'eager':'lazy')+'" decoding="async" referrerpolicy="no-referrer"/>':gwIllustration(s))+'<div class="shade"></div>'+
- '<div class="storycontent"><span class="pill">'+esc(currentTab==="top"?"#"+(i+1)+" TOP TODAY · "+s.category:s.category)+'</span><h2 class="headline">'+(editorialUrl?'<a class="story-permalink" href="'+esc(editorialUrl)+'">'+esc(s.title)+'</a>':esc(s.title))+'</h2><p class="desc">'+esc(s.summary)+'</p>'+
- '<div class="meta"><span>✳ '+esc(s.source_name)+'</span><span>·</span><span class="story-age">'+esc(goodworldAge(s.published_at))+'</span><span>·</span>'+(editorialUrl?'<a class="source" href="'+esc(editorialUrl)+'">Our brief ↗</a><span>·</span>':'')+'<a class="source" href="'+esc(link||"#")+'" target="_blank" rel="noopener noreferrer">Source ↗</a>'+(image?'<a class="photo-note" href="'+esc(validUrl(imageMeta.credit_url)||link||"#")+'" target="_blank" rel="noopener noreferrer">Photo: '+esc(imageMeta.credit)+' ↗</a><a class="photo-note photo-license" href="'+esc(validUrl(imageMeta.rights_url)||"#")+'" target="_blank" rel="noopener noreferrer" aria-label="Image rights and reuse terms">Image rights ↗</a>':'')+(String(s.slug).startsWith("auto-")?'<span class="auto-brief-label">Automatically curated</span>':String(s.slug).startsWith("gov-")?'<span class="auto-brief-label">Official source · licensed brief</span>':'')+'</div></div>'+
- '<div class="storyactions"><button aria-label="'+(liked?"Unlike":"Like")+' story" class="action '+(liked?"liked":"")+'" data-action="like" data-id="'+esc(s.id)+'"><span class="symbol">'+(liked?"♥":"♡")+'</span><span>'+(Number(amount)||0)+'</span></button>'+
- '<button aria-label="Repost story" class="action" data-action="share" data-id="'+esc(s.id)+'"><span class="symbol">↗</span><span>Repost</span></button></div>'+
- (i===0?'<div class="swipetip">↑ SWIPE FOR MORE GOOD NEWS</div>':"")+'</article>'
+ const cards=stories.map((s,i)=>{
+  const meta=gwImageRights.get(s.id);
+  const image=meta&&meta.image_url===s.image_url&&meta.image_rights_status==="allowed_auto"
+   ?validUrl(s.image_url):null;
+  const liked=!!s.liked_by_me;
+  const amount=currentTab==="top"?s.likes_today:s.likes_total;
+  const link=validUrl(s.source_url);
+  const ownUrl=gwEditorialUrl(s);
+  const titleUrl=ownUrl||link;
+  const storyTitle=titleUrl?
+   '<a class="story-permalink" href="'+esc(titleUrl)+'"'+(ownUrl?'':' target="_blank" rel="noopener noreferrer"')+'>'+esc(s.title)+'</a>'
+   :esc(s.title);
+  const imageMarkup=image?
+   '<div class="story-media"><img class="photo" src="'+esc(image)+'" alt="'+esc(meta.alt_text||s.title)+'" loading="'+(i===0?'eager':'lazy')+'" decoding="async" referrerpolicy="no-referrer"></div>'
+   :'';
+  const category=currentTab==="top"?"#"+(i+1)+" / "+s.category:s.category;
+  const sourceLink=link?
+   '<a href="'+esc(link)+'" target="_blank" rel="noopener noreferrer">Original source ↗</a>':'';
+  const photoLink=image?
+   '<a class="photo-credit" href="'+esc(validUrl(meta.credit_url)||link||"#")+'" target="_blank" rel="noopener noreferrer">Photo: '+esc(meta.credit)+' ↗</a>'+
+   '<a class="photo-credit" href="'+esc(validUrl(meta.rights_url)||"#")+'" target="_blank" rel="noopener noreferrer">Image rights ↗</a>':'';
+  return '<article class="story '+(i===0?'is-featured ':'')+(image?'has-photo':'is-text')+'" id="story-'+esc(s.slug)+'" data-id="'+esc(s.id)+'">'+
+   imageMarkup+
+   '<div class="story-content">'+
+    '<div class="story-kicker"><span class="story-category">'+esc(category)+'</span>'+
+    '<time class="story-date" datetime="'+esc(s.published_at)+'">'+esc(gwStoryDate(s.published_at))+'</time></div>'+
+    '<h3 class="story-title">'+storyTitle+'</h3>'+
+    '<p class="story-desc">'+esc(s.summary)+'</p>'+
+    '<div class="story-foot">'+
+     '<div class="story-origin"><span>REPORTED BY</span><strong>'+esc(s.source_name)+'</strong></div>'+
+     '<div class="storyactions">'+
+      '<button aria-label="'+(liked?"Unlike":"Like")+' story" aria-pressed="'+String(liked)+'" class="action '+(liked?"liked":"")+'" type="button" data-action="like" data-id="'+esc(s.id)+'"><span class="symbol" aria-hidden="true">'+(liked?"♥":"♡")+'</span><span>'+esc(String(Number(amount)||0))+'</span></button>'+
+      '<button aria-label="Share story" class="action" type="button" data-action="share" data-id="'+esc(s.id)+'"><span class="symbol" aria-hidden="true">↗</span><span>Share</span></button>'+
+     '</div></div>'+
+    '<div class="story-source-row">'+sourceLink+photoLink+'</div>'+
+   '</div></article>';
  }).join("");
+ feed.innerHTML='<div class="feed-shell">'+header+
+  '<div class="stories-grid" aria-label="GoodWorld '+(currentTab==="top"?"top stories":"latest stories")+'">'+cards+'</div>'+
+  gwFeedFooter()+'</div>';
+ feed.scrollTop=position;
  gwObserveStoryViews();
 }
-// If an official host temporarily blocks an image, keep the feed usable
-// and avoid showing a broken image icon.
+// Photo failures produce text-first cards, never an unrelated image or broken icon.
 feed.addEventListener("error",e=>{
- const img=e.target;
- if(!(img instanceof HTMLImageElement)||!img.classList.contains("photo"))return;
- const story=stories.find(s=>s.id===img.closest(".story")?.dataset.id);
- const wrapper=document.createElement("div");
- wrapper.innerHTML=gwIllustration(story);
- const placeholder=wrapper.firstElementChild;
- if(placeholder)img.replaceWith(placeholder);
+ const image=e.target;
+ if(!(image instanceof HTMLImageElement)||!image.classList.contains("photo"))return;
+ const story=image.closest(".story");
+ image.closest(".story-media")?.remove();
+ story?.classList.remove("has-photo");
+ story?.classList.add("is-text");
 },true);
 // Fetch rights metadata alongside every feed update. In particular, the quiet
 // background refresh must not render newly published stories with stale credits.
