@@ -43,6 +43,7 @@ const overlay=document.getElementById("menuOverlay");
 const menuButton=document.getElementById("menuButton");
 const modal=document.getElementById("modal");
 let stories=[],currentTab="new",session=null,currentPage="feed",toastTimer=null;
+let feedRequestSequence=0;
 const authParams=new URLSearchParams(location.search);
 const callbackError=new URLSearchParams(location.hash.replace(/^#/,"")).get("error_description");
 let recoveryMode=authParams.has("gw_reset") || /(?:^|[&#])type=recovery(?:&|$)/.test(location.hash);
@@ -110,7 +111,16 @@ function gwIllustration(story){
  return '<div class="photo story-no-photo" aria-hidden="true"></div>';
 }
 function renderFeed(){
- if(!stories.length){feed.innerHTML='<div class="emptyfeed"><span class="pill">GoodWorld</span><h1>Good news is on its way.</h1><p>We are reviewing our news sources and publishing rights. Only independently reported or properly licensed positive stories will return to this feed.</p><button class="primary" id="refresh">Refresh news ↻</button></div>';feed.querySelector("#refresh").onclick=loadStories;return}
+ if(!stories.length){
+  if(currentTab==="top"){
+   feed.innerHTML='<div class="emptyfeed top-empty" role="status"><span class="pill">Top Today</span><h1>No top stories yet today.</h1><p>No stories have received a heart today. Discover a story you love, sign in and tap the heart to help it appear here.</p><button class="primary" id="browseNew" type="button">Browse new stories</button></div>';
+   feed.querySelector("#browseNew").onclick=()=>setFeedTab("new");
+  }else{
+   feed.innerHTML='<div class="emptyfeed"><span class="pill">GoodWorld</span><h1>Good news is on its way.</h1><p>We are reviewing our news sources and publishing rights. Only independently reported or properly licensed positive stories will return to this feed.</p><button class="primary" id="refresh" type="button">Refresh news ↻</button></div>';
+   feed.querySelector("#refresh").onclick=()=>loadStories();
+  }
+  return;
+ }
  feed.innerHTML=stories.map((s,i)=>{
  const imageMeta=gwImageRights.get(s.id);
  const image=imageMeta && imageMeta.image_url===s.image_url && imageMeta.image_rights_status==="allowed_auto"
@@ -121,7 +131,7 @@ function renderFeed(){
  const editorialUrl=gwEditorialUrl(s);
  return '<article class="story" id="story-'+esc(s.slug)+'" data-id="'+esc(s.id)+'">'+
  (image?'<img class="photo" src="'+esc(image)+'" alt="'+esc(imageMeta.alt_text)+'" loading="'+(i===0?'eager':'lazy')+'" decoding="async" referrerpolicy="no-referrer"/>':gwIllustration(s))+'<div class="shade"></div>'+
- '<div class="storycontent"><span class="pill">'+esc(s.category)+'</span><h2 class="headline">'+(editorialUrl?'<a class="story-permalink" href="'+esc(editorialUrl)+'">'+esc(s.title)+'</a>':esc(s.title))+'</h2><p class="desc">'+esc(s.summary)+'</p>'+
+ '<div class="storycontent"><span class="pill">'+esc(currentTab==="top"?"#"+(i+1)+" TOP TODAY · "+s.category:s.category)+'</span><h2 class="headline">'+(editorialUrl?'<a class="story-permalink" href="'+esc(editorialUrl)+'">'+esc(s.title)+'</a>':esc(s.title))+'</h2><p class="desc">'+esc(s.summary)+'</p>'+
  '<div class="meta"><span>✳ '+esc(s.source_name)+'</span><span>·</span><span class="story-age">'+esc(goodworldAge(s.published_at))+'</span><span>·</span>'+(editorialUrl?'<a class="source" href="'+esc(editorialUrl)+'">Our brief ↗</a><span>·</span>':'')+'<a class="source" href="'+esc(link||"#")+'" target="_blank" rel="noopener noreferrer">Source ↗</a>'+(image?'<a class="photo-note" href="'+esc(validUrl(imageMeta.credit_url)||link||"#")+'" target="_blank" rel="noopener noreferrer">Photo: '+esc(imageMeta.credit)+' ↗</a><a class="photo-note photo-license" href="'+esc(validUrl(imageMeta.rights_url)||"#")+'" target="_blank" rel="noopener noreferrer" aria-label="Image rights and reuse terms">Image rights ↗</a>':'')+(String(s.slug).startsWith("auto-")?'<span class="auto-brief-label">Automatically curated</span>':String(s.slug).startsWith("gov-")?'<span class="auto-brief-label">Official source · licensed brief</span>':'')+'</div></div>'+
  '<div class="storyactions"><button aria-label="'+(liked?"Unlike":"Like")+' story" class="action '+(liked?"liked":"")+'" data-action="like" data-id="'+esc(s.id)+'"><span class="symbol">'+(liked?"♥":"♡")+'</span><span>'+(Number(amount)||0)+'</span></button>'+
  '<button aria-label="Repost story" class="action" data-action="share" data-id="'+esc(s.id)+'"><span class="symbol">↗</span><span>Repost</span></button></div>'+
@@ -155,10 +165,13 @@ async function fetchGoodworldImageRights(items){
 }
 async function loadStories(preserveId){
  if(!client){showToast("Unable to connect to news service");return}
- const {data,error}=await client.rpc("get_goodworld_feed",{p_order:currentTab});
+ const requestedTab=currentTab,requestId=++feedRequestSequence;
+ const {data,error}=await client.rpc("get_goodworld_feed",{p_order:requestedTab});
+ if(requestId!==feedRequestSequence||requestedTab!==currentTab)return;
  if(error){console.warn("Feed unavailable",error.message);showToast("News temporarily unavailable");return}
  const latest=data||[];
  const rights=await fetchGoodworldImageRights(latest);
+ if(requestId!==feedRequestSequence||requestedTab!==currentTab)return;
  stories=latest;
  gwImageRights=rights||new Map();
  renderFeed();
@@ -192,14 +205,28 @@ if(client){
 }else{
  feed.innerHTML='<div class="emptyfeed"><h1>GoodWorld</h1><p>News service could not be loaded. Please refresh this page.</p></div>';
 }
-tabs.forEach(t=>t.addEventListener("click",()=>{currentTab=t.dataset.tab;tabs.forEach(x=>x.classList.toggle("selected",x===t));feed.scrollTop=0;loadStories()}));
+function setFeedTab(tab){
+ if(tab!=="new"&&tab!=="top")return;
+ currentTab=tab;
+ tabs.forEach(t=>{
+  const selected=t.dataset.tab===tab;
+  t.classList.toggle("selected",selected);
+  t.setAttribute("aria-pressed",String(selected));
+ });
+ feed.scrollTop=0;
+ loadStories();
+}
+tabs.forEach(t=>t.addEventListener("click",()=>setFeedTab(t.dataset.tab)));
+tabs.forEach(t=>t.setAttribute("aria-pressed",String(t.dataset.tab===currentTab)));
 async function quietlyRefreshFeed(){
  if(document.hidden||currentPage!=="feed"||feed.scrollTop>90||!client)return;
  const previousTop=stories[0]?.id;
- const {data,error}=await client.rpc("get_goodworld_feed",{p_order:currentTab});
- if(error||!data)return;
+ const requestedTab=currentTab,requestId=feedRequestSequence;
+ const {data,error}=await client.rpc("get_goodworld_feed",{p_order:requestedTab});
+ if(error||!data||requestId!==feedRequestSequence||requestedTab!==currentTab)return;
  const same=stories.length===data.length&&data.every((x,i)=>x.id===stories[i].id&&x.likes_total===stories[i].likes_total&&x.likes_today===stories[i].likes_today&&x.liked_by_me===stories[i].liked_by_me);
  const rights=await fetchGoodworldImageRights(data);
+ if(requestId!==feedRequestSequence||requestedTab!==currentTab)return;
  const nextRights=rights||gwImageRights;
  const rightsChanged=data.some(s=>{
   const old=gwImageRights.get(s.id),now=nextRights.get(s.id);
