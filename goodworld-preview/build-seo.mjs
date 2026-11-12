@@ -70,9 +70,13 @@ function articleHtml(s,other){
     '<p class="intro">'+esc(s.summary)+'</p>'+
     (photo?'<figure class="article-hero"><img src="'+esc(s.image_url)+
      '" alt="'+esc(s.image_alt_text)+'" loading="eager" decoding="async" referrerpolicy="no-referrer">'+
-     '<figcaption>Photo: <a href="'+esc(s.image_credit_url)+
-     '" target="_blank" rel="noopener noreferrer">'+esc(s.image_credit)+
-     '</a> · Official source image</figcaption></figure>':'')+
+     '<figcaption>'+(s.image_kind==="representative"?
+      'Representative photo, not a photograph of the reported event. ':'Official source photo. ')+
+     '<a href="'+esc(s.image_credit_url)+
+     '" target="_blank" rel="noopener noreferrer">Photo: '+esc(s.image_credit)+'</a>'+
+     (s.image_rights_url? ' · <a href="'+esc(s.image_rights_url)+
+     '" target="_blank" rel="noopener noreferrer">'+esc(s.image_license||"Image license")+'</a>':'')+
+     ' · Cropped to fit layout</figcaption></figure>':'')+
     '<div class="article-body">'+paragraphs+'</div>'+
     '<div class="source-block"><p class="source-label">Original reporting</p>'+
     '<p>This is a GoodWorld editorial summary based on reporting by <strong>'+esc(s.source_name)+
@@ -87,7 +91,8 @@ function articleHtml(s,other){
 function archiveHtml(stories){
   const cards=stories.map(s=>'<a class="archive-card" href="/stories/'+encodeURIComponent(s.slug)+'.html">'+
     (s.image_url&&s.image_credit?'<img class="archive-thumb" src="'+esc(s.image_url)+
-     '" alt="'+esc(s.image_alt_text)+'" loading="lazy" decoding="async" referrerpolicy="no-referrer">':'')+
+     '" alt="'+esc(s.image_alt_text)+'" loading="lazy" decoding="async" referrerpolicy="no-referrer">'+
+     (s.image_kind==="representative"?'<span class="archive-photo-note">Representative photo</span>':''):'')+
     '<span class="category">'+esc(s.category)+'</span><strong>'+esc(s.title)+'</strong>'+
     '<time datetime="'+esc(iso(s.published_at))+'">'+esc(formatDate(s.published_at))+'</time></a>').join("\n");
   return '<!doctype html><html lang="en"><head>'+
@@ -162,7 +167,7 @@ async function fetchPublished(){
 async function fetchPhotoRights(){
   if(process.env.GOODWORLD_SEO_FIXTURE)return new Map();
   const url=new URL(PHOTO_API);
-  url.searchParams.set("select","story_id,image_url,credit,credit_url,alt_text");
+  url.searchParams.set("select","story_id,image_url,credit,credit_url,alt_text,rights_url,image_license,image_kind");
   url.searchParams.set("limit","2000");
   const res=await fetch(url,{
    headers:{"apikey":PUBLIC_KEY,"Accept":"application/json"},
@@ -186,7 +191,10 @@ async function main(){
      image_url:verified?story.image_url:null,
      image_credit:verified?checked.credit:"",
      image_credit_url:verified?checked.credit_url:"",
-     image_alt_text:verified?checked.alt_text:""
+     image_alt_text:verified?checked.alt_text:"",
+     image_kind:verified?checked.image_kind:"source",
+     image_license:verified?checked.image_license:"",
+     image_rights_url:verified?checked.rights_url:""
    };
   }).sort((a,b)=>Date.parse(b.published_at)-Date.parse(a.published_at));
   // Copyright safety: zero approved stories is an intentional state.
