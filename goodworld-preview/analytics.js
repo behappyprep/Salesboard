@@ -25,7 +25,7 @@
   if(!/^[a-z][a-z0-9_]{1,39}$/.test(name))return;
   const safe={};
   if(params&&typeof params==="object"){
-   for(const key of ["content_type","content_id","method","feed_order","section","network","story_category"]){
+   for(const key of ["content_type","content_id","method","feed_order","section","network","story_category","language","translation_status"]){
     const val=params[key];
     if((typeof val==="string"||typeof val==="number")&&String(val).length<=100)safe[key]=val;
    }
@@ -54,8 +54,9 @@
   script.src="https://www.googletagmanager.com/gtag/js?id="+encodeURIComponent(ID);
   document.head.appendChild(script);
   const isArticle=/^\/stories\/[a-z0-9-]+\.html$/.test(safePath());
+  const isReader=safePath()==="/read.html"||/^\/news\/[a-z0-9-]+\.html$/.test(safePath());
   const isArchive=safePath()==="/stories/"||safePath()==="/stories/index.html";
-  page(isArticle?"Story":isArchive?"Stories":"GoodWorld");
+  page(isArticle?"Story":isReader?"Read Story":isArchive?"Stories":"GoodWorld");
   if(isArticle)event("read_article",{content_type:"article",content_id:safePath().split("/").pop().replace(/\.html$/,"")});
   window.dispatchEvent(new Event("gw:analytics-ready"));
  }
