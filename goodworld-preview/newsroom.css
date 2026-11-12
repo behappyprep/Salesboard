@@ -306,3 +306,25 @@ body{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
  .menu-panel{padding:19px}
 }
 @media(prefers-reduced-motion:reduce){.story-media .photo{transition:none}}
+
+
+/* Photograph provenance, visible without adding marketing-style decoration. */
+.story-media{position:relative}
+.story-media .representative-label{
+  position:absolute;left:12px;bottom:12px;z-index:2;
+  display:inline-block;padding:7px 9px;
+  font-size:10px;font-weight:700;letter-spacing:.01em;
+  line-height:1.2;color:#252525;
+  background:rgba(255,255,255,.96);
+  border:1px solid rgba(0,0,0,.12);
+  border-radius:2px;box-shadow:none;
+}
+.story-source-row .photo-credit{
+  font-size:10px;line-height:1.45;
+  color:#5B5B5B;white-space:normal;
+  text-decoration:underline;text-decoration-color:#C4C4C4;
+  text-underline-offset:2px
+}
+@media(max-width:640px){
+ .story-media .representative-label{left:10px;bottom:10px;padding:6px 8px;font-size:10px}
+}
