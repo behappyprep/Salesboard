@@ -116,23 +116,17 @@ function gwEditionDate(){
 }
 function gwFeedHeading(){
  const top=currentTab==="top";
- const sectionTitle=top?"Most loved today":"Latest stories";
- return '<section class="editorial-intro" aria-label="About GoodWorld">'+
-  '<div class="intro-main"><p class="intro-eyebrow">A BETTER KIND OF HEADLINE</p>'+
-  '<h1 class="intro-title">Good things<br><em>are happening.</em></h1></div>'+
-  '<div class="intro-side"><span class="side-rule"></span>'+
-  '<p>Real stories of progress, care and possibility. Thoughtfully sourced from around the world, all in one place.</p></div>'+
-  '</section>'+
-  '<div class="edition-row"><span>'+esc(gwEditionDate())+'</span>'+
-  '<span>ONE WORLD. MORE GOOD NEWS.</span></div>'+
-  '<section class="feed-heading" aria-label="Current feed"><h2>'+sectionTitle+'</h2>'+
-  '<p>'+esc(String(stories.length))+' '+(stories.length===1?"story":"stories")+
-  (top?" · ranked by today’s hearts":" · newest first")+'</p></section>';
+ return '<div class="edition-row"><span>'+esc(gwEditionDate())+'</span>'+
+ '<span>Good news from verified sources</span></div>'+
+ '<section class="feed-heading" aria-label="News listing">'+
+ '<h1>'+(top?"Top Today":"Latest news")+'</h1>'+
+ '<p>'+(top?"Stories readers liked today":"The newest stories, all in one feed")+'</p>'+
+ '</section>';
 }
 function gwFeedFooter(){
  return '<footer class="feed-footer">'+
- '<div><div class="footer-brand"><img src="./brandmark.svg" width="30" height="30" alt="" aria-hidden="true">goodworld.</div>'+
- '<div class="footer-copy">More perspective. Less noise. Always free.</div></div>'+
+ '<div><div class="footer-brand">goodworld</div>'+
+ '<div class="footer-copy">Positive news, sourced and free to read.</div></div>'+
  '<nav class="footer-links" aria-label="Footer">'+
  '<a href="./privacy.html">Privacy</a>'+
  '<a href="./stories/">All stories</a>'+
