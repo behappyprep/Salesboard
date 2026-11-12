@@ -49,7 +49,7 @@
   const status=panel.querySelector("#editorStatus"),list=panel.querySelector("#candidateList");
   if(status)status.textContent="Loading…";
   let query=client.from("goodworld_candidates")
-   .select("id,original_title,original_excerpt,source_name,source_url,category,published_at,created_at,global_discovery,discovery_region,source_country_hint,source_language,discovery_score,draft_title,draft_summary,draft_body,story_country",{count:"exact"})
+   .select("id,original_title,original_excerpt,source_name,source_url,category,published_at,created_at,global_discovery,discovery_region,source_country_hint,source_language,discovery_score,draft_title,draft_summary,draft_body,story_country,draft_image_url,draft_image_credit,draft_image_credit_url,draft_image_rights_url,draft_image_license,draft_image_alt,draft_image_kind",{count:"exact"})
    .eq("status","pending").order("created_at",{ascending:false}).range(offset,offset+pageSize-1);
   if(category)query=query.eq("category",category);
   if(region)query=query.eq("discovery_region",region);
@@ -108,7 +108,16 @@
    (global?
     '<label class="fieldlabel">Verified event country<input name="country" class="input" required minlength="2" maxlength="85" placeholder="e.g., Madagascar, Nepal, Namibia" value="'+escapeHtml(candidate.story_country||"")+'"></label>'+
     '<label class="fieldlabel"><input type="checkbox" name="sourceChecked" required> I checked the original reporting and the factual outcome.</label>'+
-    '<label class="fieldlabel"><input type="checkbox" name="countryChecked" required> I verified the country where this event happened.</label>'
+    '<label class="fieldlabel"><input type="checkbox" name="countryChecked" required> I verified the country where this event happened.</label>'+
+    '<p class="subtle">Photo required. Use a rights-verified Wikimedia Commons or approved public-agency image. Link to its actual license and credit the photographer. A representative photo must be clearly labelled.</p>'+
+    '<label class="fieldlabel">Licensed direct photo URL<input name="photoUrl" type="url" class="input" required placeholder="https://upload.wikimedia.org/wikipedia/commons/..." value="'+escapeHtml(candidate.draft_image_url||"")+'"></label>'+
+    '<label class="fieldlabel">Photographer / image credit<input name="photoCredit" class="input" required maxlength="350" value="'+escapeHtml(candidate.draft_image_credit||"")+'"></label>'+
+    '<label class="fieldlabel">Image credit and original file page URL<input name="photoCreditUrl" type="url" class="input" required value="'+escapeHtml(candidate.draft_image_credit_url||"")+'"></label>'+
+    '<label class="fieldlabel">Image license URL<input name="photoRightsUrl" type="url" class="input" required value="'+escapeHtml(candidate.draft_image_rights_url||"")+'"></label>'+
+    '<label class="fieldlabel">Image license name<input name="photoLicense" class="input" required maxlength="150" value="'+escapeHtml(candidate.draft_image_license||"")+'"></label>'+
+    '<label class="fieldlabel">Factual photo description<input name="photoAlt" class="input" required minlength="20" maxlength="600" value="'+escapeHtml(candidate.draft_image_alt||"")+'"></label>'+
+    '<label class="fieldlabel">Photo relationship<select name="photoKind" class="input"><option value="representative">Representative photo, not this actual event</option><option value="source">Actual verified event photo</option></select></label>'+
+    '<label class="fieldlabel"><input type="checkbox" name="photoChecked" required> I checked the photographer, commercial reuse rights, attribution and whether this is an actual event photo.</label>'
     :'<label class="fieldlabel">Licensed image URL (optional)<input name="image" type="url" class="input" placeholder="https://..."></label>')+
    '<div class="editor-card-buttons">'+
    (global?'<button type="button" class="secondary" id="saveGlobalDraft">Save draft</button>':'')+
@@ -116,6 +125,7 @@
    '<button class="secondary" type="button" data-close-form>Cancel</button></div>'+
    '<div class="subtle" role="status"></div>';
   f.elements.category.value=candidate.category;
+  if(global)f.elements.photoKind.value=candidate.draft_image_kind||"representative";
   card.append(f);
   f.scrollIntoView({behavior:"smooth",block:"nearest"});
   f.querySelector("[data-close-form]").onclick=()=>f.remove();
@@ -127,13 +137,27 @@
      p_id:id,p_title:f.elements.title.value.trim(),
      p_summary:f.elements.summary.value.trim(),
      p_body:f.elements.body.value.trim(),
-     p_story_country:f.elements.country.value.trim()
+     p_story_country:f.elements.country.value.trim(),
+     p_image_url:f.elements.photoUrl.value.trim(),
+     p_image_credit:f.elements.photoCredit.value.trim(),
+     p_image_credit_url:f.elements.photoCreditUrl.value.trim(),
+     p_image_rights_url:f.elements.photoRightsUrl.value.trim(),
+     p_image_license:f.elements.photoLicense.value.trim(),
+     p_image_alt:f.elements.photoAlt.value.trim(),
+     p_image_kind:f.elements.photoKind.value
     });
     if(error||!data){reportStatus.textContent=error?.message||"Draft not available";return}
     candidate.draft_title=f.elements.title.value.trim();
     candidate.draft_summary=f.elements.summary.value.trim();
     candidate.draft_body=f.elements.body.value.trim();
     candidate.story_country=f.elements.country.value.trim();
+    candidate.draft_image_url=f.elements.photoUrl.value.trim();
+    candidate.draft_image_credit=f.elements.photoCredit.value.trim();
+    candidate.draft_image_credit_url=f.elements.photoCreditUrl.value.trim();
+    candidate.draft_image_rights_url=f.elements.photoRightsUrl.value.trim();
+    candidate.draft_image_license=f.elements.photoLicense.value.trim();
+    candidate.draft_image_alt=f.elements.photoAlt.value.trim();
+    candidate.draft_image_kind=f.elements.photoKind.value;
     reportStatus.textContent="Draft saved privately. Not published.";
    });
   }
@@ -151,7 +175,15 @@
     ?await client.rpc("publish_goodworld_global_candidate",{
       ...args,p_story_country:f.elements.country.value.trim(),
       p_source_checked:f.elements.sourceChecked.checked,
-      p_country_checked:f.elements.countryChecked.checked
+      p_country_checked:f.elements.countryChecked.checked,
+      p_image_url:f.elements.photoUrl.value.trim(),
+      p_image_credit:f.elements.photoCredit.value.trim(),
+      p_image_credit_url:f.elements.photoCreditUrl.value.trim(),
+      p_image_rights_url:f.elements.photoRightsUrl.value.trim(),
+      p_image_license:f.elements.photoLicense.value.trim(),
+      p_image_alt:f.elements.photoAlt.value.trim(),
+      p_image_kind:f.elements.photoKind.value,
+      p_image_checked:f.elements.photoChecked.checked
      })
     :await client.rpc("publish_goodworld_candidate",{
       ...args,p_image_url:f.elements.image.value.trim()||null
