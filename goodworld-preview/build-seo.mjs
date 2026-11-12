@@ -42,11 +42,13 @@ function articleHtml(s,other){
   const photo=!!(s.image_url&&s.image_credit&&s.image_credit_url&&s.image_alt_text);
   const ld={
    "@context":"https://schema.org","@type":"Article",
-   headline:s.title,description:s.summary,datePublished:pub,
+   headline:s.title,description:s.summary,datePublished:pub,dateModified:pub,
+   inLanguage:"en",isAccessibleForFree:true,isBasedOn:s.source_url,
    mainEntityOfPage:{"@type":"WebPage","@id":url},
    author:{"@type":"Organization",name:"GoodWorld Editorial",url:SITE},
    publisher:{"@type":"Organization",name:"GoodWorld",url:SITE},
    citation:s.source_url,articleSection:s.category,
+   isPartOf:{"@type":"WebSite",name:"GoodWorld",url:SITE},
    ...(photo?{image:[s.image_url]}:{})
   };
   const safeLd=JSON.stringify(ld).replace(/</g,"\\u003c");
@@ -157,19 +159,27 @@ function preRenderedFeed(allRows,photos,lang,translations){
   const imageMeta=photos.get(s.id);
   const image=imageMeta&&imageMeta.image_url===s.image_url&&imageMeta.credit&&
    /^https:\/\//.test(imageMeta.credit_url)?s.image_url:null;
+  const representative=!!(image&&imageMeta.image_kind==="representative");
   const readerPath="/read.html?story="+encodeURIComponent(s.slug)+"&lang="+encodeURIComponent(lang);
   const newsTime=Number.isFinite(Date.parse(s.published_at))?
     '<time class="story-date" datetime="'+esc(iso(s.published_at))+'">'+esc(dateOnly(s.published_at))+'</time>':"";
   return '<article class="story'+(i===0?' is-featured':'')+(image?' has-photo':' is-text')+'">'+
    (image?'<div class="story-media"><img class="photo" src="'+esc(image)+
     '" alt="'+esc(imageMeta.alt_text||heading)+'" loading="'+(i===0?'eager':'lazy')+
-    '" decoding="async" referrerpolicy="no-referrer"></div>':"")+
+    '" decoding="async" referrerpolicy="no-referrer">'+
+    (representative?'<span class="representative-label">Representative photo</span>':"")+
+    '</div>':"")+
    '<div class="story-content"><div class="story-kicker"><span class="story-category">'+esc(s.category)+
    '</span>'+newsTime+'</div><h2 class="story-title"><a href="'+esc(readerPath)+'">'+esc(heading)+
    '</a></h2><p class="story-desc">'+esc(body)+'</p>'+
    '<div class="story-source-row"><a href="'+esc(s.source_url)+
    '" target="_blank" rel="noopener noreferrer">'+esc(s.source_name||"Official source")+
-   ' ↗</a></div></div></article>';
+   ' ↗</a>'+
+   (image?'<a class="photo-credit" href="'+esc(imageMeta.credit_url)+
+   '" target="_blank" rel="noopener noreferrer">Photo: '+esc(imageMeta.credit)+'</a>'+
+   (imageMeta.rights_url?'<a class="photo-credit" href="'+esc(imageMeta.rights_url)+
+   '" target="_blank" rel="noopener noreferrer">'+esc(imageMeta.image_license||"Image license")+'</a>':""):"")+
+   '</div></div></article>';
  }).join("\n");
  return '<div class="feed-shell" data-goodworld-server-rendered="1">'+
   '<div class="feed-heading"><h1>'+esc(title)+'</h1><p>'+esc(summary)+'</p></div>'+
