@@ -11,7 +11,8 @@ const db=createClient(endpoint,key,{auth:{persistSession:false,autoRefreshToken:
 const allowedHosts=new Set(["globalvoices.org","news.mongabay.com","theconversation.com","www.positive.news"]);
 const parser=new XMLParser({ignoreAttributes:false,attributeNamePrefix:"@_",textNodeName:"#text",trimValues:true,htmlEntities:true});
 const positive=/(rescu|reunit|returned home|recovered|restor|rediscover|found alive|saved|adopt|released|thriv|flourish|return of|first birth|newborn|born|surviv|habitat|conserv|reforest|regenerat|volunteer|community|neighbor|neighbour|kindness|donat|helped|helping|rebuild|protect|hope|success|breakthrough|found again|rare|lost species|new species|sanctuary|wildlife|school garden|local hero|homecoming)/i;
-const strong=/(rescu|reunit|found alive|rediscover|first birth|newborn|adopt|saved|restor|thriv|flourish|regenerat|kindness|homecoming|wildlife comeback)/i;
+const strong=/(rescu|reunit|found alive|rediscover|first birth|newborn|adopt|saved|restor|thriv|flourish|regenerat|kindness|homecoming|wildlife comeback|found success|successful|helped|supporting local|rare species|returned)/i;
+const noOutcome=/(^can\s|^will\s|launch(es|ed)?\s|initiative|funding pledge|proposal|policy|announc|seiz(e|es|ed)|suspected traffick|comes at a cost|government fails|digital access debate|pollution crisis|conflict|threatened by)/i;
 const avoid=/(murder|killed|massacre|gunfire|armed conflict|terror attack|war crime|political scandal|election|president|party leader|opposition leader|sex abuse|death toll|fatal accident|drug traffick|court hearing|criminal case|protest violence)/i;
 const plan=/(plans to|hopes to|aims to|could someday|might one day|sets out to|pledged to|promises to)/i;
 const host=(u:string)=>{try{return new URL(u).hostname.toLowerCase()}catch{return ""}};
@@ -65,7 +66,7 @@ function candidates(xml:string,source:Record<string,unknown>){
   if(!url||title.length<20||excerpt.length<65||!Number.isFinite(published)
    ||published<last||published>now+300000)continue;
   const sample=title+" "+excerpt.slice(0,220);
-  if(avoid.test(sample)||plan.test(title)||!positive.test(sample))continue;
+  if(avoid.test(sample)||plan.test(title)||noOutcome.test(title)||!positive.test(title))continue;
   let score=11;
   if(strong.test(title))score+=6;
   if(positive.test(title))score+=3;
