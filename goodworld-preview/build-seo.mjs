@@ -7,6 +7,7 @@ import path from "node:path";
 
 const OUT=path.resolve(process.env.GOODWORLD_OUTPUT_DIR||"goodworld-preview");
 const STORIES_DIR=path.join(OUT,"stories");
+const SHARE_DIR=path.join(OUT,"news");
 const SITE="https://www.goodworld.news";
 const API="https://jdmpmrhyjitmjyjuhtds.supabase.co/rest/v1/goodworld_stories";
 const PHOTO_API="https://jdmpmrhyjitmjyjuhtds.supabase.co/rest/v1/goodworld_story_images";
@@ -254,6 +255,76 @@ function sitemapXml(stories,locales,latestPublication){
     '\n</urlset>\n';
 }
 
+
+async function writeSocialPreviews(rows,photos){
+ await fs.mkdir(SHARE_DIR,{recursive:true});
+ const original=await fs.readFile(path.join(OUT,"read.html"),"utf8");
+ const base=relativeStaticPathToRoot(original);
+ const available=(rows||[]).filter(s=>s.status==="published"&&slugOkay(s.slug)&&
+   s.title&&s.summary&&s.published_at&&Number.isFinite(Date.parse(s.published_at)));
+ const used=new Set();
+ let oldSlugs=[];
+ try{
+  oldSlugs=JSON.parse(await fs.readFile(path.join(OUT,"share-manifest.json"),"utf8"));
+  if(!Array.isArray(oldSlugs))oldSlugs=[];
+ }catch(err){if(err?.code!=="ENOENT")throw err}
+ for(const s of available){
+  if(used.has(s.slug))throw new Error("Duplicate public share slug: "+s.slug);
+  used.add(s.slug);
+  const shareUrl=SITE+"/news/"+encodeURIComponent(s.slug)+".html";
+  const checked=photos.get(s.id);
+  const verified=checked&&checked.image_url===s.image_url&&
+   checked.credit&&/^https:\/\//.test(checked.credit_url);
+  const date=dateOnly(s.published_at);
+  const body=String(s.body||"").split(/\n\s*\n/g).filter(Boolean)
+   .map(p=>"<p>"+esc(p)+"</p>").join("");
+  const media=verified?
+   '<figure class="article-hero"><img class="reader-photo" src="'+esc(s.image_url)+
+   '" alt="'+esc(checked.alt_text||s.title)+'" loading="eager" referrerpolicy="no-referrer">'+
+   '<figcaption class="reader-image-credit">'+
+   (checked.image_kind==="representative"?"Representative photo · ":"")+
+   '<a href="'+esc(checked.credit_url)+'" rel="noopener noreferrer" target="_blank">'+esc(checked.credit)+'</a> · '+
+   '<a href="'+esc(checked.rights_url||checked.credit_url)+'" rel="noopener noreferrer" target="_blank">'+
+   esc(checked.image_license||"Image rights")+'</a></figcaption></figure>':"";
+  const originalPage='<main id="articleRegion" class="reader-page" role="main" aria-live="polite"></main>';
+  const article='<main id="articleRegion" class="reader-page" role="main" aria-live="polite">'+
+   '<p class="reader-meta">'+esc(s.category)+' · '+date+' · '+esc(s.source_name)+'</p>'+
+   '<h1>'+esc(s.title)+'</h1>'+
+   '<p class="reader-summary">'+esc(s.summary)+'</p>'+media+
+   '<div class="read-news-body">'+body+'</div>'+
+   '<div class="reader-citation"><a class="reader-link" href="'+esc(s.source_url)+
+   '" target="_blank" rel="noopener noreferrer">Original source ↗</a></div></main>';
+  if(!base.includes(originalPage))throw new Error("GoodWorld reader template changed");
+  let html=base.replace(originalPage,article);
+  html=html.replace(/<title>[^<]*<\/title>/,'<title>'+esc(s.title)+' | GoodWorld</title>');
+  html=html.replace(/<meta name="description" content="[^"]*">/,
+    '<meta name="description" content="'+esc(s.summary)+'">');
+  // Noindex: shorter curated briefs and their machine translations are not
+  // independent reporting. These pages exist for accurate link previews.
+  const socialHead=
+   '<link rel="canonical" href="'+shareUrl+'">'+
+   '<meta property="og:type" content="article">'+
+   '<meta property="og:site_name" content="GoodWorld">'+
+   '<meta property="og:title" content="'+esc(s.title)+'">'+
+   '<meta property="og:description" content="'+esc(s.summary)+'">'+
+   '<meta property="og:url" content="'+shareUrl+'">'+
+   '<meta property="article:published_time" content="'+esc(iso(s.published_at))+'">'+
+   (verified?'<meta property="og:image" content="'+esc(s.image_url)+'">'+
+   '<meta property="og:image:alt" content="'+esc(checked.alt_text||s.title)+'">':"")+
+   '<meta name="twitter:card" content="'+(verified?"summary_large_image":"summary")+'">';
+  html=html.replace("</head>",socialHead+"</head>");
+  await fs.writeFile(path.join(SHARE_DIR,s.slug+".html"),html,"utf8");
+ }
+ for(const slug of oldSlugs){
+  if(!slugOkay(slug)||used.has(slug))continue;
+  try{await fs.unlink(path.join(SHARE_DIR,slug+".html"))}
+  catch(err){if(err?.code!=="ENOENT")throw err}
+ }
+ await fs.writeFile(path.join(OUT,"share-manifest.json"),
+  JSON.stringify([...used],null,2)+"\n","utf8");
+ return used.size;
+}
+
 function buildRssFeed(rows){
  const recent=(rows||[]).filter(s=>s.status==="published"&&s.title&&s.summary&&
    s.published_at&&Number.isFinite(Date.parse(s.published_at)))
@@ -383,8 +454,10 @@ async function main(){
     .sort((a,b)=>Date.parse(b.published_at)-Date.parse(a.published_at))[0];
   await fs.writeFile(path.join(OUT,"sitemap.xml"),sitemapXml(stories,locales,latest?.published_at),"utf8");
   await fs.writeFile(path.join(OUT,"feed.xml"),buildRssFeed(rows),"utf8");
+  const socialPages=await writeSocialPreviews(rows,photos);
   await fs.writeFile(manifestPath,JSON.stringify(stories.map(s=>s.slug),null,2)+"\n","utf8");
   console.log("GoodWorld SEO built: "+stories.length+" editorial pages, "+locales.length+" localized homepages, source-linked RSS and sitemap ("+(stories.length+5+locales.length)+" URLs)");
+  console.log("GoodWorld social preview pages created: "+socialPages+" (noindex, unique article Open Graph metadata).");
   console.log("Excluded "+(rows.length-stories.length)+" public entries with insufficient editorial content or automatic RSS briefs.");
 }
 main().catch(error=>{console.error("GoodWorld SEO build failed:",error instanceof Error?error.message:"Unknown error");process.exitCode=1});
