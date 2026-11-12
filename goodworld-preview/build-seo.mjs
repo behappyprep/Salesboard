@@ -12,6 +12,18 @@ const API="https://jdmpmrhyjitmjyjuhtds.supabase.co/rest/v1/goodworld_stories";
 const PHOTO_API="https://jdmpmrhyjitmjyjuhtds.supabase.co/rest/v1/goodworld_story_images";
 const PUBLIC_KEY=process.env.GOODWORLD_SUPABASE_PUBLIC_KEY||"sb_publishable_Mi4xc0jwt_MFKhjKWZ1Vpw_bG6VPp3_";
 const PAGE_SIZE=500;
+const LOCALIZED={
+ zh:{title:"好消息与积极新闻 | GoodWorld",description:"每日积极新闻：科学进步、动物救援、自然保护和真实的善意故事。",heading:"世界各地的好消息",label:"最新新闻"},
+ hi:{title:"अच्छी खबरें और सकारात्मक समाचार | GoodWorld",description:"विज्ञान, प्रकृति, जानवरों और दया से जुड़ी प्रमाणित सकारात्मक खबरें।",heading:"दुनिया भर की अच्छी खबरें",label:"ताज़ा खबरें"},
+ es:{title:"Buenas noticias de hoy | GoodWorld",description:"Buenas noticias verificadas sobre ciencia, animales, naturaleza y solidaridad.",heading:"Buenas noticias del mundo",label:"Últimas noticias"},
+ ar:{title:"أخبار إيجابية من العالم | GoodWorld",description:"أخبار إيجابية موثوقة عن العلوم والطبيعة والحيوانات وأعمال الخير.",heading:"أخبار جيدة من أنحاء العالم",label:"آخر الأخبار"},
+ fr:{title:"Bonnes nouvelles du monde | GoodWorld",description:"Des actualités positives et vérifiées sur la science, les animaux, la nature et la solidarité.",heading:"De bonnes nouvelles du monde",label:"Dernières actualités"},
+ bn:{title:"বিশ্বের ভালো খবর | GoodWorld",description:"বিজ্ঞান, প্রাণী, প্রকৃতি ও মানবিকতার যাচাইকৃত ইতিবাচক সংবাদ।",heading:"সারা বিশ্বের ভালো খবর",label:"সর্বশেষ সংবাদ"},
+ pt:{title:"Boas notícias do mundo | GoodWorld",description:"Notícias positivas e verificadas sobre ciência, natureza, animais e solidariedade.",heading:"Boas notícias do mundo",label:"Últimas notícias"},
+ id:{title:"Berita baik dari dunia | GoodWorld",description:"Berita positif dan terverifikasi tentang sains, satwa, alam, dan kebaikan manusia.",heading:"Kabar baik dari seluruh dunia",label:"Berita terbaru"},
+ ur:{title:"دنیا بھر کی اچھی خبریں | GoodWorld",description:"سائنس، فطرت، جانوروں اور انسانی مہربانی سے متعلق مصدقہ مثبت خبریں۔",heading:"دنیا بھر سے اچھی خبریں",label:"تازہ ترین خبریں"},
+ ru:{title:"Хорошие новости со всего мира | GoodWorld",description:"Проверенные позитивные новости о науке, животных, природе и добрых поступках.",heading:"Хорошие новости со всего мира",label:"Последние новости"}
+};
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const iso=s=>new Date(s).toISOString();
 const formatDate=s=>new Date(s).toLocaleDateString("en-US",{timeZone:"UTC",year:"numeric",month:"long",day:"numeric"});
@@ -120,8 +132,100 @@ function archiveHtml(stories){
     '<footer class="site-footer">GoodWorld · Free positive news for everyone. · <a href="/privacy.html">Privacy &amp; analytics</a></footer>'+
     '<script src="/archive.js" defer></script></body></html>\n';
 }
-function sitemapXml(stories){
-  const urls=[{url:SITE+"/",lastmod:null},{url:SITE+"/stories/",lastmod:null}].concat(
+
+function pageAlternates(available){
+ const languages=["en",...available];
+ return '<link rel="alternate" hreflang="x-default" href="'+SITE+'/">'+
+ languages.map(language=>'<link rel="alternate" hreflang="'+language+
+ '" href="'+SITE+(language==="en"?"/":"/"+language+"/")+'">').join("");
+}
+function relativeStaticPathToRoot(html){
+ return html.replace(/(\b(?:href|src)=["'])\.\//g,"$1/");
+}
+function preRenderedFeed(allRows,photos,lang,translations){
+ const meta=LOCALIZED[lang];
+ const title=meta?.heading||"Real positive news, from verified sources";
+ const summary=meta?.label||"Latest news";
+ const readable=(allRows||[]).filter(x=>x.status==="published"&&x.title&&x.summary&&x.source_url)
+  .sort((a,b)=>Date.parse(b.published_at)-Date.parse(a.published_at)).slice(0,24);
+ const cards=readable.map((s,i)=>{
+  const translation=translations?.stories?.[s.id];
+  const matched=translation&&translation.original_title===s.title&&
+   translation.original_summary===s.summary;
+  const heading=matched?translation.title:s.title;
+  const body=matched?translation.summary:s.summary;
+  const imageMeta=photos.get(s.id);
+  const image=imageMeta&&imageMeta.image_url===s.image_url&&imageMeta.credit&&
+   /^https:\/\//.test(imageMeta.credit_url)?s.image_url:null;
+  const readerPath="/read.html?story="+encodeURIComponent(s.slug)+"&lang="+encodeURIComponent(lang);
+  const newsTime=Number.isFinite(Date.parse(s.published_at))?
+    '<time class="story-date" datetime="'+esc(iso(s.published_at))+'">'+esc(dateOnly(s.published_at))+'</time>':"";
+  return '<article class="story'+(i===0?' is-featured':'')+(image?' has-photo':' is-text')+'">'+
+   (image?'<div class="story-media"><img class="photo" src="'+esc(image)+
+    '" alt="'+esc(imageMeta.alt_text||heading)+'" loading="'+(i===0?'eager':'lazy')+
+    '" decoding="async" referrerpolicy="no-referrer"></div>':"")+
+   '<div class="story-content"><div class="story-kicker"><span class="story-category">'+esc(s.category)+
+   '</span>'+newsTime+'</div><h2 class="story-title"><a href="'+esc(readerPath)+'">'+esc(heading)+
+   '</a></h2><p class="story-desc">'+esc(body)+'</p>'+
+   '<div class="story-source-row"><a href="'+esc(s.source_url)+
+   '" target="_blank" rel="noopener noreferrer">'+esc(s.source_name||"Official source")+
+   ' ↗</a></div></div></article>';
+ }).join("\n");
+ return '<div class="feed-shell" data-goodworld-server-rendered="1">'+
+  '<div class="feed-heading"><h1>'+esc(title)+'</h1><p>'+esc(summary)+'</p></div>'+
+  '<div class="stories-grid">'+cards+'</div></div>';
+}
+function replaceFeedContent(html,rendered){
+ const exact='<section class="feed" id="feed" aria-label="Good news feed"></section>';
+ if(!html.includes(exact))throw new Error("GoodWorld feed placeholder changed; refusing SEO build");
+ return html.replace(exact,'<section class="feed" id="feed" aria-label="Good news feed">'+rendered+'</section>');
+}
+async function writeSearchLandingPages(rows,photos){
+ const primary=path.join(OUT,"index.html");
+ let base=await fs.readFile(primary,"utf8");
+ const translations=new Map();
+ for(const [language] of Object.entries(LOCALIZED)){
+  try{
+   const raw=JSON.parse(await fs.readFile(path.join(OUT,"translations",language+".json"),"utf8"));
+   if(raw?.language===language&&raw?.stories&&Object.keys(raw.stories).length>0)
+    translations.set(language,raw);
+  }catch(err){if(err?.code!=="ENOENT")console.warn("Translation file invalid for",language)}
+ }
+ const langs=[...translations.keys()];
+ const alternates=pageAlternates(langs);
+ const mainFeed=preRenderedFeed(rows,photos,"en",null);
+ base=replaceFeedContent(base,mainFeed);
+ base=base.replace("</head>",alternates+"</head>");
+ await fs.writeFile(primary,base,"utf8");
+ for(const language of langs){
+  const meta=LOCALIZED[language];
+  let html=relativeStaticPathToRoot(base);
+  html=html.replace('<html lang="en">','<html lang="'+language+'"'+
+    (language==="ar"||language==="ur"?' dir="rtl"':'')+'>');
+  html=html.replace(/<title>[^<]+<\/title>/,'<title>'+esc(meta.title)+'</title>');
+  html=html.replace(/<meta name="description" content="[^"]*"\/>/,
+    '<meta name="description" content="'+esc(meta.description)+'"/>');
+  html=html.replace(/<link rel="canonical" href="[^"]*"\/>/,
+    '<link rel="canonical" href="'+SITE+'/'+language+'/"/>');
+  html=html.replace(/<meta property="og:title" content="[^"]*"\/>/,
+    '<meta property="og:title" content="'+esc(meta.title)+'"/>');
+  html=html.replace(/<meta property="og:description" content="[^"]*"\/>/,
+    '<meta property="og:description" content="'+esc(meta.description)+'"/>');
+  html=html.replace(/<meta property="og:url" content="[^"]*"\/>/,
+    '<meta property="og:url" content="'+SITE+'/'+language+'/"/>');
+  html=html.replace('"inLanguage":"en"','"inLanguage":"'+language+'"');
+  const preRendered=preRenderedFeed(rows,photos,language,translations.get(language));
+  html=html.replace(mainFeed,preRendered);
+  await fs.mkdir(path.join(OUT,language),{recursive:true});
+  await fs.writeFile(path.join(OUT,language,"index.html"),html,"utf8");
+ }
+ return langs;
+}
+
+function sitemapXml(stories,locales,latestPublication){
+  const lastmod=latestPublication?dateOnly(latestPublication):null;
+  const urls=[{url:SITE+"/",lastmod},{url:SITE+"/stories/",lastmod}].concat(
+    locales.map(lang=>({url:SITE+"/"+lang+"/",lastmod})),
     stories.map(s=>({url:seoUrl(s),lastmod:dateOnly(s.published_at)})));
   return '<?xml version="1.0" encoding="UTF-8"?>\n'+
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+
@@ -226,9 +330,12 @@ async function main(){
     catch(error){if(error?.code!=="ENOENT")throw error}
   }
   await fs.writeFile(path.join(STORIES_DIR,"index.html"),archiveHtml(stories),"utf8");
-  await fs.writeFile(path.join(OUT,"sitemap.xml"),sitemapXml(stories),"utf8");
+  const locales=await writeSearchLandingPages(rows,photos);
+  const latest=rows.filter(s=>s.status==="published"&&s.published_at)
+    .sort((a,b)=>Date.parse(b.published_at)-Date.parse(a.published_at))[0];
+  await fs.writeFile(path.join(OUT,"sitemap.xml"),sitemapXml(stories,locales,latest?.published_at),"utf8");
   await fs.writeFile(manifestPath,JSON.stringify(stories.map(s=>s.slug),null,2)+"\n","utf8");
-  console.log("GoodWorld SEO built: "+stories.length+" original editorial pages + archive + sitemap ("+(stories.length+2)+" URLs)");
+  console.log("GoodWorld SEO built: "+stories.length+" editorial pages + "+locales.length+" localized landings + archive + sitemap ("+(stories.length+2+locales.length)+" URLs)");
   console.log("Excluded "+(rows.length-stories.length)+" public entries with insufficient editorial content or automatic RSS briefs.");
 }
 main().catch(error=>{console.error("GoodWorld SEO build failed:",error instanceof Error?error.message:"Unknown error");process.exitCode=1});
