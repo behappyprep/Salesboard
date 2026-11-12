@@ -136,7 +136,7 @@ function gwFeedFooter(){
  '<nav class="footer-links" aria-label="Footer">'+
  '<a href="./privacy.html">Privacy</a>'+
  '<a href="./stories/">All stories</a>'+
- '<a href="mailto:hello@goodworld.news">Contact</a>'+
+
  '</nav></footer>';
 }
 function renderFeed(){
