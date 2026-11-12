@@ -133,7 +133,10 @@ function gwFeedFooter(){
  '<nav class="footer-links" aria-label="Footer">'+
  '<a href="/privacy.html">'+esc(tx("privacy"))+'</a>'+
  '<a href="/stories/">'+esc(tx("all"))+'</a>'+
-
+ '<a href="/about.html">About</a>'+
+ '<a href="/editorial-policy.html">Standards</a>'+
+ '<a href="/contact.html">Contact</a>'+
+ '<a href="/feed.xml">RSS</a>'+
  '</nav></footer>';
 }
 function renderFeed(){
