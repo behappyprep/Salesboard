@@ -1,8 +1,6 @@
 name: GoodWorld AI translations
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '17 */3 * * *'
 permissions:
   contents: write
 concurrency:
@@ -10,6 +8,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   translate:
+    if: vars.GOODWORLD_PAID_AI_ENABLED == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 55
     steps:
