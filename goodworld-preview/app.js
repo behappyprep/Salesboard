@@ -59,6 +59,7 @@ const authParams=new URLSearchParams(location.search);
 const callbackError=new URLSearchParams(location.hash.replace(/^#/,"")).get("error_description");
 let recoveryMode=authParams.has("gw_reset") || /(?:^|[&#])type=recovery(?:&|$)/.test(location.hash);
 const confirmationReturn=authParams.has("gw_confirm");
+const googleReturn=authParams.get("gw_google")==="1";
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const validUrl=u=>{try{const x=new URL(u);return x.protocol==="https:"?x.href:""}catch{return ""}};
 function goodworldAge(value){
@@ -258,7 +259,11 @@ if(client){
  });
  refreshSession().then(()=>{
   loadStories();
-  if(callbackError){
+  if(googleReturn){
+   history.replaceState(null,"",location.pathname);
+   showPage("profile");
+   showToast(session?.user?"Signed in with Google":"Google sign-in was not completed. Please try again.");
+  }else if(callbackError){
    recoveryMode=false;
    history.replaceState(null,"",location.pathname);
    showPage("profile");
@@ -396,7 +401,7 @@ function showPage(which){
   donate:'<h1>Support GoodWorld.</h1><p class="lead">Good news should be free for everyone.</p><div class="panel" id="donationPanel"></div><p class="subtle">Contributions are voluntary and do not grant special access. They are not tax-deductible charitable donations. Crypto transfers are generally irreversible.</p>',
   profile:session?.user
   ? '<h1>Your GoodWorld</h1><p class="lead">'+esc(session.user.email)+'</p><div class="panel"><h2>You are signed in.</h2><p>Your likes are linked to this account across your devices.</p><button class="secondary" id="signOut">Sign out</button></div><div class="panel"><p>GoodWorld is free for everyone. Thanks for being part of it.</p></div>'
-  : '<h1>Welcome to GoodWorld.</h1><p class="lead">Sign in to support your favorite positive stories.</p><div class="panel"><form id="authForm"><label for="email">Email</label><input class="input" type="email" id="email" autocomplete="email" required placeholder="Your email"/><label for="password">Password</label><input class="input" type="password" id="password" autocomplete="current-password" minlength="8" required placeholder="At least 8 characters"/><button class="primary" id="signIn" type="submit">Sign in</button><button class="secondary" type="button" id="signUp">Create account</button><button class="password-link" type="button" id="forgotPassword">Forgot password?</button><button class="password-link" type="button" id="pasteRecoveryLink">Reset link not opening? Paste it here</button><div class="recovery-paste hidden" id="recoveryPaste"><label for="recoveryEmailLink">Paste the entire reset link from your email</label><textarea class="input" id="recoveryEmailLink" rows="3" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="https://…/auth/v1/verify?token=…&type=recovery"></textarea><button class="secondary" type="button" id="verifyRecoveryLink">Use this reset link</button><p class="subtle" id="pasteRecoveryStatus" role="status">Keep your reset link private. Never send it in a chat.</p></div></form><p class="subtle" id="authStatus">GoodWorld is free. An account is only needed to like stories. Email confirmation may be required.</p></div>'
+  : '<h1>Welcome to GoodWorld.</h1><p class="lead">Sign in to support your favorite positive stories.</p><div class="panel"><div id="googleAuthBox" class="google-auth-box" hidden><button type="button" id="googleSignIn" class="google-auth-button"><span class="google-auth-mark" aria-hidden="true">G</span><span>Continue with Google</span></button><p class="google-auth-divider"><span>or continue with email</span></p></div><form id="authForm"><label for="email">Email</label><input class="input" type="email" id="email" autocomplete="email" required placeholder="Your email"/><label for="password">Password</label><input class="input" type="password" id="password" autocomplete="current-password" minlength="8" required placeholder="At least 8 characters"/><button class="primary" id="signIn" type="submit">Sign in</button><button class="secondary" type="button" id="signUp">Create account</button><button class="password-link" type="button" id="forgotPassword">Forgot password?</button><button class="password-link" type="button" id="pasteRecoveryLink">Reset link not opening? Paste it here</button><div class="recovery-paste hidden" id="recoveryPaste"><label for="recoveryEmailLink">Paste the entire reset link from your email</label><textarea class="input" id="recoveryEmailLink" rows="3" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="https://…/auth/v1/verify?token=…&type=recovery"></textarea><button class="secondary" type="button" id="verifyRecoveryLink">Use this reset link</button><p class="subtle" id="pasteRecoveryStatus" role="status">Keep your reset link private. Never send it in a chat.</p></div></form><p class="subtle" id="authStatus">GoodWorld is free. An account is only needed to like stories. Email confirmation may be required.</p></div>'
  };
  page.innerHTML=pages[which]??"";
  page.querySelector("#backFeed")?.addEventListener("click",()=>showPage("feed"));
@@ -465,6 +470,35 @@ function showPage(which){
  if(which==="profile"&&!session?.user){
  const form=page.querySelector("#authForm");
  const status=page.querySelector("#authStatus");
+ // Keep the Google option hidden until Supabase reports a configured provider.
+ const googleBox=page.querySelector("#googleAuthBox");
+ if(googleBox && client){
+  fetch(GW_URL+"/auth/v1/settings",{
+   headers:{"apikey":GW_KEY},cache:"no-store"
+  }).then(async response=>{
+   if(!response.ok)throw Error("Auth provider status unavailable");
+   return response.json();
+  }).then(config=>{
+   if(currentPage!=="profile"||page.querySelector("#googleAuthBox")!==googleBox||session?.user)return;
+   if(config?.external?.google!==true)return;
+   googleBox.hidden=false;
+   googleBox.querySelector("#googleSignIn").addEventListener("click",async()=>{
+    const button=googleBox.querySelector("#googleSignIn");
+    if(button.disabled)return;
+    button.disabled=true;
+    status.textContent="Connecting securely to Google…";
+    try{
+     const {error}=await client.auth.signInWithOAuth({
+      provider:"google",options:{redirectTo:GW_SITE+"/?gw_google=1"}
+     });
+     if(error)throw error;
+    }catch(error){
+     status.textContent="Google sign-in could not start. Please try again or use email.";
+     button.disabled=false;
+    }
+   });
+  }).catch(()=>{googleBox.hidden=true;});
+ }
  let busy=false;
  async function submitAuth(create){
   if(busy||!form.reportValidity())return;
