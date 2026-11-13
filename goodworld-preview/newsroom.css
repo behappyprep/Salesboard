@@ -380,3 +380,50 @@ body{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
   .story .storyactions{gap:9px}
   .story .action{min-height:46px;min-width:91px;padding:8px 11px;font-size:14px}
 }
+
+/* November 2026: compact news-card metadata, without hiding attribution. */
+.story-bottom{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;flex-wrap:wrap;margin-top:auto;
+  border-top:1px solid #E6E6E6;padding-top:11px;
+}
+.story-bottom .story-read-link{
+  display:inline-flex;align-items:center;
+  padding:7px 0;margin:0;min-height:38px;
+  color:#252525;font:700 13px/1.2 Arial,Helvetica,sans-serif;
+  text-decoration:none;white-space:nowrap;
+}
+.story-bottom .story-read-link:hover{text-decoration:underline;text-underline-offset:3px}
+.story .story-bottom .storyactions{display:flex;flex-direction:row;gap:7px;align-items:center;margin:0}
+.story .story-bottom .action{
+  display:inline-flex;flex-direction:row;gap:5px;
+  min-width:0;min-height:38px;padding:6px 11px;
+  border:1px solid #DDD;border-radius:5px;
+  font-size:13px;line-height:1.2;font-weight:700;
+  white-space:nowrap;background:#FFF;color:#292929;
+}
+.story .story-bottom .action .symbol,
+.story.is-featured.is-text .story-bottom .action .symbol{
+  display:inline-grid;place-items:center;
+  width:21px;height:21px;min-width:21px;
+  font-size:21px;line-height:1;border:0;background:transparent;
+}
+.story .story-bottom .action.liked{color:#A62B40;border-color:#D8A1AA;background:#FFF4F5}
+.story .story-bottom .action.liked .symbol{color:#A62B40}
+.story-microcredits{
+  display:flex;align-items:center;flex-wrap:wrap;
+  gap:4px 13px;margin-top:7px;min-width:0;
+  font:400 10px/1.45 Arial,Helvetica,sans-serif;color:#838383;
+}
+.story-microcredits a,.story.is-featured.is-text .story-microcredits a{
+  color:#737373;max-width:100%;overflow:hidden;text-overflow:ellipsis;
+  white-space:nowrap;text-decoration:none;border-bottom:1px solid #D9D9D9;
+  font-size:10px;line-height:1.4;font-weight:450;
+}
+.story-microcredits a:hover{color:#171717;border-color:#171717}
+.story-microcredits a:focus-visible{outline:2px solid #171717;outline-offset:2px}
+@media(max-width:640px){
+  .story-bottom{padding-top:9px}
+  .story .story-bottom .action{min-height:39px;padding:6px 10px;font-size:12px}
+  .story-microcredits{margin-top:7px;gap:4px 10px}
+}
