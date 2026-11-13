@@ -1,0 +1,30 @@
+name: GoodWorld international editorial verification
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '02 * * * *'
+permissions:
+  contents: read
+  id-token: write
+concurrency:
+  group: goodworld-international-editorial
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout GoodWorld code
+        uses: actions/checkout@v4
+        with:
+          ref: goodworld-preview
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify and prepare international good news
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GOODWORLD_EDITORIAL_MODEL: gpt-4.1-mini
+        run: python goodworld-preview/verify_global.py
