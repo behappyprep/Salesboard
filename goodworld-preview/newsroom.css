@@ -356,3 +356,27 @@ body{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
 @media(min-width:641px) and (max-width:1120px){
  .header-tagline{font-size:11px}
 }
+
+/* Clear, accessible article engagement controls. */
+.story-image-link{display:block;width:100%;height:100%;color:inherit}
+.story-image-link:focus-visible{outline:3px solid #222;outline-offset:-3px}
+.story .storyactions{gap:12px;flex-wrap:wrap}
+.story .action{
+  min-height:44px;min-width:90px;gap:9px;
+  padding:7px 12px;border:1px solid #d7d7d7;
+  border-radius:6px;background:#fff;color:#242424;
+  font-size:14px;font-weight:700;transition:background .15s,border-color .15s
+}
+.story .action .symbol,.story.is-featured.is-text .action .symbol{
+  width:28px;height:28px;min-width:28px;border:0;
+  background:transparent;font-size:25px;color:inherit
+}
+.story .action:hover{background:#f2f2f2;border-color:#777}
+.story .action:focus-visible{outline:2px solid #222;outline-offset:2px}
+.story .action.liked{background:#fff4f5;border-color:#ce6874;color:#a72236}
+.story .action.liked .symbol{background:transparent;border:0;color:#b02b42}
+.story.is-featured.is-text .action{color:#242424}
+@media(max-width:640px){
+  .story .storyactions{gap:9px}
+  .story .action{min-height:46px;min-width:91px;padding:8px 11px;font-size:14px}
+}
