@@ -182,13 +182,13 @@ function renderFeed(){
   const ownUrl=gwEditorialUrl(s);
   const titleUrl=(i18n?.getLang()||"en")==="en"&&ownUrl?ownUrl:newsLink(s);
   const storyTitle=titleUrl?
-   '<a class="story-permalink" href="'+esc(titleUrl)+'"'+(ownUrl?'':' target="_blank" rel="noopener noreferrer"')+'>'+esc(displayTitle)+'</a>'
+   '<a class="story-permalink" href="'+esc(titleUrl)+'">'+esc(displayTitle)+'</a>'
    :esc(displayTitle);
   const representative=image&&meta.image_kind==="representative";
   const imageMarkup=image?
-   '<div class="story-media"><img class="photo" src="'+esc(image)+'" alt="'+esc(meta.alt_text||s.title)+'" loading="'+(i===0?'eager':'lazy')+'" decoding="async" referrerpolicy="no-referrer"'+(i===0?' fetchpriority="high"':'')+'>'+
+   '<div class="story-media"><a class="story-image-link" href="'+esc(titleUrl||newsLink(s))+'" aria-label="'+esc(displayTitle)+'"><img class="photo" src="'+esc(image)+'" alt="'+esc(meta.alt_text||s.title)+'" loading="'+(i===0?'eager':'lazy')+'" decoding="async" referrerpolicy="no-referrer"'+(i===0?' fetchpriority="high"':'')+'>'+
    (representative?'<span class="representative-label" title="Licensed photograph illustrating the topic, not a photo of this specific event">'+esc(tx("representative"))+'</span>':'')+
-   '</div>'
+   '</a></div>'
    :'';
   const category=currentTab==="top"?"#"+(i+1)+" / "+s.category:s.category;
   const sourceLink=link?
