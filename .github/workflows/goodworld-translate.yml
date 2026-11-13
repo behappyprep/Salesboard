@@ -1,12 +1,6 @@
 name: GoodWorld multilingual news translations
 on:
-  schedule:
-    - cron: '37 * * * *'
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/goodworld-translate.yml'
 permissions:
   contents: write
 concurrency:
