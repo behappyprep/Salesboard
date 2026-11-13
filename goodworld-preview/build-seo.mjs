@@ -182,13 +182,14 @@ function preRenderedFeed(allRows,photos,lang,translations){
    '<div class="story-content"><div class="story-kicker"><span class="story-category">'+esc(s.category)+
    '</span>'+newsTime+'</div><h2 class="story-title"><a href="'+esc(readerPath)+'">'+esc(heading)+
    '</a></h2><p class="story-desc">'+esc(body)+'</p>'+
-   '<div class="story-source-row"><a href="'+esc(s.source_url)+
-   '" target="_blank" rel="noopener noreferrer">'+esc(s.source_name||"Official source")+
-   ' ↗</a>'+
+   '<div class="story-bottom"><a class="reader-link story-read-link" href="'+esc(readerPath)+'">Read story ↗</a></div>'+
+   '<div class="story-microcredits">'+
+   '<a href="'+esc(s.source_url)+'" title="'+esc(s.source_name||"Original publisher")+
+   '" target="_blank" rel="noopener noreferrer">Source ↗</a>'+
    (image?'<a class="photo-credit" href="'+esc(imageMeta.credit_url)+
-   '" target="_blank" rel="noopener noreferrer">Photo: '+esc(imageMeta.credit)+'</a>'+
-   (imageMeta.rights_url?'<a class="photo-credit" href="'+esc(imageMeta.rights_url)+
-   '" target="_blank" rel="noopener noreferrer">'+esc(imageMeta.image_license||"Image license")+'</a>':""):"")+
+   '" target="_blank" rel="noopener noreferrer">© '+esc(imageMeta.credit)+'</a>'+
+   (imageMeta.rights_url?'<a class="photo-license" href="'+esc(imageMeta.rights_url)+
+   '" target="_blank" rel="noopener noreferrer">'+esc(imageMeta.image_license||"Image rights")+'</a>':""):"")+
    '</div></div></article>';
  }).join("\n");
  return '<div class="feed-shell" data-goodworld-server-rendered="1">'+
