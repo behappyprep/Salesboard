@@ -86,3 +86,36 @@ html[dir="rtl"] .header-controls{margin-inline-start:auto}
  .language-picker{min-width:49px;min-height:36px;padding:0 6px}
  .language-code{font-size:11px}
 }
+
+/* GoodWorld reader: comfortable mobile editorial reading, not a legal notice wall. */
+.reader-page{max-width:750px;padding:35px 24px 66px}
+.reader-page h1{font-size:clamp(32px,4.4vw,48px);line-height:1.13;letter-spacing:-.043em;margin:14px 0 22px;overflow-wrap:break-word}
+.reader-page .reader-meta{color:#747474;font-size:12px;margin:0 0 12px;line-height:1.6}
+.reader-page .reader-summary{font-size:18px;line-height:1.65;color:#333;margin:21px 0 16px}
+.reader-page .read-news-body{font-size:18px;line-height:1.72;max-width:680px;margin:16px 0}
+.reader-page .read-news-body p{margin:0 0 20px}
+.reader-page .reader-hero{margin:15px 0 26px}
+.reader-page .reader-photo{max-height:450px;aspect-ratio:16/10;object-fit:cover;border-radius:2px;margin:0 0 7px}
+.reader-page .reader-image-credit{font-size:10px;color:#757575;line-height:1.55;margin:0}
+.reader-page .reader-image-credit a{color:#555;text-decoration:underline}
+.reader-page .reader-citation{margin-top:29px;padding-top:18px;border-top:1px solid #ddd;color:#525252}
+.reader-page .reader-citation>p{font-size:13px;line-height:1.5;margin:5px 0}
+.reader-page .reader-citation .reader-citation-label{color:#777;font-size:10px;text-transform:uppercase;letter-spacing:.08em}
+.reader-page .reader-citation .reader-link{display:inline-block;margin:9px 0 12px;font-size:13px}
+.reader-page .reader-citation .reader-brief-label,.reader-page .reader-citation .reader-translation-note{font-size:11px;color:#808080;margin:5px 0;letter-spacing:0;text-transform:none}
+.reader-page .reader-back{margin-top:22px!important}
+.reader-wait{padding:30px 0 70px}
+.reader-wait h1{font-size:clamp(26px,5vw,38px)}
+.reader-wait p{font-size:16px;line-height:1.6;color:#555}
+.reader-footer{text-align:center;max-width:750px;margin:0 auto;padding:20px 18px 50px;color:#777;font-size:12px;border-top:1px solid #e5e5e5}
+.reader-footer a{color:#666}
+@media(max-width:640px){
+ .reader-page{padding:23px 17px 46px}
+ .reader-page h1{font-size:clamp(29px,7.3vw,37px);line-height:1.14;margin:11px 0 20px;letter-spacing:-.035em}
+ .reader-page .reader-summary{font-size:17px;line-height:1.62;margin:18px 0}
+ .reader-page .read-news-body{font-size:17px;line-height:1.7}
+ .reader-page .reader-hero{margin:16px 0 22px}
+ .reader-page .reader-photo{width:100%;aspect-ratio:4/3;height:auto;max-height:380px}
+ .reader-page .reader-image-credit{font-size:10px}
+ .reader-page .reader-citation{margin-top:26px}
+}
