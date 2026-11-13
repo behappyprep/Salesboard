@@ -11,7 +11,7 @@
  const escape=s=>String(s??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
  const safe=u=>{try{const a=new URL(u);return a.protocol==="https:"?a.href:""}catch{return ""}};
  const query=new URLSearchParams(location.search), slug=query.get("story")||(/^\/news\/([a-z0-9-]+)\.html$/.exec(location.pathname)?.[1])||null;
- let article=null,rights=null;
+ let article=null,rights=null,originalSourceDate=null;
  let engagementTracked=false;
  function trackArticleRead(){
   if(!article||engagementTracked||!window.GWAnalytics?.enabled())return;
@@ -39,6 +39,14 @@
     .eq("story_id",article.id).limit(1);
    if(!imageError&&images?.length&&images[0].image_rights_status==="allowed_auto"&&images[0].image_url===article.image_url)
     rights=images[0];
+   // Original-source date is different from the date GoodWorld indexed a brief.
+   if(article.slug.startsWith("gov-")){
+    try{
+     const {data:licenses}=await client.from("goodworld_primary_story_licenses")
+      .select("source_published_at").eq("story_id",article.id).limit(1);
+     originalSourceDate=licenses?.[0]?.source_published_at||null;
+    }catch(_){}
+   }
    render();
   }catch(e){console.warn("Unable to load GoodWorld story",e);renderUnavailable()}
  }
@@ -51,32 +59,68 @@
   const locale=lang()?.locale()||"en-US";
   const selected=lang()?.getLang()||"en";
   const t=lang()?.translated(article);
+  const original=safe(article.source_url);
+  const back=document.getElementById("backHome");
+  if(back)back.href=selected==="en"?"/":"/"+encodeURIComponent(selected)+"/";
+
+  // English must never silently replace the visitor's requested language.
+  if(selected!=="en"&&!t){
+   const notes={
+    ru:["Перевод готовится","Эта история ещё переводится на русский. Пока можно открыть первоисточник или вернуться к готовым новостям."],
+    es:["Traducción en preparación","Estamos traduciendo esta historia. Puedes leer la fuente original mientras tanto."],
+    fr:["Traduction en préparation","Nous traduisons cette histoire. Vous pouvez consulter la source originale en attendant."],
+    pt:["Tradução em preparação","Estamos traduzindo esta história. Enquanto isso, você pode consultar a fonte original."],
+    zh:["翻译准备中","这篇新闻正在翻译。您可以先查看原始来源。"],
+    hi:["अनुवाद तैयार हो रहा है","इस खबर का अनुवाद चल रहा है। फिलहाल मूल स्रोत पढ़ सकते हैं।"],
+    ar:["جارٍ إعداد الترجمة","تجري ترجمة هذه القصة. يمكنك الاطلاع على المصدر الأصلي مؤقتًا."],
+    bn:["অনুবাদ তৈরি হচ্ছে","এই খবরটির অনুবাদ চলছে। আপাতত মূল উৎস দেখতে পারেন।"],
+    id:["Terjemahan sedang disiapkan","Cerita ini sedang diterjemahkan. Anda dapat membaca sumber aslinya sementara itu."],
+    ur:["ترجمہ تیار ہو رہا ہے","اس خبر کا ترجمہ جاری ہے۔ اس دوران اصل ماخذ دیکھ سکتے ہیں۔"]
+   };
+   const msg=notes[selected]||["Translation in progress","This story is being translated."];
+   document.title=msg[0]+" | GoodWorld";
+   out.innerHTML='<div class="reader-wait" role="status"><h1>'+escape(msg[0])+'</h1><p>'+escape(msg[1])+'</p>'+
+    (original?'<a class="reader-link" href="'+escape(original)+'" target="_blank" rel="noopener noreferrer">'+escape(tx("original"))+'</a>':'')+
+    '<p><a class="reader-link" href="'+escape(back?.href||"/")+'">'+escape(tx("back"))+'</a></p></div>';
+   return;
+  }
   const title=t?.title||article.title;
   const summary=t?.summary||article.summary;
   const body=t?.body||article.body||"";
-  const original=safe(article.source_url);
-  const readDate=new Intl.DateTimeFormat(locale,{day:"numeric",month:"long",year:"numeric"}).format(new Date(article.published_at));
+  const brief=article.slug.startsWith("gov-");
+  const actualDate=originalSourceDate||article.published_at;
+  const readDate=new Intl.DateTimeFormat(locale,{day:"numeric",month:"long",year:"numeric"}).format(new Date(actualDate));
   document.title=title+" | GoodWorld";
+
   const photo=rights&&safe(rights.image_url)?
-   '<figure class="article-hero"><img class="reader-photo" loading="eager" decoding="async" referrerpolicy="no-referrer" src="'+escape(safe(rights.image_url))+'" alt="'+escape(rights.alt_text)+'">'+
+   '<figure class="article-hero reader-hero"><img class="reader-photo" loading="eager" decoding="async" referrerpolicy="no-referrer" src="'+escape(safe(rights.image_url))+'" alt="'+escape(rights.alt_text)+'">'+
    '<figcaption class="reader-image-credit">'+
    (rights.image_kind==="representative"?escape(tx("representative"))+" · ":"")+
    '<a href="'+escape(safe(rights.credit_url))+'" rel="noopener noreferrer" target="_blank">'+escape(rights.credit)+'</a>'+
    (safe(rights.rights_url)?' · <a href="'+escape(safe(rights.rights_url))+'" rel="noopener noreferrer" target="_blank">'+escape(rights.image_license||tx("rights"))+'</a>':'')+
    '</figcaption></figure>':"";
-  const notice=selected==="en"?"":'<aside class="reader-disclosure" role="note">'+
-     escape(t?tx("machine"):tx("pending"))+'. '+escape(tx("disclosure"))+'</aside>';
-  const paragraphs=String(body).split(/\n\s*\n/).map(p=>'<p>'+escape(p).replace(/\n/g," ")+'</p>').join("");
-  out.innerHTML='<p class="reader-meta">'+escape(article.category)+' · '+escape(readDate)+' · '+escape(article.source_name)+'</p>'+
+
+  // Government briefs contain only a short licensed source excerpt; avoid
+  // repeating the excerpt and a full page of legal boilerplate as a fake article.
+  const readableSummary=summary.trim()+(brief&&!/[.!?…]$/.test(summary.trim())?"…":"");
+  const paragraphs=brief?"":String(body).split(/\n\s*\n/).filter(Boolean).map(p=>'<p>'+escape(p).replace(/\n/g," ")+'</p>').join("");
+  const note=selected==="en"?"":'<p class="reader-translation-note">'+escape(tx("machine"))+'</p>';
+  const sourceDateLabel=originalSourceDate?
+   (selected==="ru"?"Дата первоисточника":selected==="en"?"Original publication":""):"";
+  out.innerHTML=
+   '<p class="reader-meta">'+escape(article.category)+' <span aria-hidden="true">·</span> '+
+   (sourceDateLabel?'<span>'+escape(sourceDateLabel)+': </span>':'')+
+   '<time datetime="'+escape(actualDate)+'">'+escape(readDate)+'</time></p>'+
    '<h1>'+escape(title)+'</h1>'+
-   notice+'<p class="reader-summary">'+escape(summary)+'</p>'+
    photo+
-   '<div class="read-news-body">'+paragraphs+'</div>'+
-   '<div class="reader-citation"><p>'+escape(tx("reported"))+': '+escape(article.source_name)+'</p>'+
-   (original?'<p><a class="reader-link" href="'+escape(original)+'" rel="noopener noreferrer" target="_blank">'+escape(tx("original"))+' ↗</a></p>':'')+
-   '<p><a class="reader-link" href="/?lang='+encodeURIComponent(selected)+'">'+escape(tx("back"))+'</a></p></div>';
-  const back=document.getElementById("backHome");
-  if(back)back.href=selected==="en"?"/":"/"+encodeURIComponent(selected)+"/";
+   '<p class="reader-summary">'+escape(readableSummary)+'</p>'+
+   (paragraphs?'<div class="read-news-body">'+paragraphs+'</div>':"")+
+   '<div class="reader-citation"><p class="reader-citation-label">'+escape(tx("source"))+'</p>'+
+   '<p>'+escape(article.source_name)+'</p>'+
+   (original?'<a class="reader-link" href="'+escape(original)+'" rel="noopener noreferrer" target="_blank">'+escape(tx("original"))+' ↗</a>':'')+
+   (brief?'<p class="reader-brief-label">'+escape(selected==="ru"?"Краткое изложение первоисточника":selected==="en"?"Short source-based brief":"Source-based brief")+'</p>':"")+
+   note+
+   '<p class="reader-back"><a class="reader-link" href="'+escape(back?.href||"/")+'">'+escape(tx("back"))+'</a></p></div>';
   trackArticleRead();
  }
  window.addEventListener("goodworld:language-changed",render);
