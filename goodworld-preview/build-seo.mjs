@@ -150,8 +150,12 @@ function preRenderedFeed(allRows,photos,lang,translations){
  const meta=LOCALIZED[lang];
  const title=meta?.heading||"Real positive news, from verified sources";
  const summary=meta?.label||"Latest news";
- const readable=(allRows||[]).filter(x=>x.status==="published"&&x.title&&x.summary&&x.source_url)
-  .sort((a,b)=>Date.parse(b.published_at)-Date.parse(a.published_at)).slice(0,24);
+ const readable=(allRows||[]).filter(x=>{
+   if(!(x.status==="published"&&x.title&&x.summary&&x.source_url))return false;
+   if(lang==="en")return true;
+   const t=translations?.stories?.[x.id];
+   return !!(t&&t.original_title===x.title&&t.original_summary===x.summary&&t.original_body===x.body);
+  }).sort((a,b)=>Date.parse(b.published_at)-Date.parse(a.published_at)).slice(0,24);
  const cards=readable.map((s,i)=>{
   const translation=translations?.stories?.[s.id];
   const matched=translation&&translation.original_title===s.title&&
@@ -306,7 +310,7 @@ async function writeSocialPreviews(rows,photos){
   const verified=checked&&checked.image_url===s.image_url&&
    checked.credit&&/^https:\/\//.test(checked.credit_url);
   const date=dateOnly(s.published_at);
-  const body=String(s.body||"").split(/\n\s*\n/g).filter(Boolean)
+  const body=s.slug.startsWith("gov-")?"":String(s.body||"").split(/\n\s*\n/g).filter(Boolean)
    .map(p=>"<p>"+esc(p)+"</p>").join("");
   const media=verified?
    '<figure class="article-hero"><img class="reader-photo" src="'+esc(s.image_url)+
@@ -319,9 +323,9 @@ async function writeSocialPreviews(rows,photos){
   const originalPage='<main id="articleRegion" class="reader-page" role="main" aria-live="polite"></main>';
   const article='<main id="articleRegion" class="reader-page" role="main" aria-live="polite">'+
    '<p class="reader-meta">'+esc(s.category)+' · '+date+' · '+esc(s.source_name)+'</p>'+
-   '<h1>'+esc(s.title)+'</h1>'+
-   '<p class="reader-summary">'+esc(s.summary)+'</p>'+media+
-   '<div class="read-news-body">'+body+'</div>'+
+   '<h1>'+esc(s.title)+'</h1>'+media+
+   '<p class="reader-summary">'+esc(s.summary)+(s.slug.startsWith("gov-")&&!/[.!?…]$/.test(s.summary)?"…":"")+'</p>'+
+   (body?'<div class="read-news-body">'+body+'</div>':"")+
    '<div class="reader-citation"><a class="reader-link" href="'+esc(s.source_url)+
    '" target="_blank" rel="noopener noreferrer">Original source ↗</a></div></main>';
   if(!base.includes(originalPage))throw new Error("GoodWorld reader template changed");
@@ -431,8 +435,23 @@ async function fetchPhotoRights(){
   if(!Array.isArray(rows))throw new Error("Unexpected photo provenance response");
   return new Map(rows.map(x=>[x.story_id,x]));
 }
+async function fetchCuratedIds(){
+  if(process.env.GOODWORLD_SEO_FIXTURE)return null;
+  const endpoint=new URL(API.replace(/\/goodworld_stories(?:\?.*)?$/,"/rpc/get_goodworld_feed"));
+  endpoint.searchParams.set("p_order","new");
+  const response=await fetch(endpoint,{
+    headers:{"apikey":PUBLIC_KEY,"Accept":"application/json"},
+    signal:AbortSignal.timeout(15000)
+  });
+  if(!response.ok)throw new Error("GoodWorld editorial feed unavailable; SEO build refused.");
+  const data=await response.json();
+  if(!Array.isArray(data))throw new Error("Unexpected editorial feed response");
+  return new Set(data.map(item=>item.id));
+}
 async function main(){
   const rows=await fetchPublished();
+  const curatedIds=await fetchCuratedIds();
+  const visibleRows=curatedIds?rows.filter(row=>curatedIds.has(row.id)):rows;
   const photos=await fetchPhotoRights();
   const stories=rows.filter(eligible).map(story=>{
    const checked=photos.get(story.id);
@@ -479,12 +498,12 @@ async function main(){
     catch(error){if(error?.code!=="ENOENT")throw error}
   }
   await fs.writeFile(path.join(STORIES_DIR,"index.html"),archiveHtml(stories),"utf8");
-  const locales=await writeSearchLandingPages(rows,photos);
-  const latest=rows.filter(s=>s.status==="published"&&s.published_at)
+  const locales=await writeSearchLandingPages(visibleRows,photos);
+  const latest=visibleRows.filter(s=>s.status==="published"&&s.published_at)
     .sort((a,b)=>Date.parse(b.published_at)-Date.parse(a.published_at))[0];
   await fs.writeFile(path.join(OUT,"sitemap.xml"),sitemapXml(stories,locales,latest?.published_at),"utf8");
   await fs.writeFile(path.join(OUT,"news-sitemap.xml"),googleNewsSitemapXml(stories),"utf8");
-  await fs.writeFile(path.join(OUT,"feed.xml"),buildRssFeed(rows),"utf8");
+  await fs.writeFile(path.join(OUT,"feed.xml"),buildRssFeed(visibleRows),"utf8");
   const socialPages=await writeSocialPreviews(rows,photos);
   await fs.writeFile(manifestPath,JSON.stringify(stories.map(s=>s.slug),null,2)+"\n","utf8");
   console.log("GoodWorld SEO built: "+stories.length+" editorial pages, "+locales.length+" localized homepages, source-linked RSS and sitemap ("+(stories.length+5+locales.length)+" URLs)");
