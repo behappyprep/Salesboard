@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" role="img" aria-labelledby="title">
+<title id="title">GoodWorld</title>
+<defs><clipPath id="hemisphere"><path d="M105 57 C126 -11 277 -11 300 57 L300 61 L105 61 Z"/></clipPath></defs>
+<g fill="#17191A">
+<path d="M105 58 C129 -14 274 -14 300 58" fill="none" stroke="#17191A" stroke-width="4.8" stroke-linecap="round"/>
+<g clip-path="url(#hemisphere)">
+<path d="M115 29 L128 19 139 17 149 21 159 19 169 23 173 29 166 33 161 39 151 41 149 47 144 47 140 54 132 51 125 44 117 43 120 36 Z"/>
+<path d="M150 10 L164 5 179 6 186 11 181 16 166 16 158 20 152 18 Z"/>
+<path d="M148 51 L159 49 166 54 171 60 172 69 165 76 165 85 159 89 154 80 152 73 148 68 147 61 142 57 Z"/>
+<path d="M196 20 L204 16 211 19 217 15 222 19 231 16 242 13 254 16 260 21 273 23 281 31 280 39 272 42 262 39 255 45 247 46 240 42 232 45 224 40 213 43 205 39 202 33 194 29 Z"/>
+<path d="M206 44 L215 43 224 46 229 53 229 61 223 70 221 80 216 86 211 80 206 72 200 62 201 53 Z"/>
+<path d="M251 46 L257 49 260 56 255 61 250 58 245 52 Z"/>
+<path d="M274 49 L285 53 292 60 289 67 283 63 276 61 Z"/>
+</g></g>
+<text x="7" y="115" font-family="Arial,Helvetica,sans-serif" font-weight="800" font-size="69" letter-spacing="-3" fill="#17191A">GoodWorld</text>
+</svg>
