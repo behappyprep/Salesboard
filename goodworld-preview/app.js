@@ -366,7 +366,7 @@ function showPage(which){
  currentPage=which;
  window.GWAnalytics?.page(which==="feed"?"GoodWorld":which.charAt(0).toUpperCase()+which.slice(1),which==="feed"?"/":"/#"+which);
  if(which==="donate")window.GWAnalytics?.track("donate_open",{section:"donate"});nav.forEach(n=>n.classList.toggle("active",n.dataset.page===which));
- document.getElementById("switcher").classList.toggle("hidden",which!=="feed");
+ // The old switcher was removed when Latest / Top Today moved into the header.
  page.classList.toggle("hidden",which==="feed");feed.classList.toggle("hidden",which!=="feed");
  if(which==="feed"){page.innerHTML="";return}
  if(which==="reset-password"){
