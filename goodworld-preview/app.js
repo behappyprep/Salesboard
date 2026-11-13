@@ -35,6 +35,7 @@ const GW_DONATION_OPTIONS=Object.freeze([
  {symbol:"ETH",network:"Arbitrum One",wallet:"evm"}
 ]);
 const client=window.supabase?.createClient(GW_URL,GW_KEY);
+window.gwSupabase=client;
 const feed=document.getElementById("feed");
 const page=document.getElementById("page");
 const nav=[...document.querySelectorAll(".navitem")];
