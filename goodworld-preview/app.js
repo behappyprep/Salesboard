@@ -146,7 +146,19 @@ function gwFeedFooter(){
 function renderFeed(){
  const position=feed.scrollTop;
  const header=gwFeedHeading();
- if(!stories.length){
+ const chosenLanguage=i18n?.getLang()||"en";
+ // A requested translation is part of the article, not an optional decoration.
+ // Never show an untranslated English story in a localized feed.
+ const readableStories=chosenLanguage==="en"?stories:stories.filter(story=>!!i18n?.translated(story));
+ if(!readableStories.length&&stories.length&&chosenLanguage!=="en"){
+  const holding={"en":"Stories in this language are being prepared. New translations appear here as soon as they are ready.","ru":"Готовим переводы новых историй. Здесь появятся только новости, уже переведённые на русский.","zh":"新故事的翻译正在准备中。完成后会在这里显示。","hi":"नई कहानियों का अनुवाद तैयार किया जा रहा है। तैयार होने पर वे यहाँ दिखेंगी।","es":"Estamos preparando las traducciones de las nuevas historias. Aparecerán aquí cuando estén listas.","ar":"نُعدّ ترجمات القصص الجديدة. ستظهر هنا عندما تصبح جاهزة.","fr":"Nous préparons les traductions des nouvelles histoires. Elles apparaîtront ici dès qu’elles seront prêtes.","bn":"নতুন গল্পগুলোর অনুবাদ তৈরি হচ্ছে। প্রস্তুত হলে এখানে দেখা যাবে।","pt":"Estamos preparando as traduções das novas histórias. Elas aparecerão aqui quando estiverem prontas.","id":"Terjemahan cerita baru sedang disiapkan. Cerita akan muncul di sini setelah siap.","ur":"نئی خبروں کے تراجم تیار کیے جا رہے ہیں۔ مکمل ہونے پر وہ یہاں نظر آئیں گے۔"}[chosenLanguage]||"Stories in this language are being prepared. New translations appear here as soon as they are ready.";
+  feed.innerHTML='<div class="feed-shell">'+header+
+   '<section class="emptyfeed translation-wait" role="status"><h2>'+esc(holding)+'</h2></section>'+
+   gwFeedFooter()+'</div>';
+  feed.scrollTop=position;
+  return;
+ }
+ if(!readableStories.length){
   feed.innerHTML='<div class="feed-shell">'+header+
    (currentTab==="top"
      ? '<div class="emptyfeed top-empty" role="status"><span class="pill">'+esc(tx("top"))+'</span><h1>'+esc(tx("noTop"))+'</h1><p>'+esc(tx("noTopDetails"))+'</p><button class="primary" id="browseNew" type="button">'+esc(tx("browse"))+' ↗</button></div>'
@@ -157,10 +169,10 @@ function renderFeed(){
   feed.scrollTop=position;
   return;
  }
- const cards=stories.map((s,i)=>{
+ const cards=readableStories.map((s,i)=>{
   const translation=i18n?.translated(s);
   const displayTitle=translation?.title||s.title,displaySummary=translation?.summary||s.summary;
-  const translationPending=!!(i18n&&i18n.getLang()!=="en"&&!translation);
+  const translationPending=false;
   const meta=gwImageRights.get(s.id);
   const image=meta&&meta.image_url===s.image_url&&meta.image_rights_status==="allowed_auto"
    ?validUrl(s.image_url):null;
@@ -192,7 +204,7 @@ function renderFeed(){
     '<div class="story-kicker"><span class="story-category">'+esc(category)+'</span>'+
     '<time class="story-date" datetime="'+esc(s.published_at)+'">'+esc(gwStoryDate(s.published_at))+'</time></div>'+
     '<h3 class="story-title">'+storyTitle+'</h3>'+
-    '<p class="story-desc">'+esc(displaySummary)+'</p>'+
+    '<p class="story-desc">'+esc(displaySummary)+(s.slug.startsWith("gov-")&&!/[.!?…]\s*$/.test(displaySummary)?"…":"")+'</p>'+
     (translationPending?'<p class="translation-pending">'+esc(tx("pending"))+'</p>':'')+
     '<div class="story-foot">'+
      '<div class="story-origin"><span>'+esc(tx("reported"))+'</span><strong>'+esc(s.source_name)+'</strong></div>'+
