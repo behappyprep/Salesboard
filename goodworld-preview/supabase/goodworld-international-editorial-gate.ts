@@ -168,11 +168,11 @@ async function commonsImage(query:string,subjectTerms:string[]){
    const titleLow=norm(title);
    const matchesTitle=terms.filter(x=>titleLow.includes(x)).length;
    if(matchesTitle<1)continue;
-   const artist=clean(m.Artist?.value||"").slice(0,120) || "Wikimedia Commons contributor";
-   if(artist.length<3)continue;
-   const {data:used}=await db.from("goodworld_story_images").select("story_id")
-     .or("credit_url.eq."+pageUrl+",image_url.eq."+image).limit(1);
-   if(used?.length)continue;
+   const artist=clean(m.Artist?.value||"").slice(0,120);
+   if(artist.length<3 || /^(unknown|anonymous|none|wikimedia commons contributor)$/i.test(artist))continue;
+   const {data:byImage}=await db.from("goodworld_story_images").select("story_id").eq("image_url",image).limit(1);
+   const {data:byPage}=await db.from("goodworld_story_images").select("story_id").eq("credit_url",pageUrl).limit(1);
+   if(byImage?.length||byPage?.length)continue;
    matches.push({image_url:image,original_url:original,page_url:pageUrl,credit:artist,
     license_name:clean(m.LicenseShortName?.value||""),license_url:lic,
     alt:"Representative photograph: "+title.replace(/\.(jpe?g|png|webp)$/i,"").slice(0,125)+". Not a photograph of the reported event.",
@@ -214,7 +214,7 @@ async function submit(payload:any){
  const aliases:Record<string,string[]>={
   "morocco":["morocco","marokko","maroc"],
   "vietnam":["vietnam","việt nam","viet nam"],
-  "democratic republic of the congo":["democratic republic of the congo","dr congo","drc","congo","rdc"],
+  "democratic republic of the congo":["democratic republic of the congo","dr congo","drc","rdc","république démocratique du congo"],
   "taiwan":["taiwan","臺灣","台灣"]
  };
  const cTokens=aliases[country.toLowerCase()]||[country.toLowerCase()];
