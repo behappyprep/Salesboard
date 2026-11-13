@@ -107,6 +107,7 @@
    (rights.image_kind==="representative"?escape(tx("representative"))+" · ":"")+
    '<a href="'+escape(safe(rights.credit_url))+'" rel="noopener noreferrer" target="_blank">'+escape(rights.credit)+'</a>'+
    (safe(rights.rights_url)?' · <a href="'+escape(safe(rights.rights_url))+'" rel="noopener noreferrer" target="_blank">'+escape(rights.image_license||tx("rights"))+'</a>':'')+
+   ' · <span>cropped for layout</span>'+
    '</figcaption></figure>':"";
 
   // Government briefs contain only a short licensed source excerpt; avoid
