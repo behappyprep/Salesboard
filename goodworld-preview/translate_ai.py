@@ -17,7 +17,7 @@ def translate(story,language):
       "For thin or truncated originals, do not fill gaps. Output valid JSON only.")
     payload={"model":MODEL,"temperature":0.2,"response_format":{"type":"json_object"},"messages":[{"role":"system","content":prompt},{"role":"user","content":json.dumps({"title":story["title"],"summary":story["summary"],"body":story["body"]},ensure_ascii=False)}]}
     req=urllib.request.Request("https://api.openai.com/v1/chat/completions",data=json.dumps(payload).encode(),headers={"Authorization":"Bearer "+KEY,"Content-Type":"application/json"})
-    for attempt in range(3):
+    for attempt in range(2):
         try:
             with urllib.request.urlopen(req,timeout=90) as response: result=json.load(response)
             translated=json.loads(result["choices"][0]["message"]["content"])
@@ -25,7 +25,16 @@ def translate(story,language):
             if len(translated["body"])<max(60,len(story["body"])*0.28):raise ValueError("Suspiciously short translation")
             return translated
         except urllib.error.HTTPError as e:
-            if e.code not in (429,500,502,503) or attempt==2:raise
+            detail=e.read().decode("utf-8","replace")[:900]
+            if e.code==429:
+                try:
+                    error=json.loads(detail).get("error",{})
+                    code=error.get("code","")
+                    message=error.get("message","")
+                except Exception:
+                    code="";message=detail
+                raise RuntimeError("OpenAI API quota or rate limit (429): "+str(code)+" "+str(message)) from e
+            if e.code not in (500,502,503) or attempt==1:raise
             time.sleep(3*(attempt+1))
     raise RuntimeError("Translation failed")
 def main():
@@ -34,6 +43,8 @@ def main():
     if not feed:raise SystemExit("No source stories. Refusing to update translations.")
     OUT.mkdir(parents=True,exist_ok=True)
     languages=[sys.argv[1]] if len(sys.argv)==2 and sys.argv[1] in TARGETS else TARGETS
+    failures=0
+    successes=0
     for language in languages:
         path=OUT/(language+".json")
         document=json.loads(path.read_text("utf-8")) if path.exists() else {}
@@ -46,12 +57,18 @@ def main():
                 translated=translate(story,language)
                 entries[story["id"]]={**translated,**{"original_"+k:story[k] for k in ("title","summary","body")},"engine":"openai-context-v1","review_status":"automated_not_editor_reviewed"}
                 changed+=1
+                successes+=1
             except Exception as e:
-                print(language,story["id"],"needs manual review:",e,file=sys.stderr,flush=True)
+                failures+=1
+                print(language,story["id"],"translation failed:",e,file=sys.stderr,flush=True)
+                if "OpenAI API quota or rate limit (429)" in str(e):
+                    raise SystemExit("Stopping early: OpenAI API returned 429. Check billing/usage limits. "+str(e))
         if changed:
             document.update({"language":language,"source_language":"en","engine":"openai-context-v1","notice":"Contextual AI translation; not manually reviewed.","stories":entries})
             tmp=path.with_suffix(".tmp")
             tmp.write_text(json.dumps(document,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
             os.replace(tmp,path)
         print(language,"translated",changed,flush=True)
+    if failures:
+        raise SystemExit("Incomplete translation batch: "+str(failures)+" failed, "+str(successes)+" translated.")
 if __name__=="__main__":main()
