@@ -115,7 +115,7 @@
   const paragraphs=brief?"":String(body).split(/\n\s*\n/).filter(Boolean).map(p=>'<p>'+escape(p).replace(/\n/g," ")+'</p>').join("");
   const note=selected==="en"?"":'<p class="reader-translation-note">'+escape(tx("machine"))+'</p>';
   const sourceDateLabel=originalSourceDate?
-   (selected==="ru"?"Дата первоисточника":selected==="en"?"Original publication":""):"";
+   (selected==="ru"?"Источник":selected==="en"?"Original publication":""):"";
   out.innerHTML=
    '<p class="reader-meta">'+escape(article.category)+' <span aria-hidden="true">·</span> '+
    (sourceDateLabel?'<span>'+escape(sourceDateLabel)+': </span>':'')+
