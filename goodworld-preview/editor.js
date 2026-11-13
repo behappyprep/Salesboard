@@ -24,10 +24,13 @@
   if(!editor)return;
   window.open("https://analytics.google.com/analytics/web/#/p561555821","_blank","noopener,noreferrer");
  });
- menu.addEventListener("click",async()=>{
+ async function openEditorial(){
   await refreshAccess();
-  if(!editor){showToast("Editor access required");return}
+  if(!editor){showPage("profile");showToast("Sign in with an editor account to open Editorial");return}
   closeMenu();showPage("editor");renderEditorShell();await fetchCandidates(false);
+ }
+ menu.addEventListener("click",async()=>{
+  await openEditorial();
  });
  function renderEditorShell(){
   panel.innerHTML='<div class="editor-header"><span class="pill">Private editorial</span>'+
@@ -203,5 +206,7 @@
   });
  }
  client?.auth.onAuthStateChange(()=>{setTimeout(refreshAccess,0)});
- refreshAccess();
+ refreshAccess().then(()=>{
+  if(new URLSearchParams(location.search).get("editorial")==="1")openEditorial();
+ });
 })();
