@@ -419,3 +419,14 @@ button,a{-webkit-tap-highlight-color:transparent}
  .stories-grid .story:hover{transform:none}
  .stories-grid .story:hover .story-media .photo{transform:none}
 }
+
+/* Google OAuth appears only when enabled in Supabase. */
+.google-auth-box[hidden]{display:none!important}
+.google-auth-box{margin-bottom:20px}
+.google-auth-button{display:flex;width:100%;min-height:48px;align-items:center;justify-content:center;gap:10px;border:1px solid #BACBBE;border-radius:9px;background:#FFFFFF;color:#234A40;font:inherit;font-size:15px;font-weight:700;cursor:pointer}
+.google-auth-button:hover{background:#F4F9F4;border-color:#8BAF99}
+.google-auth-button:disabled{opacity:.65;cursor:wait}
+.google-auth-mark{font-family:Arial,sans-serif;font-weight:800;font-size:23px;line-height:1;background:linear-gradient(110deg,#4285F4 15%,#34A853 40%,#FBBC05 60%,#EA4335 84%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.google-auth-divider{margin:18px 0 10px;color:#7C8D80;font-size:12px;text-align:center;display:flex;align-items:center;gap:12px}
+.google-auth-divider:before,.google-auth-divider:after{content:"";height:1px;flex:1;background:#DFE9DF}
+.google-auth-button:focus-visible{outline:3px solid #BB8440;outline-offset:4px}
