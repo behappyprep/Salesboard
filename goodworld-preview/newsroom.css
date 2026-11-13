@@ -380,8 +380,3 @@ body{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
   .story .storyactions{gap:9px}
   .story .action{min-height:46px;min-width:91px;padding:8px 11px;font-size:14px}
 }
-
-/* Brand update: vector globe wordmark on the existing white newsroom masthead. */
-.header-brand .gw-site-logo{display:block;width:200px;height:auto;max-width:100%;max-height:60px;object-fit:contain}
-.header-brand .wordmark{display:inline-flex;align-items:center;min-height:57px}
-@media(max-width:640px){.header-brand .gw-site-logo{width:155px;max-height:48px}.header-brand .wordmark{min-height:48px}}
