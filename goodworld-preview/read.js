@@ -50,9 +50,10 @@
    // Original-source date is different from the date GoodWorld indexed a brief.
    if(article.slug.startsWith("gov-")){
     try{
-     const {data:licenses}=await client.from("goodworld_primary_story_licenses")
-      .select("source_published_at").eq("story_id",article.id).limit(1);
-     originalSourceDate=licenses?.[0]?.source_published_at||null;
+     const {data:sourceDate,error:dateError}=await client.rpc(
+      "get_goodworld_original_publication_date",{p_story_id:article.id}
+     );
+     if(!dateError)originalSourceDate=sourceDate||null;
     }catch(_){}
    }
    render();
