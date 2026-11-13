@@ -1,0 +1,38 @@
+name: GoodWorld AI translations
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */3 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: goodworld-ai-translations
+  cancel-in-progress: false
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - name: Checkout GoodWorld publishing branch
+        uses: actions/checkout@v4
+        with:
+          ref: goodworld-preview
+          persist-credentials: true
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generate contextual translations
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GOODWORLD_TRANSLATION_MODEL: gpt-4.1-mini
+        run: python goodworld-preview/translate_ai.py
+      - name: Commit updated translations
+        run: |
+          git config user.name "goodworld-translation-bot"
+          git config user.email "goodworld-translation-bot@users.noreply.github.com"
+          git add goodworld-preview/translations/*.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update GoodWorld contextual AI translations"
+            git push origin HEAD:goodworld-preview
+          fi
