@@ -1,5 +1,9 @@
 name: GoodWorld international editorial verification
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/goodworld-international-verification.yml'
   workflow_dispatch:
   schedule:
     - cron: '02 * * * *'
