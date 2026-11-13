@@ -101,6 +101,15 @@
   document.body.appendChild(root);
   banner=root.querySelector(".gw-consent");
   settingsButton=root.querySelector(".gw-privacy-trigger");
+  // Keep privacy controls reachable, but never overlay a reader's story.
+  const locationForControl=document.querySelector(".menu-small")||
+    document.querySelector(".reader-footer")||
+    document.querySelector(".site-footer")||
+    document.querySelector(".feed-footer")||root;
+  if(locationForControl!==root){
+    locationForControl.appendChild(document.createTextNode(" · "));
+    locationForControl.appendChild(settingsButton);
+  }
   root.querySelector(".gw-consent-decline").addEventListener("click",()=>save("declined"));
   root.querySelector(".gw-consent-accept").addEventListener("click",()=>save("accepted"));
   settingsButton.addEventListener("click",showBanner);
