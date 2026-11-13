@@ -33,6 +33,14 @@
    const {data,error}=await client.rpc("get_goodworld_feed",{p_order:"new"});
    if(error)throw error;
    article=(data||[]).find(s=>s.slug===slug);
+   if(!article){
+    // Older bookmarked reports remain readable even if editorial standards
+    // have since excluded them from the homepage.
+    const {data:published,error:lookupError}=await client.from("goodworld_stories")
+     .select("id,slug,title,summary,body,category,image_url,source_url,source_name,published_at")
+     .eq("slug",slug).eq("status","published").maybeSingle();
+    if(!lookupError)article=published;
+   }
    if(!article){renderUnavailable();return}
    const {data:images,error:imageError}=await client.from("goodworld_story_images")
     .select("story_id,image_url,credit,credit_url,alt_text,rights_url,image_license,image_rights_status,image_kind")
