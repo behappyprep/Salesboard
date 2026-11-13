@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+<title id="title">GoodWorld globe</title>
+<circle cx="32" cy="32" r="29" fill="#17191A"/>
+<g fill="#FFFFFF">
+<path d="M12 17 19 11 30 11 35 16 30 21 26 21 24 28 19 30 16 36 12 32 8 27 9 22Z"/>
+<path d="M24 33 31 34 35 40 33 46 28 55 24 58 22 49 20 42 19 37Z"/>
+<path d="M39 10 49 14 55 20 55 28 49 31 46 28 42 30 39 25 36 24 35 19Z"/>
+<path d="M37 33 45 34 48 41 45 49 41 54 37 48 35 40Z"/>
+<path d="M50 48 56 48 57 53 53 55 49 52Z"/>
+</g>
+</svg>
