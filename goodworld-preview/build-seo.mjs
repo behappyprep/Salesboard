@@ -72,7 +72,7 @@ function articleHtml(s,other){
     (photo?'<meta property="og:image" content="'+esc(s.image_url)+'">'+
       '<meta property="og:image:alt" content="'+esc(s.image_alt_text)+'">':'')+
     '<meta name="twitter:card" content="'+(photo?'summary_large_image':'summary')+'">'+
-    '<link rel="icon" type="image/svg+xml" href="/favicon.svg">'+
+    '<link rel="icon" type="image/svg+xml" href="/favicon-globe.svg">'+
     '<link rel="stylesheet" href="/article.css">'+
     '<link rel="stylesheet" href="/analytics.css">'+
     '<script src="/analytics.js" defer></script>'+
@@ -120,7 +120,7 @@ function archiveHtml(stories){
     '<meta property="og:type" content="website"><meta property="og:site_name" content="GoodWorld">'+
     '<meta property="og:title" content="Good news stories | GoodWorld">'+
     '<meta property="og:url" content="'+SITE+'/stories/">'+
-    '<link rel="icon" type="image/svg+xml" href="/favicon.svg">'+
+    '<link rel="icon" type="image/svg+xml" href="/favicon-globe.svg">'+
     '<link rel="stylesheet" href="/article.css">'+
     '<link rel="stylesheet" href="/analytics.css">'+
     '<script src="/analytics.js" defer></script></head><body>'+
