@@ -1,12 +1,6 @@
 name: GoodWorld international editorial verification
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/goodworld-international-verification.yml'
   workflow_dispatch:
-  schedule:
-    - cron: '02 * * * *'
 permissions:
   contents: read
   id-token: write
@@ -15,6 +9,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   verify:
+    if: vars.GOODWORLD_PAID_AI_ENABLED == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
