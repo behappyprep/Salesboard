@@ -37,7 +37,7 @@
     const fragment=document.createDocumentFragment();
     for(const s of qualified){
       const card=document.createElement("a");card.className="archive-card";
-      card.href="/stories/"+encodeURIComponent(s.slug)+".html";
+      card.href="/stories/read.html?slug="+encodeURIComponent(s.slug);
       const record=rights.get(s.id);
       if(record&&record.image_url===s.image_url){
         const img=document.createElement("img");
