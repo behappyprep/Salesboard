@@ -4,6 +4,7 @@
  const slug=new URLSearchParams(location.search).get("slug")||"";
  const api="https://jdmpmrhyjitmjyjuhtds.supabase.co/rest/v1/";
  const key="sb_publishable_Mi4xc0jwt_MFKhjKWZ1Vpw_bG6VPp3_";
+ const sb=window.supabase?.createClient("https://jdmpmrhyjitmjyjuhtds.supabase.co",key);
  const headers={apikey:key,Accept:"application/json"};
  const el=(tag,cls,text)=>{const x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=text;return x};
  const error=()=>root.replaceChildren(el("h1","","Story unavailable"),el("p","","This story is not available. Please return to the latest news."));
@@ -23,6 +24,41 @@
    const cap=el("p","gw-meta",(photo.image_kind==="representative"?"Representative photo · ":"")+"Photo: "+(photo.credit||"Wikimedia Commons")+" · "+(photo.image_license||""));root.append(cap);
   }
   root.append(el("div","gw-body",s.body.replace(/\\n/g,"\n")));
+  const actions=el("div","gw-article-actions");
+  const like=el("button","gw-article-button","♡ Like");
+  const share=el("button","gw-article-button","↗ Share");
+  like.type=share.type="button";
+  actions.append(like,share);root.append(actions);
+  share.onclick=async()=>{
+   const url=location.href;
+   try{
+    if(navigator.share)await navigator.share({title:s.title,url});
+    else if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(url);share.textContent="✓ Link copied";}
+    else prompt("Copy story link",url);
+   }catch(e){if(e.name!=="AbortError")console.warn("Sharing unavailable",e)}
+  };
+  async function refreshLike(){
+   if(!sb)return;
+   const {data:{session}}=await sb.auth.getSession();
+   const {count}=await sb.from("goodworld_likes").select("story_id",{count:"exact",head:true}).eq("story_id",s.id);
+   let liked=false;
+   if(session?.user){const {data}=await sb.from("goodworld_likes").select("story_id").eq("story_id",s.id).eq("user_id",session.user.id).maybeSingle();liked=!!data}
+   like.textContent=(liked?"♥ Liked":"♡ Like")+(count!=null?" · "+count:"");
+   like.setAttribute("aria-pressed",String(liked));
+   return {session,liked};
+  }
+  like.onclick=async()=>{
+   if(!sb)return;
+   const state=await refreshLike();
+   if(!state?.session?.user){location.href="/#profile";return}
+   like.disabled=true;
+   const uid=state.session.user.id;
+   const result=state.liked?await sb.from("goodworld_likes").delete().eq("story_id",s.id).eq("user_id",uid):await sb.from("goodworld_likes").insert({story_id:s.id,user_id:uid});
+   like.disabled=false;
+   if(result.error)console.warn("Like failed",result.error.message);
+   await refreshLike();
+  };
+  refreshLike();
   if(/^https:\/\//.test(s.source_url||"")){const p=el("p","gw-source"),a=el("a","","Original source: "+(s.source_name||"Read source"));a.href=s.source_url;a.target="_blank";a.rel="noopener noreferrer";p.append(a);root.append(p)}
   const home=el("p",""),link=el("a","","← More good news");link.href="/";home.append(link);root.append(home);
  }catch(e){error()}
