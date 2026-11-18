@@ -9,3 +9,16 @@
 .reader-page .reader-action:focus-visible{outline:2px solid #555;outline-offset:3px}
 .reader-page .reader-action-count{font-weight:400;color:#777}
 @media(max-width:480px){.reader-page .reader-actions{gap:9px}.reader-page .reader-action{padding:11px 17px}}
+
+/* Canonical story pages use the same controls as the reader. */
+.article .reader-actions{display:flex;flex-wrap:wrap;gap:12px;margin:34px 0 30px}
+.article .reader-action{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;padding:11px 20px;border:1px solid #d7d7d4;border-radius:999px;background:#fff;color:#252525;font-family:Arial,Helvetica,sans-serif;font-size:15px;font-weight:600;cursor:pointer}
+.article .reader-action:hover{background:#f7f7f5}
+.article .reader-action[aria-pressed="true"]{background:#fce8e5;border-color:#f0d2cd;color:#a4473d}
+.article .reader-action .action-heart{font-size:25px;font-weight:400;line-height:16px}
+.article .reader-action[aria-pressed="true"] .action-heart{color:#c65b4f}
+.article .reader-action-count{color:#777;font-weight:400}
+.article .reader-action:focus-visible{outline:2px solid #555;outline-offset:3px}
+.article .source-block a,.article-wrap .bottom-home a,.article-wrap .story-navigation a{color:#292929!important;text-decoration-color:#aaa;text-underline-offset:4px}
+.article .source-block{background:#fff;border:0;border-top:1px solid #e5e5e3;padding:24px 0;border-radius:0}
+@media(max-width:480px){.article .reader-actions{gap:9px}.article .reader-action{padding:11px 16px}}
