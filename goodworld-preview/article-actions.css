@@ -1,0 +1,11 @@
+/* GoodWorld editorial article controls, neutral palette */
+.reader-page .reader-citation a,.reader-page .reader-back a{color:#282828!important;text-decoration-color:#aaa;text-underline-offset:4px}
+.reader-page .reader-citation{border-top:1px solid #e5e5e3}
+.reader-page .reader-actions{display:flex;flex-wrap:wrap;gap:10px;margin:34px 0 28px}
+.reader-page .reader-action{display:inline-flex;align-items:center;gap:10px;min-height:46px;padding:10px 18px;border:1px solid #d7d7d4;border-radius:999px;background:#fff;color:#252525;font:600 15px/1.2 inherit;cursor:pointer}
+.reader-page .reader-action svg{width:20px;height:20px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.reader-page .reader-action[aria-pressed="true"]{background:#fce8e5;color:#a4473d;border-color:#f0d2cd}
+.reader-page .reader-action[aria-pressed="true"] svg{fill:#c65b4f;stroke:#c65b4f}
+.reader-page .reader-action:focus-visible{outline:2px solid #555;outline-offset:3px}
+.reader-page .reader-action-count{font-weight:400;color:#777}
+@media(max-width:480px){.reader-page .reader-actions{gap:9px}.reader-page .reader-action{padding:11px 17px}}
