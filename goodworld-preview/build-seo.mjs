@@ -73,7 +73,7 @@ function articleHtml(s,other){
       '<meta property="og:image:alt" content="'+esc(s.image_alt_text)+'">':'')+
     '<meta name="twitter:card" content="'+(photo?'summary_large_image':'summary')+'">'+
     '<link rel="icon" type="image/svg+xml" href="/favicon-globe.svg">'+
-    '<link rel="stylesheet" href="/article.css">'+
+    '<link rel="stylesheet" href="/article.css">'+'<link rel="stylesheet" href="/article-actions.css?v=20261118-2">'+
     '<link rel="stylesheet" href="/analytics.css">'+
     '<script src="/analytics.js" defer></script>'+
     '<script type="application/ld+json">'+safeLd+'</script></head><body>'+
@@ -93,11 +93,12 @@ function articleHtml(s,other){
      '" target="_blank" rel="noopener noreferrer">'+esc(s.image_license||"Image license")+'</a>':'')+
      ' · Cropped to fit layout</figcaption></figure>':'')+
     '<div class="article-body">'+paragraphs+'</div>'+
+    '<div class="reader-actions" aria-label="Story actions" data-story-slug="'+esc(s.slug)+'"><button class="reader-action" type="button" data-article-like aria-pressed="false"><span class="action-heart" aria-hidden="true">♡</span><span data-like-label>Like</span><span class="reader-action-count" data-like-count></span></button><button class="reader-action" type="button" data-article-share><span aria-hidden="true">↗</span> Share</button></div>'+
     '<div class="source-block"><p class="source-label">Original reporting</p>'+
     '<p>This is a GoodWorld editorial summary based on reporting by <strong>'+esc(s.source_name)+
     '</strong>. Follow the original reporting for additional details and context.</p>'+
     '<a href="'+esc(s.source_url)+'" target="_blank" rel="noopener noreferrer">Read original reporting ↗</a>'+
-    '</div></article><nav class="story-navigation" aria-label="More positive news">'+
+    '</div></article><script src="/article-engagement.js?v=20261118-2" defer></script><nav class="story-navigation" aria-label="More positive news">'+
     '<h2>More good news</h2><div class="related">'+related+'</div></nav>'+
     '<p class="bottom-home"><a href="/stories/">← Browse more positive stories</a></p></main>'+
     '<footer class="site-footer">GoodWorld · Real positive news, free for everyone. · <a href="/">Live news</a> · <a href="/privacy.html">Privacy &amp; analytics</a></footer>'+
