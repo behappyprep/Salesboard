@@ -195,28 +195,14 @@ function renderFeed(){
   const category=currentTab==="top"?"#"+(i+1)+" / "+s.category:s.category;
   // Keep story cards editorially clean. Full source and photo information
   // remains on each article page; compact credit links remain beside each photo.
-  const sourceLink=link?
-   '<a href="'+esc(link)+'" title="'+esc(s.source_name)+'" target="_blank" rel="noopener noreferrer">'+esc(tx("source"))+' ↗</a>':'';
-  const photoLink=image?
-   '<a class="photo-credit" href="'+esc(validUrl(meta.credit_url)||link||"#")+'" title="'+esc(meta.credit||tx("photo"))+'" target="_blank" rel="noopener noreferrer">© '+esc(meta.credit||tx("photo"))+'</a>'+
-   (validUrl(meta.rights_url)?
-    '<a class="photo-license" href="'+esc(validUrl(meta.rights_url))+'" target="_blank" rel="noopener noreferrer">'+esc(meta.image_license||tx("rights"))+'</a>':''):'';
   return '<article class="story '+(i===0?'is-featured ':'')+(image?'has-photo':'is-text')+'" id="story-'+esc(s.slug)+'" data-id="'+esc(s.id)+'">'+
    imageMarkup+
    '<div class="story-content">'+
     '<div class="story-kicker"><span class="story-category">'+esc(category)+'</span>'+
     '<time class="story-date" datetime="'+esc(s.published_at)+'">'+esc(gwStoryDate(s.published_at))+'</time></div>'+
     '<h3 class="story-title">'+storyTitle+'</h3>'+
-    '<p class="story-desc">'+esc(displaySummary)+(s.slug.startsWith("gov-")&&!/[.!?…]\s*$/.test(displaySummary)?"…":"")+'</p>'+
+    '<p class="story-desc">'+esc(displaySummary)+(s.slug.startsWith("gov-")&&!/[.!?…]\\s*$/.test(displaySummary)?"…":"")+'</p>'+
     (translationPending?'<p class="translation-pending">'+esc(tx("pending"))+'</p>':'')+
-    '<div class="story-bottom">'+
-      '<a class="reader-link story-read-link" href="'+esc(titleUrl||newsLink(s))+'">'+esc(tx("read"))+' ↗</a>'+
-      '<div class="storyactions">'+
-       '<button aria-label="'+esc(liked?tx("unlike"):tx("like"))+'" aria-pressed="'+String(liked)+'" class="action '+(liked?"liked":"")+'" type="button" data-action="like" data-id="'+esc(s.id)+'"><span class="symbol" aria-hidden="true">'+(liked?"♥":"♡")+'</span><span>'+esc(String(Number(amount)||0))+'</span></button>'+
-       '<button aria-label="'+esc(tx("share"))+'" class="action" type="button" data-action="share" data-id="'+esc(s.id)+'"><span class="symbol" aria-hidden="true">↗</span><span>'+esc(tx("share"))+'</span></button>'+
-      '</div>'+
-    '</div>'+
-    '<div class="story-microcredits">'+sourceLink+photoLink+'</div>'+
    '</div></article>';
  }).join("");
  feed.innerHTML='<div class="feed-shell">'+header+
