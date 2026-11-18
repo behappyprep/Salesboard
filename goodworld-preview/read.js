@@ -125,12 +125,28 @@
    photo+
    '<p class="reader-summary">'+escape(readableSummary)+'</p>'+
    (paragraphs?'<div class="read-news-body">'+paragraphs+'</div>':"")+
+   '<div class="reader-actions"><button type="button" class="reader-action" id="readerLike" aria-pressed="'+!!article.liked_by_me+'">♡ <span>'+(article.liked_by_me?'Liked':'Like')+'</span> <span class="reader-action-count">'+Number(article.likes_total||0)+'</span></button><button type="button" class="reader-action" id="readerShare">↗ Share</button></div>'+
    '<div class="reader-citation"><p class="reader-citation-label">'+escape(tx("source"))+'</p>'+
    '<p>'+escape(article.source_name)+'</p>'+
    (original?'<a class="reader-link" href="'+escape(original)+'" rel="noopener noreferrer" target="_blank">'+escape(tx("original"))+' ↗</a>':'')+
    (brief?'<p class="reader-brief-label">'+escape(selected==="ru"?"Краткое изложение первоисточника":selected==="en"?"Short source-based brief":"Source-based brief")+'</p>':"")+
    note+
    '<p class="reader-back"><a class="reader-link" href="'+escape(back?.href||"/")+'">'+escape(tx("back"))+'</a></p></div>';
+  out.querySelector("#readerLike")?.addEventListener("click",async()=>{
+   const client=window.supabase?.createClient(GW_URL,GW_KEY);
+   if(!client)return;
+   const {data:{session}}=await client.auth.getSession();
+   if(!session?.user){alert("Sign in on GoodWorld to like stories.");return}
+   const liked=!!article.liked_by_me;
+   const result=liked ? await client.from("goodworld_likes").delete().eq("story_id",article.id).eq("user_id",session.user.id) : await client.from("goodworld_likes").insert({story_id:article.id,user_id:session.user.id});
+   if(result.error){alert("Could not save like.");return}
+   article.liked_by_me=!liked;article.likes_total=Math.max(0,Number(article.likes_total||0)+(liked?-1:1));render();
+  });
+  out.querySelector("#readerShare")?.addEventListener("click",async()=>{
+   const url=location.origin+"/news/"+encodeURIComponent(article.slug)+".html";
+   try{if(navigator.share)await navigator.share({title:article.title,url});else if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(url);alert("Story link copied");}else prompt("Copy story link",url)}
+   catch(e){if(e.name!=="AbortError")console.warn(e)}
+  });
   trackArticleRead();
  }
  window.addEventListener("goodworld:language-changed",render);
