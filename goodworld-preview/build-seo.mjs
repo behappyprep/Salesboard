@@ -450,8 +450,54 @@ async function fetchCuratedIds(){
   if(!Array.isArray(data))throw new Error("Unexpected editorial feed response");
   return new Set(data.map(item=>item.id));
 }
+/**
+ * Apply persistent AI-post-edited translations to the generated, deploy-only files.
+ * The offline bot owns translations/<language>.json and may overwrite it daily.
+ * Our overrides are separate and will survive those updates.
+ * Never apply stale edits after an English source change.
+ */
+async function applyEditorialOverrides(rows){
+ const bySlug=new Map(rows.map(s=>[s.slug,s]));
+ let edits=0,stale=0;
+ for(const language of Object.keys(LOCALIZED)){
+  const overrideFile=path.join(OUT,"editorial-overrides",language+".json");
+  const generatedFile=path.join(OUT,"translations",language+".json");
+  let ov,base;
+  try{
+   ov=JSON.parse(await fs.readFile(overrideFile,"utf8"));
+   base=JSON.parse(await fs.readFile(generatedFile,"utf8"));
+  }catch(e){if(e?.code==="ENOENT")continue;throw new Error("Invalid translation override for "+language+": "+e.message)}
+  if(ov.language!==language||base.language!==language||!ov.stories||!base.stories)
+   throw new Error("Invalid translation override structure for "+language);
+  for(const [slug,edit] of Object.entries(ov.stories)){
+   const source=bySlug.get(slug);
+   const existing=source&&base.stories[source.id];
+   if(!source||!existing||edit.source_title!==source.title||
+      existing.original_title!==source.title||
+      existing.original_summary!==source.summary||
+      existing.original_body!==source.body){stale++;continue}
+   const editedFields=[];
+   for(const field of ["title","summary","body"]){
+    if(!Object.hasOwn(edit,field))continue;
+    if(typeof edit[field]!=="string"||edit[field].trim().length<10)
+     throw new Error("Empty editorial "+field+" for "+language+" / "+slug);
+    existing[field]=edit[field].trim();
+    editedFields.push(field);
+   }
+   if(editedFields.length){
+    existing.ai_postedited_fields=editedFields;
+    edits+=editedFields.length;
+   }
+  }
+  base.editorial_overrides_applied_at=new Date().toISOString();
+  // Generated file only: do not change the bot-owned GitHub JSON.
+  await fs.writeFile(generatedFile,JSON.stringify(base),"utf8");
+ }
+ console.log("GoodWorld translation quality: "+edits+" post-edited fields applied; "+stale+" stale overrides skipped.");
+}
 async function main(){
   const rows=await fetchPublished();
+  await applyEditorialOverrides(rows);
   const curatedIds=await fetchCuratedIds();
   const visibleRows=curatedIds?rows.filter(row=>curatedIds.has(row.id)):rows;
   const photos=await fetchPhotoRights();
