@@ -1,0 +1,137 @@
+{
+  "language": "ar",
+  "updated_at": "2026-11-19",
+  "description": "AI-post-edited titles and summaries, with factual accuracy checked against English source. Full bodies still Argos until post-edited.",
+  "stories": {
+    "peru-seven-rescued-pelicans-released-into-pacific-2026": {
+      "source_title": "Seven rescued pelicans return to Peru's coast after rehabilitation",
+      "title": "عودة سبعة بجعات بحرية أنقذت في بيرو إلى الطبيعة بعد تأهيلها",
+      "summary": "بعد أسابيع من الرعاية البيطرية، أُطلق سراح سبعة من طيور البجع البحري المتأثرة بظروف المحيط السيئة على ساحل بيرو المطل على الهادئ في 17 نوفمبر 2026."
+    },
+    "australia-prospector-finds-1-2kg-tibooburra-gold-nugget-2026": {
+      "source_title": "A faint detector signal leads an Australian prospector to a 1.2 kg gold nugget",
+      "title": "هاوٍ يعثر على قطعة ذهب تزن 1.2 كيلوغرام في أستراليا",
+      "summary": "قرب تيبوبورا في نيو ساوث ويلز، عثر هاوٍ للتنقيب على قطعة ذهب وزنها 1.218 كيلوغرام. تُقدّر قيمة الذهب بين 150 و160 ألف دولار أسترالي، لكنها ليست صفقة بيع مؤكدة."
+    },
+    "nigeria-bionic-arm-available-to-users-worldwide-2026": {
+      "source_title": "Nigerian-made bionic arm brings more lifelike prosthetics to users worldwide",
+      "title": "ذراع اصطناعية ذكية طُوّرت في نيجيريا تصل إلى مستخدمين حول العالم",
+      "summary": "تستجيب الذراع الاصطناعية التي طُوّرت في نيجيريا لإشارات العضلات وتتميز بمظهر واقعي. ويقول مطوروها إن لها مستخدمين في دول عدة، وقد اختارتها مجلة تايم ضمن أفضل ابتكارات 2026."
+    },
+    "kiribati-five-survive-three-months-drifting-pacific-2026": {
+      "source_title": "Five people found alive in Kiribati after almost three months lost at sea",
+      "title": "العثور على خمسة ناجين بعد قرابة ثلاثة أشهر من الانجراف في المحيط الهادئ",
+      "summary": "عُثر على خمسة أشخاص بينهم طفلان أحياء قرب كيريباتي بعد فقدانهم منذ يوليو 2026. وظل أربعة ركاب آخرين في عداد المفقودين وقت نشر الخبر."
+    },
+    "ecuador-floreana-158-giant-tortoises-return-after-180-years-2026": {
+      "source_title": "After more than 180 years, giant tortoises return to Ecuador's Floreana Island",
+      "title": "عودة السلاحف العملاقة إلى جزيرة فلوريانا بعد غياب تجاوز 180 عاماً",
+      "summary": "في 20 فبراير 2026، أعادت فرق الحماية 158 سلحفاة عملاقة صغيرة إلى جزيرة فلوريانا في غالاباغوس. وتمثل هذه العودة خطوة مهمة نحو ترميم النظام البيئي في الجزيرة."
+    },
+    "kenya-first-full-arm-replantation-surgery-2026": {
+      "source_title": "Kenyan surgeons reattach a severed arm in a landmark East African operation",
+      "title": "أطباء في كينيا ينجحون في إعادة زرع ذراع بُترت بالكامل",
+      "summary": "نجح فريق جراحي في نيروبي في إعادة زرع ذراع عامل بُترت بالكامل إثر حادث صناعي. وعادت الدورة الدموية وبدأ المريض التأهيل، لكن مدى استعادة وظائف الذراع لم يتضح بعد."
+    },
+    "indonesia-rizky-farizal-child-rescue-gift-grandmother-2026": {
+      "source_title": "He saved a six-year-old in Indonesia, then gave his reward to his grandmother",
+      "title": "شاب إندونيسي ينقذ طفلاً ويطلب منح مكافأته لجدته",
+      "summary": "أنقذ رزقي فريزال طفلاً جرفته المياه إلى قناة تصريف خطرة في باليمبانغ. وحين مُنح رحلة عمرة مكافأة له، طلب إهداءها إلى جدته التي ربّته."
+    },
+    "georgia-okeeffe-painting-closet-sells-4-878-million-2026": {
+      "source_title": "Painting hidden in closet for decades sells for almost $4.9 million",
+      "title": "لوحة بقيت في خزانة لعقود تُباع بنحو 4.9 ملايين دولار",
+      "summary": "بيعت لوحة طبيعية لجورجيا أوكيف، عُثر عليها في خزانة منزل عائلة بمانهاتن بعد عقود، في مزاد بمبلغ 4,878,000 دولار."
+    },
+    "africa-turitap-water-treatment-installed-2026": {
+      "source_title": "Affordable water-cleaning device reaches communities across Africa",
+      "title": "أجهزة ميسورة التكلفة لتنقية المياه تصل إلى مجتمعات أفريقية",
+      "summary": "بيعت أكثر من 100 منظومة TuriTap لتنقية المياه من أجل تركيبها في عدة بلدان أفريقية وتوفير مياه شرب أكثر أماناً."
+    },
+    "chile-mother-reunites-sons-after-41-years-2026": {
+      "source_title": "Mother in Chile reunites with two sons after 41 years apart",
+      "title": "أم في تشيلي تلتقي ابنيها بعد فراق دام 41 عاماً",
+      "summary": "احتضنت تيريسيتا دي خيسوس باديّا ابنيها مجدداً في سانتياغو بعد انفصال استمر أكثر من أربعة عقود."
+    },
+    "uk-nurse-kidney-donation-stranger-husband-transplant-2026": {
+      "source_title": "Nurse gives kidney to stranger while husband receives one the same day",
+      "title": "ممرضة تتبرع بكليتها لغريب يوم حصول زوجها على كلية مزروعة",
+      "summary": "في لندن، تبرعت ممرضة بكليتها لشخص لا تعرفه، فيما تلقى زوجها كلية متوافقة في المستشفى نفسه وفي اليوم ذاته."
+    },
+    "samoa-nuutele-island-ecosystem-recovery-2026": {
+      "source_title": "Samoan island shows remarkable recovery one year after restoration",
+      "title": "مؤشرات مشجعة على تعافي الطبيعة في جزيرة بساموا",
+      "summary": "بعد عام من إزالة الأنواع الدخيلة من جزيرة نوأوتيلي، رصد خبراء الحماية دلائل مشجعة على بدء تعافي النظام البيئي."
+    },
+    "dubai-baby-rare-epilepsy-seizures-stop-experimental-treatment-2026": {
+      "source_title": "Baby with 110 seizures a day becomes seizure-free after targeted treatment in Dubai",
+      "title": "علاج تجريبي يوقف نوبات صرع شديدة لدى رضيع في دبي",
+      "summary": "يقول أطباء في دبي إن نوبات رضيع يعاني صرعاً وراثياً نادراً توقفت خلال 30 دقيقة من علاج تجريبي، بعدما أخفقت سبع محاولات علاجية سابقة."
+    },
+    "guatemala-seven-circus-tigers-rescued-reunited-2026": {
+      "source_title": "Seven circus tigers rescued in Guatemala, with three companions reunited",
+      "title": "إنقاذ سبعة نمور من سيرك في غواتيمالا ولمّ شمل ثلاثة منها",
+      "summary": "أُخرجت سبعة نمور من سيرك في غواتيمالا بعد أعوام في أقفاص ضيقة. وقد اجتمعت ثلاثة منها، كيمبا وتشيكيتا وأفريكا، في مركز إنقاذ مؤقت."
+    },
+    "kenya-secretarybird-nestling-rescued-fledges-2026": {
+      "source_title": "Kenyan researchers help endangered secretarybird chick survive and take flight",
+      "title": "إنقاذ فرخ طائر السكرتير المهدد بالانقراض في كينيا",
+      "summary": "نظّم باحثون وأهالٍ 16 عملية إطعام طارئة لفرخ جائع من طيور السكرتير. وبحلول أكتوبر أصبح الطائر قادراً على السير والطيران قرب عشه."
+    },
+    "portugal-julie-elephant-pangea-sanctuary-2026": {
+      "source_title": "After decades in a circus, Julie the elephant finds a peaceful home in Portugal",
+      "title": "بعد عقود في السيرك، الفيلة جولي تجد ملاذاً آمناً في البرتغال",
+      "summary": "انتقلت جولي، آخر فيلة تعمل في السيرك بالبرتغال، إلى ملاذ واسع في ألينتيجو، حيث تستكشف موطنها الجديد وتتلقى رعاية متخصصة."
+    },
+    "world-31b6f31acc7640d1884064d09810cb80": {
+      "source_title": "More than 19,500 rescued orchids survive after relocation in southern India",
+      "title": "نجاة أكثر من 19 ألفاً و500 زهرة أوركيد بعد نقلها في الهند",
+      "summary": "نقل حماة الطبيعة 27,324 من نباتات الأوركيد المحلية المهددة بتوسعة طريق في كيرالا. وبعد 12 إلى 24 شهراً، بقي 19,511 نباتاً حياً، وأزهرت آلاف منها."
+    },
+    "world-3a339f44eece486eb24120f804a0be76": {
+      "source_title": "A gorilla rescued as a baby becomes a mother in the wild",
+      "title": "غوريلا أنقذت وهي صغيرة تصبح أماً في البرية",
+      "summary": "أنقذت لولينغو من الاتجار بالحياة البرية وهي صغيرة. وبعد عشر سنوات، وضعت مولوداً في متنزه فيرونغا الوطني يوم 21 مايو 2026."
+    },
+    "world-92ca3f3c50a44bc99f2d81b952448e49": {
+      "source_title": "Eight orangutans, including three mothers and their babies, reach a safer forest in Borneo",
+      "title": "نقل ثمانية من إنسان الغاب إلى غابة أكثر أماناً في بورنيو",
+      "summary": "بعد حرائق غابات بورنيو الإندونيسية، أنقذ المختصون ثمانية من إنسان الغاب وفحصوها، بينها ثلاث أمهات وصغارها، ثم نقلوها إلى غابة محمية في كاليمانتان الغربية في أكتوبر 2026."
+    },
+    "world-cce7c99b6dbf40889b7156df9ff07d39": {
+      "source_title": "An orangutan rescued from an apartment in India finally returns to Indonesia",
+      "title": "عودة إنسان غاب أنقذ من شقة في الهند إلى موطنه بإندونيسيا",
+      "summary": "عاد إنسان غاب سومطري عُثر عليه داخل شقة قرب مومباي عام 2024 إلى إندونيسيا بعد نحو عامين من الرعاية والتعاون الدولي. وسيواصل هيرا إعادة التأهيل في سومطرة."
+    },
+    "mobile-integrated-hiv-addiction-clinics-trial-2026": {
+      "source_title": "Mobile healthcare teams show encouraging results in addiction and HIV prevention trial",
+      "title": "عيادات متنقلة تحقق نتائج مشجعة في دراسة حول فيروس نقص المناعة والإدمان",
+      "summary": "في تجربة دعمها المعهد الوطني الأمريكي للصحة وشملت 409 بالغين، انخفض معدل الوفيات في مجموعة تلقت رعاية متكاملة عبر عيادات متنقلة. والنتيجة ثانوية وتحتاج إلى تأكيد."
+    },
+    "experimental-t-cell-therapy-early-clinical-results-2026": {
+      "source_title": "Early clinical trial offers hope for treatment-resistant cancers",
+      "title": "علاج جديد بالخلايا التائية يُظهر نتائج أولية واعدة ضد السرطان",
+      "summary": "في تجربة سريرية مبكرة، استقر المرض لدى 16 من أصل 27 مريضاً بالجرعة المختارة، وتقلصت الأورام لدى أربعة بصورة ملحوظة. وما زالت هناك حاجة إلى دراسات أكبر."
+    },
+    "rescued-rhino-calf-recovering-in-india-2026": {
+      "source_title": "Rescued rhino calf in India gains strength after emergency care",
+      "title": "صغير وحيد قرن أنقذ في الهند يستعيد عافيته تدريجياً",
+      "summary": "يتعافى صغير وحيد قرن هندي أُنقذ قرب متنزه كازيرانغا تحت رعاية مختصين. ووفقاً لـIFAW زاد وزنه 12 كيلوغراماً حتى 23 أكتوبر."
+    },
+    "noaa-chesapeake-oyster-reef-2026": {
+      "source_title": "A 70-acre oyster reef is taking shape in Chesapeake Bay",
+      "title": "مشروع لترميم أكثر من 28 هكتاراً من موائل المحار في خليج تشيسابيك",
+      "summary": "تُنشأ في ولاية ماريلاند أكثر من 70 فداناً من موائل المحار الجديدة، بدعم من مشروع ترميم بقيمة 10 ملايين دولار تابع للإدارة الوطنية للمحيطات والغلاف الجوي."
+    },
+    "nasa-voyager-power-saved-2026": {
+      "source_title": "A smart power-saving change could keep Voyager 1 exploring longer",
+      "title": "ناسا تخفض استهلاك فوياجر 1 للطاقة لإطالة مهمتها",
+      "summary": "قلل مهندسو ناسا استهلاك مسبار فوياجر 1 للكهرباء، مما قد يمنح أجهزته العلمية وقتاً أطول لدراسة الفضاء بين النجوم."
+    },
+    "nasa-station-new-solar-array-2026": {
+      "source_title": "A seven-hour spacewalk gives the ISS a new boost of solar power",
+      "title": "مشي فضائي لسبع ساعات يزوّد محطة الفضاء الدولية بمصفوفة شمسية جديدة",
+      "summary": "في 29 أكتوبر، ركب رائدا فضاء اللوح الشمسي السابع القابل للفرد على محطة الفضاء الدولية خلال نشاط خارج المحطة استمر سبع ساعات."
+    }
+  }
+}
