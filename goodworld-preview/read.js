@@ -114,11 +114,12 @@
   // repeating the excerpt and a full page of legal boilerplate as a fake article.
   const readableSummary=summary.trim()+(brief&&!/[.!?…]$/.test(summary.trim())?"…":"");
   const paragraphs=brief?"":String(body).split(/\n\s*\n/).filter(Boolean).map(p=>'<p>'+escape(p).replace(/\n/g," ")+'</p>').join("");
-  const note=selected==="en"?"":'<p class="reader-translation-note">'+escape(tx("machine"))+'</p>';
+  const edited=selected==="ru"&&t?.ai_postedited_fields?.includes("body");
+   const note=selected==="en"?"":'<p class="reader-translation-note">'+escape(edited?"Перевод отредактирован с помощью ИИ. Для точных деталей сверяйтесь с первоисточником.":tx("machine"))+'</p>';
   const sourceDateLabel=originalSourceDate?
    (selected==="ru"?"Источник":selected==="en"?"Original publication":""):"";
   out.innerHTML=
-   '<p class="reader-meta">'+escape(article.category)+' <span aria-hidden="true">·</span> '+
+   '<p class="reader-meta">'+escape(lang()?.categoryName?.(article.category)||article.category)+' <span aria-hidden="true">·</span> '+
    (sourceDateLabel?'<span>'+escape(sourceDateLabel)+': </span>':'')+
    '<time datetime="'+escape(actualDate)+'">'+escape(readDate)+'</time></p>'+
    '<h1>'+escape(title)+'</h1>'+
