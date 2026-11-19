@@ -39,7 +39,7 @@
  ur:{brandTagline:"ہر روز تصدیق شدہ اچھی خبریں۔",menu:"مینو",label:"آزاد مثبت خبریں",latest:"تازہ ترین",top:"آج کی مقبول",latestTitle:"تازہ ترین خبریں",topTitle:"آج کی مقبول خبریں",latestSub:"دنیا بھر سے نئی اچھی خبریں",topSub:"آج قارئین کی پسندیدہ خبریں",sourceProof:"مصدقہ ذرائع سے اچھی خبریں",reported:"ذریعہ",source:"اصل ذریعہ",representative:"نمائندہ تصویر",illustrative:"علامتی تصویر",photo:"تصویر",rights:"تصویر کا لائسنس",share:"شیئر کریں",like:"پسند",unlike:"ناپسند",privacy:"رازداری",all:"تمام خبریں",footer:"مصدقہ اچھی خبریں، سب کے لیے مفت۔",pending:"اصل انگریزی · ترجمہ زیرِ عمل",machine:"خودکار ترجمہ · ادارتی نظرثانی نہیں ہوئی",original:"اصل ذریعہ دیکھیں",read:"خبر پڑھیں",back:"GoodWorld پر واپس",noTop:"آج ابھی کوئی مقبول خبر نہیں۔",noTopDetails:"آج کسی خبر کو پسند نہیں کیا گیا۔ نئی خبریں دیکھیں۔",browse:"تازہ خبریں دیکھیں",noLatest:"اچھی خبریں جلد آ رہی ہیں۔",noLatestDetails:"ہم صرف مصدقہ خبریں شائع کرتے ہیں۔ بعد میں تازہ کریں۔",refresh:"تازہ کریں",profile:"پروفائل",account:"آپ کا اکاؤنٹ",donate:"عطیہ",editor:"ادارتی",login:"سائن ان",close:"بند",disclosure:"خودکار ترجمے میں غلطیاں ہو سکتی ہیں، خصوصاً طبی اور سائنسی اصطلاحات میں۔ اصل ذریعہ دیکھیں۔",unable:"یہ خبر دستیاب نہیں۔",language:"زبان"},
  ru:{brandTagline:"Проверенные хорошие новости каждый день.",menu:"Меню",label:"Независимые позитивные новости",latest:"Новые",top:"Лучшее за сегодня",latestTitle:"Последние новости",topTitle:"Лучшее за сегодня",latestSub:"Новые хорошие новости со всего мира",topSub:"Истории, понравившиеся читателям сегодня",sourceProof:"Хорошие новости из проверенных источников",reported:"ИСТОЧНИК",source:"Первоисточник",representative:"Иллюстративное фото",illustrative:"Иллюстративное фото",photo:"Фото",rights:"Лицензия на фото",share:"Поделиться",like:"Нравится",unlike:"Убрать лайк",privacy:"Конфиденциальность",all:"Все новости",footer:"Проверенные хорошие новости, доступные бесплатно.",pending:"Английский оригинал · перевод готовится",machine:"Машинный перевод · без редакторской проверки",original:"Открыть первоисточник",read:"Читать новость",back:"Вернуться в GoodWorld",noTop:"Пока нет популярных новостей.",noTopDetails:"Сегодня ещё никто не поставил лайк. Посмотрите новые истории.",browse:"Смотреть новые",noLatest:"Хорошие новости скоро появятся.",noLatestDetails:"Мы публикуем только новости из проверенных источников. Попробуйте обновить страницу.",refresh:"Обновить",profile:"Профиль",account:"Аккаунт и лайки",donate:"Поддержать",editor:"Редакция",login:"Войти",close:"Закрыть",disclosure:"Машинный перевод может содержать ошибки, особенно в медицинских и научных терминах. Проверяйте первоисточник.",unable:"Новость недоступна.",language:"Язык"}
  };
- let lang="en", cache=null,cacheLang="en",seq=0;
+ let lang="en", cache=null,cacheLang="en",categoryLabels={},seq=0;
  const supported=new Set(LANGS.map(x=>x[0]));
  const currentParam=new URLSearchParams(location.search).get("lang");
  const pathLanguage=/^\/(zh|hi|es|ar|fr|bn|pt|id|ur|ru)\/$/.exec(location.pathname)?.[1]||null;
@@ -62,20 +62,21 @@
  }
  async function load(){
   const requested=lang,req=++seq;
-  if(requested==="en"){cache=null;cacheLang="en";applyStatic();window.dispatchEvent(new Event("goodworld:translations-loaded"));return}
+  if(requested==="en"){cache=null;cacheLang="en";categoryLabels={};applyStatic();window.dispatchEvent(new Event("goodworld:translations-loaded"));return}
   try{
    const res=await fetch("/translations/"+encodeURIComponent(requested)+".json",{cache:"no-cache"});
    if(!res.ok)throw Error("Translations are not generated yet");
    const obj=await res.json();
    if(obj.language!==requested||!obj.stories||typeof obj.stories!=="object")throw Error("Invalid translation file");
    if(req!==seq||requested!==lang)return;
-   cache=obj.stories;cacheLang=requested;
+   cache=obj.stories;cacheLang=requested;categoryLabels=obj.category_labels||{};
   }catch{
    if(req!==seq||requested!==lang)return;
-   cache=null;cacheLang=requested;
+   cache=null;cacheLang=requested;categoryLabels={};
   }
   applyStatic();window.dispatchEvent(new Event("goodworld:translations-loaded"));
  }
+ function categoryName(category){return categoryLabels?.[category]||category}
  function translated(story){
   if(lang==="en")return null;
   if(!cache||cacheLang!==lang)return null;
@@ -86,7 +87,7 @@
  }
  function setLang(next){
   if(!supported.has(next)||next===lang)return;
-  lang=next;cache=null;cacheLang=next;
+  lang=next;cache=null;cacheLang=next;categoryLabels={};
   try{localStorage.setItem("goodworld:language",next)}catch{}
   const url=new URL(location.href);
   if(next==="en")url.searchParams.delete("lang");else url.searchParams.set("lang",next);
@@ -110,6 +111,6 @@
   }
   applyStatic();load();
  }
- window.GW_I18N={LANGS,getLang,locale:nativeLocale,direction,t,translated,setLang,load,applyStatic};
+ window.GW_I18N={LANGS,getLang,locale:nativeLocale,direction,t,translated,categoryName,setLang,load,applyStatic};
  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
 })();
