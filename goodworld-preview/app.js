@@ -192,7 +192,8 @@ function renderFeed(){
    (representative?'<span class="representative-label" title="Licensed photograph illustrating the topic, not a photo of this specific event">'+esc(tx("representative"))+'</span>':'')+
    '</a></div>'
    :'';
-  const category=currentTab==="top"?"#"+(i+1)+" / "+s.category:s.category;
+  const localizedCategory=i18n?.categoryName?.(s.category)||s.category;
+  const category=currentTab==="top"?"#"+(i+1)+" / "+localizedCategory:localizedCategory;
   // Keep story cards editorially clean. Full source and photo information
   // remains on each article page; compact credit links remain beside each photo.
   return '<article class="story '+(i===0?'is-featured ':'')+(image?'has-photo':'is-text')+'" id="story-'+esc(s.slug)+'" data-id="'+esc(s.id)+'">'+
