@@ -1,0 +1,137 @@
+{
+  "language": "hi",
+  "updated_at": "2026-11-19",
+  "description": "AI-post-edited article headlines and summaries checked against English source; full article bodies await editing.",
+  "stories": {
+    "peru-seven-rescued-pelicans-released-into-pacific-2026": {
+      "source_title": "Seven rescued pelicans return to Peru's coast after rehabilitation",
+      "title": "पेरू के तट पर सात बचाए गए पेलिकन इलाज के बाद फिर खुले आसमान में लौटे",
+      "summary": "कई सप्ताह की पशु चिकित्सा देखभाल के बाद समुद्री परिस्थितियों से प्रभावित सात पेलिकन को 17 नवंबर 2026 को पेरू के प्रशांत तट पर फिर प्रकृति में छोड़ दिया गया।"
+    },
+    "australia-prospector-finds-1-2kg-tibooburra-gold-nugget-2026": {
+      "source_title": "A faint detector signal leads an Australian prospector to a 1.2 kg gold nugget",
+      "title": "ऑस्ट्रेलिया में शौकिया खोजकर्ता को मिला 1.2 किलो सोने का टुकड़ा",
+      "summary": "न्यू साउथ वेल्स के दूरदराज़ टिबूबुरा के पास एक शौकिया खोजकर्ता को 1.218 किलो का सोने का टुकड़ा मिला। सोने की अनुमानित कीमत 1.5 से 1.6 लाख ऑस्ट्रेलियाई डॉलर है; बिक्री की पुष्टि नहीं हुई है।"
+    },
+    "nigeria-bionic-arm-available-to-users-worldwide-2026": {
+      "source_title": "Nigerian-made bionic arm brings more lifelike prosthetics to users worldwide",
+      "title": "नाइजीरिया में बना बायोनिक हाथ अब कई देशों के लोगों के काम आ रहा है",
+      "summary": "नाइजीरिया में विकसित यह बायोनिक हाथ मांसपेशियों के संकेतों से संचालित होता है और इसका रूप प्राकृतिक दिखता है। निर्माताओं के अनुसार इसके उपयोगकर्ता कई देशों में हैं और TIME ने इसे 2026 के श्रेष्ठ आविष्कारों में चुना।"
+    },
+    "kiribati-five-survive-three-months-drifting-pacific-2026": {
+      "source_title": "Five people found alive in Kiribati after almost three months lost at sea",
+      "title": "प्रशांत महासागर में लगभग तीन महीने भटकने के बाद पांच लोग जीवित मिले",
+      "summary": "जुलाई 2026 से लापता नाव के पांच यात्री, जिनमें दो बच्चे भी थे, किरिबाती के निकट जीवित मिले। खबर आने तक चार अन्य यात्री अब भी लापता थे।"
+    },
+    "ecuador-floreana-158-giant-tortoises-return-after-180-years-2026": {
+      "source_title": "After more than 180 years, giant tortoises return to Ecuador's Floreana Island",
+      "title": "180 साल से अधिक समय बाद फ्लोरेआना द्वीप पर लौटे विशाल कछुए",
+      "summary": "20 फरवरी 2026 को संरक्षण दलों ने गैलापागोस के फ्लोरेआना द्वीप पर 158 युवा विशाल कछुए छोड़े। यह द्वीप की प्रकृति की बहाली की दिशा में महत्वपूर्ण कदम है।"
+    },
+    "kenya-first-full-arm-replantation-surgery-2026": {
+      "source_title": "Kenyan surgeons reattach a severed arm in a landmark East African operation",
+      "title": "केन्या के डॉक्टरों ने पूरी तरह कटे हाथ को सफलतापूर्वक दोबारा जोड़ा",
+      "summary": "नैरोबी के डॉक्टरों ने औद्योगिक दुर्घटना में पूरी तरह कटे एक श्रमिक के हाथ को सफलतापूर्वक दोबारा जोड़ा। रक्त प्रवाह बहाल हुआ और पुनर्वास शुरू हुआ, लेकिन हाथ की पूरी कार्यक्षमता लौटने की गारंटी नहीं है।"
+    },
+    "indonesia-rizky-farizal-child-rescue-gift-grandmother-2026": {
+      "source_title": "He saved a six-year-old in Indonesia, then gave his reward to his grandmother",
+      "title": "इंडोनेशिया में बच्चे को बचाने वाले युवक ने अपना इनाम दादी को देने को कहा",
+      "summary": "रिज़्की फ़रीज़ल ने पालेमबांग में खतरनाक नाले से एक बच्चे को बचाया। इनाम में मक्का की उमरा यात्रा मिलने पर उसने अनुरोध किया कि यह यात्रा उसे पालने वाली दादी को दी जाए।"
+    },
+    "georgia-okeeffe-painting-closet-sells-4-878-million-2026": {
+      "source_title": "Painting hidden in closet for decades sells for almost $4.9 million",
+      "title": "दशकों से अलमारी में रखी पेंटिंग करीब 49 लाख डॉलर में बिकी",
+      "summary": "मैनहट्टन के एक परिवार की अलमारी में दशकों से रखी जॉर्जिया ओ'कीफ की भू-दृश्य पेंटिंग 48,78,000 डॉलर में नीलाम हुई।"
+    },
+    "africa-turitap-water-treatment-installed-2026": {
+      "source_title": "Affordable water-cleaning device reaches communities across Africa",
+      "title": "अफ्रीका के समुदायों तक पहुंच रहे हैं किफायती जल शुद्धिकरण उपकरण",
+      "summary": "अफ्रीका के कई देशों में लगाने के लिए 100 से अधिक TuriTap जल शुद्धिकरण प्रणालियां बेची गई हैं, ताकि लोगों को अधिक सुरक्षित पानी मिल सके।"
+    },
+    "chile-mother-reunites-sons-after-41-years-2026": {
+      "source_title": "Mother in Chile reunites with two sons after 41 years apart",
+      "title": "चिली में 41 साल बाद मां की दो बेटों से मुलाकात",
+      "summary": "तेरेसीता दे हेसूस पादिया चालीस वर्षों से अधिक समय के बिछोह के बाद सैंटियागो में अपने दो बेटों से फिर गले मिलीं।"
+    },
+    "uk-nurse-kidney-donation-stranger-husband-transplant-2026": {
+      "source_title": "Nurse gives kidney to stranger while husband receives one the same day",
+      "title": "पति की किडनी प्रत्यारोपण के दिन नर्स ने एक अनजान व्यक्ति को किडनी दान की",
+      "summary": "लंदन में एक नर्स ने अनजान व्यक्ति को अपनी किडनी दी। उसी दिन उसी अस्पताल में उसके पति को उपयुक्त दानदाता की किडनी मिली।"
+    },
+    "samoa-nuutele-island-ecosystem-recovery-2026": {
+      "source_title": "Samoan island shows remarkable recovery one year after restoration",
+      "title": "समोआ के एक द्वीप पर प्राकृतिक पारिस्थितिकी फिर संभलने लगी",
+      "summary": "नु'उतेले द्वीप से बाहरी आक्रामक प्रजातियों को हटाने के एक साल बाद संरक्षण दलों ने पारिस्थितिकी तंत्र में सुधार के उत्साहजनक संकेत दर्ज किए हैं।"
+    },
+    "dubai-baby-rare-epilepsy-seizures-stop-experimental-treatment-2026": {
+      "source_title": "Baby with 110 seizures a day becomes seizure-free after targeted treatment in Dubai",
+      "title": "दुबई में प्रायोगिक इलाज से शिशु के गंभीर मिर्गी दौरे थमे",
+      "summary": "दुबई के डॉक्टरों के अनुसार दुर्लभ आनुवंशिक मिर्गी से पीड़ित शिशु के दौरे प्रायोगिक उपचार के 30 मिनट बाद बंद हो गए; पहले के सात उपचार सफल नहीं हुए थे।"
+    },
+    "guatemala-seven-circus-tigers-rescued-reunited-2026": {
+      "source_title": "Seven circus tigers rescued in Guatemala, with three companions reunited",
+      "title": "ग्वाटेमाला के सर्कस से सात बाघ बचाए गए, तीन साथी फिर मिले",
+      "summary": "तंग परिस्थितियों में वर्षों बिताने वाले सात बाघों को ग्वाटेमाला के सर्कस से निकाला गया। किम्बा, चिकीता और अफ्रीका नाम के तीन बाघ अस्थायी बचाव केंद्र में फिर साथ हैं।"
+    },
+    "kenya-secretarybird-nestling-rescued-fledges-2026": {
+      "source_title": "Kenyan researchers help endangered secretarybird chick survive and take flight",
+      "title": "केन्या में संकटग्रस्त सेक्रेटरी बर्ड के बच्चे की जान बचाई गई",
+      "summary": "शोधकर्ताओं और स्थानीय लोगों ने भूखे सेक्रेटरी बर्ड के बच्चे को 16 बार आपातकालीन भोजन दिया। अक्टूबर तक वह घोंसले के पास चलने और उड़ने लगा था।"
+    },
+    "portugal-julie-elephant-pangea-sanctuary-2026": {
+      "source_title": "After decades in a circus, Julie the elephant finds a peaceful home in Portugal",
+      "title": "दशकों तक सर्कस में रहने के बाद हथिनी जूली को पुर्तगाल में नया घर मिला",
+      "summary": "पुर्तगाल की आखिरी सर्कस हथिनी जूली को अलेंटेजो के खुले अभयारण्य में पहुंचाया गया, जहां उसे विशेष देखभाल मिल रही है और वह नई जगह की खोज कर रही है।"
+    },
+    "world-31b6f31acc7640d1884064d09810cb80": {
+      "source_title": "More than 19,500 rescued orchids survive after relocation in southern India",
+      "title": "भारत में दूसरी जगह लगाए गए 19,500 से अधिक ऑर्किड जीवित बचे",
+      "summary": "केरल में सड़क चौड़ी होने से खतरे में पड़े 27,324 देशी ऑर्किड को दूसरी जगह लगाया गया। 12 से 24 महीने बाद 19,511 पौधे जीवित मिले, जिनमें हजारों में फूल भी आए।"
+    },
+    "world-3a339f44eece486eb24120f804a0be76": {
+      "source_title": "A gorilla rescued as a baby becomes a mother in the wild",
+      "title": "बचपन में बचाई गई गोरिल्ला अब जंगल में मां बनी",
+      "summary": "लुलिंगु को बचपन में वन्यजीव तस्करी से बचाया गया था। दस साल बाद 21 मई 2026 को उसने विरुंगा राष्ट्रीय उद्यान में एक बच्चे को जन्म दिया।"
+    },
+    "world-92ca3f3c50a44bc99f2d81b952448e49": {
+      "source_title": "Eight orangutans, including three mothers and their babies, reach a safer forest in Borneo",
+      "title": "बोर्नियो में आठ बचाए गए ओरंगुटान सुरक्षित जंगल में पहुंचाए गए",
+      "summary": "इंडोनेशियाई बोर्नियो के जंगलों में आग लगने के बाद संरक्षण दलों ने तीन मांओं और उनके बच्चों समेत आठ ओरंगुटान को बचाया, जांच की और अक्टूबर में पश्चिम कालीमंतन के संरक्षित जंगल में पहुंचाया।"
+    },
+    "world-cce7c99b6dbf40889b7156df9ff07d39": {
+      "source_title": "An orangutan rescued from an apartment in India finally returns to Indonesia",
+      "title": "भारत के एक अपार्टमेंट से बचाया गया ओरंगुटान आखिर इंडोनेशिया लौटा",
+      "summary": "2024 में मुंबई के पास एक अपार्टमेंट से बचाया गया सुमात्राई ओरंगुटान लगभग दो साल की देखभाल के बाद इंडोनेशिया लौट आया। हीरा अब सुमात्रा में पुनर्वास जारी रखेगा।"
+    },
+    "mobile-integrated-hiv-addiction-clinics-trial-2026": {
+      "source_title": "Mobile healthcare teams show encouraging results in addiction and HIV prevention trial",
+      "title": "चलते-फिरते स्वास्थ्य क्लिनिकों के अध्ययन में एचआईवी और नशे के उपचार के उत्साहजनक संकेत",
+      "summary": "अमेरिकी NIH समर्थित 409 वयस्कों के अध्ययन में मोबाइल क्लिनिकों से संयुक्त देखभाल पाने वाले समूह में मृत्यु दर कम थी। यह गौण परिणाम है और आगे पुष्टि जरूरी है।"
+    },
+    "experimental-t-cell-therapy-early-clinical-results-2026": {
+      "source_title": "Early clinical trial offers hope for treatment-resistant cancers",
+      "title": "नई टी-सेल चिकित्सा के शुरुआती कैंसर परीक्षण में उम्मीद जगाने वाले परिणाम",
+      "summary": "NIH के प्रारंभिक परीक्षण में चुनी गई खुराक पर 27 में से 16 मरीजों की बीमारी स्थिर रही और चार में ट्यूमर काफी घटे। बड़े अध्ययनों की जरूरत है।"
+    },
+    "rescued-rhino-calf-recovering-in-india-2026": {
+      "source_title": "Rescued rhino calf in India gains strength after emergency care",
+      "title": "भारत में बचाए गए गैंडे के बच्चे की हालत में सुधार",
+      "summary": "काज़ीरंगा के पास बचाई गई एक सींग वाले गैंडे की बच्ची विशेष देखभाल में ठीक हो रही है। IFAW के अनुसार 23 अक्टूबर तक उसका वजन 12 किलो बढ़ा था।"
+    },
+    "noaa-chesapeake-oyster-reef-2026": {
+      "source_title": "A 70-acre oyster reef is taking shape in Chesapeake Bay",
+      "title": "चेसापीक खाड़ी में सीपों की चट्टानों का बड़े पैमाने पर पुनर्स्थापन",
+      "summary": "अमेरिका के मैरीलैंड में NOAA की एक करोड़ डॉलर की पुनर्स्थापन परियोजना की मदद से 70 एकड़ से अधिक नया सीप आवास बनाया जा रहा है।"
+    },
+    "nasa-voyager-power-saved-2026": {
+      "source_title": "A smart power-saving change could keep Voyager 1 exploring longer",
+      "title": "नासा ने वॉयेजर 1 की बिजली बचाकर उसके मिशन को और समय दिया",
+      "summary": "नासा इंजीनियरों ने वॉयेजर 1 की बिजली खपत कम की है, जिससे उसके वैज्ञानिक उपकरण अंतरतारकीय अंतरिक्ष का अधिक समय तक अध्ययन कर सकेंगे।"
+    },
+    "nasa-station-new-solar-array-2026": {
+      "source_title": "A seven-hour spacewalk gives the ISS a new boost of solar power",
+      "title": "सात घंटे की स्पेसवॉक में अंतरराष्ट्रीय अंतरिक्ष स्टेशन पर नया सौर पैनल लगा",
+      "summary": "29 अक्टूबर को दो अंतरिक्ष यात्रियों ने सात घंटे की स्पेसवॉक के दौरान अंतरराष्ट्रीय अंतरिक्ष स्टेशन पर सातवां खुलने वाला सौर पैनल लगाया।"
+    }
+  }
+}
