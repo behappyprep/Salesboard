@@ -25,6 +25,148 @@ const LOCALIZED={
  ur:{title:"دنیا بھر کی اچھی خبریں | GoodWorld",description:"سائنس، فطرت، جانوروں اور انسانی مہربانی سے متعلق مصدقہ مثبت خبریں۔",heading:"دنیا بھر سے اچھی خبریں",label:"تازہ ترین خبریں"},
  ru:{title:"Хорошие новости со всего мира | GoodWorld",description:"Проверенные позитивные новости о науке, животных, природе и добрых поступках.",heading:"Хорошие новости со всего мира",label:"Последние новости"}
 };
+const CATEGORY_LABELS={
+ "ru": {
+  "Medical Miracles": "Медицинские достижения",
+  "Animal Rescues": "Спасение животных",
+  "Human Kindness": "Добрые поступки",
+  "Nature Returns": "Природа восстанавливается",
+  "Happy Endings": "Счастливые истории",
+  "Breakthroughs for Good": "Изобретения во благо",
+  "Lucky Breaks": "Невероятная удача",
+  "Animals": "Животные",
+  "Health": "Здоровье",
+  "Science & Health": "Наука и здоровье",
+  "Nature & Planet": "Природа и планета",
+  "Other": "Разное"
+ },
+ "es": {
+  "Medical Miracles": "Avances médicos",
+  "Animal Rescues": "Rescate de animales",
+  "Human Kindness": "Gestos de bondad",
+  "Nature Returns": "La naturaleza renace",
+  "Happy Endings": "Finales felices",
+  "Breakthroughs for Good": "Innovaciones que ayudan",
+  "Lucky Breaks": "Golpes de suerte",
+  "Animals": "Animales",
+  "Health": "Salud",
+  "Science & Health": "Ciencia y salud",
+  "Nature & Planet": "Naturaleza y planeta",
+  "Other": "Otros"
+ },
+ "fr": {
+  "Medical Miracles": "Avancées médicales",
+  "Animal Rescues": "Sauvetages d’animaux",
+  "Human Kindness": "Gestes de solidarité",
+  "Nature Returns": "La nature renaît",
+  "Happy Endings": "Heureux dénouements",
+  "Breakthroughs for Good": "Innovations utiles",
+  "Lucky Breaks": "Coups de chance",
+  "Animals": "Animaux",
+  "Health": "Santé",
+  "Science & Health": "Sciences et santé",
+  "Nature & Planet": "Nature et planète",
+  "Other": "Autres"
+ },
+ "pt": {
+  "Medical Miracles": "Avanços médicos",
+  "Animal Rescues": "Resgate de animais",
+  "Human Kindness": "Gestos de bondade",
+  "Nature Returns": "Natureza em recuperação",
+  "Happy Endings": "Finais felizes",
+  "Breakthroughs for Good": "Inovações que ajudam",
+  "Lucky Breaks": "Golpes de sorte",
+  "Animals": "Animais",
+  "Health": "Saúde",
+  "Science & Health": "Ciência e saúde",
+  "Nature & Planet": "Natureza e planeta",
+  "Other": "Outros"
+ },
+ "zh": {
+  "Medical Miracles": "医疗突破",
+  "Animal Rescues": "动物救援",
+  "Human Kindness": "人间温暖",
+  "Nature Returns": "自然复苏",
+  "Happy Endings": "圆满结局",
+  "Breakthroughs for Good": "造福社会的创新",
+  "Lucky Breaks": "幸运故事",
+  "Animals": "动物",
+  "Health": "健康",
+  "Science & Health": "科学与健康",
+  "Nature & Planet": "自然与地球",
+  "Other": "其他"
+ },
+ "hi": {
+  "Medical Miracles": "चिकित्सा उपलब्धियाँ",
+  "Animal Rescues": "पशु बचाव",
+  "Human Kindness": "इंसानियत",
+  "Nature Returns": "प्रकृति की वापसी",
+  "Happy Endings": "सुखद अंत",
+  "Breakthroughs for Good": "जनहितकारी नवाचार",
+  "Lucky Breaks": "अनपेक्षित खुशकिस्मती",
+  "Animals": "जीव-जंतु",
+  "Health": "स्वास्थ्य",
+  "Science & Health": "विज्ञान और स्वास्थ्य",
+  "Nature & Planet": "प्रकृति और पृथ्वी",
+  "Other": "अन्य"
+ },
+ "ar": {
+  "Medical Miracles": "إنجازات طبية",
+  "Animal Rescues": "إنقاذ الحيوانات",
+  "Human Kindness": "مواقف إنسانية",
+  "Nature Returns": "تعافي الطبيعة",
+  "Happy Endings": "نهايات سعيدة",
+  "Breakthroughs for Good": "ابتكارات نافعة",
+  "Lucky Breaks": "حظ سعيد",
+  "Animals": "الحيوانات",
+  "Health": "الصحة",
+  "Science & Health": "العلوم والصحة",
+  "Nature & Planet": "الطبيعة والكوكب",
+  "Other": "أخرى"
+ },
+ "bn": {
+  "Medical Miracles": "চিকিৎসায় সাফল্য",
+  "Animal Rescues": "প্রাণী উদ্ধার",
+  "Human Kindness": "মানবিকতা",
+  "Nature Returns": "প্রকৃতির প্রত্যাবর্তন",
+  "Happy Endings": "সুখের সমাপ্তি",
+  "Breakthroughs for Good": "কল্যাণকর উদ্ভাবন",
+  "Lucky Breaks": "সৌভাগ্য",
+  "Animals": "প্রাণীজগৎ",
+  "Health": "স্বাস্থ্য",
+  "Science & Health": "বিজ্ঞান ও স্বাস্থ্য",
+  "Nature & Planet": "প্রকৃতি ও পৃথিবী",
+  "Other": "অন্যান্য"
+ },
+ "id": {
+  "Medical Miracles": "Terobosan medis",
+  "Animal Rescues": "Penyelamatan satwa",
+  "Human Kindness": "Kebaikan sesama",
+  "Nature Returns": "Alam pulih kembali",
+  "Happy Endings": "Akhir yang bahagia",
+  "Breakthroughs for Good": "Inovasi bermanfaat",
+  "Lucky Breaks": "Keberuntungan",
+  "Animals": "Satwa",
+  "Health": "Kesehatan",
+  "Science & Health": "Sains dan kesehatan",
+  "Nature & Planet": "Alam dan bumi",
+  "Other": "Lainnya"
+ },
+ "ur": {
+  "Medical Miracles": "طبی کامیابیاں",
+  "Animal Rescues": "جانوروں کا بچاؤ",
+  "Human Kindness": "انسانیت",
+  "Nature Returns": "فطرت کی بحالی",
+  "Happy Endings": "خوشگوار انجام",
+  "Breakthroughs for Good": "فائدہ مند ایجادات",
+  "Lucky Breaks": "خوش قسمتی",
+  "Animals": "جانور",
+  "Health": "صحت",
+  "Science & Health": "سائنس اور صحت",
+  "Nature & Planet": "فطرت اور زمین",
+  "Other": "دیگر"
+ }
+};
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const iso=s=>new Date(s).toISOString();
 const formatDate=s=>new Date(s).toLocaleDateString("en-US",{timeZone:"UTC",year:"numeric",month:"long",day:"numeric"});
@@ -180,7 +322,7 @@ function preRenderedFeed(allRows,photos,lang,translations){
     '" decoding="async" referrerpolicy="no-referrer"'+(i===0?' fetchpriority="high"':'')+'>'+
     (representative?'<span class="representative-label">Representative photo</span>':"")+
     '</div>':"")+
-   '<div class="story-content"><div class="story-kicker"><span class="story-category">'+esc(s.category)+
+   '<div class="story-content"><div class="story-kicker"><span class="story-category">'+esc(translations?.category_labels?.[s.category]||s.category)+
    '</span>'+newsTime+'</div><h2 class="story-title"><a href="'+esc(readerPath)+'">'+esc(heading)+
    '</a></h2><p class="story-desc">'+esc(body)+'</p>'+
    '<div class="story-bottom"><a class="reader-link story-read-link" href="'+esc(readerPath)+'">Read story ↗</a></div>'+
@@ -489,6 +631,7 @@ async function applyEditorialOverrides(rows){
     edits+=editedFields.length;
    }
   }
+  base.category_labels=CATEGORY_LABELS[language]||{};
   base.editorial_overrides_applied_at=new Date().toISOString();
   // Generated file only: do not change the bot-owned GitHub JSON.
   await fs.writeFile(generatedFile,JSON.stringify(base),"utf8");
