@@ -12,7 +12,7 @@ function gwEditorialUrl(story){
  if(story.slug.startsWith("auto-")||story.slug.startsWith("gov-")||String(story.body||"").trim().length<200)return "";
  if(String(story.title||"").trim().length<15||String(story.summary||"").trim().length<30)return "";
  if(!String(story.source_url||"").startsWith("https://"))return "";
- return GW_SITE+"/stories/read.html?slug="+encodeURIComponent(story.slug);
+ return GW_SITE+"/stories/"+encodeURIComponent(story.slug)+".html";
 }
 // Only public receiving addresses approved by the GoodWorld founder.
 // Never put private keys, recovery phrases or exchange login credentials in frontend code.
