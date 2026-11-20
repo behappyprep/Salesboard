@@ -1,6 +1,6 @@
 {
   "language": "fr",
-  "updated_at": "2026-11-19",
+  "updated_at": "2026-11-20T13:35:00Z",
   "description": "AI-post-edited headlines and summaries; full article bodies remain machine translated pending full review.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -132,6 +132,12 @@
       "source_title": "A seven-hour spacewalk gives the ISS a new boost of solar power",
       "title": "Une sortie spatiale de sept heures renforce l'alimentation solaire de l'ISS",
       "summary": "Le 29 octobre, deux astronautes ont installé le septième panneau solaire déroulable de la Station spatiale internationale au cours d'une sortie extravéhiculaire de sept heures."
+    },
+    "nigeria-kano-baby-heart-surgery-breathing-independently-2026": {
+      "source_title": "A 15-month-old child breathes unaided after heart surgery in Nigeria",
+      "title": "Au Nigeria, un bébé de 15 mois respire seul après une opération du cœur",
+      "summary": "À Kano, une équipe chirurgicale chinoise a opéré avec succès un bébé atteint d'une malformation cardiaque congénitale. L'enfant a pu être sevré de la ventilation mécanique le jour même, une première étape encourageante.",
+      "body": "À Kano, dans le nord du Nigeria, un bébé de 15 mois atteint d'une maladie cardiaque congénitale a franchi une étape importante après une opération délicate.\n\nUne équipe médicale venue de Chine a pratiqué une intervention à cœur ouvert dans le cadre d'un échange organisé par l'Alliance hospitalière Chine-Afrique. Selon une dépêche de l'agence Xinhua publiée le 16 novembre 2026, le diagnostic avait été posé peu après la naissance et l'enfant avait souffert d'infections respiratoires à répétition.\n\nLes médecins ont indiqué que l'opération s'était bien déroulée. Signe particulièrement encourageant, le bébé a pu être débranché du respirateur et respirer seul dès le jour de l'intervention. Ce progrès postopératoire est important, mais il ne prouve ni une guérison complète ni une absence de complications à long terme.\n\nDes soignants nigérians ont assisté à l'opération et échangé sur les techniques susceptibles de renforcer la cardiologie pédiatrique locale. La délégation a également engagé des discussions préliminaires avec l'hôpital universitaire Aminu Kano sur la formation et d'éventuelles structures spécialisées. Ces projets restent à concrétiser.\n\nPour la famille, l'essentiel est déjà là : le tout-petit a surmonté une intervention difficile et peut désormais respirer sans assistance. Son rétablissement nécessitera encore un suivi médical.\n\nL'information a été rapportée le 16 novembre 2026. La photographie est illustrative : elle ne représente ni cet enfant ni son opération."
     }
   }
 }
