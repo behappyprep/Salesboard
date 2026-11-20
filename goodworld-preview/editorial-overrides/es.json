@@ -1,6 +1,6 @@
 {
   "language": "es",
-  "updated_at": "2026-11-19",
+  "updated_at": "2026-11-20T13:35:00Z",
   "description": "AI-post-edited headlines and summaries; full article bodies remain machine translated pending full review.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -132,6 +132,12 @@
       "source_title": "A seven-hour spacewalk gives the ISS a new boost of solar power",
       "title": "Una caminata espacial de siete horas refuerza la energía solar de la EEI",
       "summary": "El 29 de octubre, dos astronautas instalaron el séptimo panel solar desplegable de la Estación Espacial Internacional durante una salida espacial de siete horas."
+    },
+    "nigeria-kano-baby-heart-surgery-breathing-independently-2026": {
+      "source_title": "A 15-month-old child breathes unaided after heart surgery in Nigeria",
+      "title": "Un bebé de 15 meses vuelve a respirar por sí solo tras una operación de corazón en Nigeria",
+      "summary": "Un equipo de cirujanos chinos operó con éxito a un pequeño con una cardiopatía congénita en Kano. Ese mismo día pudo respirar sin ventilación mecánica, un primer avance alentador, aunque aún necesita seguimiento.",
+      "body": "En Kano, al norte de Nigeria, un bebé de 15 meses con una cardiopatía congénita ha dado un paso importante en su recuperación después de una intervención compleja.\n\nUn equipo médico llegado de China realizó una operación a corazón abierto en el marco de un intercambio de la Alianza Hospitalaria China-África. Según informó Xinhua el 16 de noviembre de 2026, el problema cardíaco se había diagnosticado poco después del nacimiento y el pequeño había sufrido infecciones respiratorias recurrentes.\n\nLos médicos comunicaron que la intervención había salido bien. Lo más esperanzador fue que el bebé pudo dejar la ventilación mecánica y empezar a respirar por sí solo el mismo día. Es un avance posoperatorio importante, pero no significa que se haya recuperado por completo ni que esté curado definitivamente.\n\nProfesionales sanitarios nigerianos presenciaron la operación y debatieron técnicas para reforzar la atención cardiológica pediátrica local. La delegación también mantuvo conversaciones preliminares con el Hospital Universitario Aminu Kano sobre formación cardiovascular y posibles instalaciones especializadas. Esos proyectos todavía no se han materializado.\n\nPara la familia, lo esencial es el resultado inmediato: su hijo superó una operación difícil y consiguió respirar sin asistencia. Su recuperación seguirá requiriendo controles médicos.\n\nLa noticia se publicó el 16 de noviembre de 2026. La imagen es ilustrativa y no muestra al paciente ni la intervención."
     }
   }
 }
