@@ -1,6 +1,6 @@
 {
   "language": "zh",
-  "updated_at": "2026-11-19",
+  "updated_at": "2026-11-20T13:35:00Z",
   "description": "AI-post-edited titles and summaries, with factual accuracy checked against English source. Full bodies still Argos until post-edited.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -132,6 +132,12 @@
       "source_title": "A seven-hour spacewalk gives the ISS a new boost of solar power",
       "title": "宇航员完成七小时太空行走，为国际空间站增添太阳能",
       "summary": "10月29日，两名宇航员在长达七小时的舱外活动中，为国际空间站安装了第七套可展开太阳能阵列。"
+    },
+    "nigeria-kano-baby-heart-surgery-breathing-independently-2026": {
+      "source_title": "A 15-month-old child breathes unaided after heart surgery in Nigeria",
+      "title": "尼日利亚15个月大患儿心脏手术后恢复自主呼吸",
+      "summary": "在尼日利亚卡诺，来自中国的医疗团队成功为一名患有先天性心脏病的幼儿实施手术。孩子当天脱离呼吸机并开始自主呼吸，这是令人鼓舞的术后进展，但尚不代表完全康复。",
+      "body": "在尼日利亚北部城市卡诺，一名患有先天性心脏病的15个月大幼儿接受复杂手术后，迎来了康复过程中的重要进展。\n\n来自中国的医疗团队在中非医院联盟的医疗交流项目下实施了心脏直视手术。据新华社2026年11月16日报道，孩子出生后不久便被确诊患有心脏疾病，此前还曾反复出现呼吸道感染。\n\n医生表示，手术取得成功。尤其令人欣慰的是，孩子在手术当天就脱离了机械通气，开始自主呼吸。这是重要的早期术后指标，但并不意味着已经完全康复，也不能据此认定获得了长期治愈。\n\n尼日利亚医护人员观摩了手术，并与中国同行交流了可能有助于提升当地儿童心脏病诊疗水平的技术。访问团还与阿米努·卡诺教学医院初步讨论了心血管专业培训和未来建设专科设施的可能性。这些计划目前尚未落实。\n\n对孩子的家人来说，最重要的是眼前的进展：年幼的患者挺过了艰难的手术，能够不依赖呼吸机自主呼吸。后续康复仍需持续医学随访。\n\n这则消息于2026年11月16日见诸报道。配图仅作示意，并非该患儿或本次手术的实景照片。"
     }
   }
 }
