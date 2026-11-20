@@ -179,7 +179,7 @@ function renderFeed(){
   const image=meta&&meta.image_url===s.image_url&&meta.image_rights_status==="allowed_auto"
    ?validUrl(s.image_url):null;
   const liked=!!s.liked_by_me;
-  const amount=currentTab==="top"?s.likes_today:s.likes_total;
+  const amount=s.likes_total;
   const link=validUrl(s.source_url);
   const ownUrl=gwEditorialUrl(s);
   const titleUrl=(i18n?.getLang()||"en")==="en"&&ownUrl?ownUrl:newsLink(s);
@@ -373,7 +373,7 @@ function showPage(which){
  currentPage=which;
  window.GWAnalytics?.page(which==="feed"?"GoodWorld":which.charAt(0).toUpperCase()+which.slice(1),which==="feed"?"/":"/#"+which);
  if(which==="donate")window.GWAnalytics?.track("donate_open",{section:"donate"});nav.forEach(n=>n.classList.toggle("active",n.dataset.page===which));
- // The old switcher was removed when Latest / Top Today moved into the header.
+ // The old switcher was removed when Latest / Top moved into the header.
  page.classList.toggle("hidden",which==="feed");feed.classList.toggle("hidden",which!=="feed");
  if(which==="feed"){page.innerHTML="";return}
  if(which==="reset-password"){
