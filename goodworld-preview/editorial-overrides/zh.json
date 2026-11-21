@@ -1,6 +1,6 @@
 {
   "language": "zh",
-  "updated_at": "2026-11-21T13:52:00Z",
+  "updated_at": "2026-11-21T14:00:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -54,7 +54,8 @@
     "africa-turitap-water-treatment-installed-2026": {
       "source_title": "Affordable water-cleaning device reaches communities across Africa",
       "title": "经济实惠的净水设备进入非洲多个社区",
-      "summary": "已有超过100套TuriTap净水系统售出，计划安装在非洲多个国家，帮助当地社区获得更安全的饮用水。"
+      "summary": "已有超过100套TuriTap净水系统售出，计划安装在非洲多个国家，帮助当地社区获得更安全的饮用水。",
+      "body": "一项与加州大学伯克利分校研究人员合作开发的水处理技术，正从原型阶段走向实际应用。TuriTap是一种管道在线加氯设备，旨在帮助缺乏大型水处理基础设施的社区改善饮用水处理条件。\n\n伯克利工程学院于2026年11月报告称，已有100多套设备售出，计划安装在尼日利亚、喀麦隆和马拉维等多个非洲国家。每套设备价格约为230美元，设计上可通过一个集中供水点服务约100至1,000户家庭。\n\n研究人员与非洲合作伙伴共同调整设备设计，使其适应当地条件和生产能力。相关技术也正在肯尼亚的医疗机构接受评估，但目前尚未确认其对健康结果产生了什么影响。\n\n这项进展的意义在于，一种价格相对低廉的水处理工具已经开始进入真实社区，而不再停留在实验原型阶段。"
     },
     "chile-mother-reunites-sons-after-41-years-2026": {
       "source_title": "Mother in Chile reunites with two sons after 41 years apart",
@@ -69,7 +70,8 @@
     "samoa-nuutele-island-ecosystem-recovery-2026": {
       "source_title": "Samoan island shows remarkable recovery one year after restoration",
       "title": "萨摩亚一座岛屿的生态在修复一年后出现好转",
-      "summary": "清除入侵物种一年后，萨摩亚努乌特莱岛的生态系统开始展现令人鼓舞的恢复迹象。"
+      "summary": "清除入侵物种一年后，萨摩亚努乌特莱岛的生态系统开始展现令人鼓舞的恢复迹象。",
+      "body": "萨摩亚努乌特莱岛开展大规模生态保护行动一年后，研究人员和当地合作伙伴报告称，岛上的生态环境出现了令人鼓舞的恢复迹象。参与项目的包括萨摩亚自然资源与环境部、Island Conservation组织、区域专家以及当地社区成员。\n\n项目重点清除对岛上本土野生动物和植被造成压力的入侵物种。努乌特莱岛拥有保存状况十分良好的热带森林，并位于海洋保护区内，因此保护工作不仅关系到陆地生态，也关系到周边海洋环境。\n\n2026年10月，保护团队报告称，森林、野生动物以及自然食物资源都出现了改善迹象。后续监测仍然十分重要，研究人员并未宣布岛上的生态系统已经完全恢复。\n\n不过，这些进展表明，政府机构、专业人员和社区长期合作，能够为岛屿自然系统的恢复创造切实机会。"
     },
     "dubai-baby-rare-epilepsy-seizures-stop-experimental-treatment-2026": {
       "source_title": "Baby with 110 seizures a day becomes seizure-free after targeted treatment in Dubai",
