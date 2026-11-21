@@ -1,6 +1,6 @@
 {
   "language": "fr",
-  "updated_at": "2026-11-21T13:52:00Z",
+  "updated_at": "2026-11-21T14:00:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -54,7 +54,8 @@
     "africa-turitap-water-treatment-installed-2026": {
       "source_title": "Affordable water-cleaning device reaches communities across Africa",
       "title": "Un système abordable de purification de l'eau arrive dans des communautés africaines",
-      "summary": "Plus de 100 systèmes TuriTap destinés à la purification de l'eau ont été vendus pour être installés dans plusieurs pays africains."
+      "summary": "Plus de 100 systèmes TuriTap destinés à la purification de l'eau ont été vendus pour être installés dans plusieurs pays africains.",
+      "body": "Une technologie de traitement de l’eau mise au point avec des chercheurs de l’Université de Californie à Berkeley passe des prototypes à une utilisation concrète. TuriTap est un dispositif de chloration en ligne destiné aux communautés qui ne disposent pas de grandes infrastructures de traitement de l’eau.\n\nBerkeley Engineering a indiqué en novembre 2026 que plus de cent systèmes avaient été vendus en vue de leur installation dans plusieurs pays africains, notamment au Nigeria, au Cameroun et au Malawi. Chaque appareil coûte environ 230 dollars et est conçu pour desservir quelque 100 à 1 000 foyers à partir d’un point central de distribution d’eau.\n\nLes chercheurs ont travaillé avec des partenaires africains pour adapter l’appareil aux conditions locales et aux possibilités de production. Une technologie apparentée est également évaluée dans des établissements de santé au Kenya, mais ses effets sur la santé n’ont pas encore été établis.\n\nLe résultat est tangible : un outil de traitement de l’eau relativement abordable commence à être déployé dans de vraies communautés, au-delà du stade expérimental."
     },
     "chile-mother-reunites-sons-after-41-years-2026": {
       "source_title": "Mother in Chile reunites with two sons after 41 years apart",
@@ -69,7 +70,8 @@
     "samoa-nuutele-island-ecosystem-recovery-2026": {
       "source_title": "Samoan island shows remarkable recovery one year after restoration",
       "title": "À Samoa, une île montre des signes encourageants de renaissance écologique",
-      "summary": "Un an après l'élimination d'espèces envahissantes à Nu'utele, les défenseurs de la nature constatent des signes prometteurs de rétablissement de l'écosystème."
+      "summary": "Un an après l'élimination d'espèces envahissantes à Nu'utele, les défenseurs de la nature constatent des signes prometteurs de rétablissement de l'écosystème.",
+      "body": "Un an après une ambitieuse opération de conservation sur l’île de Nu’utele, au Samoa, des chercheurs et des partenaires locaux font état de signes encourageants de rétablissement écologique. Le projet a réuni le ministère samoan des Ressources naturelles et de l’Environnement, Island Conservation, des spécialistes de la région et des membres des communautés locales.\n\nLes équipes se sont attachées à éliminer des espèces envahissantes qui exerçaient une pression sur la faune et la végétation indigènes de l’île. Nu’utele abrite une forêt tropicale exceptionnellement bien préservée et se trouve dans une zone marine protégée. La restauration concerne donc à la fois les milieux terrestres et leur environnement marin.\n\nEn octobre 2026, les acteurs du projet ont signalé des signes d’amélioration dans les forêts, la faune et les ressources alimentaires naturelles. Le suivi reste indispensable et les chercheurs ne considèrent pas que l’écosystème soit entièrement restauré.\n\nCes premiers constats montrent néanmoins qu’une coopération durable entre institutions, spécialistes et habitants peut donner aux systèmes naturels d’une île une réelle chance de se rétablir."
     },
     "dubai-baby-rare-epilepsy-seizures-stop-experimental-treatment-2026": {
       "source_title": "Baby with 110 seizures a day becomes seizure-free after targeted treatment in Dubai",
