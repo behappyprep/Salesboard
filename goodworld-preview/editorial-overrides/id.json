@@ -1,6 +1,6 @@
 {
   "language": "id",
-  "updated_at": "2026-11-21T14:00:00Z",
+  "updated_at": "2026-11-21T14:12:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -91,7 +91,8 @@
     "portugal-julie-elephant-pangea-sanctuary-2026": {
       "source_title": "After decades in a circus, Julie the elephant finds a peaceful home in Portugal",
       "title": "Setelah puluhan tahun di sirkus, gajah Julie menemukan rumah baru di Portugal",
-      "summary": "Julie, gajah sirkus terakhir di Portugal, telah pindah ke suaka yang luas di Alentejo. Ia kini menjelajahi lingkungan barunya dan mendapatkan perawatan khusus."
+      "summary": "Julie, gajah sirkus terakhir di Portugal, telah pindah ke suaka yang luas di Alentejo. Ia kini menjelajahi lingkungan barunya dan mendapatkan perawatan khusus.",
+      "body": "Gajah Afrika bernama Julie kini memiliki tempat tinggal baru. Setelah menghabiskan sebagian besar hidupnya bersama sebuah sirkus di Portugal, ia tiba di Pangea Elephant Sanctuary di wilayah Alentejo pada akhir Juni 2026. Kedatangannya diumumkan pada 2 Juli. Julie menjadi penghuni pertama suaka tersebut dan menandai langkah penting bagi kesejahteraan satwa di Portugal.\n\nJulie datang ke Portugal saat masih muda dan bergabung dengan sirkus Víctor Hugo Cardinali pada 1988. Ia tetap berada dalam perawatan sirkus itu bahkan setelah larangan penggunaan satwa liar dalam sirkus di Portugal berlaku sepenuhnya pada 2024. Kesepakatan sukarela antara pihak sirkus dan Pangea akhirnya memungkinkan Julie pindah ke tempat perlindungan permanen.\n\nPerubahan sudah terlihat dalam kesehariannya. Menurut pihak suaka, Julie mulai menjelajahi lingkungan alami dengan kecepatannya sendiri. Ia mandi lumpur dan debu, lalu menjelajah semakin jauh seiring makin terbiasa dengan tempat barunya. Kawasan suaka itu mencakup sekitar 400 hektare, tetapi Julie akan diperkenalkan pada lingkungan tersebut secara bertahap dengan dukungan tenaga ahli.\n\nPerpindahan ini bukan berarti Julie dilepasliarkan. Ia adalah gajah berusia lanjut yang membutuhkan perawatan berkelanjutan, termasuk perhatian terhadap masalah kesehatan dan mobilitas. Di Pangea, tim khusus dapat memantau kesehatannya sekaligus memberinya lebih banyak kebebasan untuk memilih bagaimana ia menghabiskan hari. Suaka itu tidak dibuka untuk pengunjung agar Julie dapat beradaptasi tanpa gangguan.\n\nKedatangan Julie juga memiliki arti lebih luas daripada kisah seekor gajah. Ia adalah satwa liar terakhir yang masih berada di sebuah sirkus di Portugal. Pangea berharap suatu hari dapat menerima gajah lain yang membutuhkan perawatan seumur hidup, tetapi pencapaian yang sudah terwujud saat ini adalah kepindahan Julie ke suaka tersebut.\n\nUntuk sekarang, kabar baiknya sederhana: setelah puluhan tahun menjalani kehidupan yang sangat berbeda, Julie memiliki ruang untuk menjelajah, lingkungan yang tenang, dan orang-orang yang berkomitmen merawatnya. Mandi lumpur pertamanya di rumah baru menjadi tanda kecil namun bermakna dari babak kehidupan yang baru."
     },
     "world-31b6f31acc7640d1884064d09810cb80": {
       "source_title": "More than 19,500 rescued orchids survive after relocation in southern India",
