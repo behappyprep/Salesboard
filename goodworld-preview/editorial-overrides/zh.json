@@ -1,6 +1,6 @@
 {
   "language": "zh",
-  "updated_at": "2026-11-21T13:12:00Z",
+  "updated_at": "2026-11-21T13:18:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -10,13 +10,15 @@
     },
     "australia-prospector-finds-1-2kg-tibooburra-gold-nugget-2026": {
       "source_title": "A faint detector signal leads an Australian prospector to a 1.2 kg gold nugget",
-      "title": "澳大利亚寻金者发现重达1.2公斤的金块",
-      "summary": "在新南威尔士州偏远的蒂博布拉附近，一名业余寻金者发现重1.218公斤的金块。其含金价值估计为15万至16万澳元，但尚无已售出的证据。"
+      "title": "金属探测器发出微弱信号，澳大利亚寻金者找到1.218公斤金块",
+      "summary": "一名业余寻金者在新南威尔士州蒂布布拉附近发现一块重1.218公斤的金块。按当时金属价值估算约为15万至16万澳元，但没有证据表明金块已经售出。",
+      "body": "在澳大利亚内陆寻找黄金时，金属探测器发出的一声微弱信号，最终带来了一次惊人的发现。2026年10月26日，澳大利亚广播公司ABC News报道，一名业余寻金者在新南威尔士州偏远西部的蒂布布拉附近，找到一块约重1.218公斤的金块。\n\n这块金块形状特别，因此被昵称为“Tibooburra Spud”。寻金者可能连续多日一无所获，更不用说找到如此大的金块，因此这次发现被视为坚持与运气相遇的罕见时刻。\n\n报道发布时，这块金中所含黄金的估值约为15万至16万澳元。估值会随黄金市场价格变化，独特样本对收藏者而言也可能有不同价值。需要注意的是，这只是估算，并不能证明金块已经售出，也不能证明发现者已经收到这笔钱。\n\n已经确认的事实是，一次业余寻金活动中发现了一块尺寸罕见的金块。ABC News于2026年10月26日报道了此事。配图展示的是另一块澳大利亚金块，仅作示意，并非“Tibooburra Spud”本身。"
     },
     "nigeria-bionic-arm-available-to-users-worldwide-2026": {
       "source_title": "Nigerian-made bionic arm brings more lifelike prosthetics to users worldwide",
-      "title": "尼日利亚研发的仿生手臂走向国际市场",
-      "summary": "这款尼日利亚仿生手臂通过肌肉信号控制动作，并采用逼真的外观。研发团队称已有海外用户，TIME杂志将其列入2026年度最佳发明名单。"
+      "title": "尼日利亚研发的仿生手臂让全球使用者拥有更逼真的假肢",
+      "summary": "尼日利亚研发的一款仿生手臂结合了肌肉信号控制的动作和逼真的外观。研发团队称已有多个国家的用户使用，TIME也将其列入2026年度最佳发明。",
+      "body": "对许多截肢者来说，手臂假肢不仅要外观逼真，还需要完成有用的动作。尼日利亚公司Immortal Cosmetic Art研发的Ubokobong仿生手臂，正尝试把这两个目标结合起来。\n\n公司由尼日利亚兄弟Ubokobong和John Amanam创立。他们希望制作外观更自然的假肢，包括更贴近使用者外貌和肤色的选择。根据《时代》杂志2026年度最佳发明专题介绍，这款手臂能够响应肌肉信号，公司的产品也已进入多个国家的市场。\n\n这并不是一项仍停留在实验室、等待突破的设想：团队已经制造出设备并向用户推出。TIME在10月公布的2026年度最佳发明名单中收录了这款产品，让更多人关注由非洲团队推动的辅助技术。\n\n与其他假肢一样，舒适度、适用性和实际表现因人而异。杂志奖项本身并不能证明它对每位患者都有临床疗效。已经明确的是，这款设备完成了研发，团队报告称产品已可供使用，并拥有国际用户。\n\n配图中的手部假肢是另一种较早的设计，仅用于示意，并不是尼日利亚这款仿生手臂的照片。"
     },
     "kiribati-five-survive-three-months-drifting-pacific-2026": {
       "source_title": "Five people found alive in Kiribati after almost three months lost at sea",
