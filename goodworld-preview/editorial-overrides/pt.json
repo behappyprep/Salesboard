@@ -1,6 +1,6 @@
 {
   "language": "pt",
-  "updated_at": "2026-11-21T13:05:00Z",
+  "updated_at": "2026-11-21T13:12:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -25,8 +25,9 @@
     },
     "ecuador-floreana-158-giant-tortoises-return-after-180-years-2026": {
       "source_title": "After more than 180 years, giant tortoises return to Ecuador's Floreana Island",
-      "title": "Tartarugas-gigantes voltam à ilha Floreana após mais de 180 anos",
-      "summary": "Em 20 de fevereiro de 2026, conservacionistas soltaram 158 jovens tartarugas-gigantes na ilha Floreana, em Galápagos. O retorno é um passo importante para a recuperação do ecossistema."
+      "title": "Após mais de 180 anos, tartarugas-gigantes regressam à ilha Floreana",
+      "summary": "Em 20 de fevereiro de 2026, equipas de conservação libertaram 158 tartarugas-gigantes jovens em Floreana, nas Galápagos. O regresso recupera uma linhagem genética ausente há várias gerações, embora a restauração do ecossistema ainda esteja em curso.",
+      "body": "Durante mais de 180 anos, as tartarugas-gigantes da linhagem nativa da ilha Floreana estiveram ausentes da sua casa nas Galápagos. Em 20 de fevereiro de 2026, organizações de conservação libertaram 158 exemplares jovens na ilha equatoriana, num passo histórico de um programa de recuperação que já decorre há vários anos.\n\nOs animais reintroduzidos têm ascendência genética associada às tartarugas originais de Floreana. Os seus antepassados desapareceram depois de a atividade humana e a introdução de espécies externas terem transformado o ecossistema da ilha. Cientistas e conservacionistas passaram anos a identificar tartarugas adequadas, a prepará-las para a libertação e a planear o seu regresso.\n\nAs tartarugas-gigantes também desempenham um papel ecológico importante. Ao deslocarem-se pela vegetação, alimentarem-se e dispersarem sementes, influenciam a evolução dos habitats insulares. A libertação de fevereiro ajuda a recuperar esses processos, mas não significa que todo o ecossistema de Floreana já esteja restaurado. Continuam a ser essenciais a monitorização a longo prazo e novos trabalhos de conservação.\n\nO resultado confirmado é significativo: 158 tartarugas vivas foram libertadas em Floreana após uma ausência que durou várias gerações. A Island Conservation anunciou o marco e a Fundação Charles Darwin também documentou o regresso. A libertação ocorreu em 20 de fevereiro de 2026, independentemente da data de publicação desta notícia."
     },
     "kenya-first-full-arm-replantation-surgery-2026": {
       "source_title": "Kenyan surgeons reattach a severed arm in a landmark East African operation",
@@ -35,8 +36,9 @@
     },
     "indonesia-rizky-farizal-child-rescue-gift-grandmother-2026": {
       "source_title": "He saved a six-year-old in Indonesia, then gave his reward to his grandmother",
-      "title": "Jovem salva criança na Indonésia e pede que a avó receba sua recompensa",
-      "summary": "Rizky Farizal salvou uma criança de um canal de drenagem em Palembang. Ao receber como prêmio uma peregrinação a Meca, pediu que a viagem fosse oferecida à avó que o criou."
+      "title": "Na Indonésia, jovem salva criança e oferece a recompensa à avó",
+      "summary": "Rizky Farizal entrou num perigoso canal de drenagem em Palembang para salvar uma criança. Quando lhe ofereceram uma peregrinação Umrah como recompensa, pediu que fosse atribuída à avó que o criou.",
+      "body": "Quando uma criança de seis anos foi arrastada para um perigoso canal de drenagem em Palembang, na Indonésia, Rizky Farizal decidiu agir. Em 14 de novembro de 2026, o jovem de 24 anos entrou na água em movimento e ajudou a retirar a criança, identificada como Kia na imprensa local.\n\nA sua coragem chamou a atenção em toda a Sumatra do Sul. O chefe da polícia regional ofereceu-lhe uma viagem de Umrah, uma peregrinação a Meca com grande significado pessoal para muitos muçulmanos. Mas Rizky fez um pedido inesperado: que a recompensa fosse entregue à avó, que cuidou dele enquanto crescia.\n\nO meio de comunicação local detikSumbagsel noticiou tanto o salvamento como a reação de Rizky à oferta. Notícias locais posteriores também referiram que a cidade lhe ofereceu a possibilidade de trabalhar como bombeiro, reconhecendo a sua prontidão para agir quando outra pessoa estava em perigo.\n\nO salvamento da criança é o resultado concluído e confirmado. A oferta da peregrinação e a oportunidade de trabalho foram noticiadas separadamente; não significam que a viagem a Meca já tenha acontecido.\n\nPor vezes, a bondade manifesta-se de duas formas: na decisão imediata de salvar alguém e na vontade de partilhar uma honra com a pessoa que ajudou a moldar a nossa vida."
     },
     "georgia-okeeffe-painting-closet-sells-4-878-million-2026": {
       "source_title": "Painting hidden in closet for decades sells for almost $4.9 million",
