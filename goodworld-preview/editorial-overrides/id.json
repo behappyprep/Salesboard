@@ -1,12 +1,13 @@
 {
   "language": "id",
-  "updated_at": "2026-11-21T13:31:00Z",
+  "updated_at": "2026-11-21T13:52:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
       "source_title": "Seven rescued pelicans return to Peru's coast after rehabilitation",
       "title": "Tujuh pelikan yang diselamatkan kembali ke alam liar di pesisir Peru",
-      "summary": "Setelah menjalani perawatan selama beberapa pekan, tujuh pelikan terdampak kondisi laut yang buruk dilepaskan di pesisir Pasifik Peru pada 17 November 2026."
+      "summary": "Setelah menjalani perawatan selama beberapa pekan, tujuh pelikan terdampak kondisi laut yang buruk dilepaskan di pesisir Pasifik Peru pada 17 November 2026.",
+      "body": "Tujuh pelikan kembali ke alam liar di pesisir Samudra Pasifik Peru setelah menjalani penyelamatan dan rehabilitasi. Menurut laporan video Euronews yang diterbitkan keesokan harinya, burung-burung itu dilepasliarkan pada 17 November 2026.\n\nPelikan tersebut terdampak kondisi lingkungan yang berkaitan dengan El Niño, pola iklim yang dapat mengganggu ketersediaan makanan dan ekosistem laut di Pasifik timur. Alih-alih membiarkan burung-burung yang lemah bertahan sendiri, para penyelamat membawa mereka untuk dirawat dan diberi waktu untuk pulih. Setelah mendapat perawatan dokter hewan dan menjalani rehabilitasi, ketujuhnya dinilai siap kembali ke habitat pesisir.\n\nPelepasliaran ini merupakan pencapaian nyata yang patut disambut baik, meskipun tidak dengan sendirinya menjamin keadaan setiap burung dalam beberapa bulan mendatang. Hasil positif yang sudah terlihat adalah ketujuh satwa liar itu berhasil melewati krisis langsung, mendapat perawatan, dan dapat kembali ke laut alih-alih terus hidup dalam penangkaran.\n\nSatwa laut Peru menghadapi tekanan yang jauh lebih luas daripada satu operasi penyelamatan. Meski begitu, keberhasilan rehabilitasi ini menunjukkan bahwa tindakan tepat waktu dapat mengubah nasib satwa secara individual. Burung-burung itu dilepasliarkan pada 17 November, sedangkan laporan video Euronews diterbitkan pada 18 November 2026."
     },
     "australia-prospector-finds-1-2kg-tibooburra-gold-nugget-2026": {
       "source_title": "A faint detector signal leads an Australian prospector to a 1.2 kg gold nugget",
@@ -47,7 +48,8 @@
     "georgia-okeeffe-painting-closet-sells-4-878-million-2026": {
       "source_title": "Painting hidden in closet for decades sells for almost $4.9 million",
       "title": "Lukisan yang puluhan tahun tersimpan di lemari terjual hampir US$4,9 juta",
-      "summary": "Sebuah lukisan lanskap karya Georgia O'Keeffe yang selama puluhan tahun tersimpan di lemari keluarga Manhattan terjual dalam lelang seharga US$4.878.000."
+      "summary": "Sebuah lukisan lanskap karya Georgia O'Keeffe yang selama puluhan tahun tersimpan di lemari keluarga Manhattan terjual dalam lelang seharga US$4.878.000.",
+      "body": "Sebuah lukisan yang tersimpan selama puluhan tahun di lemari sebuah rumah di Manhattan terjual seharga US$4.878.000 di balai lelang Christie's, New York. Karya itu adalah lukisan lanskap Georgia O'Keeffe tahun 1930 berjudul Near Abiquiu, New Mexico I. Sejarawan seni telah mengenalinya melalui sebuah foto lama, tetapi lokasi lukisan aslinya lama tidak diketahui.\n\nMenurut keluarga pemiliknya, ibu dari pemilik saat ini membeli lukisan tersebut pada 1963 seharga US$3.800 dan memberikannya sebagai hadiah kelulusan. Lukisan itu sempat dipajang selama bertahun-tahun. Namun, pada pertengahan 1980-an, pemiliknya menyimpannya di lemari setelah seorang pengunjung menunjukkan ketertarikan yang tidak biasa.\n\nPada 2026, anggota keluarga mengeluarkan kembali lukisan itu dan menemukan tanda O'Keeffe di bagian belakangnya. Keaslian karya tersebut kemudian dikonfirmasi, dan lukisan itu terjual pada 17 November 2026 seharga US$4.878.000. Kisah ini menjadi contoh luar biasa bahwa benda milik keluarga yang lama terlupakan bisa ternyata merupakan harta seni bernilai tinggi."
     },
     "africa-turitap-water-treatment-installed-2026": {
       "source_title": "Affordable water-cleaning device reaches communities across Africa",
