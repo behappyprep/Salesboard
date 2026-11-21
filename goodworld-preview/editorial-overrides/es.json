@@ -1,6 +1,6 @@
 {
   "language": "es",
-  "updated_at": "2026-11-21T14:00:00Z",
+  "updated_at": "2026-11-21T14:12:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -91,7 +91,8 @@
     "portugal-julie-elephant-pangea-sanctuary-2026": {
       "source_title": "After decades in a circus, Julie the elephant finds a peaceful home in Portugal",
       "title": "Julie, una elefanta que pasó décadas en el circo, encuentra refugio en Portugal",
-      "summary": "Julie, la última elefanta de circo de Portugal, fue trasladada a un santuario espacioso en Alentejo, donde recibe cuidados y descubre su nuevo entorno."
+      "summary": "Julie, la última elefanta de circo de Portugal, fue trasladada a un santuario espacioso en Alentejo, donde recibe cuidados y descubre su nuevo entorno.",
+      "body": "Julie, una elefanta africana, tiene un nuevo hogar. Después de pasar gran parte de su vida en un circo portugués, llegó al Pangea Elephant Sanctuary, en la región del Alentejo, a finales de junio de 2026. Su llegada, anunciada el 2 de julio, la convirtió en la primera residente del santuario y marcó un hito para el bienestar animal en Portugal.\n\nJulie llegó a Portugal cuando era joven y se incorporó al circo Víctor Hugo Cardinali en 1988. Permaneció bajo el cuidado del circo incluso después de que la prohibición de utilizar animales salvajes en espectáculos circenses entrara plenamente en vigor en 2024. Un acuerdo voluntario entre el circo y Pangea permitió finalmente su traslado a un hogar permanente en el santuario.\n\nEl cambio ya se nota en su vida cotidiana. Según el santuario, Julie ha empezado a explorar el paisaje natural a su propio ritmo. Se da baños de barro y polvo y se aventura cada vez más lejos a medida que se familiariza con el entorno. La reserva tiene unas 400 hectáreas, aunque su adaptación se hará gradualmente y con apoyo especializado.\n\nEl traslado no significa que haya sido liberada en la naturaleza. Julie es una elefanta de edad avanzada que necesita cuidados continuos, incluida la atención a problemas de salud y movilidad. En Pangea, un equipo dedicado puede vigilar su bienestar y, al mismo tiempo, darle más libertad para decidir cómo pasa el día. El santuario no recibe visitantes, para que pueda adaptarse sin molestias.\n\nSu llegada también tiene un significado que va más allá de un solo animal. Julie era el último animal salvaje que permanecía en un circo portugués. Pangea espera poder acoger en el futuro a otros elefantes que necesiten cuidados de por vida, pero el traslado de Julie es el logro que ya se ha hecho realidad.\n\nPor ahora, la buena noticia es sencilla: después de décadas con una vida muy distinta, Julie dispone de espacio para explorar, un entorno tranquilo y personas comprometidas con su cuidado. Sus primeros baños de barro son una señal pequeña, pero significativa, de esta nueva etapa."
     },
     "world-31b6f31acc7640d1884064d09810cb80": {
       "source_title": "More than 19,500 rescued orchids survive after relocation in southern India",
