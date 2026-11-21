@@ -1,6 +1,6 @@
 {
   "language": "zh",
-  "updated_at": "2026-11-21T13:18:00Z",
+  "updated_at": "2026-11-21T13:31:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -23,7 +23,8 @@
     "kiribati-five-survive-three-months-drifting-pacific-2026": {
       "source_title": "Five people found alive in Kiribati after almost three months lost at sea",
       "title": "漂流太平洋近三个月后，五人在基里巴斯获救",
-      "summary": "2026年7月失踪的船只上，有五名乘客在基里巴斯附近被发现仍然生还，其中包括两名儿童。报道发布时，另外四人仍下落不明。"
+      "summary": "2026年7月失踪的船只上，有五名乘客在基里巴斯附近被发现仍然生还，其中包括两名儿童。报道发布时，另外四人仍下落不明。",
+      "body": "2026年7月下旬，九人乘船从密克罗尼西亚联邦出发，原本只是一次西太平洋航程，但船只没有按计划抵达目的地。此后数周，家属始终无法确定海上究竟发生了什么。\n\n2026年11月1日，五人在基里巴斯附近的塔布阿埃兰岛被发现生还。该岛也称芬宁岛，属于基里巴斯。获救者中包括两名儿童。澳大利亚广播公司ABC News于次日报道了这一消息，确认这些一度被认为可能葬身海上的人，在海上漂流了近三个月后仍然活着。\n\n五人上岸后接受了照料。他们生还的消息让家属以及一直关注搜寻情况的社区松了一口气。不过，报道中还有一个不能忽略的事实：截至新闻发布时，原船上的另外四人仍然下落不明。\n\n因此，这对已确认生还的五人来说是一个令人欣慰的结果，但不能据此说所有乘客都已找到。这起事件也提醒人们，太平洋岛屿之间距离遥远，一旦天气和洋流失控，即使看似不长的航程也可能变得十分危险。\n\n据报道，救援发生在2026年11月1日。ABC News于11月2日刊出了相关报道。"
     },
     "ecuador-floreana-158-giant-tortoises-return-after-180-years-2026": {
       "source_title": "After more than 180 years, giant tortoises return to Ecuador's Floreana Island",
@@ -34,7 +35,8 @@
     "kenya-first-full-arm-replantation-surgery-2026": {
       "source_title": "Kenyan surgeons reattach a severed arm in a landmark East African operation",
       "title": "肯尼亚医生成功接回工人完全离断的手臂",
-      "summary": "内罗毕一支医疗团队为工伤后完全失去手臂的工人成功实施再植手术。医生确认血液循环恢复，患者已开始康复训练，但最终功能恢复程度仍不确定。"
+      "summary": "内罗毕一支医疗团队为工伤后完全失去手臂的工人成功实施再植手术。医生确认血液循环恢复，患者已开始康复训练，但最终功能恢复程度仍不确定。",
+      "body": "肯尼亚内罗毕的一支外科团队成功为一名在工业事故中失去整条手臂的工人实施再植手术。阿迦汗大学医院于2026年11月11日发布消息称，手术取得成功，并称这是东非首例有记录的完整手臂再植手术。\n\n断肢再植远不只是把肢体重新接上。医生必须修复血管、恢复血液循环，重新连接骨骼和其他组织，同时应对肢体可能无法存活的风险。医院表示，手术持续了约十个小时。术后，医疗团队确认血液循环已经恢复，重新接上的手臂仍具有存活条件。\n\n医院发布最新情况时，患者已经开始康复训练。力量、感觉和实用动作的恢复可能需要较长时间的治疗。因此，手术初步成功并不等于患者已经完全恢复手臂功能。目前得到证实的成果是：原本完全离断的手臂被成功再植，而且仍然存活。\n\n这起病例也体现了当地专业医疗团队协作能力的进步。相关结果由医院公布；患者的长期恢复情况仍需随着康复进展继续观察。"
     },
     "indonesia-rizky-farizal-child-rescue-gift-grandmother-2026": {
       "source_title": "He saved a six-year-old in Indonesia, then gave his reward to his grandmother",
