@@ -1,12 +1,13 @@
 {
   "language": "zh",
-  "updated_at": "2026-11-21T13:31:00Z",
+  "updated_at": "2026-11-21T13:52:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
       "source_title": "Seven rescued pelicans return to Peru's coast after rehabilitation",
       "title": "秘鲁七只获救鹈鹕康复后重返大自然",
-      "summary": "经过数周兽医照护，七只因海洋环境恶化而受影响的鹈鹕于2026年11月17日在秘鲁太平洋沿岸获释，重新回到自然栖息地。"
+      "summary": "经过数周兽医照护，七只因海洋环境恶化而受影响的鹈鹕于2026年11月17日在秘鲁太平洋沿岸获释，重新回到自然栖息地。",
+      "body": "经过救助和康复治疗，七只鹈鹕重新回到了秘鲁太平洋沿岸的野外。根据Euronews于次日发布的视频报道，这些鸟于2026年11月17日被放归自然。\n\n这些鹈鹕受到与厄尔尼诺现象相关的环境条件影响。厄尔尼诺可能改变东太平洋的食物供应，并扰乱海洋生态系统。救援人员没有任由体弱的鸟类继续挣扎，而是将它们带去照护，让它们有时间恢复。经过兽医治疗和康复观察后，工作人员认为这七只鹈鹕已具备返回沿海栖息地的条件。\n\n放归是一个明确而令人欣慰的进展，但这本身并不能保证每只鸟在未来几个月里的状况。可以确认的是，这七只野生动物挺过了眼前的危机，接受了照护，并得以重返海洋，而不是继续留在圈养环境中。\n\n秘鲁海洋野生动物面临的压力远不止一次救援所能涵盖。不过，这次成功康复说明，及时介入能够改变个别动物的命运。放归发生在2026年11月17日，Euronews的视频报道于11月18日发布。"
     },
     "australia-prospector-finds-1-2kg-tibooburra-gold-nugget-2026": {
       "source_title": "A faint detector signal leads an Australian prospector to a 1.2 kg gold nugget",
@@ -47,7 +48,8 @@
     "georgia-okeeffe-painting-closet-sells-4-878-million-2026": {
       "source_title": "Painting hidden in closet for decades sells for almost $4.9 million",
       "title": "藏在衣柜里几十年的画作以近490万美元成交",
-      "summary": "一幅佐治亚·欧姬芙的风景画在曼哈顿一户人家的衣柜里存放数十年后被发现，最终以487.8万美元拍卖成交。"
+      "summary": "一幅佐治亚·欧姬芙的风景画在曼哈顿一户人家的衣柜里存放数十年后被发现，最终以487.8万美元拍卖成交。",
+      "body": "一幅在纽约曼哈顿一户人家的壁橱里存放数十年的画作，近日在纽约佳士得拍卖行以4,878,000美元成交。这是美国艺术家乔治亚·欧姬芙1930年创作的风景画《Near Abiquiu, New Mexico I》。艺术史学者过去曾通过一张旧照片知道这幅画，但它多年来一直下落不明。\n\n现任藏家家属介绍，藏家的母亲于1963年以3,800美元买下这幅画，并将它作为毕业礼物送给女儿。女儿曾把画挂在家中多年，但在20世纪80年代中期，一名来访者对它表现出异常浓厚的兴趣后，她便将画收了起来。\n\n2026年，家人重新取出这幅画，并在背面发现了欧姬芙留下的标记。作品随后通过鉴定，并于2026年11月17日以4,878,000美元售出。这是一个令人惊叹的例子：一件在家庭中被遗忘多年的物品，最终可能被发现是一件艺术珍品。"
     },
     "africa-turitap-water-treatment-installed-2026": {
       "source_title": "Affordable water-cleaning device reaches communities across Africa",
