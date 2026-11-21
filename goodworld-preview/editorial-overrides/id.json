@@ -1,6 +1,6 @@
 {
   "language": "id",
-  "updated_at": "2026-11-21T13:18:00Z",
+  "updated_at": "2026-11-21T13:31:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -23,7 +23,8 @@
     "kiribati-five-survive-three-months-drifting-pacific-2026": {
       "source_title": "Five people found alive in Kiribati after almost three months lost at sea",
       "title": "Lima orang ditemukan selamat setelah hampir tiga bulan terombang-ambing di Pasifik",
-      "summary": "Lima penumpang, termasuk dua anak, ditemukan hidup di dekat Kiribati setelah hilang sejak Juli 2026. Empat penumpang lain masih belum ditemukan saat berita dilaporkan."
+      "summary": "Lima penumpang, termasuk dua anak, ditemukan hidup di dekat Kiribati setelah hilang sejak Juli 2026. Empat penumpang lain masih belum ditemukan saat berita dilaporkan.",
+      "body": "Perjalanan perahu yang semula biasa di Samudra Pasifik bagian barat berubah menjadi perjuangan bertahan hidup selama hampir tiga bulan. Sembilan orang berangkat dari Federasi Mikronesia pada akhir Juli 2026, tetapi perahu mereka tidak tiba di tempat tujuan seperti yang diharapkan. Selama berminggu-minggu, keluarga mereka tidak mendapat kepastian tentang apa yang terjadi di laut.\n\nPada 1 November 2026, lima orang ditemukan hidup di dekat Tabuaeran, yang juga dikenal sebagai Pulau Fanning, di Kiribati. Dua anak termasuk di antara para penyintas. ABC News Australia melaporkan penemuan itu pada hari berikutnya. Kabar tersebut memastikan bahwa orang-orang yang dikhawatirkan hilang di laut ternyata mampu bertahan setelah hampir tiga bulan terombang-ambing.\n\nSetelah dibawa ke darat, para penyintas mendapat perawatan. Penemuan mereka membawa kelegaan besar bagi keluarga dan masyarakat yang mengikuti kabar hilangnya perahu tersebut. Namun, ada satu hal penting yang perlu dicatat: ketika laporan itu diterbitkan, empat orang lainnya dari kelompok semula masih belum ditemukan.\n\nKarena itu, kisah ini merupakan akhir yang melegakan bagi lima penyintas yang telah dipastikan selamat, bukan berarti semua penumpang sudah ditemukan. Peristiwa ini juga mengingatkan betapa jauhnya jarak antarpulau di Pasifik dan betapa berbahayanya perjalanan laut, bahkan yang tampak singkat, ketika cuaca dan arus mengambil alih kendali.\n\nMenurut laporan, penyelamatan berlangsung pada 1 November 2026. ABC News menerbitkan beritanya pada 2 November."
     },
     "ecuador-floreana-158-giant-tortoises-return-after-180-years-2026": {
       "source_title": "After more than 180 years, giant tortoises return to Ecuador's Floreana Island",
@@ -34,7 +35,8 @@
     "kenya-first-full-arm-replantation-surgery-2026": {
       "source_title": "Kenyan surgeons reattach a severed arm in a landmark East African operation",
       "title": "Dokter bedah Kenya berhasil menyambung kembali lengan yang terputus sepenuhnya",
-      "summary": "Tim di Nairobi berhasil menyambungkan kembali lengan seorang pekerja yang putus total akibat kecelakaan industri. Aliran darah pulih dan pasien memulai rehabilitasi, namun pemulihan fungsi jangka panjang belum diketahui."
+      "summary": "Tim di Nairobi berhasil menyambungkan kembali lengan seorang pekerja yang putus total akibat kecelakaan industri. Aliran darah pulih dan pasien memulai rehabilitasi, namun pemulihan fungsi jangka panjang belum diketahui.",
+      "body": "Tim bedah di Nairobi berhasil menyambungkan kembali lengan seorang pekerja yang terputus sepenuhnya akibat kecelakaan industri. Dalam keterangan yang diterbitkan pada 11 November 2026, Aga Khan University Hospital mengumumkan keberhasilan operasi tersebut dan menyebutnya sebagai replantasi lengan utuh pertama yang terdokumentasi di Afrika Timur.\n\nReplantasi bukan sekadar menyatukan kembali bagian tubuh yang terputus. Dokter bedah harus memperbaiki pembuluh darah agar aliran darah kembali, menyambungkan tulang dan jaringan lain, serta menangani risiko bahwa anggota tubuh itu tidak dapat bertahan hidup. Menurut rumah sakit, operasi berlangsung sekitar sepuluh jam. Setelahnya, tim memastikan sirkulasi darah telah pulih dan lengan yang disambungkan kembali masih hidup.\n\nSaat rumah sakit menyampaikan pembaruan, pasien sudah mulai menjalani rehabilitasi. Pemulihan kekuatan, sensasi, dan gerakan yang berguna dapat membutuhkan terapi dalam waktu lama. Keberhasilan awal operasi tidak berarti fungsi lengan telah pulih sepenuhnya. Hasil yang sudah terbukti sejauh ini adalah lengan yang terputus total berhasil disambungkan kembali dan tetap hidup.\n\nKasus ini juga menunjukkan tingkat kerja sama para spesialis yang kini tersedia di kawasan tersebut. Hasilnya diumumkan oleh pihak rumah sakit; perkembangan jangka panjang masih perlu dipantau selama proses rehabilitasi berlangsung."
     },
     "indonesia-rizky-farizal-child-rescue-gift-grandmother-2026": {
       "source_title": "He saved a six-year-old in Indonesia, then gave his reward to his grandmother",
