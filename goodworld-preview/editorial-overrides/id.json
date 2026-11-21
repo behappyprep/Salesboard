@@ -1,6 +1,6 @@
 {
   "language": "id",
-  "updated_at": "2026-11-21T13:52:00Z",
+  "updated_at": "2026-11-21T14:00:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -54,7 +54,8 @@
     "africa-turitap-water-treatment-installed-2026": {
       "source_title": "Affordable water-cleaning device reaches communities across Africa",
       "title": "Alat penjernih air terjangkau mulai menjangkau komunitas di Afrika",
-      "summary": "Lebih dari 100 sistem pemurnian air TuriTap telah terjual untuk dipasang di beberapa negara Afrika agar masyarakat bisa memperoleh air minum yang lebih aman."
+      "summary": "Lebih dari 100 sistem pemurnian air TuriTap telah terjual untuk dipasang di beberapa negara Afrika agar masyarakat bisa memperoleh air minum yang lebih aman.",
+      "body": "Teknologi pengolahan air yang dikembangkan bersama para peneliti di University of California, Berkeley, mulai beralih dari tahap prototipe ke penggunaan nyata. TuriTap adalah perangkat klorinasi langsung di dalam saluran air yang dirancang bagi masyarakat tanpa infrastruktur pengolahan air berskala besar.\n\nBerkeley Engineering melaporkan pada November 2026 bahwa lebih dari 100 sistem telah terjual untuk dipasang di sejumlah negara Afrika, termasuk Nigeria, Kamerun, dan Malawi. Setiap sistem berharga sekitar US$230 dan dirancang untuk melayani sekitar 100 hingga 1.000 rumah tangga melalui satu titik distribusi air terpusat.\n\nPara peneliti bekerja sama dengan mitra di Afrika untuk menyesuaikan perangkat itu dengan kondisi setempat dan kebutuhan produksi. Teknologi terkait juga sedang dievaluasi di fasilitas layanan kesehatan di Kenya, tetapi dampaknya terhadap hasil kesehatan belum terbukti.\n\nPencapaian konkretnya adalah perangkat pengolahan air yang relatif terjangkau mulai menjangkau masyarakat sungguhan, bukan hanya berada pada tahap percobaan atau prototipe."
     },
     "chile-mother-reunites-sons-after-41-years-2026": {
       "source_title": "Mother in Chile reunites with two sons after 41 years apart",
@@ -69,7 +70,8 @@
     "samoa-nuutele-island-ecosystem-recovery-2026": {
       "source_title": "Samoan island shows remarkable recovery one year after restoration",
       "title": "Alam Pulau Nu'utele di Samoa mulai pulih setelah upaya restorasi",
-      "summary": "Setahun setelah spesies invasif disingkirkan dari Nu'utele, para pegiat konservasi melaporkan tanda-tanda menggembirakan bahwa ekosistem pulau mulai pulih."
+      "summary": "Setahun setelah spesies invasif disingkirkan dari Nu'utele, para pegiat konservasi melaporkan tanda-tanda menggembirakan bahwa ekosistem pulau mulai pulih.",
+      "body": "Setahun setelah upaya konservasi besar di Pulau Nu'utele, Samoa, para peneliti dan mitra lokal melaporkan tanda-tanda pemulihan ekologi yang menggembirakan. Proyek ini melibatkan Kementerian Sumber Daya Alam dan Lingkungan Samoa, Island Conservation, para ahli kawasan, serta anggota masyarakat setempat.\n\nTim berupaya menghilangkan spesies invasif yang menekan satwa liar dan tumbuhan asli pulau tersebut. Nu'utele memiliki hutan tropis yang terpelihara dengan sangat baik dan berada di dalam kawasan perlindungan laut. Karena itu, pemulihan pulau ini penting bagi ekosistem darat maupun lingkungan laut di sekitarnya.\n\nPada Oktober 2026, para pegiat konservasi melaporkan tanda-tanda perbaikan pada hutan, satwa liar, dan sumber pangan alami. Pemantauan tetap diperlukan, dan para peneliti belum menyatakan bahwa ekosistem pulau itu telah pulih sepenuhnya.\n\nMeski demikian, temuan tersebut menunjukkan bahwa kerja sama jangka panjang antara lembaga, ahli, dan masyarakat dapat memberi sistem alam sebuah pulau peluang nyata untuk pulih."
     },
     "dubai-baby-rare-epilepsy-seizures-stop-experimental-treatment-2026": {
       "source_title": "Baby with 110 seizures a day becomes seizure-free after targeted treatment in Dubai",
