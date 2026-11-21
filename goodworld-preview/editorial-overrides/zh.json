@@ -1,6 +1,6 @@
 {
   "language": "zh",
-  "updated_at": "2026-11-21T13:05:00Z",
+  "updated_at": "2026-11-21T13:12:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -25,8 +25,9 @@
     },
     "ecuador-floreana-158-giant-tortoises-return-after-180-years-2026": {
       "source_title": "After more than 180 years, giant tortoises return to Ecuador's Floreana Island",
-      "title": "消失180多年后，巨龟重返加拉帕戈斯弗洛雷亚纳岛",
-      "summary": "2026年2月20日，保护人员在厄瓜多尔加拉帕戈斯群岛的弗洛雷亚纳岛放归158只年轻巨龟。这是恢复岛上生态的重要一步。"
+      "title": "相隔180多年后，巨型陆龟重返厄瓜多尔弗洛雷阿纳岛",
+      "summary": "2026年2月20日，保护团队将158只年轻的巨型陆龟放归加拉帕戈斯群岛的弗洛雷阿纳岛。这让一条消失多代的本地遗传谱系重新回到岛上，但生态系统的恢复仍在继续。",
+      "body": "180多年来，属于弗洛雷阿纳岛本地谱系的巨型陆龟一直没有出现在它们的加拉帕戈斯家园。2026年2月20日，保护组织在这座厄瓜多尔岛屿上放归了158只年轻的巨型陆龟。这是多年生态修复工作中的一个重要里程碑。\n\n这些重新引入的陆龟具有与弗洛雷阿纳原生巨龟相关的遗传血统。人类活动和外来物种改变了岛屿生态系统，它们的祖先因此从岛上消失。多年来，科学家和自然保护人员一直在寻找合适的陆龟、为放归做准备，并制定它们返回岛屿的计划。\n\n巨型陆龟也是重要的生态系统参与者。它们在植被间移动、取食并传播种子，会影响岛屿栖息地的发展。2月的放归让这些自然过程有机会逐步恢复，但这并不意味着弗洛雷阿纳岛的整个生态系统已经恢复。长期监测和后续保护工作仍不可或缺。\n\n已经确认的成果是：158只活体陆龟在缺席多代之后重返弗洛雷阿纳岛。Island Conservation公布了这一进展，查尔斯·达尔文基金会也记录了这次回归。放归日期是2026年2月20日，与这篇GoodWorld报道的发布日期不同。"
     },
     "kenya-first-full-arm-replantation-surgery-2026": {
       "source_title": "Kenyan surgeons reattach a severed arm in a landmark East African operation",
@@ -35,8 +36,9 @@
     },
     "indonesia-rizky-farizal-child-rescue-gift-grandmother-2026": {
       "source_title": "He saved a six-year-old in Indonesia, then gave his reward to his grandmother",
-      "title": "印尼青年救下六岁儿童，想把奖励送给祖母",
-      "summary": "里兹基·法里扎尔在印尼巨港市从危险排水渠中救出一名儿童。获赠前往麦加的小朝觐机会后，他请求将这份礼物转送给抚养自己的祖母。"
+      "title": "印尼男子救下六岁儿童后，把获赠的朝觐奖励让给祖母",
+      "summary": "Rizky Farizal跳入印度尼西亚巨港一条危险的排水渠，救起一名儿童。有人向他提供前往麦加进行副朝的奖励时，他请求把这份奖励转给抚养自己长大的祖母。",
+      "body": "2026年11月14日，印度尼西亚巨港一名六岁儿童被急流卷入危险的排水渠。24岁的Rizky Farizal没有袖手旁观，他跳入水中，帮助将当地媒体称为Kia的孩子救上岸。\n\n他的勇敢行为受到南苏门答腊各地关注。当地警察首长向Rizky提出奖励，邀请他前往麦加进行副朝（Umrah）。这趟朝觐对许多穆斯林具有重要的个人意义。但Rizky提出了一个令人动容的请求：希望把这份奖励转给在他成长过程中照顾他的祖母。\n\n当地媒体detikSumbagsel报道了救援过程以及Rizky对这份礼物的回应。之后的当地报道还提到，市政府向他提供了成为消防员的机会，以表彰他在他人生命受到威胁时挺身而出的行动。\n\n已经完成并得到确认的事情是孩子获救。副朝邀请和工作机会是分别报道的提议，并不表示他已经前往麦加完成了朝觐。\n\n善意有时会以两种方式出现：在危急时刻立即伸手救人，以及把荣誉分享给那个曾经帮助自己成长的人。"
     },
     "georgia-okeeffe-painting-closet-sells-4-878-million-2026": {
       "source_title": "Painting hidden in closet for decades sells for almost $4.9 million",
