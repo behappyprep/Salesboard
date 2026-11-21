@@ -1,6 +1,6 @@
 {
   "language": "es",
-  "updated_at": "2026-11-21T13:12:00Z",
+  "updated_at": "2026-11-21T13:18:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -10,13 +10,15 @@
     },
     "australia-prospector-finds-1-2kg-tibooburra-gold-nugget-2026": {
       "source_title": "A faint detector signal leads an Australian prospector to a 1.2 kg gold nugget",
-      "title": "Un buscador de oro halla una pepita de 1,2 kilos en Australia",
-      "summary": "Cerca de Tibooburra, en Nueva Gales del Sur, un aficionado encontró una pepita de 1,218 kg cuyo contenido en oro se valoró entre 150.000 y 160.000 dólares australianos. Es una estimación, no una venta confirmada."
+      "title": "Una débil señal del detector lleva a un buscador australiano a una pepita de oro de 1,2 kg",
+      "summary": "Un aficionado a la prospección encontró cerca de Tibooburra, en Nueva Gales del Sur, una pepita de 1,218 kg. Su valor estimado en oro era de entre 150.000 y 160.000 dólares australianos, aunque no consta que se haya vendido.",
+      "body": "Un sonido apenas perceptible de un detector de metales se convirtió en un hallazgo extraordinario para un aficionado que buscaba oro en el interior de Australia. Cerca de Tibooburra, en el extremo occidental de Nueva Gales del Sur, encontró una pepita de aproximadamente 1,218 kilogramos, según informó ABC News Australia el 26 de octubre de 2026.\n\nPor su forma poco habitual, la pieza recibió el apodo de «Tibooburra Spud». Quienes buscan oro pueden pasar muchos días sin encontrar nada comparable, por lo que el hallazgo destaca como una combinación poco común de perseverancia y suerte.\n\nEn el momento de la publicación, el valor estimado del oro de la pepita se situaba entre 150.000 y 160.000 dólares australianos. La estimación puede cambiar con el precio del metal y una pieza singular también podría tener un valor distinto para los coleccionistas. No es una prueba de que la pepita se haya vendido ni de que su descubridor haya cobrado esa cantidad.\n\nEl hecho confirmado es el hallazgo de una pieza de oro de tamaño excepcional durante una búsqueda recreativa. ABC News informó del descubrimiento el 26 de octubre de 2026. La fotografía muestra otra pepita australiana y es meramente ilustrativa: no es la Tibooburra Spud."
     },
     "nigeria-bionic-arm-available-to-users-worldwide-2026": {
       "source_title": "Nigerian-made bionic arm brings more lifelike prosthetics to users worldwide",
-      "title": "Una prótesis biónica desarrollada en Nigeria llega a usuarios de todo el mundo",
-      "summary": "El brazo biónico nigeriano utiliza señales musculares para controlar movimientos y ofrece un aspecto realista. Según sus creadores, ya tiene usuarios internacionales, y TIME lo incluyó entre los mejores inventos de 2026."
+      "title": "Un brazo biónico creado en Nigeria acerca prótesis de aspecto natural a usuarios de todo el mundo",
+      "summary": "Un brazo biónico desarrollado en Nigeria combina movimientos controlados por señales musculares con un aspecto realista. Sus creadores informan de usuarios en varios países y TIME incluyó el dispositivo entre sus mejores inventos de 2026.",
+      "body": "Para muchas personas amputadas, una prótesis de brazo debe hacer algo más que parecer realista o realizar un único movimiento. Una empresa nigeriana intenta combinar ambas cualidades con el Ubokobong Bionic Arm, desarrollado por el equipo de Immortal Cosmetic Art.\n\nLa empresa fue fundada por los hermanos nigerianos Ubokobong y John Amanam. Su trabajo nació del propósito de crear prótesis más naturales, incluidas opciones que reflejen mejor la apariencia y los tonos de piel de quienes las utilizan. Según la selección Best Inventions 2026 de TIME, el brazo responde a señales musculares y la empresa ya ha llegado a clientes de numerosos países.\n\nNo se trata de una idea que aún espere un avance de laboratorio: el equipo ha construido el dispositivo y lo ha puesto a disposición de usuarios. TIME lo incluyó en su selección de mejores inventos de 2026, publicada en octubre, y dio visibilidad a una propuesta africana de tecnología de asistencia.\n\nComo ocurre con cualquier prótesis, la comodidad, la idoneidad y el rendimiento real dependen de cada persona. Un premio de una revista no demuestra por sí solo la eficacia clínica para todos los pacientes. Lo confirmado es el desarrollo del dispositivo, su disponibilidad comunicada por sus creadores y su alcance internacional.\n\nLa mano de la fotografía es otro diseño protésico, más antiguo, utilizado solo como imagen representativa. No es una fotografía del dispositivo nigeriano."
     },
     "kiribati-five-survive-three-months-drifting-pacific-2026": {
       "source_title": "Five people found alive in Kiribati after almost three months lost at sea",
