@@ -1,6 +1,6 @@
 {
   "language": "fr",
-  "updated_at": "2026-11-21T13:18:00Z",
+  "updated_at": "2026-11-21T13:31:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -23,7 +23,8 @@
     "kiribati-five-survive-three-months-drifting-pacific-2026": {
       "source_title": "Five people found alive in Kiribati after almost three months lost at sea",
       "title": "Cinq personnes retrouvées vivantes après presque trois mois à la dérive dans le Pacifique",
-      "summary": "Cinq personnes, dont deux enfants, ont été retrouvées vivantes près de Kiribati après leur disparition en juillet 2026. Quatre autres passagers restaient introuvables lors du reportage."
+      "summary": "Cinq personnes, dont deux enfants, ont été retrouvées vivantes près de Kiribati après leur disparition en juillet 2026. Quatre autres passagers restaient introuvables lors du reportage.",
+      "body": "Ce qui devait être un trajet ordinaire en bateau dans le Pacifique occidental s’est transformé en une épreuve de survie de près de trois mois. Neuf personnes ont quitté les États fédérés de Micronésie à la fin du mois de juillet 2026, mais leur embarcation n’est pas arrivée à destination. Pendant des semaines, leurs proches sont restés sans nouvelles précises de ce qui s’était passé en mer.\n\nLe 1er novembre 2026, cinq personnes ont été retrouvées vivantes près de Tabuaeran, également appelée île Fanning, à Kiribati. Deux enfants figuraient parmi les survivants. L’annonce, rapportée le lendemain par ABC News Australia, a confirmé de façon spectaculaire que des personnes que l’on craignait perdues en mer avaient survécu à une longue période de dérive.\n\nAprès leur arrivée à terre, les survivants ont reçu des soins. Leur découverte a apporté un immense soulagement à leurs proches et aux communautés qui suivaient leur disparition. Mais une précision importante demeure : au moment de la publication du reportage, les quatre autres passagers du groupe étaient toujours portés disparus.\n\nIl s’agit donc d’une heureuse issue pour les cinq personnes dont la survie a été confirmée, et non de la preuve que tous les passagers ont été retrouvés. Cette histoire rappelle aussi les distances considérables entre les îles du Pacifique et les dangers auxquels on peut être exposé lorsque les conditions météorologiques et les courants prennent le dessus, même lors d’un trajet qui semblait court.\n\nLe sauvetage a eu lieu le 1er novembre 2026, selon les informations rapportées. ABC News a publié son article le 2 novembre."
     },
     "ecuador-floreana-158-giant-tortoises-return-after-180-years-2026": {
       "source_title": "After more than 180 years, giant tortoises return to Ecuador's Floreana Island",
@@ -34,7 +35,8 @@
     "kenya-first-full-arm-replantation-surgery-2026": {
       "source_title": "Kenyan surgeons reattach a severed arm in a landmark East African operation",
       "title": "Au Kenya, des chirurgiens réussissent à réimplanter un bras entièrement sectionné",
-      "summary": "À Nairobi, une équipe a réussi à réimplanter le bras entièrement sectionné d'un ouvrier après un accident industriel. La circulation sanguine a été rétablie et la rééducation a commencé, mais l'issue fonctionnelle reste incertaine."
+      "summary": "À Nairobi, une équipe a réussi à réimplanter le bras entièrement sectionné d'un ouvrier après un accident industriel. La circulation sanguine a été rétablie et la rééducation a commencé, mais l'issue fonctionnelle reste incertaine.",
+      "body": "À Nairobi, une équipe chirurgicale a réussi à réimplanter le bras entièrement sectionné d’un ouvrier victime d’un accident industriel. Dans un communiqué publié le 11 novembre 2026, l’Aga Khan University Hospital a annoncé la réussite de l’intervention et l’a présentée comme la première réimplantation documentée d’un bras complet en Afrique de l’Est.\n\nUne réimplantation ne consiste pas simplement à rattacher un membre. Les chirurgiens doivent réparer les vaisseaux sanguins pour rétablir la circulation, reconnecter les os et les autres tissus, puis surveiller le risque de rejet ou de perte du membre. Selon l’hôpital, l’opération a duré environ dix heures. L’équipe a ensuite confirmé que le sang circulait de nouveau et que le bras réimplanté restait viable.\n\nAu moment où l’hôpital a publié son bilan, le patient avait commencé sa rééducation. Retrouver de la force, de la sensibilité et des mouvements utiles peut demander une thérapie de longue durée. La réussite de l’opération ne signifie donc pas que le patient a déjà récupéré toutes les fonctions de son bras. Le résultat établi à ce stade est la réimplantation du membre, qui avait été complètement sectionné, et le maintien de sa viabilité.\n\nCette intervention témoigne aussi du niveau de coopération entre spécialistes désormais disponible dans la région. Le résultat a été annoncé par l’hôpital lui-même ; l’évolution à long terme devra être suivie au fil de la rééducation."
     },
     "indonesia-rizky-farizal-child-rescue-gift-grandmother-2026": {
       "source_title": "He saved a six-year-old in Indonesia, then gave his reward to his grandmother",
