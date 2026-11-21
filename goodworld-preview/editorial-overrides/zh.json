@@ -1,6 +1,6 @@
 {
   "language": "zh",
-  "updated_at": "2026-11-21T14:00:00Z",
+  "updated_at": "2026-11-21T14:12:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -91,7 +91,8 @@
     "portugal-julie-elephant-pangea-sanctuary-2026": {
       "source_title": "After decades in a circus, Julie the elephant finds a peaceful home in Portugal",
       "title": "告别数十年马戏团生活，大象朱莉在葡萄牙安家",
-      "summary": "葡萄牙最后一只马戏团大象朱莉被送往阿连特茹的宽敞保护区。它现在探索新环境、享受泥浴，并接受专业照护。"
+      "summary": "葡萄牙最后一只马戏团大象朱莉被送往阿连特茹的宽敞保护区。它现在探索新环境、享受泥浴，并接受专业照护。",
+      "body": "非洲象朱莉（Julie）终于有了新的家。她一生的大部分时间都在葡萄牙的一家马戏团度过，2026年6月下旬，她来到位于阿连特茹地区的Pangea大象保护 sanctuary。保护区于7月2日宣布她到来。朱莉成为这里的第一位住客，也为葡萄牙动物福利事业写下了一个重要节点。\n\n朱莉年幼时来到葡萄牙，并于1988年加入Víctor Hugo Cardinali马戏团。即使葡萄牙关于禁止马戏团使用野生动物的禁令在2024年全面生效后，她仍由马戏团照料。后来，马戏团与Pangea达成自愿协议，朱莉才得以搬到一个长期安置的保护场所。\n\n她的日常生活已经出现变化。保护区表示，朱莉开始按照自己的节奏探索自然环境，享受泥浴和尘土浴，也随着逐渐适应而走得越来越远。保护区面积约400公顷，但工作人员会在专家支持下循序渐进地让她熟悉新环境。\n\n这次迁居并不意味着把朱莉放归野外。她已经年长，需要持续照护，包括关注健康和行动能力方面的问题。在Pangea，专门团队可以照看她的身体状况，同时让她有更多自由选择每天如何度过。保护区不对游客开放，以免她在适应期间受到打扰。\n\n朱莉的到来也不仅仅关乎一头大象。她是葡萄牙马戏团中最后一头仍被饲养的野生动物。Pangea希望未来能接收其他需要终身照护的大象，但目前已经实现的具体成果，是朱莉成功迁入保护区。\n\n眼下，值得庆祝的消息很简单：经历了数十年截然不同的生活后，朱莉终于有了探索的空间、安静的环境，以及愿意长期照料她的人。她第一次在新家里洗泥浴，虽是小小的日常，却标志着新生活的开始。"
     },
     "world-31b6f31acc7640d1884064d09810cb80": {
       "source_title": "More than 19,500 rescued orchids survive after relocation in southern India",
