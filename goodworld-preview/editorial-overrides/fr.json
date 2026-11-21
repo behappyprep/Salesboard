@@ -1,12 +1,13 @@
 {
   "language": "fr",
-  "updated_at": "2026-11-21T13:31:00Z",
+  "updated_at": "2026-11-21T13:52:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
       "source_title": "Seven rescued pelicans return to Peru's coast after rehabilitation",
       "title": "Sept pélicans secourus retrouvent la liberté sur la côte du Pérou",
-      "summary": "Après plusieurs semaines de soins vétérinaires, sept pélicans fragilisés par des conditions océaniques défavorables ont été relâchés sur la côte pacifique du Pérou le 17 novembre 2026."
+      "summary": "Après plusieurs semaines de soins vétérinaires, sept pélicans fragilisés par des conditions océaniques défavorables ont été relâchés sur la côte pacifique du Pérou le 17 novembre 2026.",
+      "body": "Sept pélicans ont retrouvé la liberté sur la côte pacifique du Pérou après une opération de sauvetage et de réhabilitation. Les oiseaux ont été relâchés le 17 novembre 2026, selon une vidéo publiée par Euronews le lendemain.\n\nLes pélicans avaient été touchés par des conditions environnementales associées au phénomène El Niño, qui peut perturber la disponibilité de nourriture et les écosystèmes marins dans l’est du Pacifique. Plutôt que de laisser les oiseaux affaiblis livrés à eux-mêmes, les sauveteurs les ont pris en charge et leur ont donné le temps de récupérer. Après des soins vétérinaires et une période de réhabilitation, ils ont été jugés prêts à retrouver leur habitat côtier.\n\nLa remise en liberté constitue une étape concrète et encourageante, sans pour autant garantir le sort de chaque oiseau dans les mois à venir. Le résultat positif est que ces sept animaux sauvages ont survécu à la crise immédiate, reçu des soins et pu retourner dans l’océan au lieu de rester en captivité.\n\nLa faune marine du Pérou subit des pressions qui dépassent largement le cadre d’un seul sauvetage. Cette réhabilitation réussie montre néanmoins qu’une intervention rapide peut changer le destin d’animaux pris individuellement. La remise en liberté a eu lieu le 17 novembre ; la vidéo d’Euronews a été publiée le 18 novembre 2026."
     },
     "australia-prospector-finds-1-2kg-tibooburra-gold-nugget-2026": {
       "source_title": "A faint detector signal leads an Australian prospector to a 1.2 kg gold nugget",
@@ -47,7 +48,8 @@
     "georgia-okeeffe-painting-closet-sells-4-878-million-2026": {
       "source_title": "Painting hidden in closet for decades sells for almost $4.9 million",
       "title": "Un tableau oublié dans un placard pendant des décennies vendu près de 4,9 millions de dollars",
-      "summary": "Un paysage de Georgia O'Keeffe, découvert dans le placard d'une famille de Manhattan après des décennies, a été vendu aux enchères pour 4 878 000 dollars."
+      "summary": "Un paysage de Georgia O'Keeffe, découvert dans le placard d'une famille de Manhattan après des décennies, a été vendu aux enchères pour 4 878 000 dollars.",
+      "body": "Un tableau conservé à l’abri dans un placard de Manhattan pendant plusieurs décennies a été vendu 4 878 000 dollars chez Christie’s, à New York. Il s’agit du paysage peint en 1930 par Georgia O’Keeffe, intitulé Near Abiquiu, New Mexico I. Les historiens de l’art connaissaient l’œuvre grâce à une ancienne photographie, mais son emplacement était resté mystérieux.\n\nLa famille propriétaire explique que la mère de la propriétaire actuelle avait acheté le tableau en 1963 pour 3 800 dollars et le lui avait offert pour son diplôme. Après l’avoir exposé pendant des années, elle l’avait rangé au milieu des années 1980, à la suite de l’intérêt inhabituel manifesté par un visiteur.\n\nEn 2026, des proches ont ressorti le tableau et découvert au dos une marque laissée par O’Keeffe. L’œuvre a été authentifiée puis vendue le 17 novembre 2026 pour 4 878 000 dollars. Cette histoire montre de façon saisissante qu’un objet familial oublié pendant des années peut se révéler être un véritable trésor artistique."
     },
     "africa-turitap-water-treatment-installed-2026": {
       "source_title": "Affordable water-cleaning device reaches communities across Africa",
