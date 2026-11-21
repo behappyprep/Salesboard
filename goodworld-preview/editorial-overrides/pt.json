@@ -1,12 +1,13 @@
 {
   "language": "pt",
-  "updated_at": "2026-11-21T13:31:00Z",
+  "updated_at": "2026-11-21T13:52:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
       "source_title": "Seven rescued pelicans return to Peru's coast after rehabilitation",
       "title": "Sete pelicanos resgatados voltam à natureza na costa do Peru",
-      "summary": "Após semanas de atendimento veterinário, sete pelicanos afetados por condições adversas no oceano foram soltos na costa do Pacífico do Peru em 17 de novembro de 2026."
+      "summary": "Após semanas de atendimento veterinário, sete pelicanos afetados por condições adversas no oceano foram soltos na costa do Pacífico do Peru em 17 de novembro de 2026.",
+      "body": "Sete pelicanos regressaram à natureza na costa do Pacífico do Peru, depois de uma operação de salvamento e reabilitação. As aves foram libertadas a 17 de novembro de 2026, segundo uma reportagem em vídeo publicada pela Euronews no dia seguinte.\n\nOs pelicanos tinham sido afetados por condições ambientais associadas ao fenómeno El Niño, que pode perturbar a disponibilidade de alimento e os ecossistemas marinhos no Pacífico oriental. Em vez de deixarem as aves debilitadas entregues à sua sorte, as equipas de resgate acolheram-nas e deram-lhes tempo para recuperar. Após cuidados veterinários e um período de reabilitação, foram consideradas prontas para regressar ao seu habitat costeiro.\n\nA libertação é um resultado concreto e encorajador, embora não permita, por si só, saber como cada ave irá evoluir nos próximos meses. O que se sabe é que estes sete animais sobreviveram à crise imediata, receberam cuidados e puderam regressar ao oceano, em vez de permanecerem em cativeiro.\n\nA vida marinha do Peru enfrenta pressões que vão muito além de uma operação de salvamento. Ainda assim, esta reabilitação bem-sucedida mostra como uma intervenção atempada pode mudar o destino de animais individuais. A libertação ocorreu a 17 de novembro; a reportagem em vídeo da Euronews foi publicada a 18 de novembro de 2026."
     },
     "australia-prospector-finds-1-2kg-tibooburra-gold-nugget-2026": {
       "source_title": "A faint detector signal leads an Australian prospector to a 1.2 kg gold nugget",
@@ -47,7 +48,8 @@
     "georgia-okeeffe-painting-closet-sells-4-878-million-2026": {
       "source_title": "Painting hidden in closet for decades sells for almost $4.9 million",
       "title": "Quadro esquecido por décadas em armário é vendido por quase US$ 4,9 milhões",
-      "summary": "Uma paisagem de Georgia O'Keeffe encontrada no armário de uma família de Manhattan após décadas foi arrematada por US$ 4.878.000."
+      "summary": "Uma paisagem de Georgia O'Keeffe encontrada no armário de uma família de Manhattan após décadas foi arrematada por US$ 4.878.000.",
+      "body": "Um quadro que esteve guardado durante décadas num armário de Manhattan foi vendido por 4 878 000 dólares na Christie's, em Nova Iorque. A obra é a paisagem de 1930 de Georgia O'Keeffe intitulada Near Abiquiu, New Mexico I. Os historiadores de arte conheciam-na através de uma fotografia antiga, mas a sua localização permanecia um mistério.\n\nA família proprietária conta que a mãe da atual dona comprou o quadro em 1963 por 3 800 dólares e lho ofereceu como presente de formatura. A mulher manteve a obra exposta durante anos, mas guardou-a em meados da década de 1980, depois de um visitante ter demonstrado um interesse invulgar.\n\nEm 2026, familiares retiraram novamente o quadro do armário e encontraram uma marca de O'Keeffe no verso. A obra foi autenticada e vendida a 17 de novembro de 2026 por 4 878 000 dólares. É um exemplo extraordinário de como um objeto de família esquecido durante anos pode revelar-se um verdadeiro tesouro artístico."
     },
     "africa-turitap-water-treatment-installed-2026": {
       "source_title": "Affordable water-cleaning device reaches communities across Africa",
