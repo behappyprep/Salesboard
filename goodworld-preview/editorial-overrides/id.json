@@ -1,6 +1,6 @@
 {
   "language": "id",
-  "updated_at": "2026-11-21T13:12:00Z",
+  "updated_at": "2026-11-21T13:18:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -10,13 +10,15 @@
     },
     "australia-prospector-finds-1-2kg-tibooburra-gold-nugget-2026": {
       "source_title": "A faint detector signal leads an Australian prospector to a 1.2 kg gold nugget",
-      "title": "Penambang amatir menemukan bongkahan emas 1,2 kg di Australia",
-      "summary": "Di dekat Tibooburra, New South Wales, seorang pencari emas amatir menemukan bongkahan seberat 1,218 kilogram. Nilai emasnya diperkirakan A$150.000–160.000, bukan harga penjualan yang sudah terbukti."
+      "title": "Sinyal samar detektor mengantar pencari emas di Australia pada bongkahan seberat 1,218 kg",
+      "summary": "Seorang pencari emas amatir menemukan bongkahan seberat 1,218 kilogram di dekat Tibooburra, New South Wales. Nilai emasnya saat itu diperkirakan A$150.000 hingga A$160.000, tetapi belum ada konfirmasi bahwa bongkahan itu telah dijual.",
+      "body": "Bunyi samar dari detektor logam berubah menjadi penemuan luar biasa bagi seorang penghobi yang mencari emas di pedalaman Australia. Menurut laporan ABC News Australia pada 26 Oktober 2026, ia menemukan bongkahan emas seberat sekitar 1,218 kilogram di dekat Tibooburra, wilayah terpencil di bagian barat New South Wales.\n\nKarena bentuknya yang tidak biasa, bongkahan itu dijuluki “Tibooburra Spud”. Para pencari emas dapat menghabiskan banyak hari tanpa menemukan sesuatu yang mendekati ukuran tersebut. Karena itu, temuan ini menjadi contoh langka ketika ketekunan bertemu keberuntungan.\n\nPada saat laporan diterbitkan, nilai emas dalam bongkahan itu diperkirakan sekitar A$150.000 hingga A$160.000. Perkiraan tersebut dapat berubah mengikuti harga pasar, dan kolektor mungkin menilai spesimen unik itu secara berbeda. Yang penting, angka tersebut hanyalah perkiraan, bukan bukti bahwa bongkahan sudah terjual atau penemunya telah menerima uang.\n\nFakta yang terkonfirmasi adalah penemuan bongkahan emas berukuran luar biasa dalam kegiatan pencarian amatir. ABC News memberitakan temuan itu pada 26 Oktober 2026. Foto yang menyertai artikel memperlihatkan bongkahan emas Australia yang berbeda; gambar tersebut hanya ilustrasi, bukan Tibooburra Spud."
     },
     "nigeria-bionic-arm-available-to-users-worldwide-2026": {
       "source_title": "Nigerian-made bionic arm brings more lifelike prosthetics to users worldwide",
-      "title": "Lengan bionik buatan Nigeria mulai digunakan di berbagai negara",
-      "summary": "Lengan bionik yang dikembangkan di Nigeria ini digerakkan dengan sinyal otot dan dirancang tampak alami. Pembuatnya melaporkan pengguna di berbagai negara, sementara TIME memasukkannya dalam daftar penemuan terbaik 2026."
+      "title": "Lengan bionik buatan Nigeria menghadirkan prostesis yang lebih alami bagi pengguna di berbagai negara",
+      "summary": "Lengan bionik yang dikembangkan di Nigeria menggabungkan gerakan yang dikendalikan sinyal otot dengan tampilan yang realistis. Pembuatnya melaporkan pengguna di sejumlah negara, dan TIME memasukkannya ke dalam daftar penemuan terbaik 2026.",
+      "body": "Bagi banyak orang yang kehilangan anggota tubuh, lengan prostetik perlu melakukan lebih dari sekadar terlihat nyata atau menjalankan satu jenis gerakan. Perusahaan Nigeria Immortal Cosmetic Art berupaya mendekatkan kedua tujuan itu melalui Ubokobong Bionic Arm.\n\nPerusahaan tersebut didirikan oleh dua bersaudara asal Nigeria, Ubokobong dan John Amanam. Mereka ingin membuat prostesis yang tampak lebih alami, termasuk pilihan yang lebih sesuai dengan penampilan dan warna kulit penggunanya. Menurut liputan TIME tentang Best Inventions 2026, lengan ini merespons sinyal otot dan produk perusahaan telah menjangkau pelanggan di berbagai negara.\n\nIni bukan sekadar gagasan yang masih menunggu terobosan laboratorium. Tim tersebut telah membuat perangkatnya dan memperkenalkannya kepada pengguna. TIME memasukkannya ke dalam daftar Best Inventions 2026 yang diterbitkan pada Oktober, sehingga pendekatan teknologi bantu yang dikembangkan di Afrika mendapat perhatian lebih luas.\n\nSeperti prostesis lainnya, kenyamanan, kecocokan, dan kinerja dalam kehidupan sehari-hari bergantung pada kebutuhan masing-masing pengguna. Penghargaan majalah saja tidak membuktikan efektivitas klinis bagi setiap pasien. Hal yang sudah jelas adalah perangkat itu telah dikembangkan, pembuatnya melaporkan ketersediaannya, dan penggunaannya telah menjangkau sejumlah negara.\n\nTangan dalam foto merupakan desain prostesis lain yang lebih lama. Gambar itu hanya ilustrasi dan bukan foto perangkat buatan Nigeria tersebut."
     },
     "kiribati-five-survive-three-months-drifting-pacific-2026": {
       "source_title": "Five people found alive in Kiribati after almost three months lost at sea",
