@@ -1,6 +1,6 @@
 {
   "language": "zh",
-  "updated_at": "2026-11-21T14:12:00Z",
+  "updated_at": "2026-11-21T14:25:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -86,7 +86,8 @@
     "kenya-secretarybird-nestling-rescued-fledges-2026": {
       "source_title": "Kenyan researchers help endangered secretarybird chick survive and take flight",
       "title": "肯尼亚研究人员救活濒危蛇鹫幼鸟",
-      "summary": "研究人员和当地团队为一只饥饿的蛇鹫幼鸟安排了16次紧急喂食。到了10月，它已能在巢穴附近行走和飞翔。"
+      "summary": "研究人员和当地团队为一只饥饿的蛇鹫幼鸟安排了16次紧急喂食。到了10月，它已能在巢穴附近行走和飞翔。",
+      "body": "在肯尼亚中部，一只秘书鸟雏鸟在研究人员、野生动物专家和附近多个野外团队的协作救助下，熬过了艰难的幼年阶段。\n\n故事始于Mpala研究中心。研究人员在2026年早些时候发现了一个仍在使用的秘书鸟巢。9月1日，他们返回鸟巢，准备为雏鸟安装追踪设备，却发现只剩下一只幼鸟。它十分瘦弱，巢中没有食物，附近也看不到亲鸟。团队当时无法判断亲鸟是否还活着。\n\n研究人员没有放弃这只雏鸟，而是组织了紧急援助。Mpala提供食物，团队安排定期把食物送到巢边。给一只容易受惊的幼年秘书鸟喂食并不容易：反复爬上鸟巢可能惊吓到它，使它在还不会飞时就跳出巢外。肯尼亚猛禽专家西蒙·汤姆塞特设计了一种长杆喂食器，随后由Mpala的工坊制作，以便工作人员在更安全的距离投喂。\n\n其他研究人员也加入了监测。一台由Mpala狒狒研究项目借出的红外相机记录了鸟巢周围的活动。主要团队不在时，珍珠鸡研究项目的工作人员接手每日喂食和观察工作。\n\n协作最终取得了效果。经过16次补充喂食，雏鸟体力增强，已经能够离开鸟巢。研究人员白天观察到它在地面行走，夜间则飞回栖息处休息。10月14日拍摄的一张照片显示，这只幼鸟仍戴着GPS追踪器，在巢附近活动。\n\n相机还解开了一个疑问：雏鸟的父母都还活着，只是偶尔回来探望和喂食。研究人员无法确定亲鸟为何提供的食物如此有限，而这只幼鸟仍然面临野外生活通常伴随的风险。\n\n秘书鸟是一种生活在非洲草原上的濒危猛禽。帮助一只幼鸟成长到能够离巢的阶段，对处境受威胁的物种也有意义。救援团队没有把它带离原有栖息地，而是在原地提供支持，直到它开始能够独立活动。\n\n游隼基金会（The Peregrine Fund）于2026年11月15日公布了这一成果。此后监测和偶尔的支持仍在继续，因此这只是一个重要里程碑，并不能保证它长期存活。但这件事已经展示了细致合作能够为一只脆弱的野生动物带来怎样的帮助。"
     },
     "portugal-julie-elephant-pangea-sanctuary-2026": {
       "source_title": "After decades in a circus, Julie the elephant finds a peaceful home in Portugal",
