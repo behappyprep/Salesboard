@@ -1,12 +1,13 @@
 {
   "language": "es",
-  "updated_at": "2026-11-21T13:31:00Z",
+  "updated_at": "2026-11-21T13:52:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
       "source_title": "Seven rescued pelicans return to Peru's coast after rehabilitation",
       "title": "Siete pelícanos rescatados vuelven a la naturaleza en la costa de Perú",
-      "summary": "Tras varias semanas de atención veterinaria, siete pelícanos afectados por condiciones marinas adversas fueron liberados el 17 de noviembre de 2026 en la costa del Pacífico peruano."
+      "summary": "Tras varias semanas de atención veterinaria, siete pelícanos afectados por condiciones marinas adversas fueron liberados el 17 de noviembre de 2026 en la costa del Pacífico peruano.",
+      "body": "Siete pelícanos han vuelto a la vida silvestre en la costa del Pacífico de Perú tras un operativo de rescate y rehabilitación. Las aves fueron liberadas el 17 de noviembre de 2026, según un vídeo informativo publicado por Euronews al día siguiente.\n\nLos pelícanos se habían visto afectados por condiciones ambientales asociadas al fenómeno de El Niño, un patrón climático que puede alterar la disponibilidad de alimento y los ecosistemas marinos del Pacífico oriental. En lugar de dejar que las aves debilitadas afrontaran solas la situación, los equipos de rescate las trasladaron para recibir cuidados y tiempo para recuperarse. Tras la atención veterinaria y la rehabilitación, se consideró que estaban preparadas para regresar a su hábitat costero.\n\nLa suelta es un avance concreto y alentador, aunque por sí sola no permite saber cómo evolucionará cada ave durante los próximos meses. El resultado positivo es que estos siete animales sobrevivieron a la crisis inmediata, recibieron atención y pudieron regresar al océano en lugar de permanecer en cautividad.\n\nLa fauna marina de Perú afronta presiones que van mucho más allá de un solo rescate. Aun así, una rehabilitación exitosa demuestra que intervenir a tiempo puede cambiar el destino de animales concretos. La liberación tuvo lugar el 17 de noviembre y el vídeo de Euronews se publicó el 18 de noviembre de 2026."
     },
     "australia-prospector-finds-1-2kg-tibooburra-gold-nugget-2026": {
       "source_title": "A faint detector signal leads an Australian prospector to a 1.2 kg gold nugget",
@@ -47,7 +48,8 @@
     "georgia-okeeffe-painting-closet-sells-4-878-million-2026": {
       "source_title": "Painting hidden in closet for decades sells for almost $4.9 million",
       "title": "Una pintura olvidada durante décadas en un armario se vende por casi 4,9 millones de dólares",
-      "summary": "Un paisaje de Georgia O'Keeffe que una familia de Manhattan había guardado durante décadas en un armario alcanzó 4.878.000 dólares en una subasta."
+      "summary": "Un paisaje de Georgia O'Keeffe que una familia de Manhattan había guardado durante décadas en un armario alcanzó 4.878.000 dólares en una subasta.",
+      "body": "Una pintura que permaneció guardada durante décadas en un armario de Manhattan se vendió por 4.878.000 dólares en Christie's, en Nueva York. La obra es el paisaje de 1930 de Georgia O'Keeffe titulado Near Abiquiu, New Mexico I. Los historiadores del arte conocían la pintura por una antigua fotografía, pero durante años no se supo dónde estaba.\n\nLa familia propietaria cuenta que la madre de la dueña actual la compró en 1963 por 3.800 dólares y se la regaló al graduarse. La mujer la tuvo expuesta durante años, pero la guardó a mediados de la década de 1980 después de que una visita mostrara un interés inusual por la obra.\n\nEn 2026, unos familiares volvieron a sacar el cuadro y encontraron una marca de O'Keeffe en el reverso. La obra fue autenticada y se vendió el 17 de noviembre de 2026 por 4.878.000 dólares. Es un ejemplo extraordinario de cómo un objeto familiar que llevaba años olvidado puede resultar ser un tesoro artístico."
     },
     "africa-turitap-water-treatment-installed-2026": {
       "source_title": "Affordable water-cleaning device reaches communities across Africa",
