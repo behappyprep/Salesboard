@@ -1,6 +1,6 @@
 {
   "language": "pt",
-  "updated_at": "2026-11-21T13:52:00Z",
+  "updated_at": "2026-11-21T14:00:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -54,7 +54,8 @@
     "africa-turitap-water-treatment-installed-2026": {
       "source_title": "Affordable water-cleaning device reaches communities across Africa",
       "title": "Sistema acessível de tratamento de água chega a comunidades africanas",
-      "summary": "Mais de 100 sistemas TuriTap foram vendidos para instalação em projetos de tratamento de água em vários países africanos."
+      "summary": "Mais de 100 sistemas TuriTap foram vendidos para instalação em projetos de tratamento de água em vários países africanos.",
+      "body": "Uma tecnologia de tratamento de água desenvolvida com investigadores da Universidade da Califórnia em Berkeley está a passar da fase de protótipo para a utilização prática. A TuriTap é um dispositivo de cloração em linha, concebido para comunidades sem grandes infraestruturas de tratamento de água.\n\nA Berkeley Engineering informou, em novembro de 2026, que tinham sido vendidos mais de cem sistemas para instalação em vários países africanos, incluindo a Nigéria, os Camarões e o Malawi. Cada sistema custa cerca de 230 dólares e foi concebido para servir aproximadamente 100 a 1 000 agregados familiares através de um ponto central de distribuição de água.\n\nOs investigadores trabalharam com parceiros africanos para adaptar o dispositivo às condições locais e às possibilidades de produção. Uma tecnologia relacionada também está a ser avaliada em unidades de saúde no Quénia, embora ainda não tenham sido estabelecidos resultados relativos à saúde.\n\nO avanço é concreto: uma ferramenta de tratamento de água relativamente acessível está a chegar a comunidades reais, em vez de permanecer apenas na fase experimental."
     },
     "chile-mother-reunites-sons-after-41-years-2026": {
       "source_title": "Mother in Chile reunites with two sons after 41 years apart",
@@ -69,7 +70,8 @@
     "samoa-nuutele-island-ecosystem-recovery-2026": {
       "source_title": "Samoan island shows remarkable recovery one year after restoration",
       "title": "Ilha de Samoa apresenta sinais de recuperação da natureza após restauração",
-      "summary": "Um ano após a remoção de espécies invasoras de Nu'utele, equipes de conservação relatam sinais animadores de recuperação ecológica."
+      "summary": "Um ano após a remoção de espécies invasoras de Nu'utele, equipes de conservação relatam sinais animadores de recuperação ecológica.",
+      "body": "Um ano depois de uma ambiciosa iniciativa de conservação na ilha de Nu'utele, em Samoa, investigadores e parceiros locais relatam sinais encorajadores de recuperação ecológica. O projeto reuniu o Ministério dos Recursos Naturais e do Ambiente de Samoa, a Island Conservation, especialistas da região e membros das comunidades locais.\n\nAs equipas procuraram remover espécies invasoras que pressionavam a fauna e a vegetação nativas da ilha. Nu'utele conserva uma área excecionalmente bem preservada de floresta tropical e situa-se numa área marinha protegida. A recuperação é, por isso, relevante tanto para os ecossistemas terrestres como para o ambiente marinho envolvente.\n\nEm outubro de 2026, os responsáveis pela conservação comunicaram melhorias na floresta, na vida selvagem e nos recursos alimentares naturais. A monitorização continua a ser importante, e os investigadores não consideram que o ecossistema esteja totalmente recuperado.\n\nAinda assim, os resultados mostram que uma cooperação continuada entre instituições, especialistas e comunidades pode dar aos sistemas naturais de uma ilha uma oportunidade real de recuperação."
     },
     "dubai-baby-rare-epilepsy-seizures-stop-experimental-treatment-2026": {
       "source_title": "Baby with 110 seizures a day becomes seizure-free after targeted treatment in Dubai",
