@@ -1,6 +1,6 @@
 {
   "language": "es",
-  "updated_at": "2026-11-21T13:05:00Z",
+  "updated_at": "2026-11-21T13:12:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -25,8 +25,9 @@
     },
     "ecuador-floreana-158-giant-tortoises-return-after-180-years-2026": {
       "source_title": "After more than 180 years, giant tortoises return to Ecuador's Floreana Island",
-      "title": "Las tortugas gigantes regresan a la isla Floreana después de más de 180 años",
-      "summary": "El 20 de febrero de 2026, equipos de conservación liberaron 158 tortugas gigantes jóvenes en Floreana, en las islas Galápagos. Es un paso importante para recuperar la ecología de la isla."
+      "title": "Tras más de 180 años, las tortugas gigantes vuelven a la isla Floreana",
+      "summary": "El 20 de febrero de 2026, equipos de conservación liberaron 158 tortugas gigantes jóvenes en Floreana, en las Galápagos. El regreso recupera una línea genética que llevaba generaciones ausente, aunque la restauración del ecosistema aún continúa.",
+      "body": "Durante más de 180 años, las tortugas gigantes de la línea nativa de la isla Floreana habían estado ausentes de su hogar en las Galápagos. El 20 de febrero de 2026, organizaciones de conservación liberaron allí 158 ejemplares jóvenes, un paso histórico dentro de un esfuerzo de restauración que lleva años en marcha.\n\nLos animales reintroducidos tienen ascendencia genética vinculada a las tortugas originales de Floreana. Sus antepasados desaparecieron de la isla después de que la actividad humana y la llegada de especies introducidas transformaran el ecosistema. Científicos y conservacionistas dedicaron años a identificar tortugas adecuadas, prepararlas para la liberación y planificar su regreso.\n\nLas tortugas gigantes también cumplen una función ecológica importante. Al desplazarse por la vegetación, alimentarse y dispersar semillas, influyen en la evolución de los hábitats insulares. La liberación de febrero ayuda a recuperar esos procesos, pero no demuestra que todo el ecosistema de la isla ya se haya restaurado. Siguen siendo necesarios el seguimiento a largo plazo y nuevas tareas de conservación.\n\nEl resultado confirmado es concreto: 158 tortugas vivas fueron liberadas en Floreana tras una ausencia de muchas generaciones. Island Conservation comunicó el hito y la Fundación Charles Darwin también documentó el regreso. La fecha de la liberación fue el 20 de febrero de 2026, independientemente de cuándo se publicara esta noticia."
     },
     "kenya-first-full-arm-replantation-surgery-2026": {
       "source_title": "Kenyan surgeons reattach a severed arm in a landmark East African operation",
@@ -35,8 +36,9 @@
     },
     "indonesia-rizky-farizal-child-rescue-gift-grandmother-2026": {
       "source_title": "He saved a six-year-old in Indonesia, then gave his reward to his grandmother",
-      "title": "Salvó a un niño en Indonesia y pidió entregar su premio a su abuela",
-      "summary": "Rizky Farizal rescató a un niño de un canal de drenaje en Palembang. Cuando le ofrecieron una peregrinación a La Meca como premio, pidió que la recibiera su abuela, quien lo había criado."
+      "title": "Rescató a un niño de seis años en Indonesia y cedió su recompensa a su abuela",
+      "summary": "Rizky Farizal se lanzó a un peligroso canal de desagüe en Palembang para salvar a un niño. Cuando le ofrecieron una peregrinación Umrah como recompensa, pidió que se la concedieran a la abuela que lo había criado.",
+      "body": "Cuando un niño de seis años cayó en un peligroso canal de desagüe en Palembang, Indonesia, Rizky Farizal no dudó en actuar. El 14 de noviembre de 2026, el joven de 24 años entró en la corriente y ayudó a sacar al pequeño, identificado como Kia en la prensa local.\n\nSu valentía llamó la atención en toda Sumatra Meridional. El jefe de la policía regional le ofreció como reconocimiento un viaje de Umrah, una peregrinación a La Meca de gran significado personal para muchos musulmanes. Pero Rizky pidió algo inesperado: que la recompensa se entregara a su abuela, que lo había cuidado mientras crecía.\n\nEl medio local detikSumbagsel informó tanto del rescate como de la respuesta de Rizky al ofrecimiento. Otras noticias locales señalaron después que la ciudad también le ofreció la posibilidad de trabajar como bombero, en reconocimiento a su disposición a actuar cuando otra persona estaba en peligro.\n\nEl rescate del niño es el hecho confirmado y ya realizado. La oferta de la peregrinación y la oportunidad laboral se comunicaron por separado; no significa que el viaje a La Meca ya haya tenido lugar.\n\nA veces la generosidad aparece de dos maneras: en la decisión inmediata de salvar a alguien y en el deseo de compartir un reconocimiento con la persona que ayudó a formar nuestra vida."
     },
     "georgia-okeeffe-painting-closet-sells-4-878-million-2026": {
       "source_title": "Painting hidden in closet for decades sells for almost $4.9 million",
