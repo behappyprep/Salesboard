@@ -1,6 +1,6 @@
 {
   "language": "es",
-  "updated_at": "2026-11-23T13:15:00Z",
+  "updated_at": "2026-11-23T13:25:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -101,8 +101,9 @@
     },
     "world-31b6f31acc7640d1884064d09810cb80": {
       "source_title": "More than 19,500 rescued orchids survive after relocation in southern India",
-      "title": "Más de 19.500 orquídeas rescatadas sobreviven tras ser trasladadas en la India",
-      "summary": "Ante la ampliación de una carretera en Kerala, se trasladaron 27.324 orquídeas nativas. Entre 12 y 24 meses después seguían vivas 19.511, incluidas miles que habían florecido."
+      "title": "Más de 19.500 orquídeas rescatadas sobreviven tras su traslado en el sur de India",
+      "summary": "Conservacionistas trasladaron 27.324 orquídeas autóctonas amenazadas por la ampliación de una carretera en Kerala. Entre 12 y 24 meses después, los investigadores encontraron vivas 19.511, y miles habían florecido.",
+      "body": "Un proyecto de rescate en Kerala, en el sur de India, ha dado una segunda oportunidad a miles de orquídeas autóctonas amenazadas por las obras de ampliación de una carretera. En lugar de dejar las plantas en los árboles que iban a talarse, investigadores y equipos locales trasladaron 27.324 orquídeas adultas de 21 especies a tres espacios públicos de Kozhikode.\n\nLas orquídeas se llevaron al parque biológico Sarovaram, al Jardín Botánico de Malabar y a la playa de Kappad. Los lugares ofrecían condiciones distintas: los dos primeros tenían ambientes húmedos o sombreados, mientras que el emplazamiento costero exponía las plantas al aire salino y a una luz solar más intensa. El traslado no garantizaba su supervivencia, ya que muchas orquídeas dependen de la humedad y la sombra específicas que les proporcionan los árboles donde crecen.\n\nLa evaluación realizada entre 12 y 24 meses después arrojó resultados notables. Los investigadores contabilizaron 19.511 orquídeas vivas, una tasa de supervivencia del 71,4%. De ellas, 5.224 habían florecido y 1.934 habían producido cápsulas de semillas. Este último dato es importante: algunas plantas rescatadas no solo seguían vivas, sino que habían alcanzado una fase vinculada a la reproducción.\n\nLa iniciativa también incluyó 6.126 ejemplares de 12 especies endémicas de la región. Sobrevivieron 3.368, alrededor del 55%. Los resultados variaron considerablemente según el lugar, lo que muestra tanto las posibilidades como los límites de este tipo de traslado para conservar especies.\n\nEl trabajo quedó documentado en un artículo científico publicado el 15 de octubre de 2026 y fue recogido por Mongabay en noviembre. Se trata de una intervención de conservación ya realizada y de resultados medidos, no de un proyecto propuesto ni de una promesa de éxito futuro.\n\nLos investigadores advierten que trasladar orquídeas debería ser el último recurso cuando no es posible proteger los árboles originales. La prioridad sigue siendo conservar intactos los hábitats adecuados. Aun con esa limitación, el proyecto demuestra lo que puede conseguir una intervención práctica y supervisada: más de 19.000 plantas amenazadas seguían vivas entre uno y dos años después de perder su hábitat original."
     },
     "world-3a339f44eece486eb24120f804a0be76": {
       "source_title": "A gorilla rescued as a baby becomes a mother in the wild",
