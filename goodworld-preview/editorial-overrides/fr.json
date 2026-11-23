@@ -1,6 +1,6 @@
 {
   "language": "fr",
-  "updated_at": "2026-11-23T13:15:00Z",
+  "updated_at": "2026-11-23T13:25:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -101,8 +101,9 @@
     },
     "world-31b6f31acc7640d1884064d09810cb80": {
       "source_title": "More than 19,500 rescued orchids survive after relocation in southern India",
-      "title": "Plus de 19 500 orchidées sauvées survivent après leur déplacement en Inde",
-      "summary": "Menacées par des travaux routiers au Kerala, 27 324 orchidées indigènes ont été déplacées. Après 12 à 24 mois, 19 511 étaient encore vivantes, dont des milliers avaient fleuri."
+      "title": "Plus de 19 500 orchidées sauvées survivent après leur déplacement dans le sud de l’Inde",
+      "summary": "Des défenseurs de la nature ont déplacé 27 324 orchidées indigènes menacées par l’élargissement d’une route au Kerala. Entre 12 et 24 mois plus tard, les chercheurs en ont retrouvé 19 511 vivantes, dont des milliers avaient fleuri.",
+      "body": "Une opération de sauvegarde menée au Kerala, dans le sud de l’Inde, a offert une seconde chance à des milliers d’orchidées indigènes menacées par l’élargissement d’une route. Plutôt que de laisser les plantes sur les arbres destinés à être abattus, des chercheurs et des équipes locales ont déplacé 27 324 orchidées adultes appartenant à 21 espèces vers trois sites publics de Kozhikode.\n\nLes plantes ont été installées au parc biologique de Sarovaram, au jardin botanique de Malabar et sur la plage de Kappad. Ces lieux présentaient des conditions différentes : les deux premiers offraient des milieux humides ou ombragés, tandis que le site côtier exposait les orchidées à l’air chargé de sel et à un soleil plus intense. Un déplacement ne garantit pas la survie d’une orchidée, car beaucoup dépendent de l’humidité et de l’ombre particulières fournies par les arbres qui les abritent.\n\nLe bilan établi entre 12 et 24 mois plus tard est remarquable. Les chercheurs ont recensé 19 511 orchidées encore vivantes, soit un taux de survie de 71,4 %. Parmi elles, 5 224 avaient fleuri et 1 934 avaient produit des capsules de graines. Ce dernier résultat est important : certaines plantes sauvées ne faisaient pas que survivre, elles avaient atteint un stade associé à la reproduction.\n\nL’opération concernait également 6 126 plantes appartenant à 12 espèces endémiques de la région. Parmi celles-ci, 3 368 ont survécu, soit environ 55 %. Les résultats variaient sensiblement selon le site, ce qui illustre à la fois les possibilités et les limites de ce type de déplacement à des fins de conservation.\n\nLes travaux ont été présentés dans une étude publiée le 15 octobre 2026, puis relayés par Mongabay en novembre. Il s’agit d’une intervention de conservation menée à son terme et dont les résultats ont été mesurés, non d’un projet encore à l’étude ou d’une promesse de réussite future.\n\nLes chercheurs soulignent que déplacer des orchidées devrait rester une solution de dernier recours lorsque les arbres d’origine ne peuvent pas être protégés. La priorité demeure la préservation des habitats adaptés. Malgré cette réserve, le projet montre ce qu’une intervention concrète et suivie peut accomplir : plus de 19 000 plantes menacées étaient toujours vivantes un à deux ans après la disparition de leur habitat initial."
     },
     "world-3a339f44eece486eb24120f804a0be76": {
       "source_title": "A gorilla rescued as a baby becomes a mother in the wild",
