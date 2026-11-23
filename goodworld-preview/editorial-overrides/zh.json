@@ -1,6 +1,6 @@
 {
   "language": "zh",
-  "updated_at": "2026-11-22T13:25:00Z",
+  "updated_at": "2026-11-23T13:15:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -83,8 +83,9 @@
     },
     "guatemala-seven-circus-tigers-rescued-reunited-2026": {
       "source_title": "Seven circus tigers rescued in Guatemala, with three companions reunited",
-      "title": "危地马拉七只马戏团老虎获救，其中三只重新团聚",
-      "summary": "七只老虎在危地马拉马戏团经历多年狭窄饲养环境后获救。金巴、奇基塔和阿非利卡已在临时救护中心重新聚首。"
+      "title": "危地马拉马戏团七只老虎获救，其中三只伙伴已重新团聚",
+      "summary": "经过八年的法律努力，七只长期生活在狭小环境中的老虎离开了危地马拉的雷伊吉塔诺马戏团。金巴、奇基塔和阿非卡已在临时救助中心重新团聚。",
+      "body": "七只曾在危地马拉马戏团生活多年的老虎，如今已交由动物福利专业人员照料。这次转移是它们迈向更好生活条件的重要一步。此前，相关人士经过八年的法律努力，推动落实该国禁止马戏团使用野生动物的规定。\n\n危地马拉政府动物福利部门在国际组织“国际动物保护者”（Animal Defenders International，ADI）的协助下，将七只老虎从雷伊吉塔诺马戏团带走。它们目前被安置在危地马拉的一处临时救助设施，接受兽医照护，同时等待后续安置和可能的国际转运安排。\n\n其中三只老虎在获救后的最初几天迎来了格外动人的时刻。金巴、奇基塔和阿非卡在镇静和运输过程中曾被分开。ADI于11月10日表示，三只老虎已在此前的周末重新团聚。它们用轻柔的呼噜声互相问候，并彼此摩擦身体。\n\n据ADI介绍，获救前，这三只老虎被关在一辆卡车上的笼舍里，面积约为7.5平方米。现在，它们在临时住所拥有约18平方米的空间，是原来的两倍多。救助团队还在建设带有小型水池的活动区域，让老虎们在等待旅行安排期间能够活动。\n\n下一步计划是将它们转移到南非的ADI野生动物保护区。该组织计划在那里为老虎提供面积大得多的自然栖息环境、水池和带供暖设施的庇护处。不过，这次转移尚未完成，因此不能说它们已经抵达永久保护区。\n\n已经完成的是这次救援。七只老虎都离开了马戏团，ADI报告称它们全部存活；其中三只伙伴也已重新团聚。临时救助中心由危地马拉负责动物福利和保护区事务的部门监督，兽医团队负责照料老虎。\n\n这不仅是一项对未来的承诺。七只动物在狭小环境中生活多年后，终于来到更安全的地方，其中三只也重新陪伴在彼此身边。未来前往南非将是又一个重要进展，但在危地马拉完成的救援和团聚本身就值得庆祝。"
     },
     "kenya-secretarybird-nestling-rescued-fledges-2026": {
       "source_title": "Kenyan researchers help endangered secretarybird chick survive and take flight",
