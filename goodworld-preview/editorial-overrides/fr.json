@@ -1,6 +1,6 @@
 {
   "language": "fr",
-  "updated_at": "2026-11-22T13:25:00Z",
+  "updated_at": "2026-11-23T13:15:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -83,8 +83,9 @@
     },
     "guatemala-seven-circus-tigers-rescued-reunited-2026": {
       "source_title": "Seven circus tigers rescued in Guatemala, with three companions reunited",
-      "title": "Sept tigres sauvés d'un cirque au Guatemala, dont trois compagnons réunis",
-      "summary": "Sept tigres ont été retirés d'un cirque au Guatemala après des années dans des espaces exigus. Kimba, Chiquita et Africa ont déjà été réunis dans un centre d'accueil temporaire."
+      "title": "Sept tigres retirés d’un cirque au Guatemala, dont trois compagnons réunis",
+      "summary": "Après des années dans des conditions exiguës et huit ans de démarches judiciaires, sept tigres ont quitté le Circo Rey Gitano. Kimba, Chiquita et Africa ont déjà été réunis dans un centre de soins provisoire.",
+      "body": "Sept tigres qui avaient passé des années dans un cirque au Guatemala sont désormais pris en charge par des spécialistes du bien-être animal. Leur transfert marque une étape importante vers de meilleures conditions de vie, au terme de huit années de démarches visant à faire appliquer l’interdiction des animaux sauvages dans les cirques dans le pays.\n\nLes sept animaux ont été retirés du Circo Rey Gitano par l’Unité de bien-être animal du gouvernement guatémaltèque, avec le soutien d’Animal Defenders International (ADI). Ils ont été conduits dans un centre de sauvetage provisoire au Guatemala, où ils peuvent recevoir des soins vétérinaires pendant que la suite de leur prise en charge et un éventuel transfert à l’étranger sont organisés.\n\nPour trois d’entre eux, les premiers jours ont été marqués par un moment particulièrement touchant. Kimba, Chiquita et Africa avaient été séparés pendant la sédation et le transport. Le 10 novembre, ADI a indiqué qu’ils avaient été réunis au cours du week-end : ils se sont salués par de doux souffles et en se frottant les uns contre les autres.\n\nAvant le sauvetage, les trois tigres étaient gardés dans une petite cage installée sur un camion, d’environ 7,5 mètres carrés, selon ADI. Leur hébergement provisoire leur offre désormais quelque 18 mètres carrés, soit plus du double. L’équipe aménage également un espace d’exercice avec de petits bassins afin qu’ils puissent se déplacer pendant la préparation du voyage.\n\nLa prochaine étape envisagée est leur transfert vers l’ADI Wildlife Sanctuary, en Afrique du Sud. L’organisation prévoit de leur y offrir de vastes habitats naturels, des bassins et des abris chauffés. Ce transfert n’a pas encore eu lieu : il serait donc prématuré d’affirmer que les tigres vivent déjà dans leur sanctuaire permanent.\n\nLe sauvetage, lui, est bien réel. Les sept tigres ont quitté le cirque et ADI a indiqué qu’ils étaient tous en vie. Les trois compagnons ont également été réunis. Le centre provisoire fonctionne sous la supervision des autorités guatémaltèques chargées du bien-être animal et des aires protégées, avec une équipe vétérinaire responsable de leurs soins.\n\nCette histoire ne repose pas seulement sur une promesse pour l’avenir. Après des années dans des espaces exigus, sept animaux se trouvent dans une situation plus sûre et trois ont retrouvé la compagnie les uns des autres. Leur transfert prévu en Afrique du Sud constituerait une nouvelle étape importante, mais le sauvetage et les retrouvailles au Guatemala sont déjà une bonne nouvelle."
     },
     "kenya-secretarybird-nestling-rescued-fledges-2026": {
       "source_title": "Kenyan researchers help endangered secretarybird chick survive and take flight",
