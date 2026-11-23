@@ -1,6 +1,6 @@
 {
   "language": "id",
-  "updated_at": "2026-11-23T13:15:00Z",
+  "updated_at": "2026-11-23T13:25:00Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -101,8 +101,9 @@
     },
     "world-31b6f31acc7640d1884064d09810cb80": {
       "source_title": "More than 19,500 rescued orchids survive after relocation in southern India",
-      "title": "Lebih dari 19.500 anggrek yang dipindahkan berhasil bertahan hidup di India",
-      "summary": "Konservasionis memindahkan 27.324 anggrek asli Kerala yang terancam proyek pelebaran jalan. Setelah 12–24 bulan, 19.511 masih hidup, termasuk ribuan yang telah berbunga."
+      "title": "Lebih dari 19.500 anggrek hasil penyelamatan tetap hidup setelah dipindahkan di India selatan",
+      "summary": "Pelestari alam memindahkan 27.324 anggrek asli yang terancam pelebaran jalan di Kerala. Setelah 12–24 bulan, peneliti menemukan 19.511 tanaman masih hidup, dan ribuan di antaranya telah berbunga.",
+      "body": "Upaya penyelamatan di Kerala, India selatan, memberi kesempatan kedua bagi ribuan anggrek asli yang terancam oleh proyek pelebaran jalan. Alih-alih membiarkan tanaman itu ikut hilang ketika pohon-pohon tempatnya tumbuh ditebang, peneliti dan pekerja konservasi setempat memindahkan 27.324 anggrek dewasa dari 21 spesies ke tiga lokasi publik di Kozhikode.\n\nTanaman-tanaman itu dipindahkan ke Sarovaram Bio Park, Malabar Botanical Garden, dan Pantai Kappad. Ketiga lokasi memiliki kondisi yang berbeda. Dua lokasi pertama menyediakan lingkungan yang lembap atau teduh, sedangkan lokasi pesisir membuat anggrek terpapar udara bergaram dan sinar matahari yang lebih kuat. Pemindahan tidak menjamin anggrek akan bertahan hidup, karena banyak jenis bergantung pada kelembapan dan naungan khusus yang disediakan pohon tempat mereka tumbuh.\n\nPenilaian yang dilakukan 12 hingga 24 bulan kemudian menunjukkan hasil yang berarti. Peneliti menghitung 19.511 anggrek masih hidup, atau tingkat kelangsungan hidup 71,4 persen. Dari tanaman yang bertahan itu, 5.224 telah berbunga dan 1.934 menghasilkan kapsul biji. Angka terakhir ini penting: sebagian tanaman yang diselamatkan bukan hanya tetap hidup, tetapi juga mencapai tahap yang berkaitan dengan reproduksi.\n\nUpaya tersebut juga mencakup 6.126 tanaman dari 12 spesies endemik kawasan itu. Sebanyak 3.368 di antaranya bertahan hidup, sekitar 55 persen. Hasilnya sangat bervariasi antar lokasi, yang memperlihatkan potensi sekaligus keterbatasan pemindahan tanaman sebagai metode konservasi.\n\nPekerjaan ini didokumentasikan dalam makalah penelitian yang diterbitkan pada 15 Oktober 2026 dan diberitakan Mongabay pada November. Ini merupakan intervensi konservasi yang sudah dilaksanakan dan hasilnya diukur, bukan rencana yang masih berupa usulan atau janji keberhasilan di masa mendatang.\n\nPara peneliti mengingatkan bahwa pemindahan anggrek seharusnya menjadi pilihan terakhir ketika pohon asalnya tidak dapat dilindungi. Tujuan yang lebih penting tetap menjaga habitat yang sesuai agar tetap utuh. Dengan batasan itu, proyek ini menunjukkan hasil yang dapat dicapai melalui tindakan nyata dan pemantauan: lebih dari 19 ribu tanaman yang terancam masih hidup satu hingga dua tahun setelah habitat asalnya hilang."
     },
     "world-3a339f44eece486eb24120f804a0be76": {
       "source_title": "A gorilla rescued as a baby becomes a mother in the wild",
