@@ -614,10 +614,23 @@ async function applyEditorialOverrides(rows){
   for(const [slug,edit] of Object.entries(ov.stories)){
    const source=bySlug.get(slug);
    const existing=source&&base.stories[source.id];
-   if(!source||!existing||edit.source_title!==source.title||
-      existing.original_title!==source.title||
-      existing.original_summary!==source.summary||
-      existing.original_body!==source.body){stale++;continue}
+   if(!source||edit.source_title!==source.title||
+      (existing && (existing.original_title!==source.title||
+       existing.original_summary!==source.summary||
+       existing.original_body!==source.body))){stale++;continue}
+   // A complete editorial override may seed a story that the daily offline
+   // translation bot has not picked up yet. This writes only to the deploy-time
+   // generated JSON, never to the bot-owned translations file in the repository.
+   if(!existing){
+    if(!["title","summary","body"].every(field=>
+      typeof edit[field]==="string"&&edit[field].trim().length>=10)){stale++;continue}
+    existing={
+     title:source.title,summary:source.summary,body:source.body,
+     original_title:source.title,original_summary:source.summary,
+     original_body:source.body,engine:"editorial-override"
+    };
+    base.stories[source.id]=existing;
+   }
    const editedFields=[];
    for(const field of ["title","summary","body"]){
     if(!Object.hasOwn(edit,field))continue;
