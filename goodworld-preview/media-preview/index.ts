@@ -18,12 +18,12 @@ Deno.serve(async(req)=>{
  const gov=(row.data.provider==="nps"&&u.hostname==="www.nps.gov"&&/^\/[a-z0-9]+\/learn\/news\/images\/[\w.-]+\.jpe?g$/i.test(u.pathname)&&new URL(row.data.source_page).hostname==="www.nps.gov")||(row.data.provider==="dvids"&&u.hostname==="d1ldvf68ux039x.cloudfront.net"&&/^\/thumbs\/photos\/\d{4}\/\d+\/1000w_q95\.jpg$/.test(u.pathname)&&new URL(row.data.source_page).hostname==="www.dvidshub.net");
  if(u.protocol!=="https:"||u.port||u.username||u.password||! (commons||inat||gov))return Response.json({error:"Unsupported photo host or path"},{status:400});
  if(inat)u.pathname=u.pathname.replace(/\/large\./,"/medium.");
- const max=512*1024;
+ const max=1024*1024;
  const r=await fetch(u,{redirect:"error",signal:AbortSignal.timeout(12000),headers:{"User-Agent":"GoodWorldNews/1.0 (https://www.goodworld.news/; editorial preview)"}});
  const mime=(r.headers.get("content-type")||"").split(";")[0].toLowerCase();
  if(!r.ok||!["image/jpeg","image/png","image/webp"].includes(mime)||Number(r.headers.get("content-length"))>max||!r.body)return Response.json({error:"Image unavailable or too large for preview",status:r.status,mime},{status:422});
  const rd=r.body.getReader(),chunks:Uint8Array[]=[];let size=0;
- while(true){const {done,value}=await rd.read();if(done)break;size+=value.length;if(size>max){await rd.cancel();return Response.json({error:"Preview limit 512 KiB"},{status:422});}chunks.push(value);}
+ while(true){const {done,value}=await rd.read();if(done)break;size+=value.length;if(size>max){await rd.cancel();return Response.json({error:"Preview limit 1 MiB"},{status:422});}chunks.push(value);}
  const b=new Uint8Array(size);let offset=0;for(const c of chunks){b.set(c,offset);offset+=c.length;}
  const jpeg=b[0]===255&&b[1]===216&&b[2]===255,png=b[0]===137&&b[1]===80&&b[2]===78&&b[3]===71,webp=String.fromCharCode(...b.slice(0,4))==="RIFF"&&String.fromCharCode(...b.slice(8,12))==="WEBP";
  if(!(mime==="image/jpeg"&&jpeg||mime==="image/png"&&png||mime==="image/webp"&&webp))return Response.json({error:"Invalid image bytes"},{status:422});
