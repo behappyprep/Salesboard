@@ -13,6 +13,7 @@ const API="https://jdmpmrhyjitmjyjuhtds.supabase.co/rest/v1/goodworld_stories";
 const PHOTO_API="https://jdmpmrhyjitmjyjuhtds.supabase.co/rest/v1/goodworld_story_images";
 const PUBLIC_KEY=process.env.GOODWORLD_SUPABASE_PUBLIC_KEY||"sb_publishable_Mi4xc0jwt_MFKhjKWZ1Vpw_bG6VPp3_";
 const PAGE_SIZE=500;
+const ILLUSTRATION_LABELS={"en":"Editorial illustration","ru":"Редакционная иллюстрация","es":"Ilustración editorial","fr":"Illustration éditoriale","pt":"Ilustração editorial","zh":"编辑插图","hi":"संपादकीय चित्रण","ar":"رسم توضيحي تحريري","bn":"সম্পাদকীয় চিত্রণ","id":"Ilustrasi editorial","ur":"ادارتی تمثیل"};
 const LOCALIZED={
  zh:{title:"好消息与积极新闻 | GoodWorld",description:"每日积极新闻：科学进步、动物救援、自然保护和真实的善意故事。",heading:"世界各地的好消息",label:"最新新闻"},
  hi:{title:"अच्छी खबरें और सकारात्मक समाचार | GoodWorld",description:"विज्ञान, प्रकृति, जानवरों और दया से जुड़ी प्रमाणित सकारात्मक खबरें।",heading:"दुनिया भर की अच्छी खबरें",label:"ताज़ा खबरें"},
@@ -183,6 +184,7 @@ function seoUrl(s){return SITE+"/stories/"+encodeURIComponent(s.slug)+".html"}
 function articleHtml(s,other){
   const url=seoUrl(s),pub=iso(s.published_at);
   const photo=!!(s.image_url&&s.image_credit&&s.image_credit_url&&s.image_alt_text);
+  const socialPhoto=photo&&s.image_kind!=="illustration";
   const ld={
    "@context":"https://schema.org","@type":"NewsArticle",
    headline:s.title,description:s.summary,datePublished:pub,dateModified:pub,
@@ -192,7 +194,7 @@ function articleHtml(s,other){
    publisher:{"@type":"Organization",name:"GoodWorld",url:SITE},
    citation:s.source_url,articleSection:s.category,
    isPartOf:{"@type":"WebSite",name:"GoodWorld",url:SITE},
-   ...(photo?{image:[s.image_url]}:{})
+   ...(socialPhoto?{image:[s.image_url]}:{})
   };
   const safeLd=JSON.stringify(ld).replace(/</g,"\\u003c");
   const paragraphs=s.body.trim().split(/\n\s*\n/g).map(p=>"<p>"+esc(p)+"</p>").join("\n");
@@ -211,9 +213,9 @@ function articleHtml(s,other){
     '<meta property="og:description" content="'+esc(s.summary)+'">'+
     '<meta property="og:url" content="'+esc(url)+'">'+
     '<meta property="article:published_time" content="'+esc(pub)+'">'+
-    (photo?'<meta property="og:image" content="'+esc(s.image_url)+'">'+
+    (socialPhoto?'<meta property="og:image" content="'+esc(s.image_url)+'">'+
       '<meta property="og:image:alt" content="'+esc(s.image_alt_text)+'">':'')+
-    '<meta name="twitter:card" content="'+(photo?'summary_large_image':'summary')+'">'+
+    '<meta name="twitter:card" content="'+(socialPhoto?'summary_large_image':'summary')+'">'+
     '<link rel="icon" type="image/svg+xml" href="/favicon-globe.svg">'+
     '<link rel="stylesheet" href="/article.css">'+'<link rel="stylesheet" href="/article-actions.css?v=20261118-2">'+
     '<link rel="stylesheet" href="/analytics.css">'+
@@ -227,10 +229,10 @@ function articleHtml(s,other){
     '<p class="intro">'+esc(s.summary)+'</p>'+
     (photo?'<figure class="article-hero"><img src="'+esc(s.image_url)+
      '" alt="'+esc(s.image_alt_text)+'" loading="eager" decoding="async" referrerpolicy="no-referrer">'+
-     '<figcaption>'+(s.image_kind==="representative"?
+     '<figcaption>'+(s.image_kind==="illustration"?'Editorial illustration, not a photograph of the reported event. ':s.image_kind==="representative"?
       'Representative photo, not a photograph of the reported event. ':'Official source photo. ')+
      '<a href="'+esc(s.image_credit_url)+
-     '" target="_blank" rel="noopener noreferrer">Photo: '+esc(s.image_credit)+'</a>'+
+     '" target="_blank" rel="noopener noreferrer">'+(s.image_kind==="illustration"?"Credit: ":"Photo: ")+esc(s.image_credit)+'</a>'+
      (s.image_rights_url? ' · <a href="'+esc(s.image_rights_url)+
      '" target="_blank" rel="noopener noreferrer">'+esc(s.image_license||"Image license")+'</a>':'')+
      ' · Cropped to fit layout</figcaption></figure>':'')+
@@ -250,7 +252,7 @@ function archiveHtml(stories){
   const cards=stories.map(s=>'<a class="archive-card" href="/stories/'+encodeURIComponent(s.slug)+'.html">'+
     (s.image_url&&s.image_credit?'<img class="archive-thumb" src="'+esc(s.image_url)+
      '" alt="'+esc(s.image_alt_text)+'" loading="lazy" decoding="async" referrerpolicy="no-referrer">'+
-     (s.image_kind==="representative"?'<span class="archive-photo-note">Representative photo</span>':''):'')+
+     (s.image_kind==="illustration"?'<span class="archive-photo-note">Editorial illustration</span>':s.image_kind==="representative"?'<span class="archive-photo-note">Representative photo</span>':''):'')+
     '<span class="category">'+esc(s.category)+'</span><strong>'+esc(s.title)+'</strong>'+
     '<time datetime="'+esc(iso(s.published_at))+'">'+esc(formatDate(s.published_at))+'</time></a>').join("\n");
   return '<!doctype html><html lang="en"><head>'+
@@ -309,6 +311,7 @@ function preRenderedFeed(allRows,photos,lang,translations){
   const image=imageMeta&&imageMeta.image_url===s.image_url&&imageMeta.credit&&
    /^https:\/\//.test(imageMeta.credit_url)?s.image_url:null;
   const representative=!!(image&&imageMeta.image_kind==="representative");
+  const illustration=!!(image&&imageMeta.image_kind==="illustration");
   // Send Google and English readers directly to the crawlable, canonical article.
   // Short automatically sourced briefs keep the noindex reader page.
   const readerPath=(lang==="en"&&eligible(s))
@@ -320,7 +323,7 @@ function preRenderedFeed(allRows,photos,lang,translations){
    (image?'<div class="story-media"><img class="photo" src="'+esc(image)+
     '" alt="'+esc(imageMeta.alt_text||heading)+'" loading="'+(i===0?'eager':'lazy')+
     '" decoding="async" referrerpolicy="no-referrer"'+(i===0?' fetchpriority="high"':'')+'>'+
-    (representative?'<span class="representative-label">Representative photo</span>':"")+
+    (illustration?'<span class="representative-label">'+esc(ILLUSTRATION_LABELS[lang]||ILLUSTRATION_LABELS.en)+'</span>':representative?'<span class="representative-label">Representative photo</span>':"")+
     '</div>':"")+
    '<div class="story-content"><div class="story-kicker"><span class="story-category">'+esc(translations?.category_labels?.[s.category]||s.category)+
    '</span>'+newsTime+'</div><h2 class="story-title"><a href="'+esc(readerPath)+'">'+esc(heading)+
@@ -460,7 +463,7 @@ async function writeSocialPreviews(rows,photos){
    '<figure class="article-hero"><img class="reader-photo" src="'+esc(s.image_url)+
    '" alt="'+esc(checked.alt_text||s.title)+'" loading="eager" referrerpolicy="no-referrer">'+
    '<figcaption class="reader-image-credit">'+
-   (checked.image_kind==="representative"?"Representative photo · ":"")+
+   (checked.image_kind==="illustration"?"Editorial illustration · ":checked.image_kind==="representative"?"Representative photo · ":"")+
    '<a href="'+esc(checked.credit_url)+'" rel="noopener noreferrer" target="_blank">'+esc(checked.credit)+'</a> · '+
    '<a href="'+esc(checked.rights_url||checked.credit_url)+'" rel="noopener noreferrer" target="_blank">'+
    esc(checked.image_license||"Image rights")+'</a></figcaption></figure>':"";
@@ -487,9 +490,9 @@ async function writeSocialPreviews(rows,photos){
    '<meta property="og:description" content="'+esc(s.summary)+'">'+
    '<meta property="og:url" content="'+shareUrl+'">'+
    '<meta property="article:published_time" content="'+esc(iso(s.published_at))+'">'+
-   (verified?'<meta property="og:image" content="'+esc(s.image_url)+'">'+
+   (verified&&checked.image_kind!=="illustration"?'<meta property="og:image" content="'+esc(s.image_url)+'">'+
    '<meta property="og:image:alt" content="'+esc(checked.alt_text||s.title)+'">':"")+
-   '<meta name="twitter:card" content="'+(verified?"summary_large_image":"summary")+'">';
+   '<meta name="twitter:card" content="'+(verified&&checked.image_kind!=="illustration"?"summary_large_image":"summary")+'">';
   html=html.replace("</head>",socialHead+"</head>");
   await fs.writeFile(path.join(SHARE_DIR,s.slug+".html"),html,"utf8");
  }
