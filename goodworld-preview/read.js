@@ -8,6 +8,21 @@
  const out=document.getElementById("articleRegion");
  const lang=()=>window.GW_I18N;
  const tx=k=>lang()?.t(k)||k;
+
+ const LOCALIZED_META={
+  en:{revised:"AI-edited translation · Check the original source for precise details.",sourceDate:"Original publication",brief:"Short source-based brief",crop:"cropped for layout"},
+  ru:{revised:"Перевод отредактирован с помощью ИИ. Точные детали сверяйте с первоисточником.",sourceDate:"Дата первоисточника",brief:"Краткое изложение первоисточника",crop:"кадрировано для оформления"},
+  es:{revised:"Traducción revisada con IA. Consulte la fuente original para verificar los detalles.",sourceDate:"Publicación original",brief:"Resumen breve basado en la fuente",crop:"recortada para el diseño"},
+  fr:{revised:"Traduction révisée à l'aide de l'IA. Vérifiez les détails précis dans la source originale.",sourceDate:"Publication d'origine",brief:"Brève synthèse de la source",crop:"recadrée pour la mise en page"},
+  pt:{revised:"Tradução revista com IA. Confirme os pormenores na fonte original.",sourceDate:"Publicação original",brief:"Resumo breve baseado na fonte",crop:"recortada para a página"},
+  zh:{revised:"译文已由人工智能辅助修订。重要细节请以原始来源为准。",sourceDate:"原始发布日期",brief:"依据原始来源的简讯",crop:"为版面裁剪"},
+  hi:{revised:"अनुवाद का एआई की सहायता से संपादन किया गया है। सटीक जानकारी के लिए मूल स्रोत देखें।",sourceDate:"मूल प्रकाशन",brief:"मूल स्रोत पर आधारित संक्षिप्त खबर",crop:"पृष्ठ के अनुरूप काटी गई"},
+  ar:{revised:"رُوجعت الترجمة بمساعدة الذكاء الاصطناعي. يُرجى الرجوع إلى المصدر الأصلي للتحقق من التفاصيل الدقيقة.",sourceDate:"تاريخ النشر الأصلي",brief:"موجز قصير يستند إلى المصدر",crop:"قُصّت لتناسب التنسيق"},
+  bn:{revised:"এআই-এর সহায়তায় অনুবাদটি সম্পাদনা করা হয়েছে। সঠিক তথ্যের জন্য মূল উৎস দেখুন।",sourceDate:"মূল প্রকাশের তারিখ",brief:"মূল উৎসভিত্তিক সংক্ষিপ্ত সংবাদ",crop:"পাতার বিন্যাস অনুযায়ী কাটা"},
+  id:{revised:"Terjemahan telah disunting dengan bantuan AI. Periksa sumber asli untuk detail yang tepat.",sourceDate:"Terbit pertama",brief:"Ringkasan singkat berdasarkan sumber",crop:"dipangkas agar sesuai tata letak"},
+  ur:{revised:"ترجمے کی مصنوعی ذہانت کی مدد سے تدوین کی گئی ہے۔ درست تفصیلات کے لیے اصل ماخذ دیکھیں۔",sourceDate:"اصل اشاعت",brief:"اصل ماخذ پر مبنی مختصر خبر",crop:"صفحے کی ترتیب کے لیے تراشی گئی"}
+ };
+ const meta=()=>LOCALIZED_META[lang()?.getLang()||"en"]||LOCALIZED_META.en;
  const escape=s=>String(s??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
  const safe=u=>{try{const a=new URL(u);return a.protocol==="https:"?a.href:""}catch{return ""}};
  const query=new URLSearchParams(location.search), slug=query.get("story")||(/^\/news\/([a-z0-9-]+)\.html$/.exec(location.pathname)?.[1])||null;
@@ -20,7 +35,7 @@
   window.GWAnalytics.track("read_article",{
    content_type:"article",content_id:article.slug,
    language:chosen,story_category:article.category,
-   translation_status:chosen==="en"?"original":lang()?.translated(article)?"machine":"pending"
+   translation_status:chosen==="en"?"original":!lang()?.translated(article)?"pending":lang()?.translated(article)?.ai_postedited_fields?.includes("body")?"ai_edited":"machine"
   });
  }
  window.addEventListener("gw:analytics-ready",trackArticleRead);
@@ -107,17 +122,16 @@
    (rights.image_kind==="illustration"?escape(tx("editorialIllustration")+( /^AI-generated /i.test(rights.alt_text||"")?" · AI":""))+" · ":rights.image_kind==="representative"?escape(tx("representative"))+" · ":"")+
    '<a href="'+escape(safe(rights.credit_url))+'" rel="noopener noreferrer" target="_blank">'+escape(rights.credit)+'</a>'+
    (safe(rights.rights_url)?' · <a href="'+escape(safe(rights.rights_url))+'" rel="noopener noreferrer" target="_blank">'+escape(rights.image_license||tx("rights"))+'</a>':'')+
-   ' · <span>cropped for layout</span>'+
+   ' · <span>'+escape(meta().crop)+'</span>'+
    '</figcaption></figure>':"";
 
   // Government briefs contain only a short licensed source excerpt; avoid
   // repeating the excerpt and a full page of legal boilerplate as a fake article.
   const readableSummary=summary.trim()+(brief&&!/[.!?…]$/.test(summary.trim())?"…":"");
   const paragraphs=brief?"":String(body).split(/\n\s*\n/).filter(Boolean).map(p=>'<p>'+escape(p).replace(/\n/g," ")+'</p>').join("");
-  const edited=selected==="ru"&&t?.ai_postedited_fields?.includes("body");
-   const note=selected==="en"?"":'<p class="reader-translation-note">'+escape(edited?"Перевод отредактирован с помощью ИИ. Для точных деталей сверяйтесь с первоисточником.":tx("machine"))+'</p>';
-  const sourceDateLabel=originalSourceDate?
-   (selected==="ru"?"Источник":selected==="en"?"Original publication":""):"";
+  const edited=selected!=="en"&&["title","summary","body"].every(field=>t?.ai_postedited_fields?.includes(field));
+  const note=selected==="en"?"":'<p class="reader-translation-note">'+escape(edited?meta().revised:tx("machine"))+'</p>';
+  const sourceDateLabel=originalSourceDate?meta().sourceDate:"";
   out.innerHTML=
    '<p class="reader-meta">'+escape(lang()?.categoryName?.(article.category)||article.category)+' <span aria-hidden="true">·</span> '+
    (sourceDateLabel?'<span>'+escape(sourceDateLabel)+': </span>':'')+
@@ -126,11 +140,11 @@
    photo+
    '<p class="reader-summary">'+escape(readableSummary)+'</p>'+
    (paragraphs?'<div class="read-news-body">'+paragraphs+'</div>':"")+
-   '<div class="reader-actions"><button type="button" class="reader-action" id="readerLike" aria-pressed="'+!!article.liked_by_me+'">♡ <span>'+(article.liked_by_me?'Liked':'Like')+'</span> <span class="reader-action-count">'+Number(article.likes_total||0)+'</span></button><button type="button" class="reader-action" id="readerShare">↗ Share</button></div>'+
+   '<div class="reader-actions"><button type="button" class="reader-action" id="readerLike" aria-pressed="'+!!article.liked_by_me+'">♡ <span>'+escape(tx(article.liked_by_me?'unlike':'like'))+'</span> <span class="reader-action-count">'+Number(article.likes_total||0)+'</span></button><button type="button" class="reader-action" id="readerShare">↗ '+escape(tx('share'))+'</button></div>'+
    '<div class="reader-citation"><p class="reader-citation-label">'+escape(tx("source"))+'</p>'+
    '<p>'+escape(article.source_name)+'</p>'+
    (original?'<a class="reader-link" href="'+escape(original)+'" rel="noopener noreferrer" target="_blank">'+escape(tx("original"))+' ↗</a>':'')+
-   (brief?'<p class="reader-brief-label">'+escape(selected==="ru"?"Краткое изложение первоисточника":selected==="en"?"Short source-based brief":"Source-based brief")+'</p>':"")+
+   (brief?'<p class="reader-brief-label">'+escape(meta().brief)+'</p>':"")+
    note+
    '<p class="reader-back"><a class="reader-link" href="'+escape(back?.href||"/")+'">'+escape(tx("back"))+'</a></p></div>';
   out.querySelector("#readerLike")?.addEventListener("click",async()=>{
