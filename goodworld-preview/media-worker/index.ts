@@ -35,7 +35,31 @@ async function archive(a:any){
  if(!["upload.wikimedia.org","thumb.wikimedia.org"].includes(u.hostname)||u.protocol!=="https:"||u.username||u.password||u.port||!u.pathname.startsWith("/wikipedia/commons/"))throw Error("Download host not enabled for automatic archiving");
  if(!/^CC BY(?:-SA)? [234]\.0$/i.test(a.license||"")&&!/^CC0(?: 1\.0)?$/i.test(a.license||""))throw Error("Explicit reusable license required");
  if(!/^https:\/\/creativecommons\.org\/(licenses\/(by|by-sa)\/[234]\.0|publicdomain\/zero\/1\.0)\/?$/.test(a.license_url||""))throw Error("License URL not recognized");
- const r=await fetch(u,{redirect:"error",headers:{"User-Agent":UA},signal:AbortSignal.timeout(18000)});
+ // Prefer a source-generated 960px version of the same verified Commons file.
+ // Preserve original URL, source size, and exact derivative URL for attribution.
+ let download=u, sourceSize:number|null=null, transformNote:string|null=null;
+ try {
+  const page=new URL(a.source_page);
+  if(page.hostname==="commons.wikimedia.org"&&page.pathname.startsWith("/wiki/File:")){
+   const title=decodeURIComponent(page.pathname.slice(6));
+   const p=new URLSearchParams({action:"query",titles:title,prop:"imageinfo",iiprop:"url|size|mime|extmetadata",iiurlwidth:"960",format:"json"});
+   const data=await json("https://commons.wikimedia.org/w/api.php?"+p);
+   const info=(Object.values(data.query?.pages||{})[0] as any)?.imageinfo?.[0];
+   if(info&&new URL(info.url).pathname===u.pathname&&info.extmetadata?.LicenseShortName?.value?.toLowerCase()===a.license.toLowerCase()){
+    sourceSize=Number(info.size)||null;
+    if(info.thumburl&&Number(info.width)>960){
+     const t=new URL(info.thumburl);
+     if(["upload.wikimedia.org","thumb.wikimedia.org"].includes(t.hostname)&&t.protocol==="https:"&&!t.username&&!t.password&&!t.port&&t.pathname.startsWith("/wikipedia/commons/")){
+      download=t;transformNote="Resized to "+info.thumbwidth+" × "+info.thumbheight+" pixels by Wikimedia Commons; no editorial alteration.";
+     }
+    }
+   }
+  }
+ }catch(e){console.warn("Thumbnail lookup unavailable",String(e).slice(0,150));}
+ let r=await fetch(download,{redirect:"error",headers:{"User-Agent":UA},signal:AbortSignal.timeout(18000)});
+ if(download.href!==u.href&&(!r.ok||!r.headers.get("content-type")?.startsWith("image/")||Number(r.headers.get("content-length"))>3*1024*1024)){
+  await r.body?.cancel();download=u;transformNote=null;r=await fetch(u,{redirect:"error",headers:{"User-Agent":UA},signal:AbortSignal.timeout(18000)});
+ }
  const mime=(r.headers.get("content-type")||"").split(";")[0].toLowerCase();
  const max=3*1024*1024;
  if(!r.ok||!["image/jpeg","image/png","image/webp"].includes(mime)||Number(r.headers.get("content-length"))>max||!r.body)throw Error("Unsupported image response "+r.status+" "+mime);
@@ -52,7 +76,7 @@ async function archive(a:any){
  const check=await fetch(publicUrl,{signal:AbortSignal.timeout(12000)});
  if(!check.ok||!check.headers.get("content-type")?.startsWith("image/"))throw Error("Public storage verification failed");
  if(await hex(new Uint8Array(await check.arrayBuffer()))!==hash)throw Error("Storage byte verification failed");
- const update=await db.from("goodworld_media_assets").update({archive_status:"stored",archive_error:null,storage_path:path,sha256:hash,byte_size:size,mime_type:mime,archived_at:new Date().toISOString()}).eq("id",a.id).eq("review_status","approved");
+ const update=await db.from("goodworld_media_assets").update({archive_status:"stored",archive_error:null,storage_path:path,sha256:hash,byte_size:size,mime_type:mime,archived_from_url:download.href,source_byte_size:sourceSize||(!transformNote?size:null),transform_note:transformNote,archived_at:new Date().toISOString()}).eq("id",a.id).eq("review_status","approved");
  if(update.error)throw Error(update.error.message);
 }
 Deno.serve(async(req)=>{
