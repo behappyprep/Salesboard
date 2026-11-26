@@ -21,7 +21,7 @@
   root.replaceChildren(meta,h,summary);
   if(photo&&photo.image_rights_status==="allowed_auto"&&photo.image_url===s.image_url&&/^https:\/\//.test(photo.image_url)){
    const img=el("img","gw-photo");img.src=photo.image_url;img.alt=photo.alt_text||s.title;img.referrerPolicy="no-referrer";img.loading="eager";img.decoding="async";root.append(img);
-   const cap=el("p","gw-meta",(photo.image_kind==="illustration"?"Editorial illustration · ":photo.image_kind==="representative"?"Representative photo · ":"")+(photo.image_kind==="illustration"?"Credit: ":"Photo: ")+(photo.credit||"")+" · "+(photo.image_license||""));root.append(cap);
+   const cap=el("p","gw-meta",(photo.image_kind==="illustration"?(/^AI-generated /i.test(photo.alt_text||"")?"AI-generated editorial illustration · ":"Editorial illustration · "):photo.image_kind==="representative"?"Representative photo · ":"")+(photo.image_kind==="illustration"?"Credit: ":"Photo: ")+(photo.credit||"")+" · "+(photo.image_license||""));root.append(cap);
   }
   root.append(el("div","gw-body",s.body.replace(/\\n/g,"\n")));
   const actions=el("div","gw-article-actions");

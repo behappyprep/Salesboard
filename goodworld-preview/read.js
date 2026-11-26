@@ -104,7 +104,7 @@
   const photo=rights&&safe(rights.image_url)?
    '<figure class="article-hero reader-hero"><img class="reader-photo" loading="eager" decoding="async" referrerpolicy="no-referrer" src="'+escape(safe(rights.image_url))+'" alt="'+escape(rights.alt_text)+'">'+
    '<figcaption class="reader-image-credit">'+
-   (rights.image_kind==="illustration"?escape(tx("editorialIllustration"))+" · ":rights.image_kind==="representative"?escape(tx("representative"))+" · ":"")+
+   (rights.image_kind==="illustration"?escape(tx("editorialIllustration")+( /^AI-generated /i.test(rights.alt_text||"")?" · AI":""))+" · ":rights.image_kind==="representative"?escape(tx("representative"))+" · ":"")+
    '<a href="'+escape(safe(rights.credit_url))+'" rel="noopener noreferrer" target="_blank">'+escape(rights.credit)+'</a>'+
    (safe(rights.rights_url)?' · <a href="'+escape(safe(rights.rights_url))+'" rel="noopener noreferrer" target="_blank">'+escape(rights.image_license||tx("rights"))+'</a>':'')+
    ' · <span>cropped for layout</span>'+

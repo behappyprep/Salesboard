@@ -229,7 +229,7 @@ function articleHtml(s,other){
     '<p class="intro">'+esc(s.summary)+'</p>'+
     (photo?'<figure class="article-hero"><img src="'+esc(s.image_url)+
      '" alt="'+esc(s.image_alt_text)+'" loading="eager" decoding="async" referrerpolicy="no-referrer">'+
-     '<figcaption>'+(s.image_kind==="illustration"?'Editorial illustration, not a photograph of the reported event. ':s.image_kind==="representative"?
+     '<figcaption>'+(s.image_kind==="illustration"?(/^AI-generated /i.test(s.image_alt_text||'')?'AI-generated editorial illustration, not a photograph of the reported event. ':'Editorial illustration, not a photograph of the reported event. '):s.image_kind==="representative"?
       'Representative photo, not a photograph of the reported event. ':'Official source photo. ')+
      '<a href="'+esc(s.image_credit_url)+
      '" target="_blank" rel="noopener noreferrer">'+(s.image_kind==="illustration"?"Credit: ":"Photo: ")+esc(s.image_credit)+'</a>'+
@@ -252,7 +252,7 @@ function archiveHtml(stories){
   const cards=stories.map(s=>'<a class="archive-card" href="/stories/'+encodeURIComponent(s.slug)+'.html">'+
     (s.image_url&&s.image_credit?'<img class="archive-thumb" src="'+esc(s.image_url)+
      '" alt="'+esc(s.image_alt_text)+'" loading="lazy" decoding="async" referrerpolicy="no-referrer">'+
-     (s.image_kind==="illustration"?'<span class="archive-photo-note">Editorial illustration</span>':s.image_kind==="representative"?'<span class="archive-photo-note">Representative photo</span>':''):'')+
+     (s.image_kind==="illustration"?'<span class="archive-photo-note">'+(/^AI-generated /i.test(s.image_alt_text||'')?'AI-generated editorial illustration':'Editorial illustration')+'</span>':s.image_kind==="representative"?'<span class="archive-photo-note">Representative photo</span>':''):'')+
     '<span class="category">'+esc(s.category)+'</span><strong>'+esc(s.title)+'</strong>'+
     '<time datetime="'+esc(iso(s.published_at))+'">'+esc(formatDate(s.published_at))+'</time></a>').join("\n");
   return '<!doctype html><html lang="en"><head>'+
@@ -323,7 +323,7 @@ function preRenderedFeed(allRows,photos,lang,translations){
    (image?'<div class="story-media"><img class="photo" src="'+esc(image)+
     '" alt="'+esc(imageMeta.alt_text||heading)+'" loading="'+(i===0?'eager':'lazy')+
     '" decoding="async" referrerpolicy="no-referrer"'+(i===0?' fetchpriority="high"':'')+'>'+
-    (illustration?'<span class="representative-label">'+esc(ILLUSTRATION_LABELS[lang]||ILLUSTRATION_LABELS.en)+'</span>':representative?'<span class="representative-label">Representative photo</span>':"")+
+    (illustration?'<span class="representative-label">'+esc((ILLUSTRATION_LABELS[lang]||ILLUSTRATION_LABELS.en)+(/^AI-generated /i.test(imageMeta.alt_text||'')?' · AI':''))+'</span>':representative?'<span class="representative-label">Representative photo</span>':"")+
     '</div>':"")+
    '<div class="story-content"><div class="story-kicker"><span class="story-category">'+esc(translations?.category_labels?.[s.category]||s.category)+
    '</span>'+newsTime+'</div><h2 class="story-title"><a href="'+esc(readerPath)+'">'+esc(heading)+
@@ -463,7 +463,7 @@ async function writeSocialPreviews(rows,photos){
    '<figure class="article-hero"><img class="reader-photo" src="'+esc(s.image_url)+
    '" alt="'+esc(checked.alt_text||s.title)+'" loading="eager" referrerpolicy="no-referrer">'+
    '<figcaption class="reader-image-credit">'+
-   (checked.image_kind==="illustration"?"Editorial illustration · ":checked.image_kind==="representative"?"Representative photo · ":"")+
+   (checked.image_kind==="illustration"?(/^AI-generated /i.test(checked.alt_text||"")?"AI-generated editorial illustration · ":"Editorial illustration · "):checked.image_kind==="representative"?"Representative photo · ":"")+
    '<a href="'+esc(checked.credit_url)+'" rel="noopener noreferrer" target="_blank">'+esc(checked.credit)+'</a> · '+
    '<a href="'+esc(checked.rights_url||checked.credit_url)+'" rel="noopener noreferrer" target="_blank">'+
    esc(checked.image_license||"Image rights")+'</a></figcaption></figure>':"";
