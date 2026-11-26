@@ -1,6 +1,6 @@
 {
   "language": "zh",
-  "updated_at": "2026-11-26T16:29:35.272Z",
+  "updated_at": "2026-11-26T16:31:31.687Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -313,6 +313,18 @@
       "title": "死亡谷国家公园启动6950万美元供水与污水设施改造",
       "summary": "死亡谷国家公园于2026年10月21日启动Furnace Creek地区的供水和污水处理系统改造项目。工程尚未完工。",
       "body": "死亡谷国家公园于2026年10月22日宣布，价值6950万美元的Furnace Creek Water Systems Rehabilitation项目已在前一天开工。该工程计划更新为游客、员工、居民和廷比沙社区服务的老旧供水与污水设施。开工并不等于所有预期效益已经实现。\n\n本文基于美国国家公园管理局的官方信息。使用条款：https://www.nps.gov/aboutus/disclaimer.htm。任何第三方内容或图片都需另行核实授权。"
+    },
+    "gov-b335a7ca7eb74c23aa59f5516c896b58": {
+      "source_title": "Spacewalkers Install Final Roll-Out Solar Array",
+      "title": "宇航员在太空行走中安装最后一组展开式太阳能电池阵列"
+    },
+    "gov-7d70eda28921471999d35e57a2f14da5": {
+      "source_title": "Fall Survey Records 137 Endangered Fish in Death Valley National Park",
+      "title": "死亡谷国家公园秋季调查记录到137条濒危鱼类"
+    },
+    "gov-f9be77f26aa6414fabd2a99f879bb53a": {
+      "source_title": "Select Inner Canyon Trails Reopen in Grand Canyon National Park",
+      "title": "大峡谷国家公园部分内峡谷步道重新开放"
     }
   }
 }

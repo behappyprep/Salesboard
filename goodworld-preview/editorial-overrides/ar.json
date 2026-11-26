@@ -1,6 +1,6 @@
 {
   "language": "ar",
-  "updated_at": "2026-11-26T16:30:47.570Z",
+  "updated_at": "2026-11-26T16:31:31.186Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -313,6 +313,10 @@
       "title": "بدء مشروع مياه وصرف صحي بقيمة 69.5 مليون دولار في وادي الموت",
       "summary": "بدأت في 21 أكتوبر 2026 أعمال تحديث شبكات المياه والصرف الصحي في منطقة فورنس كريك بمتنزه وادي الموت الوطني. المشروع لم يكتمل بعد.",
       "body": "أعلن متنزه وادي الموت الوطني في 22 أكتوبر 2026 بدء أعمال مشروع Furnace Creek Water Systems Rehabilitation قبل يوم واحد، بتكلفة 69.5 مليون دولار. يهدف المشروع إلى تحديث مرافق المياه والصرف الصحي التي تخدم الزوار والموظفين والسكان ومجتمع تيمبيشا. بدء الإنشاء لا يعني أن الفوائد المخططة تحققت بالفعل.\n\nملخص من معلومات رسمية لهيئة المتنزهات الوطنية الأمريكية. شروط الاستخدام: https://www.nps.gov/aboutus/disclaimer.htm. ينبغي التحقق من حقوق أي صور أو مواد تخص جهات أخرى بصورة مستقلة."
+    },
+    "gov-258ca590170c49baa267957661860d69": {
+      "source_title": "New dwarf planet candidate discovered by NSF–DOE Rubin Observatory",
+      "title": "مرصد روبين يكتشف جرمًا مرشحًا ليكون كوكبًا قزمًا جديدًا"
     }
   }
 }
