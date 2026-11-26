@@ -616,7 +616,7 @@ async function applyEditorialOverrides(rows){
    throw new Error("Invalid translation override structure for "+language);
   for(const [slug,edit] of Object.entries(ov.stories)){
    const source=bySlug.get(slug);
-   const existing=source&&base.stories[source.id];
+   let existing=source&&base.stories[source.id];
    if(!source||edit.source_title!==source.title||
       (existing && (existing.original_title!==source.title||
        existing.original_summary!==source.summary||
