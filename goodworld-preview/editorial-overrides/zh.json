@@ -1,6 +1,6 @@
 {
   "language": "zh",
-  "updated_at": "2026-11-26T16:17:59.157Z",
+  "updated_at": "2026-11-26T16:29:35.272Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -289,6 +289,30 @@
       "title": "志愿者携手修复深受喜爱的山间步道",
       "summary": "国家公园员工、志愿者与非营利组织合作，完成大规模修复工程，使美国大烟山国家公园的布尔黑德步道重新开放。",
       "body": "2026年11月19日，美国大烟山国家公园重新开放布尔黑德步道（Bullhead Trail）。这次修复工程得到了非营利组织Friends of the Smokies的支持。\n\n公园工作人员和志愿者修复了约4英里长的路面，整修石砌墙体，新建台阶及排水设施。工程提高了徒步路线的安全性，也有助于减少水土流失。\n\n公园员工与支持者在步道入口共同庆祝重新开放。这项工作说明，志愿者和社区的持续投入，能够为维护公众共享的自然空间带来实际改变。\n\n照片：2026年11月19日举行的真实剪彩开放仪式。"
+    },
+    "gov-0e5e4aab7dfc4d1dbafc1bbb2e336bb6": {
+      "source_title": "£33.2 million to protect public from future epidemics and pandemics",
+      "title": "英国拨款3320万英镑支持八个疫苗研发项目",
+      "summary": "英国创新署于2026年10月8日宣布，将以3320万英镑支持八个针对严重疾病的疫苗项目。这是研发资助，预期成效尚未实现。",
+      "body": "英国创新署（Innovate UK）于2026年10月8日宣布，拨款3320万英镑支持八个疫苗研发项目，以加强应对未来疫情的准备。这是一项已公布的资助决定，并不意味着相关疫苗的安全性或有效性已经得到证实。\n\n本文改编自英国政府公开信息，遵循《开放政府许可证》第3.0版，不包含第三方内容或图片。项目条件、进展及限制请参阅原始公告。许可证：https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/。"
+    },
+    "gov-dd8851aabc3b402b96c41ee4309f1835": {
+      "source_title": "Quantum firms backed to keep railways running and cut waiting lists as UK harnesses potential of future tech",
+      "title": "英国以5000万英镑资金支持量子技术企业",
+      "summary": "英国多家企业获得总额5000万英镑基金的支持，用于开发量子技术的实际应用。改善铁路运行和缩短医疗等待时间仍属于预期目标。",
+      "body": "英国研究与创新署（UK Research and Innovation）于2026年10月13日公布，使用总额5000万英镑的基金支持英国企业，推动量子技术转化为实用产品，包括未来可能帮助铁路运营和医疗服务的技术。这是资助决定，而非已经实现相关效益的证明。\n\n本文根据英国政府公开资料改编，遵循《开放政府许可证》第3.0版，未使用第三方图片或内容。具体条件、结果和限制请查阅原始公告。许可证：https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/。"
+    },
+    "gov-a9971b5c00294f038fdc54230e0f1a6d": {
+      "source_title": "Bryce Canyon National Park Expands Visitor Access with Viewpoint Connector Trail",
+      "title": "布莱斯峡谷国家公园完成通往观景点的新步道",
+      "summary": "布莱斯峡谷国家公园已建成共享步道最后一个阶段，游客现在可以通过另一条路线前往布莱斯观景点。",
+      "body": "布莱斯峡谷国家公园于2026年10月15日宣布，Bryce Canyon Shared Use Path的最后一段已经完成，游客多了一条通往Bryce Point观景点的路线。这里报告的是实际完工的步道，而不是尚未实施的计划。\n\n本文摘编自美国国家公园管理局的官方信息。使用条款：https://www.nps.gov/aboutus/disclaimer.htm。未使用第三方图片或内容；路线详情和限制请查阅原始来源。"
+    },
+    "gov-5c52f67af30a4434b749d638b9fcadca": {
+      "source_title": "Death Valley National Park Begins Critical Water and Wastewater System Modernization Project",
+      "title": "死亡谷国家公园启动6950万美元供水与污水设施改造",
+      "summary": "死亡谷国家公园于2026年10月21日启动Furnace Creek地区的供水和污水处理系统改造项目。工程尚未完工。",
+      "body": "死亡谷国家公园于2026年10月22日宣布，价值6950万美元的Furnace Creek Water Systems Rehabilitation项目已在前一天开工。该工程计划更新为游客、员工、居民和廷比沙社区服务的老旧供水与污水设施。开工并不等于所有预期效益已经实现。\n\n本文基于美国国家公园管理局的官方信息。使用条款：https://www.nps.gov/aboutus/disclaimer.htm。任何第三方内容或图片都需另行核实授权。"
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "language": "id",
-  "updated_at": "2026-11-26T16:17:59.858Z",
+  "updated_at": "2026-11-26T16:29:35.821Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -289,6 +289,30 @@
       "title": "Relawan membantu memulihkan jalur pendakian pegunungan yang dicintai warga",
       "summary": "Relawan, staf taman nasional, dan sebuah organisasi nirlaba membantu membuka kembali Bullhead Trail di Great Smoky Mountains setelah pekerjaan rehabilitasi besar.",
       "body": "Pada 19 November 2026, Taman Nasional Great Smoky Mountains di Amerika Serikat membuka kembali Bullhead Trail setelah proyek pemulihan yang didukung organisasi Friends of the Smokies.\n\nPetugas taman dan para relawan memperbaiki sekitar empat mil permukaan jalur, membenahi tembok batu, serta membangun anak tangga baru dan saluran drainase. Pekerjaan tersebut membuat rute lebih aman dan membantu mengurangi erosi.\n\nStaf taman dan para pendukung merayakan pembukaan kembali di pintu masuk jalur. Proyek ini menunjukkan bagaimana relawan dan dukungan masyarakat yang berkelanjutan mampu menjaga ruang alam bersama.\n\nFoto: upacara pembukaan kembali dengan pemotongan pita yang benar-benar berlangsung pada 19 November 2026."
+    },
+    "gov-0e5e4aab7dfc4d1dbafc1bbb2e336bb6": {
+      "source_title": "£33.2 million to protect public from future epidemics and pandemics",
+      "title": "Inggris mengucurkan £33,2 juta untuk delapan proyek vaksin",
+      "summary": "Innovate UK mengumumkan pendanaan £33,2 juta untuk delapan proyek vaksin pada 8 Oktober 2026. Manfaat kesehatan yang diharapkan belum menjadi hasil yang terbukti.",
+      "body": "Pada 8 Oktober 2026, Innovate UK mengumumkan dana £33,2 juta bagi delapan proyek penelitian vaksin untuk memperkuat kesiapan menghadapi wabah pada masa depan. Ini adalah dukungan riset yang sudah disetujui, bukan bukti bahwa vaksin baru dari proyek tersebut telah terbukti efektif.\n\nRingkasan ini diadaptasi dari informasi sektor publik Inggris berdasarkan Open Government Licence v3.0, tanpa materi atau gambar pihak ketiga. Ketentuan, hasil dan keterbatasan tersedia dalam pengumuman aslinya. Lisensi: https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/."
+    },
+    "gov-dd8851aabc3b402b96c41ee4309f1835": {
+      "source_title": "Quantum firms backed to keep railways running and cut waiting lists as UK harnesses potential of future tech",
+      "title": "Inggris mendukung perusahaan teknologi kuantum dengan dana £50 juta",
+      "summary": "Perusahaan Inggris mendapatkan bagian dari dana £50 juta untuk mengembangkan aplikasi teknologi kuantum. Perbaikan layanan kereta dan kesehatan masih merupakan tujuan, bukan hasil yang telah dicapai.",
+      "body": "UK Research and Innovation pada 13 Oktober 2026 mengumumkan dukungan bagi sejumlah perusahaan Inggris dari dana sebesar £50 juta. Program ini bertujuan mengubah inovasi kuantum menjadi produk praktis, termasuk teknologi yang kelak dapat membantu perkeretaapian dan layanan kesehatan. Pengumuman pendanaan tidak membuktikan bahwa manfaat tersebut sudah terwujud.\n\nRingkasan diadaptasi dari informasi resmi berdasarkan Open Government Licence v3.0 tanpa gambar atau konten pihak ketiga. Lihat sumber asli untuk syarat, hasil dan batasannya. Lisensi: https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/."
+    },
+    "gov-a9971b5c00294f038fdc54230e0f1a6d": {
+      "source_title": "Bryce Canyon National Park Expands Visitor Access with Viewpoint Connector Trail",
+      "title": "Bryce Canyon menuntaskan jalur baru menuju titik pandang Bryce Point",
+      "summary": "Taman Nasional Bryce Canyon telah menyelesaikan tahap akhir jalur bersama yang memberi pengunjung cara tambahan untuk mencapai Bryce Point.",
+      "body": "Taman Nasional Bryce Canyon pada 15 Oktober 2026 mengumumkan penyelesaian tahap akhir Bryce Canyon Shared Use Path. Kini pengunjung memiliki pilihan rute tambahan menuju titik pandang Bryce Point. Jalur ini sudah dibangun, bukan sekadar rencana yang baru diumumkan.\n\nRingkasan berdasarkan informasi resmi National Park Service Amerika Serikat. Ketentuan penggunaan: https://www.nps.gov/aboutus/disclaimer.htm. Gambar dan materi pihak ketiga tidak disertakan; periksa sumber asli untuk rincian dan pembatasan."
+    },
+    "gov-5c52f67af30a4434b749d638b9fcadca": {
+      "source_title": "Death Valley National Park Begins Critical Water and Wastewater System Modernization Project",
+      "title": "Death Valley memulai proyek air dan sanitasi senilai US$69,5 juta",
+      "summary": "Pada 21 Oktober 2026, Taman Nasional Death Valley mulai memperbarui jaringan air dan air limbah yang menua di Furnace Creek. Proyeknya baru dimulai, belum selesai.",
+      "body": "Taman Nasional Death Valley pada 22 Oktober 2026 mengumumkan bahwa proyek Furnace Creek Water Systems Rehabilitation senilai US$69,5 juta dimulai sehari sebelumnya. Proyek tersebut dirancang untuk memperbarui infrastruktur air dan sanitasi yang melayani pengunjung, pegawai taman, penduduk, serta komunitas Timbisha. Dimulainya pekerjaan belum membuktikan bahwa semua manfaat yang direncanakan telah tercapai.\n\nRingkasan berdasarkan informasi resmi National Park Service Amerika Serikat. Ketentuan penggunaan: https://www.nps.gov/aboutus/disclaimer.htm. Materi dan gambar pihak ketiga memerlukan pemeriksaan hak terpisah."
     }
   }
 }

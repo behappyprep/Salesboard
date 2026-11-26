@@ -1,6 +1,6 @@
 {
   "language": "pt",
-  "updated_at": "2026-11-26T16:16:57.576Z",
+  "updated_at": "2026-11-26T16:29:34.747Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -289,6 +289,30 @@
       "title": "Voluntários ajudam a recuperar um querido trilho de montanha",
       "summary": "Voluntários, funcionários do parque e uma organização sem fins lucrativos tornaram possível a reabertura do trilho Bullhead, nas Great Smoky Mountains, depois de uma grande recuperação.",
       "body": "Em 19 de novembro de 2026, o Parque Nacional das Great Smoky Mountains, nos Estados Unidos, reabriu o trilho Bullhead após obras apoiadas pela organização Friends of the Smokies.\n\nAs equipas do parque e os voluntários melhoraram cerca de quatro milhas do percurso, repararam muros de pedra e construíram novos degraus e sistemas de drenagem. Os trabalhos tornaram o trilho mais seguro e ajudaram a reduzir a erosão.\n\nOs funcionários do parque e os parceiros celebraram a reabertura junto ao início do percurso. O projeto demonstra o contributo dos voluntários e do apoio contínuo da comunidade para conservar os espaços naturais públicos.\n\nFotografia: cerimónia real de reabertura com corte de fita, em 19 de novembro de 2026."
+    },
+    "gov-0e5e4aab7dfc4d1dbafc1bbb2e336bb6": {
+      "source_title": "£33.2 million to protect public from future epidemics and pandemics",
+      "title": "Reino Unido destina 33,2 milhões de libras a oito projetos de vacinas",
+      "summary": "A Innovate UK anunciou, em 8 de outubro de 2026, financiamento para oito projetos de vacinas contra doenças perigosas. Os resultados esperados ainda não foram demonstrados.",
+      "body": "Em 8 de outubro de 2026, a Innovate UK anunciou 33,2 milhões de libras para oito projetos de investigação de vacinas, com o objetivo de reforçar a preparação para futuras epidemias. Trata-se de apoio à investigação, não de uma prova de que as novas vacinas já alcançaram os resultados previstos.\n\nResumo adaptado de informação pública britânica sob a Open Government Licence v3.0. Não foram usados materiais nem imagens de terceiros. Consulte a notícia original para condições e limitações. Licença: https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/."
+    },
+    "gov-dd8851aabc3b402b96c41ee4309f1835": {
+      "source_title": "Quantum firms backed to keep railways running and cut waiting lists as UK harnesses potential of future tech",
+      "title": "Reino Unido apoia empresas de tecnologia quântica com 50 milhões de libras",
+      "summary": "Empresas britânicas recebem uma parte de um fundo de 50 milhões de libras para desenvolver aplicações quânticas. As melhorias prometidas para transportes e saúde ainda são objetivos.",
+      "body": "Em 13 de outubro de 2026, a UK Research and Innovation anunciou apoio a empresas britânicas através de um fundo de 50 milhões de libras. A iniciativa procura transformar avanços quânticos em produtos que possam beneficiar os caminhos de ferro e os serviços de saúde. O financiamento foi aprovado, mas os efeitos esperados ainda não são resultados comprovados.\n\nResumo adaptado de informação oficial sob a Open Government Licence v3.0, sem imagens ou conteúdos de terceiros. O comunicado original contém os detalhes e restrições. Licença: https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/."
+    },
+    "gov-a9971b5c00294f038fdc54230e0f1a6d": {
+      "source_title": "Bryce Canyon National Park Expands Visitor Access with Viewpoint Connector Trail",
+      "title": "Bryce Canyon conclui novo percurso de acesso ao miradouro Bryce Point",
+      "summary": "O Parque Nacional de Bryce Canyon concluiu a última fase do seu percurso de utilização partilhada, criando uma nova opção para os visitantes chegarem ao miradouro.",
+      "body": "O Parque Nacional de Bryce Canyon anunciou, em 15 de outubro de 2026, a conclusão da última fase do Bryce Canyon Shared Use Path. Os visitantes dispõem agora de mais uma forma de chegar a Bryce Point. O troço já foi concluído, não se tratando apenas de um plano futuro.\n\nResumo de informação oficial do Serviço Nacional de Parques dos Estados Unidos. Condições de reutilização: https://www.nps.gov/aboutus/disclaimer.htm. Foram excluídos conteúdos e imagens de terceiros; consulte a fonte original para restrições."
+    },
+    "gov-5c52f67af30a4434b749d638b9fcadca": {
+      "source_title": "Death Valley National Park Begins Critical Water and Wastewater System Modernization Project",
+      "title": "Obras de 69,5 milhões de dólares para água e saneamento começam em Death Valley",
+      "summary": "Em 21 de outubro de 2026, começaram as obras de modernização dos sistemas de água e esgotos de Furnace Creek, no Parque Nacional de Death Valley. O projeto ainda está em curso.",
+      "body": "O Parque Nacional de Death Valley anunciou, em 22 de outubro de 2026, que no dia anterior tinham começado as obras do projeto Furnace Creek Water Systems Rehabilitation, no valor de 69,5 milhões de dólares. Pretende renovar infraestruturas que servem visitantes, trabalhadores, residentes e a comunidade timbisha. O início da construção não significa que todos os benefícios esperados tenham sido alcançados.\n\nResumo de informação oficial do Serviço Nacional de Parques. Condições de utilização: https://www.nps.gov/aboutus/disclaimer.htm. Materiais e imagens de terceiros exigem uma verificação separada."
     }
   }
 }
