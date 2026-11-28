@@ -23,7 +23,7 @@ const GW_WALLETS=Object.freeze({
 });
 // Add only a verified PayPal Donate or PayPal.Me link owned by GoodWorld here.
  // An empty URL leaves the PayPal option clearly unavailable instead of sending money to an unverified recipient.
-const GW_PAYPAL_DONATE_URL="";
+const GW_PAYPAL_DONATE_URL="https://www.paypal.com/donate/?hosted_button_id=E2RHP66837BZ4";
 function gwVerifiedPayPalUrl(){
  try{
   if(!GW_PAYPAL_DONATE_URL)return "";
