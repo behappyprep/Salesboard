@@ -14,6 +14,7 @@ const PHOTO_API="https://jdmpmrhyjitmjyjuhtds.supabase.co/rest/v1/goodworld_stor
 const PUBLIC_KEY=process.env.GOODWORLD_SUPABASE_PUBLIC_KEY||"sb_publishable_Mi4xc0jwt_MFKhjKWZ1Vpw_bG6VPp3_";
 const PAGE_SIZE=500;
 const ILLUSTRATION_LABELS={"en":"Editorial illustration","ru":"Редакционная иллюстрация","es":"Ilustración editorial","fr":"Illustration éditoriale","pt":"Ilustração editorial","zh":"编辑插图","hi":"संपादकीय चित्रण","ar":"رسم توضيحي تحريري","bn":"সম্পাদকীয় চিত্রণ","id":"Ilustrasi editorial","ur":"ادارتی تمثیل"};
+const FEED_LABELS={"en":{"representative":"Representative photo","read":"Read story","source":"Source"},"ru":{"representative":"Иллюстративное фото","read":"Читать новость","source":"Источник"},"es":{"representative":"Foto ilustrativa","read":"Leer noticia","source":"Fuente"},"fr":{"representative":"Photo d’illustration","read":"Lire l’article","source":"Source"},"pt":{"representative":"Foto ilustrativa","read":"Ler notícia","source":"Fonte"},"zh":{"representative":"示意照片","read":"阅读全文","source":"来源"},"hi":{"representative":"प्रतीकात्मक तस्वीर","read":"पूरी खबर पढ़ें","source":"स्रोत"},"ar":{"representative":"صورة توضيحية","read":"اقرأ الخبر","source":"المصدر"},"bn":{"representative":"প্রতীকী ছবি","read":"খবর পড়ুন","source":"উৎস"},"id":{"representative":"Foto ilustrasi","read":"Baca berita","source":"Sumber"},"ur":{"representative":"علامتی تصویر","read":"خبر پڑھیں","source":"ماخذ"}};
 const LOCALIZED={
  zh:{title:"好消息与积极新闻 | GoodWorld",description:"每日积极新闻：科学进步、动物救援、自然保护和真实的善意故事。",heading:"世界各地的好消息",label:"最新新闻"},
  hi:{title:"अच्छी खबरें और सकारात्मक समाचार | GoodWorld",description:"विज्ञान, प्रकृति, जानवरों और दया से जुड़ी प्रमाणित सकारात्मक खबरें।",heading:"दुनिया भर की अच्छी खबरें",label:"ताज़ा खबरें"},
@@ -323,15 +324,15 @@ function preRenderedFeed(allRows,photos,lang,translations){
    (image?'<div class="story-media"><img class="photo" src="'+esc(image)+
     '" alt="'+esc(imageMeta.alt_text||heading)+'" loading="'+(i===0?'eager':'lazy')+
     '" decoding="async" referrerpolicy="no-referrer"'+(i===0?' fetchpriority="high"':'')+'>'+
-    (illustration?'<span class="representative-label">'+esc((ILLUSTRATION_LABELS[lang]||ILLUSTRATION_LABELS.en)+(/^AI-generated /i.test(imageMeta.alt_text||'')?' · AI':''))+'</span>':representative?'<span class="representative-label">Representative photo</span>':"")+
+    (illustration?'<span class="representative-label">'+esc((ILLUSTRATION_LABELS[lang]||ILLUSTRATION_LABELS.en)+(/^AI-generated /i.test(imageMeta.alt_text||'')?' · AI':''))+'</span>':representative?'<span class="representative-label">'+esc((FEED_LABELS[lang]||FEED_LABELS.en).representative)+'</span>':"")+
     '</div>':"")+
    '<div class="story-content"><div class="story-kicker"><span class="story-category">'+esc(translations?.category_labels?.[s.category]||s.category)+
    '</span>'+newsTime+'</div><h2 class="story-title"><a href="'+esc(readerPath)+'">'+esc(heading)+
    '</a></h2><p class="story-desc">'+esc(body)+'</p>'+
-   '<div class="story-bottom"><a class="reader-link story-read-link" href="'+esc(readerPath)+'">Read story ↗</a></div>'+
+   '<div class="story-bottom"><a class="reader-link story-read-link" href="'+esc(readerPath)+'">'+esc((FEED_LABELS[lang]||FEED_LABELS.en).read)+' ↗</a></div>'+
    '<div class="story-microcredits">'+
    '<a href="'+esc(s.source_url)+'" title="'+esc(s.source_name||"Original publisher")+
-   '" target="_blank" rel="noopener noreferrer">Source ↗</a>'+
+   '" target="_blank" rel="noopener noreferrer">'+esc((FEED_LABELS[lang]||FEED_LABELS.en).source)+' ↗</a>'+
    (image?'<a class="photo-credit" href="'+esc(imageMeta.credit_url)+
    '" target="_blank" rel="noopener noreferrer">© '+esc(imageMeta.credit)+'</a>'+
    (imageMeta.rights_url?'<a class="photo-license" href="'+esc(imageMeta.rights_url)+
