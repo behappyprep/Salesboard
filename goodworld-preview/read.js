@@ -101,7 +101,7 @@
     id:["Terjemahan sedang disiapkan","Cerita ini sedang diterjemahkan. Anda dapat membaca sumber aslinya sementara itu."],
     ur:["ترجمہ تیار ہو رہا ہے","اس خبر کا ترجمہ جاری ہے۔ اس دوران اصل ماخذ دیکھ سکتے ہیں۔"]
    };
-   const msg=notes[selected]||["Translation in progress","This story is being translated."];
+   const msg=notes[selected]||[lang()?.missingTranslationLabel?.()||"Translation in progress","The verified translation is being prepared. You can read the original source in the meantime."];
    document.title=msg[0]+" | GoodWorld";
    out.innerHTML='<div class="reader-wait" role="status"><h1>'+escape(msg[0])+'</h1><p>'+escape(msg[1])+'</p>'+
     (original?'<a class="reader-link" href="'+escape(original)+'" target="_blank" rel="noopener noreferrer">'+escape(tx("original"))+'</a>':'')+
