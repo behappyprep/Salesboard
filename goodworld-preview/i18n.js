@@ -62,7 +62,7 @@
   ["csb","Kaszëbsczi","csb-PL"]
  ];
  const EUROPEAN_CODES=new Set(["en","es","fr","pt","ru","de","it","pl","nl","uk","ro","tr","bg","hr","cs","da","et","fi","el","hu","ga","lv","lt","mt","sk","sl","sv","sq","be","bs","is","mk","nb","sr","ka","hy","az","lb","fo","nn","cnr","ca","eu","gl","cy","gd","br","fy","oc","se","rm","sc","ast","co","yi","an","gv","kw","hsb","dsb","rue","csb"]);
- const PUBLISHED_LOCALE_CODES=new Set(["en","zh","hi","es","ar","fr","bn","pt","id","ur","ru"]);
+ const PUBLISHED_LOCALE_CODES=new Set(["en","zh","hi","es","ar","fr","bn","pt","id","ur","ru","de","pl","uk"]);
  const missingLabels={
  bg:"Преводът на новините се подготвя.",hr:"Prijevodi vijesti su u pripremi.",cs:"Překlady zpráv se připravují.",
  da:"Oversættelser af nyheder er under udarbejdelse.",et:"Uudiste tõlked on ettevalmistamisel.",fi:"Uutisten käännökset ovat valmisteilla.",
