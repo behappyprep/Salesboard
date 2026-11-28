@@ -153,10 +153,10 @@ function gwFeedFooter(){
  '<nav class="footer-links" aria-label="Footer">'+
  '<a href="/privacy.html">'+esc(tx("privacy"))+'</a>'+
  '<a href="/stories/">'+esc(tx("all"))+'</a>'+
- '<a href="/about.html">About</a>'+
- '<a href="/editorial-policy.html">Standards</a>'+
- '<a href="/credits.html">Sources &amp; photo credits</a>'+
- '<a href="/contact.html">Contact</a>'+
+ '<a href="/about.html">'+esc(tx("about"))+'</a>'+
+ '<a href="/editorial-policy.html">'+esc(tx("standards"))+'</a>'+
+ '<a href="/credits.html">'+esc(tx("credits"))+'</a>'+
+ '<a href="/contact.html">'+esc(tx("contact"))+'</a>'+
  '<a href="/feed.xml">RSS</a>'+
  '</nav></footer>';
 }
@@ -168,7 +168,7 @@ function renderFeed(){
  // Never show an untranslated English story in a localized feed.
  const readableStories=chosenLanguage==="en"?stories:stories.filter(story=>!!i18n?.translated(story));
  if(!readableStories.length&&stories.length&&chosenLanguage!=="en"){
-  const holding={"en":"Stories in this language are being prepared. New translations appear here as soon as they are ready.","ru":"Готовим переводы новых историй. Здесь появятся только новости, уже переведённые на русский.","zh":"新故事的翻译正在准备中。完成后会在这里显示。","hi":"नई कहानियों का अनुवाद तैयार किया जा रहा है। तैयार होने पर वे यहाँ दिखेंगी।","es":"Estamos preparando las traducciones de las nuevas historias. Aparecerán aquí cuando estén listas.","ar":"نُعدّ ترجمات القصص الجديدة. ستظهر هنا عندما تصبح جاهزة.","fr":"Nous préparons les traductions des nouvelles histoires. Elles apparaîtront ici dès qu’elles seront prêtes.","bn":"নতুন গল্পগুলোর অনুবাদ তৈরি হচ্ছে। প্রস্তুত হলে এখানে দেখা যাবে।","pt":"Estamos preparando as traduções das novas histórias. Elas aparecerão aqui quando estiverem prontas.","id":"Terjemahan cerita baru sedang disiapkan. Cerita akan muncul di sini setelah siap.","ur":"نئی خبروں کے تراجم تیار کیے جا رہے ہیں۔ مکمل ہونے پر وہ یہاں نظر آئیں گے۔"}[chosenLanguage]||"Stories in this language are being prepared. New translations appear here as soon as they are ready.";
+  const holding={"en":"Stories in this language are being prepared. New translations appear here as soon as they are ready.","ru":"Готовим переводы новых историй. Здесь появятся только новости, уже переведённые на русский.","zh":"新故事的翻译正在准备中。完成后会在这里显示。","hi":"नई कहानियों का अनुवाद तैयार किया जा रहा है। तैयार होने पर वे यहाँ दिखेंगी।","es":"Estamos preparando las traducciones de las nuevas historias. Aparecerán aquí cuando estén listas.","ar":"نُعدّ ترجمات القصص الجديدة. ستظهر هنا عندما تصبح جاهزة.","fr":"Nous préparons les traductions des nouvelles histoires. Elles apparaîtront ici dès qu’elles seront prêtes.","bn":"নতুন গল্পগুলোর অনুবাদ তৈরি হচ্ছে। প্রস্তুত হলে এখানে দেখা যাবে।","pt":"Estamos preparando as traduções das novas histórias. Elas aparecerão aqui quando estiverem prontas.","id":"Terjemahan cerita baru sedang disiapkan. Cerita akan muncul di sini setelah siap.","ur":"نئی خبروں کے تراجم تیار کیے جا رہے ہیں۔ مکمل ہونے پر وہ یہاں نظر آئیں گے۔"}[chosenLanguage]||(i18n?.missingTranslationLabel?.()||"Stories in this language are being prepared. New translations appear here as soon as they are ready.");
   feed.innerHTML='<div class="feed-shell">'+header+
    '<section class="emptyfeed translation-wait" role="status"><h2>'+esc(holding)+'</h2></section>'+
    gwFeedFooter()+'</div>';
@@ -416,7 +416,7 @@ function showPage(which){
   return;
  }
  const pages={
-  donate:'<h1>Support GoodWorld.</h1><p class="lead">Good news should be free for everyone.</p><div class="panel paypal-donation-panel" id="paypalDonationPanel"></div><div class="panel" id="donationPanel"></div><p class="subtle">Contributions are voluntary and do not grant special access. They are not tax-deductible charitable donations. Crypto transfers are generally irreversible.</p>',
+  donate:'<h1>'+esc(tx("supportTitle"))+'</h1><p class="lead">'+esc(tx("supportLead"))+'</p><div class="panel paypal-donation-panel" id="paypalDonationPanel"></div><div class="panel" id="donationPanel"></div><p class="subtle">'+esc(tx("donationDisclosure"))+'</p>',
   profile:session?.user
   ? '<h1>Your GoodWorld</h1><p class="lead">'+esc(session.user.email)+'</p><div class="panel"><h2>You are signed in.</h2><p>Your likes are linked to this account across your devices.</p><button class="secondary" id="signOut">Sign out</button></div><div class="panel"><p>GoodWorld is free for everyone. Thanks for being part of it.</p></div>'
   : '<h1>Welcome to GoodWorld.</h1><p class="lead">Sign in to support your favorite positive stories.</p><div class="panel"><div id="googleAuthBox" class="google-auth-box" hidden><button type="button" id="googleSignIn" class="google-auth-button"><span class="google-auth-mark" aria-hidden="true">G</span><span>Continue with Google</span></button><p class="google-auth-divider"><span>or continue with email</span></p></div><form id="authForm"><label for="email">Email</label><input class="input" type="email" id="email" autocomplete="email" required placeholder="Your email"/><label for="password">Password</label><input class="input" type="password" id="password" autocomplete="current-password" minlength="8" required placeholder="At least 8 characters"/><button class="primary" id="signIn" type="submit">Sign in</button><button class="secondary" type="button" id="signUp">Create account</button><button class="password-link" type="button" id="forgotPassword">Forgot password?</button><button class="password-link" type="button" id="pasteRecoveryLink">Reset link not opening? Paste it here</button><div class="recovery-paste hidden" id="recoveryPaste"><label for="recoveryEmailLink">Paste the entire reset link from your email</label><textarea class="input" id="recoveryEmailLink" rows="3" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="https://…/auth/v1/verify?token=…&type=recovery"></textarea><button class="secondary" type="button" id="verifyRecoveryLink">Use this reset link</button><p class="subtle" id="pasteRecoveryStatus" role="status">Keep your reset link private. Never send it in a chat.</p></div></form><p class="subtle" id="authStatus">GoodWorld is free. An account is only needed to like stories. Email confirmation may be required.</p></div>'
@@ -426,25 +426,25 @@ function showPage(which){
  if(which==="donate"){
   const paypalPanel=page.querySelector("#paypalDonationPanel");
   const paypalUrl=gwVerifiedPayPalUrl();
-  paypalPanel.innerHTML='<h2>Donate with PayPal</h2>'+
-   '<p>Support independent positive news with a one-time contribution. GoodWorld stays free for everyone.</p>'+
+  paypalPanel.innerHTML='<h2>'+esc(tx("paypalTitle"))+'</h2>'+
+   '<p>'+esc(tx("paypalDescription"))+'</p>'+
    (paypalUrl
-    ? '<a class="paypal-donate-link" id="paypalDonateLink" href="'+esc(paypalUrl)+'" target="_blank" rel="noopener noreferrer" aria-label="Donate to GoodWorld securely with PayPal"><span class="paypal-donate-label">Donate with <span class="paypal-wordmark">PayPal</span></span><span class="paypal-donate-arrow" aria-hidden="true">↗</span></a><p class="subtle paypal-checkout-note">Secure checkout on PayPal. Give once, monthly or yearly. No GoodWorld account required.</p>'
-    : '<p class="paypal-pending" role="status">PayPal donations are not available yet. You can still support us with crypto below.</p>');
+    ? '<a class="paypal-donate-link" id="paypalDonateLink" href="'+esc(paypalUrl)+'" target="_blank" rel="noopener noreferrer" aria-label="Donate to GoodWorld securely with PayPal"><span class="paypal-donate-label">'+esc(tx("paypalButton"))+'</span><span class="paypal-donate-arrow" aria-hidden="true">↗</span></a><p class="subtle paypal-checkout-note">'+esc(tx("paypalCheckout"))+'</p>'
+    : '<p class="paypal-pending" role="status">'+esc(tx("paypalUnavailable"))+'</p>');
   paypalPanel.querySelector("#paypalDonateLink")?.addEventListener("click",()=>{
    window.GWAnalytics?.track("donation_paypal_clicked",{method:"paypal"});
   });
   const donationPanel=page.querySelector("#donationPanel");
-  donationPanel.innerHTML='<h2>Donate with cryptocurrency</h2>'+
-   '<p>Donations go directly to GoodWorld wallets. Choose the exact asset and network your sending wallet supports.</p>'+
-   '<label for="donationChoice">Coin / blockchain network</label>'+
+  donationPanel.innerHTML='<h2>'+esc(tx("cryptoTitle"))+'</h2>'+
+   '<p>'+esc(tx("cryptoDescription"))+'</p>'+
+   '<label for="donationChoice">'+esc(tx("cryptoLabel"))+'</label>'+
    '<select class="input" id="donationChoice" aria-label="Coin and blockchain network"></select>'+
    '<p class="donation-warning" id="donationNetworkNote" role="status"></p>'+
    '<div class="donation-qr" id="donationQr" aria-label="Wallet address QR code"></div>'+
-   '<label for="donationAddress">Public receiving address</label>'+
+   '<label for="donationAddress">'+esc(tx("cryptoAddress"))+'</label>'+
    '<textarea id="donationAddress" class="input wallet-address" rows="2" readonly aria-label="Donation receiving address"></textarea>'+
-   '<button class="primary" type="button" id="copyDonationAddress">Copy wallet address</button>'+
-   '<p class="subtle">Network fees may apply. Verify the destination and network in your wallet before sending. Transfers are usually irreversible. No login or wallet connection is required.</p>';
+   '<button class="primary" type="button" id="copyDonationAddress">'+esc(tx("cryptoCopy"))+'</button>'+
+   '<p class="subtle">'+esc(tx("cryptoNote"))+'</p>';
   const select=donationPanel.querySelector("#donationChoice");
   const addressInput=donationPanel.querySelector("#donationAddress");
   const warning=donationPanel.querySelector("#donationNetworkNote");
@@ -459,7 +459,7 @@ function showPage(which){
    const item=GW_DONATION_OPTIONS[Number(select.value)]||GW_DONATION_OPTIONS[0];
    const address=GW_WALLETS[item.wallet];
    addressInput.value=address;
-   warning.textContent="Send ONLY "+item.symbol+" on "+item.network+". Coins on an incompatible network or unsupported tokens can be lost.";
+   warning.textContent=tx("cryptoWarning").replaceAll("%ASSET%",item.symbol).replaceAll("%NETWORK%",item.network);
    qrBox.textContent="";
    if(typeof window.qrcode==="function"){
     try{
