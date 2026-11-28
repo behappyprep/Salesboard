@@ -21,6 +21,21 @@ const GW_WALLETS=Object.freeze({
  bitcoin:"bc1qtswv69s6fqjcykgaj4jdyzz6nx4063c999lxg2",
  solana:"DVCbn4ziBFb98ECvCXiouRAeJqzxx6nrY5MZVXBs7tTc"
 });
+// Add only a verified PayPal Donate or PayPal.Me link owned by GoodWorld here.
+ // An empty URL leaves the PayPal option clearly unavailable instead of sending money to an unverified recipient.
+const GW_PAYPAL_DONATE_URL="";
+function gwVerifiedPayPalUrl(){
+ try{
+  if(!GW_PAYPAL_DONATE_URL)return "";
+  const url=new URL(GW_PAYPAL_DONATE_URL);
+  if(url.protocol!=="https:"||url.username||url.password)return "";
+  const host=url.hostname.toLowerCase();
+  if((host==="paypal.me"||host==="www.paypal.me")&&/^\/[a-z0-9_-]{2,80}(?:\/[0-9]+(?:[.,][0-9]{1,2})?)?\/?$/i.test(url.pathname))return url.href;
+  if((host==="paypal.com"||host==="www.paypal.com")&&/^\/donate\/?$/i.test(url.pathname)&&
+   ["hosted_button_id","business","campaign_id"].some(key=>url.searchParams.has(key)))return url.href;
+  return "";
+ }catch{return "";}
+}
 const GW_DONATION_OPTIONS=Object.freeze([
  {symbol:"BTC",network:"Bitcoin",wallet:"bitcoin"},
  {symbol:"SOL",network:"Solana",wallet:"solana"},
@@ -401,7 +416,7 @@ function showPage(which){
   return;
  }
  const pages={
-  donate:'<h1>Support GoodWorld.</h1><p class="lead">Good news should be free for everyone.</p><div class="panel" id="donationPanel"></div><p class="subtle">Contributions are voluntary and do not grant special access. They are not tax-deductible charitable donations. Crypto transfers are generally irreversible.</p>',
+  donate:'<h1>Support GoodWorld.</h1><p class="lead">Good news should be free for everyone.</p><div class="panel paypal-donation-panel" id="paypalDonationPanel"></div><div class="panel" id="donationPanel"></div><p class="subtle">Contributions are voluntary and do not grant special access. They are not tax-deductible charitable donations. Crypto transfers are generally irreversible.</p>',
   profile:session?.user
   ? '<h1>Your GoodWorld</h1><p class="lead">'+esc(session.user.email)+'</p><div class="panel"><h2>You are signed in.</h2><p>Your likes are linked to this account across your devices.</p><button class="secondary" id="signOut">Sign out</button></div><div class="panel"><p>GoodWorld is free for everyone. Thanks for being part of it.</p></div>'
   : '<h1>Welcome to GoodWorld.</h1><p class="lead">Sign in to support your favorite positive stories.</p><div class="panel"><div id="googleAuthBox" class="google-auth-box" hidden><button type="button" id="googleSignIn" class="google-auth-button"><span class="google-auth-mark" aria-hidden="true">G</span><span>Continue with Google</span></button><p class="google-auth-divider"><span>or continue with email</span></p></div><form id="authForm"><label for="email">Email</label><input class="input" type="email" id="email" autocomplete="email" required placeholder="Your email"/><label for="password">Password</label><input class="input" type="password" id="password" autocomplete="current-password" minlength="8" required placeholder="At least 8 characters"/><button class="primary" id="signIn" type="submit">Sign in</button><button class="secondary" type="button" id="signUp">Create account</button><button class="password-link" type="button" id="forgotPassword">Forgot password?</button><button class="password-link" type="button" id="pasteRecoveryLink">Reset link not opening? Paste it here</button><div class="recovery-paste hidden" id="recoveryPaste"><label for="recoveryEmailLink">Paste the entire reset link from your email</label><textarea class="input" id="recoveryEmailLink" rows="3" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="https://…/auth/v1/verify?token=…&type=recovery"></textarea><button class="secondary" type="button" id="verifyRecoveryLink">Use this reset link</button><p class="subtle" id="pasteRecoveryStatus" role="status">Keep your reset link private. Never send it in a chat.</p></div></form><p class="subtle" id="authStatus">GoodWorld is free. An account is only needed to like stories. Email confirmation may be required.</p></div>'
@@ -409,8 +424,18 @@ function showPage(which){
  page.innerHTML=pages[which]??"";
  page.querySelector("#backFeed")?.addEventListener("click",()=>showPage("feed"));
  if(which==="donate"){
+  const paypalPanel=page.querySelector("#paypalDonationPanel");
+  const paypalUrl=gwVerifiedPayPalUrl();
+  paypalPanel.innerHTML='<h2>Donate with PayPal</h2>'+
+   '<p>Support independent positive news with a one-time contribution. GoodWorld stays free for everyone.</p>'+
+   (paypalUrl
+    ? '<a class="paypal-donate-link" id="paypalDonateLink" href="'+esc(paypalUrl)+'" target="_blank" rel="noopener noreferrer">Continue to PayPal <span aria-hidden="true">↗</span></a><p class="subtle">Payment is completed securely on PayPal. No GoodWorld account is needed.</p>'
+    : '<p class="paypal-pending" role="status">PayPal donations are not available yet. You can still support us with crypto below.</p>');
+  paypalPanel.querySelector("#paypalDonateLink")?.addEventListener("click",()=>{
+   window.GWAnalytics?.track("donation_paypal_clicked",{method:"paypal"});
+  });
   const donationPanel=page.querySelector("#donationPanel");
-  donationPanel.innerHTML='<h2>Choose a coin and network</h2>'+
+  donationPanel.innerHTML='<h2>Donate with cryptocurrency</h2>'+
    '<p>Donations go directly to GoodWorld wallets. Choose the exact asset and network your sending wallet supports.</p>'+
    '<label for="donationChoice">Coin / blockchain network</label>'+
    '<select class="input" id="donationChoice" aria-label="Coin and blockchain network"></select>'+
