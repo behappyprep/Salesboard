@@ -85,7 +85,7 @@
   const t=lang()?.translated(article);
   const original=safe(article.source_url);
   const back=document.getElementById("backHome");
-  if(back)back.href=selected==="en"?"/":(["zh","hi","es","ar","fr","bn","pt","id","ur","ru","de","pl","uk"].includes(selected)?"/"+encodeURIComponent(selected)+"/":"/?lang="+encodeURIComponent(selected));
+  if(back)back.href=selected==="en"?"/":(["zh","hi","es","ar","fr","bn","pt","id","ur","ru","de","pl","uk","it","nl","ro","tr","ja","ko"].includes(selected)?"/"+encodeURIComponent(selected)+"/":"/?lang="+encodeURIComponent(selected));
 
   // English must never silently replace the visitor's requested language.
   if(selected!=="en"&&!t){
