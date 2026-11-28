@@ -429,7 +429,7 @@ function showPage(which){
   paypalPanel.innerHTML='<h2>Donate with PayPal</h2>'+
    '<p>Support independent positive news with a one-time contribution. GoodWorld stays free for everyone.</p>'+
    (paypalUrl
-    ? '<a class="paypal-donate-link" id="paypalDonateLink" href="'+esc(paypalUrl)+'" target="_blank" rel="noopener noreferrer">Continue to PayPal <span aria-hidden="true">↗</span></a><p class="subtle">Payment is completed securely on PayPal. No GoodWorld account is needed.</p>'
+    ? '<a class="paypal-donate-link" id="paypalDonateLink" href="'+esc(paypalUrl)+'" target="_blank" rel="noopener noreferrer" aria-label="Donate to GoodWorld securely with PayPal"><span class="paypal-donate-label">Donate with <span class="paypal-wordmark">PayPal</span></span><span class="paypal-donate-arrow" aria-hidden="true">↗</span></a><p class="subtle paypal-checkout-note">Secure checkout on PayPal. Give once, monthly or yearly. No GoodWorld account required.</p>'
     : '<p class="paypal-pending" role="status">PayPal donations are not available yet. You can still support us with crypto below.</p>');
   paypalPanel.querySelector("#paypalDonateLink")?.addEventListener("click",()=>{
    window.GWAnalytics?.track("donation_paypal_clicked",{method:"paypal"});
