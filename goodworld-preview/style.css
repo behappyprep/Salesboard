@@ -136,3 +136,13 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
 .story-permalink:hover,.story-permalink:focus-visible{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px}
 .story-permalink:focus-visible{outline:2px solid var(--accent);border-radius:4px;outline-offset:5px}
 .menu-small a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;display:inline-block;margin-left:3px}
+
+/* PayPal donation option, shown only when a verified receiving link is configured. */
+.paypal-donation-panel{border-color:#d0d8c025}
+.paypal-donation-panel h2{font-size:22px;line-height:1.2;letter-spacing:-.02em;margin:0 0 8px}
+.paypal-donation-panel p{line-height:1.55}
+.paypal-donate-link{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;min-height:50px;margin:16px 0 12px;padding:13px 20px;border-radius:14px;background:#fff;color:#123c76;font-weight:800;font-size:15px;text-decoration:none;text-align:center;transition:background .16s ease,transform .16s ease}
+.paypal-donate-link:hover{background:#edf3fc;transform:translateY(-1px)}
+.paypal-donate-link:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.paypal-donate-link span{font-size:18px}
+.paypal-pending{margin:15px 0 0;padding:13px 15px;border:1px solid var(--line);border-radius:13px;color:var(--muted);background:#ffffff08;font-size:13px;line-height:1.5}
