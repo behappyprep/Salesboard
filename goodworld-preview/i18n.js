@@ -9,8 +9,82 @@
   ["ur","اردو","ur-PK"],["ru","Русский","ru-RU"],
   ["de","Deutsch","de-DE"],["it","Italiano","it-IT"],["pl","Polski","pl-PL"],
   ["nl","Nederlands","nl-NL"],["uk","Українська","uk-UA"],["ro","Română","ro-RO"],
-  ["tr","Türkçe","tr-TR"],["ja","日本語","ja-JP"],["ko","한국어","ko-KR"]
+  ["tr","Türkçe","tr-TR"],["ja","日本語","ja-JP"],["ko","한국어","ko-KR"],
+  ["bg","Български","bg-BG"],
+  ["hr","Hrvatski","hr-HR"],
+  ["cs","Čeština","cs-CZ"],
+  ["da","Dansk","da-DK"],
+  ["et","Eesti","et-EE"],
+  ["fi","Suomi","fi-FI"],
+  ["el","Ελληνικά","el-GR"],
+  ["hu","Magyar","hu-HU"],
+  ["ga","Gaeilge","ga-IE"],
+  ["lv","Latviešu","lv-LV"],
+  ["lt","Lietuvių","lt-LT"],
+  ["mt","Malti","mt-MT"],
+  ["sk","Slovenčina","sk-SK"],
+  ["sl","Slovenščina","sl-SI"],
+  ["sv","Svenska","sv-SE"],
+  ["sq","Shqip","sq-AL"],
+  ["be","Беларуская","be-BY"],
+  ["bs","Bosanski","bs-BA"],
+  ["is","Íslenska","is-IS"],
+  ["mk","Македонски","mk-MK"],
+  ["nb","Norsk bokmål","nb-NO"],
+  ["sr","Српски","sr-RS"],
+  ["ka","ქართული","ka-GE"],
+  ["hy","Հայերեն","hy-AM"],
+  ["az","Azərbaycanca","az-AZ"],
+  ["lb","Lëtzebuergesch","lb-LU"],
+  ["fo","Føroyskt","fo-FO"],
+  ["nn","Nynorsk","nn-NO"],
+  ["cnr","Crnogorski","sr-ME"],
+  ["ca","Català","ca-ES"],
+  ["eu","Euskara","eu-ES"],
+  ["gl","Galego","gl-ES"],
+  ["cy","Cymraeg","cy-GB"],
+  ["gd","Gàidhlig","gd-GB"],
+  ["br","Brezhoneg","br-FR"],
+  ["fy","Frysk","fy-NL"],
+  ["oc","Occitan","oc-FR"],
+  ["se","Davvisámegiella","se-NO"],
+  ["rm","Rumantsch","rm-CH"],
+  ["sc","Sardu","sc-IT"],
+  ["ast","Asturianu","ast-ES"],
+  ["co","Corsu","co-FR"],
+  ["yi","ייִדיש","yi"],
+  ["an","Aragonés","an-ES"],
+  ["gv","Gaelg","gv-IM"],
+  ["kw","Kernewek","kw-GB"],
+  ["hsb","Hornjoserbšćina","hsb-DE"],
+  ["dsb","Dolnoserbšćina","dsb-DE"],
+  ["rue","Русиньскый","rue"],
+  ["csb","Kaszëbsczi","csb-PL"]
  ];
+ const EUROPEAN_CODES=new Set(["en","es","fr","pt","ru","de","it","pl","nl","uk","ro","tr","bg","hr","cs","da","et","fi","el","hu","ga","lv","lt","mt","sk","sl","sv","sq","be","bs","is","mk","nb","sr","ka","hy","az","lb","fo","nn","cnr","ca","eu","gl","cy","gd","br","fy","oc","se","rm","sc","ast","co","yi","an","gv","kw","hsb","dsb","rue","csb"]);
+ const PUBLISHED_LOCALE_CODES=new Set(["en","zh","hi","es","ar","fr","bn","pt","id","ur","ru"]);
+ const missingLabels={
+ bg:"Преводът на новините се подготвя.",hr:"Prijevodi vijesti su u pripremi.",cs:"Překlady zpráv se připravují.",
+ da:"Oversættelser af nyheder er under udarbejdelse.",et:"Uudiste tõlked on ettevalmistamisel.",fi:"Uutisten käännökset ovat valmisteilla.",
+ el:"Οι μεταφράσεις των ειδήσεων ετοιμάζονται.",hu:"A hírek fordítása folyamatban van.",ga:"Tá aistriúcháin na nuachta á n-ullmhú.",
+ lv:"Tiek gatavoti ziņu tulkojumi.",lt:"Rengiami naujienų vertimai.",mt:"It-traduzzjonijiet tal-aħbarijiet qed jitħejjew.",
+ sk:"Preklady správ sa pripravujú.",sl:"Prevodi novic se pripravljajo.",sv:"Nyhetsöversättningar förbereds.",
+ sq:"Përkthimet e lajmeve janë në përgatitje.",be:"Пераклады навін рыхтуюцца.",bs:"Prijevodi vijesti su u pripremi.",
+ is:"Verið er að undirbúa þýðingar frétta.",mk:"Преводите на вестите се подготвуваат.",nb:"Oversettelser av nyhetene er under arbeid.",
+ sr:"Преводи вести су у припреми.",ka:"ახალი ამბების თარგმანები მზადდება.",hy:"Լուրերի թարգմանությունները պատրաստվում են։",
+ az:"Xəbərlərin tərcümələri hazırlanır.",lb:"D'Iwwersetzunge vun den Noriichte sinn an der Virbereedung.",
+ fo:"Tíðindatýðingar verða fyrireikaðar.",nn:"Omsetjingar av nyhendene er under arbeid.",cnr:"Prevodi vijesti su u pripremi.",
+ ca:"Les traduccions de les notícies s'estan preparant.",eu:"Albisteen itzulpenak prestatzen ari gara.",
+ gl:"Estamos preparando as traducións das noticias.",cy:"Mae cyfieithiadau'r newyddion yn cael eu paratoi.",
+ gd:"Tha eadar-theangachaidhean nan naidheachdan gan ullachadh.",br:"Emañ troidigezhioù ar c'heloù o vezañ aozet.",
+ fy:"De oersettingen fan it nijs wurde taret.",oc:"Las traduccions de las novèlas son en preparacion.",
+ se:"Ođđasiid jorgalusat leat ráhkaduvvomin.",rm:"Las translaziuns da las novitads èn en preparaziun.",
+ sc:"Is tradutziones de is novas sunt in preparatzione.",ast:"Les traducciones de les noticies tán preparándose.",
+ co:"E traduzzioni di e nutizie sò in preparazione.",yi:"די איבערזעצונגען פֿון די נײַעס ווערן צוגעגרייט.",
+ an:"As traduccions d'as noticias se son preparando.",gv:"Ta chyndaaysyn ny naightyn goll er aarley.",
+ kw:"Yma treylyansow an nowodhow ow tos yn prys.",hsb:"Přełožki powěsćow so přihotuja.",
+ dsb:"Pśełožki powěsćow se pśigótuju.",rue:"Переклады новин ся приготовлюють.",csb:"Tłomaczenia wiôdłów sã przëszëkòwùją."
+};
  const BASE={
   menu:"Menu",brandTagline:"Verified good news, every day.",label:"Independent positive news",latest:"Latest",top:"Top",
   latestTitle:"Latest news",topTitle:"Top",
@@ -460,7 +534,7 @@
  lang=supported.has(pathLanguage)?pathLanguage:supported.has(currentParam)?currentParam:supported.has(stored())?stored():supported.has(browserLang)?browserLang:"en";
  function getLang(){return lang}
  function nativeLocale(){return LANGS.find(x=>x[0]===lang)?.[2]||"en-US"}
- function direction(){return lang==="ar"||lang==="ur"?"rtl":"ltr"}
+ function direction(){return ["ar","ur","yi"].includes(lang)?"rtl":"ltr"}
  function t(key){return (DICT[lang]||{})[key]||BASE[key]||key}
  function applyStatic(){
   document.documentElement.lang=lang;
@@ -507,7 +581,7 @@
   window.GWAnalytics?.track("language_change",{language:next,method:"selector"});
   const isHomepage=location.pathname==="/"||/^\/(zh|hi|es|ar|fr|bn|pt|id|ur|ru|de|it|pl|nl|uk|ro|tr|ja|ko)\/$/.test(location.pathname);
   if(isHomepage){
-   location.assign(next==="en"?"/":"/"+next+"/");
+   location.assign(next==="en"?"/":PUBLISHED_LOCALE_CODES.has(next)?"/"+next+"/":"/?lang="+encodeURIComponent(next));
    return;
   }
   applyStatic();window.dispatchEvent(new Event("goodworld:language-changed"));
@@ -516,13 +590,20 @@
  function init(){
   const el=document.getElementById("languageSelect");
   if(el){
-   el.replaceChildren(...LANGS.map(([code,title])=>{
-    const option=document.createElement("option");option.value=code;option.textContent=title;option.lang=code;option.dir=code==="ar"||code==="ur"?"rtl":"ltr";return option;
-   }));
+   const europe=document.createElement("optgroup");
+   europe.label="Europe";
+   const other=document.createElement("optgroup");
+   other.label="Worldwide";
+   for(const [code,title] of LANGS){
+    const option=document.createElement("option");option.value=code;option.textContent=title;option.lang=code;
+    option.dir=code==="ar"||code==="ur"||code==="yi"?"rtl":"ltr";
+    (EUROPEAN_CODES.has(code)?europe:other).appendChild(option);
+   }
+   el.replaceChildren(europe,other);
    el.addEventListener("change",()=>setLang(el.value));
   }
   applyStatic();load();
  }
- window.GW_I18N={LANGS,getLang,locale:nativeLocale,direction,t,translated,categoryName,setLang,load,applyStatic};
+ window.GW_I18N={LANGS,getLang,locale:nativeLocale,direction,t,translated,categoryName,setLang,load,applyStatic,missingTranslationLabel:()=>missingLabels[lang]||t("pending")};
  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
 })();
