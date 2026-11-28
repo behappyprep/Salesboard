@@ -9,19 +9,37 @@ from datetime import datetime, timezone
 ROOT=pathlib.Path(__file__).resolve().parent
 OUT=ROOT/"translations"
 TARGETS=("zh","hi","es","ar","fr","bn","pt","id","ur","ru")
-MAX_STORIES=60
+PAGE_SIZE=250
 
 def get_public_feed():
+    """Read the complete published archive, not the 60-item reader feed RPC."""
     app=(ROOT/"app.js").read_text(encoding="utf-8")
     key=re.search(r'const GW_KEY="([^"]+)";',app)
     url=re.search(r'const GW_URL="([^"]+)";',app)
     if not key or not url: raise RuntimeError("Public Supabase endpoint not found")
-    request=urllib.request.Request(url.group(1)+"/rest/v1/rpc/get_goodworld_feed?p_order=new",
-      headers={"apikey":key.group(1),"Authorization":"Bearer "+key.group(1),
-               "Accept":"application/json","User-Agent":"GoodWorld-Argos-Translations/1.0"})
-    with urllib.request.urlopen(request,timeout=35) as response:
-        data=json.load(response)
-    return [s for s in data if s.get("id") and s.get("title") and s.get("summary") and s.get("body")][:MAX_STORIES]
+    headers={"apikey":key.group(1),"Authorization":"Bearer "+key.group(1),
+             "Accept":"application/json","User-Agent":"GoodWorld-Argos-Translations/2.0"}
+    stories=[]
+    offset=0
+    while True:
+        # Published originals are public; draft and private editorial data are never fetched.
+        endpoint=(url.group(1)+"/rest/v1/goodworld_stories"
+                  "?select=id,slug,title,summary,body,published_at"
+                  "&status=eq.published&order=published_at.desc"
+                  +"&limit="+str(PAGE_SIZE)+"&offset="+str(offset))
+        request=urllib.request.Request(endpoint,headers=headers)
+        with urllib.request.urlopen(request,timeout=45) as response:
+            batch=json.load(response)
+        if not isinstance(batch,list):
+            raise RuntimeError("Published archive endpoint returned an unexpected shape")
+        stories.extend(s for s in batch if s.get("id") and s.get("title")
+                       and s.get("summary") and s.get("body"))
+        if len(batch)<PAGE_SIZE:
+            break
+        offset+=PAGE_SIZE
+        if offset>100000:
+            raise RuntimeError("Archive pagination exceeded safety limit")
+    return stories
 
 def ensure_translation(language):
     import argostranslate.package
