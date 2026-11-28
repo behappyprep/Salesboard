@@ -62,6 +62,7 @@ let stories=[],currentTab="new",session=null,currentPage="feed",toastTimer=null;
 let feedRequestSequence=0;
 const i18n=window.GW_I18N;
 const tx=k=>i18n?.t(k)||k;
+const ui=s=>i18n?.uiPhrase?.(s)||s;
 const newsLink=s=>"/read.html?story="+encodeURIComponent(s.slug)+"&lang="+encodeURIComponent(i18n?.getLang()||"en");
 const gwShareManifest=new Set();
 fetch("/share-manifest.json",{cache:"no-cache"})
@@ -394,24 +395,25 @@ function showPage(which){
  if(which==="feed"){page.innerHTML="";return}
  if(which==="reset-password"){
   page.innerHTML='<h1>Set a new password.</h1><p class="lead">Choose a new password for your GoodWorld account.</p><div class="panel"><form id="resetPasswordForm"><label for="newPassword">New password</label><input class="input" type="password" id="newPassword" autocomplete="new-password" minlength="10" required placeholder="At least 10 characters"/><label for="confirmPassword">Confirm new password</label><input class="input" type="password" id="confirmPassword" autocomplete="new-password" minlength="10" required placeholder="Repeat your password"/><button class="primary" type="submit">Save new password</button></form><p class="subtle" id="resetStatus" role="status">If you used a reset link from email, you can now choose a new password.</p><button class="secondary" id="backToSignIn" type="button">Back to sign in</button></div>';
+  i18n?.localizeFragment?.(page);
   page.querySelector("#backToSignIn").onclick=()=>{recoveryMode=false;history.replaceState(null,"",location.pathname);showPage("profile")};
   page.querySelector("#resetPasswordForm").addEventListener("submit",async e=>{
    e.preventDefault();
    const form=e.currentTarget,status=page.querySelector("#resetStatus");
    if(!form.reportValidity())return;
    const p=form.querySelector("#newPassword").value;
-   if(p!==form.querySelector("#confirmPassword").value){status.textContent="Passwords do not match.";return}
+   if(p!==form.querySelector("#confirmPassword").value){status.textContent=ui("Passwords do not match.");return}
    const {data:{session:active}}=await client.auth.getSession();
-   if(!active){status.textContent="Reset link has expired or is not valid. Request a new link from Profile.";return}
+   if(!active){status.textContent=ui("Reset link has expired or is not valid. Request a new link from Profile.");return}
    const button=form.querySelector('button[type="submit"]');button.disabled=true;
-   status.textContent="Updating password…";
+   status.textContent=ui("Updating password…");
    const {error}=await client.auth.updateUser({password:p});
    button.disabled=false;
    if(error){status.textContent=error.message;return}
    recoveryMode=false;
    history.replaceState(null,"",location.pathname);
    showPage("profile");
-   showToast("Password successfully updated");
+   showToast(ui("Password successfully updated"));
   });
   return;
  }
@@ -422,6 +424,7 @@ function showPage(which){
   : '<h1>Welcome to GoodWorld.</h1><p class="lead">Sign in to support your favorite positive stories.</p><div class="panel"><div id="googleAuthBox" class="google-auth-box" hidden><button type="button" id="googleSignIn" class="google-auth-button"><span class="google-auth-mark" aria-hidden="true">G</span><span>Continue with Google</span></button><p class="google-auth-divider"><span>or continue with email</span></p></div><form id="authForm"><label for="email">Email</label><input class="input" type="email" id="email" autocomplete="email" required placeholder="Your email"/><label for="password">Password</label><input class="input" type="password" id="password" autocomplete="current-password" minlength="8" required placeholder="At least 8 characters"/><button class="primary" id="signIn" type="submit">Sign in</button><button class="secondary" type="button" id="signUp">Create account</button><button class="password-link" type="button" id="forgotPassword">Forgot password?</button><button class="password-link" type="button" id="pasteRecoveryLink">Reset link not opening? Paste it here</button><div class="recovery-paste hidden" id="recoveryPaste"><label for="recoveryEmailLink">Paste the entire reset link from your email</label><textarea class="input" id="recoveryEmailLink" rows="3" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="https://…/auth/v1/verify?token=…&type=recovery"></textarea><button class="secondary" type="button" id="verifyRecoveryLink">Use this reset link</button><p class="subtle" id="pasteRecoveryStatus" role="status">Keep your reset link private. Never send it in a chat.</p></div></form><p class="subtle" id="authStatus">GoodWorld is free. An account is only needed to like stories. Email confirmation may be required.</p></div>'
  };
  page.innerHTML=pages[which]??"";
+ i18n?.localizeFragment?.(page);
  page.querySelector("#backFeed")?.addEventListener("click",()=>showPage("feed"));
  if(which==="donate"){
   const paypalPanel=page.querySelector("#paypalDonationPanel");
@@ -494,7 +497,7 @@ function showPage(which){
   });
   renderDonationChoice();
  }
- page.querySelector("#signOut")?.addEventListener("click",async()=>{await client.auth.signOut();showPage("feed");showToast("Signed out")});
+ page.querySelector("#signOut")?.addEventListener("click",async()=>{await client.auth.signOut();showPage("feed");showToast(ui("Signed out"))});
  if(which==="profile"&&!session?.user){
  const form=page.querySelector("#authForm");
  const status=page.querySelector("#authStatus");
@@ -514,14 +517,14 @@ function showPage(which){
     const button=googleBox.querySelector("#googleSignIn");
     if(button.disabled)return;
     button.disabled=true;
-    status.textContent="Connecting securely to Google…";
+    status.textContent=ui("Connecting securely to Google…");
     try{
      const {error}=await client.auth.signInWithOAuth({
       provider:"google",options:{redirectTo:GW_SITE+"/?gw_google=1"}
      });
      if(error)throw error;
     }catch(error){
-     status.textContent="Google sign-in could not start. Please try again or use email.";
+     status.textContent=ui("Google sign-in could not start. Please try again or use email.");
      button.disabled=false;
     }
    });
@@ -535,8 +538,8 @@ function showPage(which){
   const {data,error}=create?await client.auth.signUp({email,password,options:{emailRedirectTo:GW_SITE+"/?gw_confirm=1"}}):await client.auth.signInWithPassword({email,password});
   busy=false;btns.forEach(b=>b.disabled=false);
   if(error){status.textContent=error.message;return}
-  if(create&&!data?.session){status.textContent="Check your email to confirm your account, then return here to sign in."}
-  else{session=data?.session??session;showPage("feed");showToast(create?"Account created":"Welcome back");loadStories()}
+  if(create&&!data?.session){status.textContent=ui("Check your email to confirm your account, then return here to sign in.")}
+  else{session=data?.session??session;showPage("feed");showToast(create?ui("Account created"):ui("Welcome back"));loadStories()}
  }
  form.addEventListener("submit",e=>{e.preventDefault();submitAuth(false)});
  form.querySelector("#signUp").addEventListener("click",()=>submitAuth(true));
