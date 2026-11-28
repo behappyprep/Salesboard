@@ -138,11 +138,30 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,in
 .menu-small a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;display:inline-block;margin-left:3px}
 
 /* PayPal donation option, shown only when a verified receiving link is configured. */
-.paypal-donation-panel{border-color:#d0d8c025}
-.paypal-donation-panel h2{font-size:22px;line-height:1.2;letter-spacing:-.02em;margin:0 0 8px}
+.paypal-donation-panel{border-color:#dedede}
+.paypal-donation-panel h2{font-size:23px;line-height:1.2;letter-spacing:-.02em;margin:0 0 10px}
 .paypal-donation-panel p{line-height:1.55}
-.paypal-donate-link{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;min-height:50px;margin:16px 0 12px;padding:13px 20px;border-radius:14px;background:#fff;color:#123c76;font-weight:800;font-size:15px;text-decoration:none;text-align:center;transition:background .16s ease,transform .16s ease}
-.paypal-donate-link:hover{background:#edf3fc;transform:translateY(-1px)}
-.paypal-donate-link:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.paypal-donate-link span{font-size:18px}
-.paypal-pending{margin:15px 0 0;padding:13px 15px;border:1px solid var(--line);border-radius:13px;color:var(--muted);background:#ffffff08;font-size:13px;line-height:1.5}
+#paypalDonationPanel a.paypal-donate-link{
+ box-sizing:border-box;display:flex;align-items:center;justify-content:center;position:relative;
+ width:100%;min-height:60px;margin:22px 0 13px;padding:16px 56px;
+ border:1px solid #e3b436;border-radius:8px;background:#ffca3a;color:#063779;
+ box-shadow:0 2px 0 #dba42245;font:750 17px/1.3 Arial,Helvetica,sans-serif;
+ text-decoration:none;text-align:center;
+ transition:background-color .16s ease,box-shadow .16s ease,transform .16s ease
+}
+#paypalDonationPanel a.paypal-donate-link:hover{
+ background:#ffd65f;color:#063779;box-shadow:0 4px 13px #8e680024;transform:translateY(-1px)
+}
+#paypalDonationPanel a.paypal-donate-link:active{
+ background:#f1bd2c;transform:translateY(0);box-shadow:0 1px 3px #8e680020
+}
+#paypalDonationPanel a.paypal-donate-link:focus-visible{outline:3px solid #1d65ad;outline-offset:3px}
+#paypalDonationPanel .paypal-donate-label{display:inline-flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
+#paypalDonationPanel .paypal-wordmark{font-weight:900;font-style:italic;letter-spacing:-.035em}
+#paypalDonationPanel .paypal-donate-arrow{position:absolute;right:20px;font-size:20px;font-weight:600}
+#paypalDonationPanel .paypal-checkout-note{margin:0;color:#636363;font-size:12px;line-height:1.6}
+.paypal-pending{margin:15px 0 0;padding:13px 15px;border:1px solid var(--line);border-radius:8px;color:var(--muted);background:#ffffff08;font-size:13px;line-height:1.5}
+@media(max-width:560px){
+ #paypalDonationPanel a.paypal-donate-link{min-height:58px;padding:14px 40px;font-size:16px}
+ #paypalDonationPanel .paypal-donate-arrow{right:14px}
+}
