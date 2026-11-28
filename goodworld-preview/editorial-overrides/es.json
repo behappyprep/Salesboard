@@ -1,6 +1,6 @@
 {
   "language": "es",
-  "updated_at": "2026-11-27T10:06:06.025Z",
+  "updated_at": "2026-11-28T11:11:54.814Z",
   "description": "Editorially post-edited title, summary and complete article body. English Supabase source is authoritative; human/AI edits are preserved unless the source title changes.",
   "stories": {
     "peru-seven-rescued-pelicans-released-into-pacific-2026": {
@@ -355,6 +355,12 @@
       "title": "Descubren en Finlandia el mayor tesoro conocido de monedas de plata de la era vikinga",
       "summary": "Un aficionado al detector de metales encontró en Sysmä miles de monedas y otros objetos de plata, con un peso aproximado de 4,5 kilogramos.",
       "body": "El 3 de septiembre de 2026, una jornada habitual de búsqueda con detector de metales se convirtió en un hallazgo extraordinario para Kalle Lappinen, cerca del centro de Sysmä, en el sur de Finlandia. Al día siguiente, el arqueólogo Esko Tikkala y especialistas de los museos de Lahti ayudaron a recuperar los objetos.\n\nEl conjunto pesa unos 4,5 kilogramos e incluye miles de monedas de plata y otros objetos de finales de la época vikinga. Los expertos lo describen como el mayor tesoro conocido de monedas de plata de ese periodo hallado en Finlandia. La mayor parte parece datar aproximadamente del siglo XI y los investigadores siguen estudiando sus orígenes y el motivo por el que fue enterrado.\n\nNo hay información de que el descubridor recibiera el dinero ni una recompensa; su valor principal es histórico, por lo que puede revelar sobre el comercio y las conexiones de la Europa medieval.\n\nFoto de archivo: otro tesoro más antiguo encontrado en Sysmä y expuesto en un museo, no las monedas descubiertas en septiembre de 2026."
+    },
+    "news-22e5b28fe3d94766b40b34535a264de4": {
+      "source_title": "An 86-year-old sailor and his dog are rescued after months without contact",
+      "title": "Rescatan a un navegante de 86 años y a su perro tras más de dos meses sin contacto",
+      "summary": "Un navegante de 86 años y su perro fueron rescatados en el Pacífico después de que sus familiares pasaran más de dos meses sin noticias. Una radiobaliza de emergencia, aeronaves de la Guardia Costera y un buque mercante hicieron posible el rescate.",
+      "body": "Durante más de dos meses, un navegante de 86 años que cruzaba el Pacífico acompañado de su perro permaneció incomunicado. El 28 de octubre de 2026, una operación coordinada permitió ponerlos a salvo a cientos de millas de la costa de California.\n\nEl hombre viajaba a bordo de su velero Willow Wind desde Astoria, en Oregón, hacia Pago Pago, en Samoa Americana. Sus familiares y amigos dejaron de tener noticias suyas después del 20 de agosto y denunciaron que no había llegado cuando se esperaba. La Guardia Costera estadounidense recibió el aviso el 24 de octubre y comenzó a buscarlo en una inmensa zona del océano.\n\nEl 27 de octubre, los equipos de rescate recibieron la señal de una radiobaliza de emergencia registrada a nombre del Willow Wind. Unas aeronaves localizaron el velero y la Guardia Costera avisó a los barcos cercanos. El mercante Grand Orion llegó a la zona a primera hora del 28 de octubre, pero el fuerte oleaje impidió inicialmente trasladar a los ocupantes sin ponerlos en peligro.\n\nMás tarde, ese mismo día, la tripulación del mercante consiguió subir a bordo al navegante y a su perro. El 29 de octubre, un helicóptero de la Guardia Costera los trasladó desde el buque hacia tierra para que el hombre recibiera atención médica. En el operativo participaron muchas personas que nunca habían conocido al navegante.\n\nEl desenlace recuerda la importancia de las radiobalizas de socorro y de la solidaridad entre quienes navegan. El hombre y su perro sobrevivieron a la experiencia gracias a una cadena de cooperación entre rescatistas y marinos."
     }
   }
 }
